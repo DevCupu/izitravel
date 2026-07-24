@@ -33,7 +33,7 @@ class LandingPageSeeder extends Seeder
             'contact_email' => 'info@izitravel.com',
             'contact_address' => 'Jl. Abdullah Daeng Sirua No.61, Tamamaung, Kec. Panakkukang, Kota Makassar, Sulawesi Selatan 90231',
             'site_name' => 'IZI Travel',
-            'site_tagline' => 'Wujudkan Umrah Impian Anda Bersama IZI Travel',
+            'site_tagline' => 'Perjalanan Umrah Nyaman & Penuh Makna',
             'site_description' => 'Sebuah perusahaan yang bergerak di bidang biro perjalanan umroh dengan pelayanan dan kualitas nyaman yang menyasar para generasi muda juga kalangan menengah kebawah.',
             'site_logo' => 'images/Izi LOGO.webp',
             'site_favicon' => 'images/favicon.png',
