@@ -1,0 +1,112 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Article;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+class ArticleController extends Controller
+{
+    public function index(Request $request)
+    {
+        $search = $request->string('search')->toString();
+
+        $articles = Article::query()
+            ->when($search, function ($query, $search) {
+                $query->where(function ($query) use ($search) {
+                    $query->where('title', 'like', "%{$search}%")
+                        ->orWhere('category', 'like', "%{$search}%")
+                        ->orWhere('author', 'like', "%{$search}%");
+                });
+            })
+            ->orderBy('order')
+            ->orderBy('id', 'desc')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.articles.index', compact('articles', 'search'));
+    }
+
+    public function create()
+    {
+        return view('admin.articles.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $this->validateData($request);
+        $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('articles', 'public');
+        }
+
+        Article::create($data);
+
+        return redirect()->route('admin.articles.index')->with('status', 'Artikel berhasil ditambahkan.');
+    }
+
+    public function edit(string $id)
+    {
+        $article = Article::findOrFail($id);
+        return view('admin.articles.edit', compact('article'));
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $article = Article::findOrFail($id);
+        $data = $this->validateData($request);
+        $data['slug'] = Str::slug($data['title']);
+
+        if ($request->hasFile('image')) {
+            if ($article->image && ! str_starts_with($article->image, 'images/')) {
+                Storage::disk('public')->delete($article->image);
+            }
+            $data['image'] = $request->file('image')->store('articles', 'public');
+        }
+
+        $article->update($data);
+
+        return redirect()->route('admin.articles.index')->with('status', 'Artikel berhasil diperbarui.');
+    }
+
+    public function destroy(string $id)
+    {
+        $article = Article::findOrFail($id);
+
+        if ($article->image && ! str_starts_with($article->image, 'images/')) {
+            Storage::disk('public')->delete($article->image);
+        }
+
+        $article->delete();
+
+        return redirect()->route('admin.articles.index')->with('status', 'Artikel berhasil dihapus.');
+    }
+
+    private function validateData(Request $request): array
+    {
+        $data = $request->validate([
+            'title' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'max:255'],
+            'excerpt' => ['nullable', 'string'],
+            'content' => ['required', 'string'],
+            'author' => ['required', 'string', 'max:255'],
+            'author_role' => ['nullable', 'string', 'max:255'],
+            'read_time' => ['nullable', 'string', 'max:50'],
+            'published_at' => ['nullable', 'string', 'max:50'],
+            'image' => ['nullable', 'image', 'max:2048'],
+            'is_active' => ['nullable', 'boolean'],
+            'order' => ['nullable', 'integer', 'min:0'],
+        ]);
+
+        $data['is_active'] = $request->boolean('is_active');
+        $data['order'] = $data['order'] ?? 0;
+
+        unset($data['image']);
+
+        return $data;
+    }
+}
