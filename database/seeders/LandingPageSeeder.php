@@ -202,6 +202,16 @@ class LandingPageSeeder extends Seeder
             'footer_social_heading' => 'Socials',
             'footer_ppiu_label' => 'Izin PPIU',
             'footer_ppiu_number' => 'A10BS81',
+
+            // SEO & Search Engine Optimizations for Google / Bing Rank
+            'seo_meta_keywords' => 'IZI TRAVEL, IZITRAVEL, IZI Travel Makassar, Travel Umroh Makassar, Travel Haji Makassar, Paket Umrah Premium Makassar, Penyelenggara Perjalanan Ibadah Umrah Resmi, Muthawwif Sunnah Makassar, Agen Umrah Terpercaya',
+            'seo_author' => 'IZI TRAVEL Official',
+            'seo_canonical_url' => 'https://izitravel.id',
+            'seo_google_console_verification' => 'google80fbcfc0e29b139c',
+            'seo_bing_verification' => 'BING_VERIFICATION_CODE_PLACEHOLDER',
+            'seo_og_title' => 'IZI TRAVEL - Biro Perjalanan Umrah Premium Bintang 5 & Haji Khusus Resmi Kemenag',
+            'seo_og_description' => 'IZITRAVEL adalah penyelenggara perjalanan ibadah Umrah dan Haji premium resmi Kemenag dengan hotel Ring 1 pelataran Masjidil Haram & Nabawi, serta bimbingan sesuai sunnah.',
+            'seo_og_image' => 'images/package_kaaba.webp',
         ];
 
         foreach ($settings as $key => $value) {

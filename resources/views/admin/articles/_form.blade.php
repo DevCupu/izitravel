@@ -11,13 +11,55 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4" x-data="{ 
+            slugLocked: {{ isset($article) ? 'true' : 'true' }},
+            slug: '{{ old('slug', $article->slug ?? '') }}',
+            generateSlug(val) {
+                if (!this.slugLocked) return;
+                this.slug = val
+                    .toLowerCase()
+                    .replace(/[^\w\s-]/g, '')
+                    .replace(/[\s_]+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+            }
+        }">
             <div class="md:col-span-2 form-group">
                 <label for="title">{{ __('Judul Artikel') }}</label>
                 <input type="text" id="title" name="title" value="{{ old('title', $article->title ?? '') }}" required
                     class="transition"
+                    @input="generateSlug($event.target.value)"
                     placeholder="Contoh: Panduan Lengkap Fiqih Umrah">
                 @error('title') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="md:col-span-2 form-group">
+                <div class="flex items-center justify-between mb-2">
+                    <label for="slug" class="mb-0 font-bold text-xs text-slate-600 dark:text-slate-400 uppercase tracking-wider">{{ __('Slug URL / Link Artikel') }}</label>
+                    <button type="button" @click="slugLocked = !slugLocked" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 transition flex items-center gap-1">
+                        <span x-show="slugLocked" class="flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
+                            Edit Manual
+                        </span>
+                        <span x-show="!slugLocked" class="flex items-center gap-1" x-cloak>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5V6.75a4.5 4.5 0 119 0v3.75M3.75 21.75h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H3.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg>
+                            Kunci Otomatis
+                        </span>
+                    </button>
+                </div>
+                <div class="relative">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-slate-400 dark:text-slate-500 font-bold select-none">
+                        /artikel/
+                    </span>
+                    <input type="text" id="slug" name="slug" x-model="slug" required
+                        class="transition pl-[4.5rem]"
+                        :readonly="slugLocked"
+                        :class="slugLocked ? 'bg-slate-50 dark:bg-slate-800 text-slate-500 border-slate-200 dark:border-slate-700 cursor-not-allowed' : 'bg-white dark:bg-slate-700'"
+                        placeholder="panduan-lengkap-fiqih-umrah">
+                </div>
+                <p class="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
+                    Alamat URL ramah mesin pencari (SEO-friendly URL). Otomatis dihasilkan dari judul saat diketik jika dikunci.
+                </p>
+                @error('slug') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
 
             <div class="form-group">

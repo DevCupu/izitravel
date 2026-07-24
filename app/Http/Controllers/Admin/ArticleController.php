@@ -38,7 +38,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $data = $this->validateData($request);
-        $data['slug'] = Str::slug($data['title']);
+        $data['slug'] = $request->input('slug') ? Str::slug($request->input('slug')) : Str::slug($data['title']);
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('articles', 'public');
@@ -58,8 +58,8 @@ class ArticleController extends Controller
     public function update(Request $request, string $id)
     {
         $article = Article::findOrFail($id);
-        $data = $this->validateData($request);
-        $data['slug'] = Str::slug($data['title']);
+        $data = $this->validateData($request, $id);
+        $data['slug'] = $request->input('slug') ? Str::slug($request->input('slug')) : Str::slug($data['title']);
 
         if ($request->hasFile('image')) {
             if ($article->image && ! str_starts_with($article->image, 'images/')) {
@@ -86,10 +86,11 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('status', 'Artikel berhasil dihapus.');
     }
 
-    private function validateData(Request $request): array
+    private function validateData(Request $request, ?string $id = null): array
     {
-        $data = $request->validate([
+        $rules = [
             'title' => ['required', 'string', 'max:255'],
+            'slug' => ['nullable', 'string', 'max:255', $id ? 'unique:articles,slug,' . $id : 'unique:articles,slug'],
             'category' => ['required', 'string', 'max:255'],
             'excerpt' => ['nullable', 'string'],
             'content' => ['required', 'string'],
@@ -100,7 +101,9 @@ class ArticleController extends Controller
             'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer', 'min:0'],
-        ]);
+        ];
+
+        $data = $request->validate($rules);
 
         $data['is_active'] = $request->boolean('is_active');
         $data['order'] = $data['order'] ?? 0;
