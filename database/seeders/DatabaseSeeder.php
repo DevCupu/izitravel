@@ -5,44 +5,44 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
     use WithoutModelEvents;
 
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        $testUser = User::where('email', 'test@example.com')->first();
-        if (!$testUser) {
-            $testUser = User::factory()->create([
+        $testUser = User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
                 'name' => 'Test User',
-                'email' => 'test@example.com',
-            ]);
-        }
+                'password' => Hash::make('password123'),
+            ]
+        );
 
-        $admin = User::where('email', 'admin@example.com')->first();
-        if (!$admin) {
-            $admin = User::factory()->create([
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
                 'name' => 'Admin',
-                'email' => 'admin@example.com',
-            ]);
-        }
+                'password' => Hash::make('password123'),
+            ]
+        );
 
         if ($admin->role !== 'admin') {
-            $admin->forceFill(['role' => 'admin'])->save();
+            $admin->forceFill([
+                'role' => 'admin',
+            ])->save();
         }
 
-        $staff = User::where('email', 'staff@example.com')->first();
-        if (!$staff) {
-            $staff = User::factory()->create([
+        User::firstOrCreate(
+            ['email' => 'staff@example.com'],
+            [
                 'name' => 'Staff Operasional',
-                'email' => 'staff@example.com',
                 'role' => 'admin',
-            ]);
-        }
+                'password' => Hash::make('password123'),
+            ]
+        );
 
         $this->call([
             CategorySeeder::class,
