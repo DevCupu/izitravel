@@ -83,7 +83,7 @@
             "@@type": "ImageObject",
             "name": "{{ str_replace('"', '\"', $album->name) }}",
             "description": "Dokumentasi perjalanan ibadah album {{ str_replace('"', '\"', $album->name) }}",
-            "contentUrl": "{{ str_starts_with($album->image, 'images/') ? asset($album->image) : asset('storage/' . $album->image) }}"
+            "contentUrl": "{{ $album->cover_url ?? asset('images/Izi LOGO.webp') }}"
           }
         }{{ !$loop->last ? ',' : '' }}
         @endforeach
