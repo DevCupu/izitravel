@@ -76,6 +76,30 @@
     <meta property="twitter:description" content="Paket Umrah {{ $package->name }} - {{ $package->duration_days }} Hari, berangkat {{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}. Hotel {{ $package->hotel }}, maskapai {{ $package->airline }}. Mulai Rp {{ number_format($package->price, 0, ',', '.') }}" />
     <meta property="twitter:image" content="{{ $package->image_url }}" />
 
+    <!-- Structured Data: Product Schema for Package -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Product",
+      "name": "{{ str_replace('"', '\"', $package->name) }}",
+      "image": "{{ $package->image_url }}",
+      "description": "Paket Umrah {{ str_replace('"', '\"', $package->name) }} - {{ $package->duration_days }} Hari, berangkat {{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}. Akomodasi hotel {{ str_replace('"', '\"', $package->hotel) }}, penerbangan dengan maskapai {{ str_replace('"', '\"', $package->airline) }}.",
+      "brand": {
+        "@@type": "Brand",
+        "name": "{{ $settings['site_name'] ?? 'IZI Travel' }}"
+      },
+      "offers": {
+        "@@type": "Offer",
+        "url": "{{ url()->current() }}",
+        "priceCurrency": "IDR",
+        "price": "{{ $package->price }}",
+        "priceValidUntil": "{{ $package->departure_date ? $package->departure_date->subWeeks(2)->toIso8601String() : '' }}",
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition"
+      }
+    }
+    </script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts: Plus Jakarta Sans, Inter, & El Messiri -->

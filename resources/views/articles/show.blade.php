@@ -64,7 +64,37 @@
     <meta property="twitter:title" content="{{ $article->title }} - {{ $settings['site_name'] ?? 'IZI Travel' }}" />
     <meta property="twitter:description" content="{{ $article->excerpt ?? ($settings['site_description'] ?? '') }}" />
     <meta property="twitter:image" content="{{ $article->image_url }}" />
-    
+
+    <!-- Structured Data: Article Schema -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "Article",
+      "mainEntityOfPage": {
+        "@@type": "WebPage",
+        "@@id": "{{ url()->current() }}"
+      },
+      "headline": "{{ str_replace('"', '\"', $article->title) }}",
+      "description": "{{ str_replace('"', '\"', $article->excerpt ?? '') }}",
+      "image": "{{ $article->image_url }}",
+      "author": {
+        "@@type": "Person",
+        "name": "{{ $article->author ?? 'IZI Travel' }}",
+        "jobTitle": "{{ $article->author_role ?? '' }}"
+      },
+      "publisher": {
+        "@@type": "Organization",
+        "name": "{{ $settings['site_name'] ?? 'IZI Travel' }}",
+        "logo": {
+          "@@type": "ImageObject",
+          "url": "{{ asset($settings['site_logo'] ?? 'images/Izi LOGO.webp') }}"
+        }
+      },
+      "datePublished": "{{ $article->created_at ? $article->created_at->toIso8601String() : '' }}",
+      "dateModified": "{{ $article->updated_at ? $article->updated_at->toIso8601String() : '' }}"
+    }
+    </script>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts: Plus Jakarta Sans, Inter, & El Messiri -->

@@ -64,6 +64,34 @@
     <meta property="twitter:title" content="{{ $settings['site_name'] ?? 'IZI Travel' }} - Galeri &amp; Dokumentasi Perjalanan" />
     <meta property="twitter:description" content="Dokumentasi dan galeri kegiatan perjalanan ibadah Umrah dan Haji Premium bersama IZI Travel." />
     <meta property="twitter:image" content="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" />
+
+    <!-- Structured Data: ImageObject & ItemList Schema -->
+    @if(isset($paginatedAlbums) && $paginatedAlbums->count() > 0)
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "ItemList",
+      "name": "Galeri Dokumentasi IZI Travel",
+      "description": "Daftar dokumentasi foto dan video perjalanan ibadah Umrah dan Haji Premium IZI Travel.",
+      "numberOfItems": "{{ $paginatedAlbums->count() }}",
+      "itemListElement": [
+        @foreach($paginatedAlbums as $index => $album)
+        {
+          "@@type": "ListItem",
+          "position": {{ $index + 1 }},
+          "item": {
+            "@@type": "ImageObject",
+            "name": "{{ str_replace('"', '\"', $album->name) }}",
+            "description": "Dokumentasi perjalanan ibadah album {{ str_replace('"', '\"', $album->name) }}",
+            "contentUrl": "{{ str_starts_with($album->image, 'images/') ? asset($album->image) : asset('storage/' . $album->image) }}"
+          }
+        }{{ !$loop->last ? ',' : '' }}
+        @endforeach
+      ]
+    }
+    </script>
+    @endif
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts: Plus Jakarta Sans, Inter, & El Messiri -->

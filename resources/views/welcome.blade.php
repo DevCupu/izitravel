@@ -93,6 +93,59 @@
     <meta property="twitter:title" content="{{ $ogTitle }}" />
     <meta property="twitter:description" content="{{ $ogDesc }}" />
     <meta property="twitter:image" content="{{ $ogImage }}" />
+
+    <!-- Structured Data: Organization & TravelAgency Schema -->
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "TravelAgency",
+      "name": "{{ $settings['site_name'] ?? 'IZI Travel' }}",
+      "alternateName": "IZITRAVEL",
+      "url": "{{ url('/') }}",
+      "logo": "{{ asset($settings['site_logo'] ?? 'images/Izi LOGO.webp') }}",
+      "image": "{{ asset($settings['hero_image'] ?? 'images/package_kaaba.webp') }}",
+      "description": "{{ $settings['site_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5.' }}",
+      "telephone": "{{ $settings['contact_phone'] ?? '' }}",
+      "email": "{{ $settings['contact_email'] ?? '' }}",
+      "address": {
+        "@@type": "PostalAddress",
+        "streetAddress": "{{ $settings['contact_address'] ?? 'Jl. Urip Sumoharjo No. 12' }}",
+        "addressLocality": "Makassar",
+        "addressRegion": "Sulawesi Selatan",
+        "postalCode": "90232",
+        "addressCountry": "ID"
+      },
+      "sameAs": [
+        "{{ $settings['social_facebook'] ?? '' }}",
+        "{{ $settings['social_instagram'] ?? '' }}",
+        "{{ $settings['social_youtube'] ?? '' }}",
+        "{{ $settings['social_tiktok'] ?? '' }}"
+      ]
+    }
+    </script>
+
+    <!-- Structured Data: FAQPage Schema -->
+    @if(isset($faqs) && $faqs->count() > 0)
+    <script type="application/ld+json">
+    {
+      "@@context": "https://schema.org",
+      "@@type": "FAQPage",
+      "mainEntity": [
+        @foreach($faqs as $faq)
+        {
+          "@@type": "Question",
+          "name": "{{ str_replace('"', '\"', $faq->question) }}",
+          "acceptedAnswer": {
+            "@@type": "Answer",
+            "text": "{{ str_replace('"', '\"', strip_tags($faq->answer)) }}"
+          }
+        }{{ !$loop->last ? ',' : '' }}
+        @endforeach
+      ]
+    }
+    </script>
+    @endif
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Google Fonts: Outfit, Plus Jakarta Sans, Inter, El Messiri & Amiri (Islamic Calligraphic Style) -->
