@@ -272,7 +272,7 @@
 
                 <!-- Featured Image -->
                 <div class="h-64 sm:h-96 md:h-[450px] w-full rounded-2xl md:rounded-3xl overflow-hidden bg-slate-100 relative shadow-lg mb-8">
-                    <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover" fetchpriority="high" decoding="async" />
+                    <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover" width="800" height="450" fetchpriority="high" decoding="async" />
                 </div>
 
                 <!-- Main Body Content -->
@@ -311,7 +311,7 @@
                             <div class="group flex items-start gap-4 hover:-translate-y-0.5 transition duration-200">
                                 <!-- Thumbnail -->
                                 <div class="w-20 h-20 rounded-2xl overflow-hidden bg-slate-100 flex-shrink-0 relative shadow-sm border border-slate-50">
-                                    <img src="{{ $rec->image_url }}" alt="{{ $rec->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                                    <img src="{{ $rec->image_url }}" alt="{{ $rec->title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="300" height="200" loading="lazy" decoding="async" />
                                 </div>
                                 <!-- Title & Category -->
                                 <div class="space-y-1">
@@ -599,7 +599,7 @@
             <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
                 <!-- Header inside drawer -->
                 <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
                     <button id="mobile-drawer-close" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>

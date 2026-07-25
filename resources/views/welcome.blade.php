@@ -146,10 +146,17 @@
     </script>
     @endif
 
+    <!-- Preload Hero Image for LCP Optimization -->
+    <link rel="preload" as="image" href="{{ $heroImageUrl }}" fetchpriority="high" />
+
+    <!-- Google Fonts Preconnect & Optimized Request -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google Fonts: Outfit, Plus Jakarta Sans, Inter, El Messiri & Amiri (Islamic Calligraphic Style) -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Outfit, Inter, El Messiri & Amiri (Islamic Calligraphic Style) -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         html {
             scroll-behavior: smooth;
@@ -759,7 +766,7 @@
                         @if (!empty($badgeText))
                             <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3.5 py-1.5 text-white/90 text-xs backdrop-blur-sm shadow-sm">
                                 @if (!empty($badgeImg))
-                                    <img src="{{ str_starts_with($badgeImg, 'images/') ? asset($badgeImg) : asset('storage/' . $badgeImg) }}" alt="" class="w-4 h-4 object-contain shrink-0">
+                                    <img src="{{ str_starts_with($badgeImg, 'images/') ? asset($badgeImg) : asset('storage/' . $badgeImg) }}" alt="" class="w-4 h-4 object-contain shrink-0" width="16" height="16" decoding="async">
                                 @else
                                     <i data-lucide="{{ $b === 1 ? 'star' : ($b === 2 ? 'building' : 'plane') }}" class="w-4 h-4 text-[#c89e2b] shrink-0"></i>
                                 @endif
@@ -999,13 +1006,13 @@
                 <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal">
                     <!-- Base Backdrop Card (Departure Image) -->
                     <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border-4 border-white transform -rotate-2 hover:rotate-0 transition duration-500 select-none">
-                        <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
                     </div>
                     
                     <!-- Overlay Foreground Card (Manasik Preparation Image) -->
                     <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/15 border-4 border-white transform rotate-3 hover:rotate-0 transition duration-500 z-10 select-none">
-                        <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" loading="lazy" decoding="async">
+                        <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
                     </div>
 
@@ -1072,7 +1079,7 @@
                     <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-slate-100/70 hover:border-blue-600/15 shadow-md shadow-slate-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                         @if($t->image_url)
-                            <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]" loading="lazy" decoding="async">
+                            <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]" width="96" height="96" loading="lazy" decoding="async">
                         @else
                             <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-3xl font-extrabold shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]">{{ $t->initial ?? '...' }}</div>
                         @endif
@@ -1101,7 +1108,7 @@
                         @foreach ($otherTeams as $t)
                             <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-5 rounded-2xl border border-slate-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4 text-left group">
                                 @if($t->image_url)
-                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" loading="lazy" decoding="async">
+                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
                                 @else
                                     <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-lg font-extrabold shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0">{{ $t->initial ?? '...' }}</div>
                                 @endif
@@ -1159,7 +1166,7 @@
                     <div>
                         <div class="mb-6 bg-amber-500/10 text-amber-400 p-4 rounded-2xl w-fit border border-amber-500/20 shadow-inner">
                             @if (!empty($settings['feature_1_image']))
-                                <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                                <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
                             @endif
@@ -1174,7 +1181,7 @@
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_2_image']))
-                                <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                                <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
                             @endif
@@ -1189,7 +1196,7 @@
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_3_image']))
-                                <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                                <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
                             @endif
@@ -1204,7 +1211,7 @@
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_4_image']))
-                                <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                                <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
                             @endif
@@ -1219,7 +1226,7 @@
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_5_image']))
-                                <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                                <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
                             @endif
@@ -1236,7 +1243,7 @@
                     
                     <div class="bg-white/10 text-white p-4 rounded-2xl border border-white/20 shadow-inner flex-shrink-0 w-fit">
                         @if (!empty($settings['feature_6_image']))
-                            <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" loading="lazy" decoding="async">
+                            <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                         @else
                             <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
                         @endif
@@ -1384,7 +1391,7 @@
                             <div class="reveal-scale bg-white rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group" data-purpose="package-item">
                             <div>
                                 <div class="relative aspect-[16/10] overflow-hidden select-none">
-                                    <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="700" height="700" loading="lazy" decoding="async" />
+                                    <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="400" loading="lazy" decoding="async" />
                                     @if ($package->badge_label)
                                         <span class="absolute top-4 left-4 {{ $badgeClasses }} text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
                                     @endif
@@ -1448,7 +1455,7 @@
                                 {!! $partner->logo_path !!}
                             </div>
                         @else
-                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-7 w-auto object-contain" loading="lazy" decoding="async">
+                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-7 w-auto object-contain" width="112" height="28" loading="lazy" decoding="async">
                         @endif
                     </div>
                 @endforeach
@@ -1516,7 +1523,7 @@
                         <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 border border-slate-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
                             @if ($album->cover_url)
-                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" loading="lazy" />
+                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
                             @else
                                 <div class="flex flex-col items-center gap-2 text-slate-300">
                                     <i data-lucide="folder" class="w-12 h-12 stroke-[1.5]"></i>
@@ -1786,7 +1793,7 @@
                         <div>
                             <!-- Cover Image -->
                             <div class="relative h-52 overflow-hidden bg-slate-100">
-                                <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" loading="lazy" decoding="async" />
+                                <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" />
                                 <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-slate-100/50 shadow-sm">{{ $article->category }}</span>
                             </div>
                             
@@ -1976,13 +1983,23 @@
                                 </div>
 
                                 <!-- YouTube Iframe -->
-                                <iframe id="haramain-iframe" class="absolute inset-0 w-full h-full" 
-                                        src="https://www.youtube.com/embed/live_stream?channel={{ $settings['haramain_youtube_makkah'] ?? 'UCos52azQNBgW63_9uDJoPDA' }}" 
+                                <iframe id="haramain-iframe" class="absolute inset-0 w-full h-full hidden" 
+                                        src="about:blank" 
                                         title="Siaran Langsung Masjidil Haram Makkah" 
                                         frameborder="0" 
                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                                         allowfullscreen>
                                 </iframe>
+
+                                <!-- Facade / Placeholder Overlay -->
+                                <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group" 
+                                     style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('{{ asset('images/package_kaaba.webp') }}');">
+                                     <!-- Play Button -->
+                                     <button id="haramain-play-btn" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
+                                         <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
+                                     </button>
+                                     <span class="mt-4 text-xs font-bold text-white tracking-widest uppercase bg-black/40 px-4.5 py-2 rounded-full border border-white/10 z-20 select-none">Klik untuk Memutar Live Stream</span>
+                                </div>
                             </div>
 
                             <!-- Footer Stats / Info Bar -->
@@ -2740,6 +2757,24 @@
 
             const scrollProgressBar = document.getElementById('scroll-progress-bar');
 
+            // Cache section offsets to prevent forced reflows during scrollspy calculations
+            let cachedSections = [];
+            const recacheSections = () => {
+                cachedSections = [];
+                sections.forEach(section => {
+                    cachedSections.push({
+                        id: section.getAttribute('id'),
+                        top: section.offsetTop,
+                        height: section.offsetHeight
+                    });
+                });
+            };
+
+            // Initial cache and cache updates on resize / load
+            recacheSections();
+            window.addEventListener('resize', recacheSections);
+            window.addEventListener('load', recacheSections);
+
             const onScrollHandler = () => {
                 // Scroll progress bar (mengisi saat scroll ke bawah)
                 if (scrollProgressBar) {
@@ -2774,15 +2809,13 @@
                     }
                 }
 
-                // Scrollspy active section identifier
+                // Scrollspy active section identifier using cached heights
                 let currentId = 'beranda';
                 const scrollPosition = window.scrollY + 160;
 
-                sections.forEach(section => {
-                    const top = section.offsetTop;
-                    const height = section.offsetHeight;
-                    if (scrollPosition >= top && scrollPosition < top + height) {
-                        currentId = section.getAttribute('id');
+                cachedSections.forEach(sec => {
+                    if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
+                        currentId = sec.id;
                     }
                 });
 
@@ -2817,7 +2850,17 @@
                 );
             };
 
-            window.addEventListener('scroll', onScrollHandler);
+            // Throttle scroll event to prevent layout thrashing and main thread blocking
+            let isScrolling = false;
+            window.addEventListener('scroll', () => {
+                if (!isScrolling) {
+                    window.requestAnimationFrame(() => {
+                        onScrollHandler();
+                        isScrolling = false;
+                    });
+                    isScrolling = true;
+                }
+            });
             onScrollHandler();
 
             // 2b. Typewriter effect for Hero Tagline
@@ -3612,25 +3655,51 @@
 
             const streamData = getYoutubeStreamData(makkahSetting);
 
-            // Set initial iframe src and direct link
-            const haramainIframe = document.getElementById('haramain-iframe');
-            if (haramainIframe && streamData.embed) {
-                haramainIframe.setAttribute('src', streamData.embed);
-            }
-
+            // Set initial direct link
             const youtubeDirectLink = document.getElementById('youtube-direct-link');
             if (youtubeDirectLink && streamData.direct) {
                 youtubeDirectLink.setAttribute('href', streamData.direct);
             }
 
+            // Facade click-to-load logic
+            const haramainFacade = document.getElementById('haramain-facade');
+            const haramainIframe = document.getElementById('haramain-iframe');
+
+            const loadHaramainStream = () => {
+                if (haramainIframe && haramainIframe.getAttribute('src') === 'about:blank' && streamData.embed) {
+                    // Set stream src and add autoplay
+                    const autoplayEmbed = streamData.embed.includes('?') 
+                        ? streamData.embed + '&autoplay=1&mute=1' 
+                        : streamData.embed + '?autoplay=1&mute=1';
+                    
+                    haramainIframe.setAttribute('src', autoplayEmbed);
+                    haramainIframe.classList.remove('hidden');
+                    
+                    if (haramainFacade) {
+                        haramainFacade.classList.add('opacity-0', 'pointer-events-none');
+                        setTimeout(() => haramainFacade.classList.add('hidden'), 500);
+                    }
+                }
+            };
+
+            if (haramainFacade) {
+                haramainFacade.addEventListener('click', loadHaramainStream);
+            }
+
             window.refreshHaramainStream = () => {
-                const iframe = document.getElementById('haramain-iframe');
-                if (iframe && streamData.embed) {
-                    const currentSrc = streamData.embed;
-                    iframe.setAttribute('src', 'about:blank');
-                    setTimeout(() => {
-                        iframe.setAttribute('src', currentSrc);
-                    }, 100);
+                if (haramainIframe) {
+                    if (haramainIframe.getAttribute('src') === 'about:blank') {
+                        loadHaramainStream();
+                    } else if (streamData.embed) {
+                        const autoplayEmbed = streamData.embed.includes('?') 
+                            ? streamData.embed + '&autoplay=1&mute=1' 
+                            : streamData.embed + '?autoplay=1&mute=1';
+                        
+                        haramainIframe.setAttribute('src', 'about:blank');
+                        setTimeout(() => {
+                            haramainIframe.setAttribute('src', autoplayEmbed);
+                        }, 100);
+                    }
                 }
             };
 
@@ -3752,7 +3821,7 @@
             <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
                 <!-- Header inside drawer -->
                 <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
                     <button id="mobile-drawer-close" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>

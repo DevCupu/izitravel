@@ -223,7 +223,7 @@
                             <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 border border-slate-100 flex items-center justify-center shadow-inner">
                                 <!-- Cover Image -->
                                 @if ($album->cover_url)
-                                    <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" loading="lazy" />
+                                    <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
                                 @else
                                     <div class="flex flex-col items-center gap-2 text-slate-300">
                                         <i data-lucide="folder" class="w-12 h-12 stroke-[1.5]"></i>
@@ -751,7 +751,7 @@
             <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
                 <!-- Header inside drawer -->
                 <div class="flex items-center justify-between pb-4 border-b border-slate-100">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
                     <button id="mobile-drawer-close" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
