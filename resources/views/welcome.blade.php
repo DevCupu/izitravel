@@ -714,10 +714,10 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 flex flex-col lg:flex-row items-center gap-12 relative z-10">
             <!-- Left Column: Content -->
-            <div class="lg:w-7/12 flex flex-col justify-center text-left">
+            <div class="lg:w-7/12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
                 @php $heroCalligraphy = array_key_exists('hero_calligraphy', $settings) ? $settings['hero_calligraphy'] : 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'; @endphp
                 @if (!empty($heroCalligraphy))
-                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up" dir="rtl">{{ $heroCalligraphy }}</p>
+                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
                 @endif
                 
                 <!-- Badge Kemenag (Navy blue glass) -->
@@ -763,12 +763,12 @@
                     @endif
                 </h1>
 
-                <p class="text-base md:text-lg text-white/80 mb-6 leading-relaxed font-light max-w-xl animate-fade-in-up delay-300">
+                <p class="text-base md:text-lg text-white/80 mb-6 leading-relaxed font-light max-w-xl animate-fade-in-up delay-300 mx-auto lg:mx-0">
                     {{ $site_desc }}
                 </p>
 
                 <!-- Floating Badges / Trust Badges -->
-                <div class="flex flex-wrap gap-2.5 mb-8 animate-fade-in-up delay-350">
+                <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 mb-8 animate-fade-in-up delay-350">
                     @php
                         $defaultBadges = [
                             1 => 'Standar Pelayanan Bintang 5',
@@ -795,7 +795,7 @@
                 </div>
 
                 <!-- Actions CTA Buttons -->
-                <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up delay-400">
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
                     <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-lg shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
@@ -990,16 +990,16 @@
             <!-- Top Layout: Description, Stats, and 3D Photo Stack Collage -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-20">
                 <!-- Left: Short description & stats -->
-                <div class="lg:col-span-6 space-y-6 reveal">
+                <div class="lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
                     <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                         <i data-lucide="info" class="w-3.5 h-3.5 text-blue-600/80"></i>
                         {{ $settings['about_badge'] ?? 'Tentang Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight reveal-words">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
                         {{ $settings['about_title'] ?? 'Melayani Perjalanan Suci Anda dengan Sepenuh Hati' }}
                     </h2>
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed font-normal">
+                    <p class="text-slate-600 text-sm md:text-base leading-relaxed font-normal text-center lg:text-left">
                         {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
                     </p>
                     <div class="grid grid-cols-2 gap-6 pt-4">
@@ -1156,19 +1156,19 @@
         </div>
 
         <!-- Section Header (Premium Split Layout) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-left relative z-10">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6">
-                <div class="space-y-3">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
+                <div class="space-y-3 flex flex-col items-center lg:items-start">
                     <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                         <i data-lucide="award" class="w-3.5 h-3.5 text-blue-600/80"></i>
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight text-center lg:text-left">
                         {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
                     </h2>
                 </div>
-                <p class="text-slate-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1">
+                <p class="text-slate-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
                     {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
                 </p>
             </div>
