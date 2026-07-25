@@ -485,9 +485,27 @@
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
-        .reveal-left.active, .reveal-right.active, .reveal-scale.active {
+        .reveal-spring {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 1s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-skew {
+            opacity: 0;
+            transform: translateY(50px) skewY(2deg);
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-card, .reveal-child {
+            opacity: 0;
+            transform: translateY(35px) scale(0.97);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-left.active, .reveal-right.active, .reveal-scale.active, .reveal-spring.active, .reveal-skew.active, .reveal-card.active, .reveal-child.active {
             opacity: 1;
-            transform: translate(0) scale(1);
+            transform: translate(0) scale(1) skew(0);
         }
 
         /* FAQ Smooth Height Accordion grid styles */
@@ -818,7 +836,7 @@
             </div>
 
             <!-- Right Column: Info Widget (Glassmorphism card) -->
-            <div class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30">
+            <div class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
                 <div class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/30 rounded-[2.5rem] p-7 shadow-2xl relative overflow-hidden text-white w-full backdrop-blur-xl group hover:border-[#c89e2b]/50 transition-all duration-500">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
@@ -1003,7 +1021,7 @@
                 </div>
 
                 <!-- Right: Overlapping 3D Image Collage -->
-                <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal">
+                <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
                     <!-- Base Backdrop Card (Departure Image) -->
                     <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border-4 border-white transform -rotate-2 hover:rotate-0 transition duration-500 select-none">
                         <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
@@ -1030,9 +1048,9 @@
             </div>
 
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24 reveal">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300">
+                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300 reveal-left">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                     <div>
                         <div class="bg-white/15 border border-white/20 p-3.5 rounded-2xl text-white w-fit mb-6 shadow-inner">
@@ -1046,7 +1064,7 @@
                 </div>
 
                 <!-- Misi Card (Asymmetric 7-Span) -->
-                <div class="relative bg-white rounded-[2rem] p-8 md:p-10 border border-slate-100/80 shadow-xl shadow-slate-900/[0.02] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between group hover:scale-[1.01] transition duration-300">
+                <div class="relative bg-white rounded-[2rem] p-8 md:p-10 border border-slate-100/80 shadow-xl shadow-slate-900/[0.02] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between group hover:scale-[1.01] transition duration-300 reveal-right">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl"></div>
                     <div>
                         <div class="bg-amber-50 border border-amber-100 p-3.5 rounded-2xl text-amber-500 w-fit mb-6 shadow-sm">
@@ -1061,7 +1079,7 @@
             </div>
 
             <!-- Bottom Layout: Founders section -->
-            <div class="text-center space-y-4 mb-12">
+            <div class="text-center space-y-4 mb-12 reveal">
                 <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">{{ $settings['team_section_title'] ?? 'Di Balik Layar IZI Travel' }}</h3>
                 <p class="text-slate-500 max-w-lg mx-auto text-xs md:text-sm leading-relaxed font-light">
                     {{ $settings['team_section_subtitle'] ?? 'Dipimpin oleh tim profesional berpengalaman yang mendedikasikan diri sepenuhnya untuk melayani tamu-tamu Allah SWT.' }}
@@ -1074,9 +1092,9 @@
             @endphp
 
             <!-- Founders Grid (Prominent) -->
-            <div class="grid grid-cols-1 {{ $founders->count() === 1 ? 'max-w-md' : ($founders->count() === 2 ? 'md:grid-cols-2 max-w-3xl' : 'md:grid-cols-3 max-w-5xl') }} gap-8 mx-auto mb-12">
+            <div class="grid grid-cols-1 {{ $founders->count() === 1 ? 'max-w-md' : ($founders->count() === 2 ? 'md:grid-cols-2 max-w-3xl' : 'md:grid-cols-3 max-w-5xl') }} gap-8 mx-auto mb-12 reveal-stagger">
                 @foreach ($founders as $t)
-                    <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-slate-100/70 hover:border-blue-600/15 shadow-md shadow-slate-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group">
+                    <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-slate-100/70 hover:border-blue-600/15 shadow-md shadow-slate-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group reveal-card">
                         <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                         @if($t->image_url)
                             <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]" width="96" height="96" loading="lazy" decoding="async">
@@ -1095,7 +1113,7 @@
             <!-- Other Team Members (Smaller & Grouped) -->
             @if($otherTeams->isNotEmpty())
                 <div class="max-w-4xl mx-auto mt-16">
-                    <div class="relative flex items-center justify-center mb-10">
+                    <div class="relative flex items-center justify-center mb-10 reveal">
                         <div class="absolute inset-0 flex items-center" aria-hidden="true">
                             <div class="w-full border-t border-slate-200/60"></div>
                         </div>
@@ -1104,18 +1122,18 @@
                         </div>
                     </div>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 reveal-stagger">
                         @foreach ($otherTeams as $t)
-                            <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-5 rounded-2xl border border-slate-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex items-start gap-4 text-left group">
+                            <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-4 md:p-5 rounded-2xl border border-slate-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
                                 @if($t->image_url)
-                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-14 h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
+                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
                                 @else
-                                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-lg font-extrabold shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0">{{ $t->initial ?? '...' }}</div>
+                                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-base sm:text-lg font-extrabold shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0">{{ $t->initial ?? '...' }}</div>
                                 @endif
-                                <div>
-                                    <h5 class="font-extrabold text-slate-900 text-sm mb-0.5 group-hover:text-blue-600 transition duration-200">{{ $t->name }}</h5>
-                                    <p class="text-blue-600 text-[10px] font-extrabold uppercase tracking-wider mb-2 leading-none">{{ $t->role }}</p>
-                                    <p class="text-slate-500 text-xs leading-relaxed font-light">
+                                <div class="min-w-0 flex-1">
+                                    <h5 class="font-extrabold text-slate-900 text-xs sm:text-sm mb-0.5 group-hover:text-blue-600 transition duration-200">{{ $t->name }}</h5>
+                                    <p class="text-blue-600 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider mb-2 leading-none">{{ $t->role }}</p>
+                                    <p class="text-slate-500 text-[10px] sm:text-xs leading-relaxed font-light">
                                         {{ $t->description }}
                                     </p>
                                 </div>
@@ -1158,9 +1176,9 @@
 
         <!-- Bento Grid Layout -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-stagger="true">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Feature 1: Wide Dark Bento Card -->
-                <div class="reveal-scale md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
+                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
                     <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-600/15 rounded-full blur-3xl"></div>
                     <div>
@@ -1177,7 +1195,7 @@
                 </div>
 
                 <!-- Feature 2: Standard Card -->
-                <div class="reveal-scale lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_2_image']))
@@ -1192,7 +1210,7 @@
                 </div>
 
                 <!-- Feature 3: Standard Card -->
-                <div class="reveal-scale lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_3_image']))
@@ -1207,7 +1225,7 @@
                 </div>
 
                 <!-- Feature 4: Standard Card -->
-                <div class="reveal-scale lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_4_image']))
@@ -1222,7 +1240,7 @@
                 </div>
 
                 <!-- Feature 5: Standard Card -->
-                <div class="reveal-scale lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_5_image']))
@@ -1237,7 +1255,7 @@
                 </div>
 
                 <!-- Feature 6: Wide Horizontal Card -->
-                <div class="reveal-scale md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-indigo-750 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
+                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-indigo-750 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
                     <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-sky-500/20 rounded-full blur-2xl"></div>
                     
@@ -1373,7 +1391,7 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-stagger="true">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                         @foreach ($categoryPackages as $package)
                             @php
                                 $badgeClasses = match ($package->badge_color) {
@@ -1388,7 +1406,7 @@
                                     ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]' 
                                     : 'border-slate-100/80 hover:border-blue-600/20 shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
                             @endphp
-                            <div class="reveal-scale bg-white rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group" data-purpose="package-item">
+                            <div class="reveal-card bg-white rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group" data-purpose="package-item">
                             <div>
                                 <div class="relative aspect-[16/10] overflow-hidden select-none">
                                     <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="400" loading="lazy" decoding="async" />
@@ -1512,10 +1530,10 @@
             @endphp
             
             <!-- Gallery Grid (Albums Folder View) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 reveal" id="gallery-grid">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
                 @foreach ($displayAlbums as $album)
                     <!-- Album Folder Card -->
-                    <div class="album-folder-card group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-[2rem] border border-slate-100/80 hover:border-blue-600/15 p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-5 relative overflow-hidden cursor-pointer" 
+                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-[2rem] border border-slate-100/80 hover:border-blue-600/15 p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-5 relative overflow-hidden cursor-pointer" 
                          data-album-name="{{ $album->name }}"
                          data-items="{{ json_encode($album->items) }}">
                         
@@ -1785,9 +1803,9 @@
             </div>
 
             <!-- Articles Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="articles-grid" data-stagger="true">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" id="articles-grid" data-stagger="true">
                 @foreach ($articles as $article)
-                              <div class="article-card reveal-scale soft-card glow-card rounded-3xl overflow-hidden soft-shadow soft-shadow-hover transition-all duration-300 flex flex-col justify-between" 
+                              <div class="article-card reveal-card soft-card glow-card rounded-3xl overflow-hidden soft-shadow soft-shadow-hover transition-all duration-300 flex flex-col justify-between" 
                          data-category="{{ Str::slug($article->category) }}" 
                          data-purpose="article-item">
                         <div>
@@ -1866,7 +1884,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
                 
                 <!-- Left Column: Clock & Prayer Times Card (5-Span) -->
-                <div class="lg:col-span-5 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2rem] p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+                <div class="lg:col-span-5 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2rem] p-6 sm:p-8 shadow-2xl relative overflow-hidden reveal-left">
                     <!-- Glow decoration -->
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-[#c89e2b]/10 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -1931,7 +1949,7 @@
                 </div>
 
                 <!-- Right Column: Live Stream & Weather / Info (7-Span) -->
-                <div class="lg:col-span-7 space-y-6">
+                <div class="lg:col-span-7 space-y-6 reveal-right">
                     <!-- Live Haramain Player Card -->
                     <div class="bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-950/90 border border-amber-500/20 backdrop-blur-2xl rounded-[2.5rem] p-5 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden group">
                         <!-- Ambient Background Glows -->
@@ -2069,9 +2087,9 @@
                 <p class="text-blue-900/70 max-w-2xl mx-auto text-xs md:text-sm leading-relaxed">{{ $settings['partnership_subtitle'] ?? 'Menjadi mitra syiar baitullah berkesempatan mendapatkan komisi hingga puluhan juta rupiah bahkan berkesempatan untuk umroh.' }}</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-stagger="true">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Tier 1: Freelance -->
-                <div class="reveal-scale kemitraan-card kemitraan-card-blue bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+                <div class="reveal-card kemitraan-card kemitraan-card-blue bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
                             <div class="bg-blue-50/80 p-4 rounded-2xl text-blue-600 w-fit">
@@ -2105,7 +2123,7 @@
                 </div>
 
                 <!-- Tier 2: Agen -->
-                <div class="reveal-scale kemitraan-card kemitraan-card-amber bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+                <div class="reveal-card kemitraan-card kemitraan-card-amber bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
                             <div class="bg-amber-50 p-4 rounded-2xl text-amber-500 w-fit">
@@ -2139,7 +2157,7 @@
                 </div>
 
                 <!-- Tier 3: Benefit & Reward -->
-                <div class="reveal-scale bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                <div class="reveal-card bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
                     
@@ -2172,7 +2190,7 @@
             </div>
 
             <!-- Kemitraan Call To Action -->
-            <div class="mt-16 bg-white border border-slate-100/80 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-900/5 flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto relative overflow-hidden">
+            <div class="mt-16 bg-white border border-slate-100/80 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-900/5 flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto relative overflow-hidden reveal-scale">
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
                 <div class="text-left space-y-2 relative z-10">
                     <h4 class="font-extrabold text-slate-900 text-lg md:text-xl">{{ $settings['partnership_cta_title'] ?? 'Tertarik Menjadi Mitra IZI Travel?' }}</h4>
@@ -3162,21 +3180,28 @@
                 });
             });
 
-            // 10. Unified Scroll Reveal Animation (Intersection Observer)
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-words');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.05,
-                rootMargin: '0px 0px -40px 0px'
-            });
-
-            revealElements.forEach(el => revealObserver.observe(el));
+             // 10. Unified Scroll Reveal Animation (Intersection Observer)
+             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-words, .reveal-spring, .reveal-skew, .reveal-stagger');
+             const revealObserver = new IntersectionObserver((entries, observer) => {
+                 entries.forEach(entry => {
+                     if (entry.isIntersecting) {
+                         if (entry.target.classList.contains('reveal-stagger')) {
+                             const children = entry.target.querySelectorAll('.reveal-card, .reveal-child');
+                             children.forEach((child, index) => {
+                                 child.style.transitionDelay = `${index * 80}ms`;
+                                 child.classList.add('active');
+                             });
+                         }
+                         entry.target.classList.add('active');
+                         observer.unobserve(entry.target);
+                     }
+                 });
+             }, {
+                 threshold: 0.05,
+                 rootMargin: '0px 0px -40px 0px'
+             });
+ 
+             revealElements.forEach(el => revealObserver.observe(el));
 
             // 11. Glow Card Border Effect (Performance Throttled)
             const glowCards = document.querySelectorAll('.glow-card');
