@@ -959,7 +959,7 @@
     <section class="py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
         <!-- Blurred Nabawi Mosque Background Image (Split Left with Right Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_madinah_nabawi.png') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
         </div>
@@ -1132,7 +1132,7 @@
     <section class="py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
         <!-- Blurred Kaaba Background Image (Split Right with Left Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.png') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
         </div>
@@ -1312,7 +1312,7 @@
     <section class="relative py-24 mt-16 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
         <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Right Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.png') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
         </div>
