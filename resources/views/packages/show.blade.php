@@ -280,125 +280,259 @@
                         </span>
                     </div>
                 </div>
-
-                <!-- Facilities Grid -->
-                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5">
-                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 mb-6 pb-4 border-b border-slate-100">
-                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-sm shadow-blue-500/50"></span> Akomodasi &amp; Spesifikasi Penerbangan
+                <!-- Informasi Perjalanan -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-sm shadow-blue-500/50"></span> Informasi Perjalanan
                     </h3>
-
-                    @php
-                        $hasHotelDetail = $package->hotel_makkah || $package->hotel_madinah;
-                        $gridCols = $hasHotelDetail ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-3';
-                    @endphp
-                    <div class="grid {{ $gridCols }} gap-4">
-                        <!-- Departure Date -->
-                        <div class="flex items-center gap-4 bg-slate-50 border border-slate-100 p-4.5 rounded-2xl hover:bg-slate-100/55 hover:border-blue-200 transition duration-200 group">
-                            <span class="bg-blue-50 text-blue-600 p-3 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
-                                <i data-lucide="calendar" class="w-5 h-5"></i>
-                            </span>
+                    
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <!-- Tanggal -->
+                        <div class="flex items-start gap-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 min-w-0">
+                            <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-5 h-5"></i></span>
                             <div class="min-w-0">
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Tanggal Keberangkatan</p>
-                                <p class="text-sm font-extrabold text-slate-800 mt-1 truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Tanggal</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
                             </div>
                         </div>
-
-                        <!-- Airline -->
-                        <div class="flex items-center gap-4 bg-slate-50 border border-slate-100 p-4.5 rounded-2xl hover:bg-slate-100/55 hover:border-blue-200 transition duration-200 group">
-                            <span class="bg-blue-50 text-blue-600 p-3 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
-                                <i data-lucide="plane" class="w-5 h-5"></i>
-                            </span>
+                        <!-- Durasi -->
+                        <div class="flex items-start gap-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 min-w-0">
+                            <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="clock" class="w-5 h-5"></i></span>
                             <div class="min-w-0">
-                                <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Maskapai &amp; Penerbangan</p>
-                                <p class="text-sm font-extrabold text-slate-800 mt-1 truncate">{{ $package->airline }}</p>
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Durasi</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">{{ $package->duration_days }} Hari</p>
                             </div>
                         </div>
-
-                        @if ($hasHotelDetail)
-                            <!-- Hotel Makkah -->
-                            @if ($package->hotel_makkah)
-                            <div class="flex items-center gap-4 bg-amber-50/40 border border-amber-100/50 p-4.5 rounded-2xl hover:bg-amber-50/80 hover:border-amber-300 transition duration-200 group">
-                                <span class="bg-amber-100 text-amber-700 p-3 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-amber-500 group-hover:text-white transition duration-300">
-                                    <i data-lucide="hotel" class="w-5 h-5"></i>
-                                </span>
-                                <div class="min-w-0">
-                                    <p class="text-[9px] text-amber-600 font-bold uppercase tracking-wider flex items-center gap-1">
-                                        Hotel Makkah
-                                        @if ($package->hotel_makkah_nights)
-                                            <span class="bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded text-[8px] font-black">{{ $package->hotel_makkah_nights }} Malam</span>
-                                        @endif
-                                    </p>
-                                    <p class="text-sm font-extrabold text-slate-800 mt-1 truncate">{{ $package->hotel_makkah }}</p>
-                                </div>
+                        <!-- Maskapai -->
+                        <div class="flex items-start gap-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 min-w-0">
+                            <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-5 h-5"></i></span>
+                            <div class="min-w-0">
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Maskapai</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight truncate">{{ $package->airline }}</p>
                             </div>
-                            @endif
-
-                            <!-- Hotel Madinah -->
-                            @if ($package->hotel_madinah)
-                            <div class="flex items-center gap-4 bg-emerald-50/40 border border-emerald-100/50 p-4.5 rounded-2xl hover:bg-emerald-50/80 hover:border-emerald-300 transition duration-200 group">
-                                <span class="bg-emerald-100 text-emerald-700 p-3 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-emerald-500 group-hover:text-white transition duration-300">
-                                    <i data-lucide="building-2" class="w-5 h-5"></i>
-                                </span>
-                                <div class="min-w-0">
-                                    <p class="text-[9px] text-emerald-600 font-bold uppercase tracking-wider flex items-center gap-1">
-                                        Hotel Madinah
-                                        @if ($package->hotel_madinah_nights)
-                                            <span class="bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded text-[8px] font-black">{{ $package->hotel_madinah_nights }} Malam</span>
-                                        @endif
-                                    </p>
-                                    <p class="text-sm font-extrabold text-slate-800 mt-1 truncate">{{ $package->hotel_madinah }}</p>
-                                </div>
+                        </div>
+                        <!-- Start -->
+                        <div class="flex items-start gap-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 min-w-0">
+                            <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
+                            <div class="min-w-0">
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Start</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">Jakarta</p>
                             </div>
-                            @endif
-                        @else
-                            <!-- Hotel (fallback single field) -->
-                            @if ($package->hotel)
-                            <div class="flex items-center gap-4 bg-slate-50 border border-slate-100 p-4.5 rounded-2xl hover:bg-slate-100/55 hover:border-blue-200 transition duration-200 group">
-                                <span class="bg-blue-50 text-blue-600 p-3 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
-                                    <i data-lucide="hotel" class="w-5 h-5"></i>
-                                </span>
-                                <div class="min-w-0">
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider">Hotel Pilihan</p>
-                                    <p class="text-sm font-extrabold text-slate-800 mt-1 truncate">{{ $package->hotel }}</p>
-                                </div>
+                        </div>
+                        <!-- Pembimbing -->
+                        <div class="flex items-start gap-3 bg-slate-50/50 p-4 rounded-2xl border border-slate-100/50 min-w-0 col-span-2 sm:col-span-1">
+                            <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="user-check" class="w-5 h-5"></i></span>
+                            <div class="min-w-0">
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Pembimbing</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">Muthawwif IZI Travel</p>
                             </div>
-                            @endif
-                        @endif
+                        </div>
                     </div>
                 </div>
 
-                <!-- What's Included -->
-                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5">
-                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 mb-6 pb-4 border-b border-slate-100">
-                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shadow-sm shadow-emerald-500/50"></span> Fasilitas &amp; Layanan yang Termasuk
+                <!-- Akomodasi Hotel -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-sm shadow-amber-500/50"></span> Akomodasi Hotel
                     </h3>
-
-                    @php
-                        $inclusions = $package->inclusions ?? [
-                            ['icon' => 'plane', 'label' => 'Tiket pesawat PP', 'desc' => 'Penerbangan pulang-pergi dengan maskapai terpercaya'],
-                            ['icon' => 'file-check', 'label' => 'Pengurusan visa resmi', 'desc' => 'Visa umrah resmi yang diproses langsung'],
-                            ['icon' => 'building-2', 'label' => 'Hotel pelataran masjid', 'desc' => 'Akomodasi dekat Masjidil Haram & Nabawi'],
-                            ['icon' => 'shield-check', 'label' => 'Asuransi perjalanan', 'desc' => 'Perlindungan selama perjalanan ibadah'],
-                            ['icon' => 'luggage', 'label' => 'Perlengkapan ibadah', 'desc' => 'Koper, kain ihram, buku doa, & lainnya'],
-                            ['icon' => 'compass', 'label' => 'Muthawwif bersertifikat', 'desc' => 'Pembimbing ibadah profesional & berpengalaman'],
-                            ['icon' => 'utensils', 'label' => 'Makan prasmanan 3x', 'desc' => 'Menu halal & beragam setiap hari'],
-                            ['icon' => 'book-open', 'label' => 'Handling & manasik', 'desc' => 'Bimbingan manasik pra-keberangkatan'],
-                        ];
-                    @endphp
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        @foreach ($inclusions as $item)
-                            <div class="flex items-start gap-4 p-4 rounded-2xl border border-slate-50 bg-slate-50/40 hover:bg-emerald-50/40 hover:border-emerald-250 transition-all duration-300 group">
-                                <span class="bg-emerald-50 text-emerald-600 rounded-xl p-2.5 shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition duration-300">
-                                    <i data-lucide="{{ $item['icon'] }}" class="w-5 h-5"></i>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Hotel Makkah -->
+                        <div class="flex flex-col gap-4 p-5 rounded-2xl border border-amber-100/80 bg-amber-50/20 relative overflow-hidden group hover:bg-amber-50/40 transition duration-300">
+                            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-amber-500/5 rounded-full blur-xl pointer-events-none"></div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-amber-100 text-amber-700 p-3 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="hotel" class="w-5 h-5"></i>
                                 </span>
                                 <div>
-                                    <h4 class="text-xs sm:text-sm font-black text-slate-800 transition">{{ $item['label'] }}</h4>
-                                    @if (!empty($item['desc']))
-                                        <p class="text-[11px] text-slate-400 font-semibold mt-1 leading-relaxed">{{ $item['desc'] }}</p>
+                                    <h4 class="text-xs font-extrabold text-amber-800 uppercase tracking-widest leading-none mb-1">Hotel Makkah</h4>
+                                    @if ($package->hotel_makkah_nights)
+                                        <span class="text-[10px] font-bold text-slate-400">{{ $package->hotel_makkah_nights }} Malam</span>
                                     @endif
                                 </div>
                             </div>
+                            <div>
+                                <p class="text-base font-black text-slate-800 leading-snug">{{ $package->hotel_makkah ?: ($package->hotel ?: 'Hotel Bintang Pilihan') }}</p>
+                                @php
+                                    preg_match('/(\d+)\s*m/i', $package->hotel_makkah, $makkahDist);
+                                    $makkahDistance = $makkahDist[0] ?? '680 m';
+                                @endphp
+                                <div class="flex items-center gap-1.5 mt-2 text-xs font-bold text-slate-500">
+                                    <i data-lucide="footprints" class="w-4 h-4 text-amber-500"></i>
+                                    <span>Estimasi Jarak: ± {{ $makkahDistance }} ke Masjidil Haram</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hotel Madinah -->
+                        <div class="flex flex-col gap-4 p-5 rounded-2xl border border-emerald-100/80 bg-emerald-50/20 relative overflow-hidden group hover:bg-emerald-50/40 transition duration-300">
+                            <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl pointer-events-none"></div>
+                            <div class="flex items-center gap-3">
+                                <span class="bg-emerald-100 text-emerald-700 p-2.5 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="building-2" class="w-5 h-5"></i>
+                                </span>
+                                <div>
+                                    <h4 class="text-xs font-extrabold text-emerald-800 uppercase tracking-widest leading-none mb-1">Hotel Madinah</h4>
+                                    @if ($package->hotel_madinah_nights)
+                                        <span class="text-[10px] font-bold text-slate-400">{{ $package->hotel_madinah_nights }} Malam</span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div>
+                                <p class="text-base font-black text-slate-800 leading-snug">{{ $package->hotel_madinah ?: ($package->hotel ?: 'Hotel Bintang Pilihan') }}</p>
+                                @php
+                                    preg_match('/(\d+)\s*m/i', $package->hotel_madinah, $madinahDist);
+                                    $madinahDistance = $madinahDist[0] ?? '250 m';
+                                @endphp
+                                <div class="flex items-center gap-1.5 mt-2 text-xs font-bold text-slate-500">
+                                    <i data-lucide="footprints" class="w-4 h-4 text-emerald-500"></i>
+                                    <span>Estimasi Jarak: ± {{ $madinahDistance }} ke Masjid Nabawi</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rincian Biaya -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shadow-sm shadow-emerald-500/50"></span> Rincian Biaya
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Biaya Termasuk -->
+                        <div class="space-y-4">
+                            <h4 class="text-xs sm:text-sm font-black text-emerald-700 flex items-center gap-2.5">
+                                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-605"></i>
+                                Biaya Termasuk
+                            </h4>
+                            <div class="grid grid-cols-1 gap-3">
+                                @php
+                                    $inclusions = $package->inclusions ?? [
+                                        ['icon' => 'plane', 'label' => 'Tiket pesawat PP', 'desc' => 'Penerbangan pulang-pergi dengan maskapai terpercaya'],
+                                        ['icon' => 'file-check', 'label' => 'Pengurusan visa resmi', 'desc' => 'Visa umrah resmi yang diproses langsung'],
+                                        ['icon' => 'building-2', 'label' => 'Hotel pelataran masjid', 'desc' => 'Akomodasi dekat Masjidil Haram & Nabawi'],
+                                        ['icon' => 'shield-check', 'label' => 'Asuransi perjalanan', 'desc' => 'Perlindungan selama perjalanan ibadah'],
+                                        ['icon' => 'luggage', 'label' => 'Perlengkapan ibadah', 'desc' => 'Koper, kain ihram, buku doa, & lainnya'],
+                                        ['icon' => 'compass', 'label' => 'Muthawwif bersertifikat', 'desc' => 'Pembimbing ibadah profesional & berpengalaman'],
+                                        ['icon' => 'utensils', 'label' => 'Makan prasmanan 3x', 'desc' => 'Menu halal & beragam setiap hari'],
+                                        ['icon' => 'book-open', 'label' => 'Handling & manasik', 'desc' => 'Bimbingan manasik pra-keberangkatan'],
+                                    ];
+                                @endphp
+                                @foreach ($inclusions as $item)
+                                    <div class="flex items-start gap-3.5 p-3.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-emerald-50/30 hover:border-emerald-200 transition-all duration-300 group">
+                                        <span class="bg-emerald-50 text-emerald-600 rounded-xl p-2.5 shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition duration-300 flex items-center justify-center">
+                                            <i data-lucide="{{ $item['icon'] ?? 'check' }}" class="w-4.5 h-4.5"></i>
+                                        </span>
+                                        <div class="min-w-0">
+                                            <h4 class="text-xs sm:text-sm font-black text-slate-800 transition leading-snug">{{ $item['label'] }}</h4>
+                                            @if (!empty($item['desc']))
+                                                <p class="text-[10px] sm:text-[11px] text-slate-400 font-semibold mt-1 leading-relaxed">{{ $item['desc'] }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+
+                        <!-- Belum Termasuk -->
+                        <div class="space-y-4">
+                            <h4 class="text-xs sm:text-sm font-black text-rose-700 flex items-center gap-2.5">
+                                <i data-lucide="x-circle" class="w-5 h-5 text-rose-605"></i>
+                                Belum Termasuk
+                            </h4>
+                            <div class="grid grid-cols-1 gap-3">
+                                @php
+                                    $exclusions = [
+                                        ['icon' => 'syringe', 'label' => 'Vaksin Meningitis', 'desc' => 'Persyaratan wajib kesehatan dari dinas terkait'],
+                                        ['icon' => 'weight', 'label' => 'Kelebihan Bagasi', 'desc' => 'Sesuai dengan ketentuan berat maksimal dari maskapai'],
+                                        ['icon' => 'wallet', 'label' => 'Pengeluaran Pribadi', 'desc' => 'Membeli oleh-oleh, laundry, telepon, dll.'],
+                                        ['icon' => 'file-text', 'label' => 'Pembuatan Paspor', 'desc' => 'Dokumen resmi perjalanan luar negeri jemaah'],
+                                    ];
+                                @endphp
+                                @foreach ($exclusions as $item)
+                                    <div class="flex items-start gap-3.5 p-3.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-rose-50/30 hover:border-rose-200 transition-all duration-300 group">
+                                        <span class="bg-rose-50 text-rose-600 rounded-xl p-2.5 shrink-0 group-hover:bg-rose-600 group-hover:text-white transition duration-300 flex items-center justify-center">
+                                            <i data-lucide="{{ $item['icon'] }}" class="w-4.5 h-4.5"></i>
+                                        </span>
+                                        <div class="min-w-0">
+                                            <h4 class="text-xs sm:text-sm font-black text-slate-800 transition leading-snug">{{ $item['label'] }}</h4>
+                                            @if (!empty($item['desc']))
+                                                <p class="text-[10px] sm:text-[11px] text-slate-400 font-semibold mt-1 leading-relaxed">{{ $item['desc'] }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fitur Paket -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-sm shadow-blue-500/50"></span> Fitur Paket
+                    </h3>
+                    
+                    <div class="flex flex-wrap gap-3">
+                        @php
+                            $features = [
+                                ['label' => 'Kereta Cepat', 'icon' => 'train-front', 'color' => 'indigo'],
+                                ['label' => 'Direct Flight', 'icon' => 'plane-takeoff', 'color' => 'blue'],
+                                ['label' => 'Free Perlengkapan', 'icon' => 'gift', 'color' => 'amber'],
+                            ];
+                        @endphp
+                        @foreach ($features as $f)
+                            @php
+                                $colClass = match ($f['color']) {
+                                    'indigo' => 'border-indigo-100 bg-indigo-50/50 text-indigo-750',
+                                    'blue' => 'border-blue-100 bg-blue-50/50 text-blue-750',
+                                    'amber' => 'border-amber-100 bg-amber-50/50 text-amber-750',
+                                    default => 'border-slate-100 bg-slate-50/50 text-slate-700',
+                                };
+                                $icoColor = "text-" . $f['color'] . "-600";
+                            @endphp
+                            <div class="inline-flex items-center gap-2.5 px-4.5 py-3 rounded-2xl border {{ $colClass }} text-xs font-black shadow-sm">
+                                <i data-lucide="{{ $f['icon'] }}" class="w-4.5 h-4.5 {{ $icoColor }}"></i>
+                                <span>{{ $f['label'] }}</span>
+                            </div>
                         @endforeach
+                    </div>
+                </div>
+
+                <!-- Opsi Harga -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shadow-sm shadow-emerald-500/50"></span> Opsi Harga
+                    </h3>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <!-- Quad -->
+                        <div class="flex flex-col justify-between p-5 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden group hover:border-blue-600/30 transition duration-300">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none mb-2">Quad (Sekamar Berempat)</p>
+                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-3 font-medium">Kamar untuk 4 orang jamaah</p>
+                        </div>
+
+                        <!-- Triple -->
+                        <div class="flex flex-col justify-between p-5 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden group hover:border-blue-600/30 transition duration-300">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none mb-2">Triple (Sekamar Bertiga)</p>
+                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price + 1500000, 0, ',', '.') }}</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-3 font-medium">Kamar untuk 3 orang jamaah</p>
+                        </div>
+
+                        <!-- Double -->
+                        <div class="flex flex-col justify-between p-5 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden group hover:border-blue-600/30 transition duration-300">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none mb-2">Double (Sekamar Berdua)</p>
+                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price + 3000000, 0, ',', '.') }}</p>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-3 font-medium">Kamar untuk 2 orang jamaah</p>
+                        </div>
                     </div>
                 </div>
 

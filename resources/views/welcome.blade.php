@@ -532,6 +532,8 @@
             flex-shrink: 0;
             width: 100%;
             padding: 0 12px;
+            display: flex;
+            flex-direction: column;
         }
         @media (min-width: 768px) {
             .testimonial-slide {
@@ -1406,54 +1408,71 @@
                                     ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]' 
                                     : 'border-slate-100/80 hover:border-blue-600/20 shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
                             @endphp
-                            <div class="reveal-card bg-white rounded-3xl overflow-hidden transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group" data-purpose="package-item">
-                            <div>
-                                <div class="relative aspect-[16/10] overflow-hidden select-none">
-                                    <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="400" loading="lazy" decoding="async" />
-                                    @if ($package->badge_label)
-                                        <span class="absolute top-4 left-4 {{ $badgeClasses }} text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
-                                    @endif
-                                </div>
-                                <div class="p-6">
-                                    <h3 class="font-extrabold text-base md:text-lg text-slate-900 mb-4 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.5rem]">{{ $package->name }}</h3>
-                                    
-                                    <div class="grid grid-cols-2 gap-3 mb-2">
-                                        <div class="col-span-2 flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50">
-                                            <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-5 h-5"></i></span>
-                                            <div>
-                                                <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
-                                                <p class="text-xs md:text-sm font-bold text-slate-700 leading-none">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
+                            <div class="reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-purpose="package-item">
+                                <div class="w-full">
+                                    <div class="relative aspect-[16/10] overflow-hidden select-none rounded-t-3xl">
+                                        <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="400" loading="lazy" decoding="async" />
+                                        @if ($package->badge_label)
+                                            <span class="absolute top-4 left-4 {{ $badgeClasses }} text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
+                                        @endif
+                                    </div>
+                                    <div class="p-6">
+                                        <h3 class="font-extrabold text-base md:text-lg text-slate-900 mb-4 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.5rem]">{{ $package->name }}</h3>
+                                        
+                                        <div class="grid grid-cols-2 gap-3 mb-2">
+                                            <div class="col-span-2 flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50">
+                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-5 h-5"></i></span>
+                                                <div>
+                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
+                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
-                                            <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-5 h-5"></i></span>
-                                            <div class="min-w-0">
-                                                <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
-                                                <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->airline }}</p>
+                                            <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
+                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-5 h-5"></i></span>
+                                                <div class="min-w-0">
+                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
+                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->airline }}</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
-                                            <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-5 h-5"></i></span>
-                                            <div class="min-w-0">
-                                                <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
-                                                <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->hotel }}</p>
+                                            <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
+                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-5 h-5"></i></span>
+                                                <div class="min-w-0">
+                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
+                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->hotel }}</p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="px-6 pb-6 pt-4 border-t border-slate-100/60 bg-blue-600/[0.01] flex items-center justify-between">
-                                <div>
-                                    <p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-1">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
-                                    <p class="font-extrabold text-lg md:text-xl text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                                
+                                <div class="px-6 pb-6 pt-5 border-t-2 border-dashed border-slate-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
+                                    <!-- Ticket notches overlaying the dashed line -->
+                                    <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#fafaf9] border border-slate-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+                                    <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#fafaf9] border border-slate-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+
+                                    <div class="flex items-center gap-3">
+                                        <!-- Tiny Barcode Stub -->
+                                        <div class="hidden xs:flex items-center gap-[1.5px] opacity-20 group-hover:opacity-35 transition duration-300 select-none flex-shrink-0">
+                                            <div class="w-[1.5px] h-6 bg-slate-800"></div>
+                                            <div class="w-[3px] h-6 bg-slate-800"></div>
+                                            <div class="w-[1px] h-6 bg-slate-800"></div>
+                                            <div class="w-[4px] h-6 bg-slate-800"></div>
+                                            <div class="w-[1.5px] h-6 bg-slate-800"></div>
+                                            <div class="w-[3px] h-6 bg-slate-800"></div>
+                                            <div class="w-[1px] h-6 bg-slate-800"></div>
+                                            <div class="w-[2px] h-6 bg-slate-800"></div>
+                                        </div>
+                                        <div>
+                                            <p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
+                                            <p class="font-extrabold text-lg md:text-xl text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('packages.show', $package->slug) }}" class="magnetic-button inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
+                                        <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
+                                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
+                                    </a>
                                 </div>
-                                <a href="{{ route('packages.show', $package->slug) }}" class="magnetic-button inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
-                                    <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
-                                </a>
                             </div>
-                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -1530,49 +1549,49 @@
             @endphp
             
             <!-- Gallery Grid (Albums Folder View) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
                 @foreach ($displayAlbums as $album)
                     <!-- Album Folder Card -->
-                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-[2rem] border border-slate-100/80 hover:border-blue-600/15 p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-5 relative overflow-hidden cursor-pointer" 
+                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-slate-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
                          data-album-name="{{ $album->name }}"
                          data-items="{{ json_encode($album->items) }}">
                         
                         <!-- Folder Tab Shape Design -->
-                        <div class="relative aspect-[4/3] rounded-2xl overflow-hidden bg-slate-50 border border-slate-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
+                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-slate-50 border border-slate-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
                             @if ($album->cover_url)
                                 <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
                             @else
                                 <div class="flex flex-col items-center gap-2 text-slate-300">
-                                    <i data-lucide="folder" class="w-12 h-12 stroke-[1.5]"></i>
+                                    <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
                                 </div>
                             @endif
                             
                             <!-- Folder Tag Badge on Top Left -->
-                            <div class="absolute top-4 left-4 bg-slate-950/80 backdrop-blur-md text-white text-[9px] font-extrabold px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1.5 shadow-sm">
-                                <i data-lucide="folder" class="w-3.5 h-3.5"></i>
+                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-slate-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
+                                <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
                                 Album
                             </div>
                             
                             <!-- Media Count Badge on Bottom Right -->
-                            <div class="absolute bottom-4 right-4 bg-blue-600 text-white text-[10px] font-black px-3.5 py-2 rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
-                                {{ $album->count }} Foto &amp; Video
+                            <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-blue-600 text-white text-[8px] sm:text-[10px] font-black px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
+                                {{ $album->count }} <span class="hidden sm:inline">Foto &amp; Video</span><span class="inline sm:hidden">Media</span>
                             </div>
 
                             <!-- Play Overlay if it contains videos -->
                             <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-slate-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <div class="w-14 h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
-                                    <i data-lucide="eye" class="w-6 h-6"></i>
+                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
+                                    <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Album Description Info -->
                         <div class="flex flex-col">
-                            <h3 class="font-extrabold text-slate-900 text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
-                            <p class="text-xs text-slate-400 mt-1 flex items-center gap-1.5 font-medium">
-                                <i data-lucide="calendar" class="w-4 h-4 text-blue-600"></i>
-                                Lihat dokumentasi perjalanan
+                            <h3 class="font-extrabold text-slate-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
+                            <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
+                                <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
                             </p>
                         </div>
                     </div>
@@ -1631,7 +1650,11 @@
     <!-- END: Gallery -->
 
     <!-- BEGIN: Testimonials -->
-    <section class="py-16 md:py-24 bg-gradient-to-tr from-blue-600/12 via-blue-600/3 to-stone-50" id="testimoni" data-purpose="testimonials">
+    <section class="py-16 md:py-24 bg-gradient-to-tr from-blue-600/12 via-blue-600/3 to-stone-50 overflow-hidden relative" id="testimoni" data-purpose="testimonials">
+        <!-- Ambient Glowing Orbs -->
+        <div class="absolute left-1/4 top-1/4 w-[450px] h-[220px] bg-blue-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
+        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16 reveal flex flex-col items-center gap-3">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
@@ -1659,43 +1682,47 @@
                     <div id="testimonial-track" class="cursor-grab active:cursor-grabbing">
                         @if($testimonials->count() > 0)
                             @foreach ($testimonials as $testimonial)
-                                <div class="testimonial-slide select-none">
-                                    <div class="soft-card glow-card p-8 rounded-3xl soft-shadow hover:shadow-lg border border-slate-100/80 hover:border-blue-600/15 transition-all duration-300 flex flex-col justify-between h-full bg-white">
-                                        <div>
-                                            <div class="flex items-center justify-between gap-4 mb-6">
-                                                <div class="flex items-center gap-4">
-                                                    <div class="w-12 h-12 rounded-full bg-blue-600/10 flex items-center justify-center text-blue-600 font-extrabold text-sm border border-blue-600/10 flex-shrink-0 relative">
-                                                        <i data-lucide="user" class="w-5 h-5"></i>
-                                                        @if(!empty($testimonial->video_url))
-                                                            <span class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 w-5 h-5 rounded-full flex items-center justify-center border border-white shadow-md">
-                                                                <i data-lucide="play" class="w-2 h-2 fill-current ml-0.5 animate-pulse"></i>
-                                                            </span>
-                                                        @endif
+                                <div class="testimonial-slide select-none group">
+                                    <!-- Outer Shell (Double-Bezel) -->
+                                    <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                        <!-- Inner Core -->
+                                        <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                            <div>
+                                                <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                    <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                                                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/10 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-600/10 flex-shrink-0 relative">
+                                                            <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                                            @if(!empty($testimonial->video_url))
+                                                                <span class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center border border-white shadow-md">
+                                                                    <i data-lucide="play" class="w-1.5 h-1.5 sm:w-2 sm:h-2 fill-current ml-0.5 animate-pulse"></i>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                        <div class="min-w-0">
+                                                            <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h4>
+                                                            <p class="text-xs text-slate-400 truncate">{{ $testimonial->location }}</p>
+                                                        </div>
                                                     </div>
-                                                    <div>
-                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base">{{ $testimonial->name }}</h4>
-                                                        <p class="text-xs text-slate-400">{{ $testimonial->location }}</p>
-                                                    </div>
+                                                    @if(!empty($testimonial->video_url))
+                                                        <button class="play-testimonial-btn flex-shrink-0 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all duration-300 group-hover:scale-105" 
+                                                                data-video-url="{{ $testimonial->video_url }}" 
+                                                                data-name="{{ $testimonial->name }}"
+                                                                data-location="{{ $testimonial->location }}"
+                                                                title="Putar Video Testimoni"
+                                                                aria-label="Play video testimonial">
+                                                            <i data-lucide="play" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current ml-0.5 transition-transform group-hover:translate-x-0.5"></i>
+                                                        </button>
+                                                    @endif
                                                 </div>
-                                                @if(!empty($testimonial->video_url))
-                                                    <button class="play-testimonial-btn flex-shrink-0 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 w-10 h-10 rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all duration-200" 
-                                                            data-video-url="{{ $testimonial->video_url }}" 
-                                                            data-name="{{ $testimonial->name }}"
-                                                            data-location="{{ $testimonial->location }}"
-                                                            title="Putar Video Testimoni"
-                                                            aria-label="Play video testimonial">
-                                                        <i data-lucide="play" class="w-4 h-4 fill-current ml-0.5"></i>
-                                                    </button>
-                                                @endif
+                                                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
+                                                    "{{ $testimonial->message }}"
+                                                </p>
                                             </div>
-                                            <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 font-light">
-                                                "{{ $testimonial->message }}"
-                                            </p>
-                                        </div>
-                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">
-                                            @for ($i = 0; $i < $testimonial->rating; $i++)
-                                                ★
-                                            @endfor
+                                            <div class="flex text-amber-400 font-bold gap-1 text-xs">
+                                                @for ($i = 0; $i < $testimonial->rating; $i++)
+                                                    ★
+                                                @endfor
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -1703,63 +1730,75 @@
                         @else
                             <!-- Fallback static items -->
                             <!-- Testimonial 1 -->
-                            <div class="testimonial-slide select-none">
-                                <div class="soft-card glow-card p-8 rounded-3xl soft-shadow transition-all duration-300 hover:shadow-lg flex flex-col justify-between h-full bg-white border border-slate-100/80">
-                                    <div>
-                                        <div class="flex items-center gap-4 mb-6">
-                                            <div class="w-12 h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-sm border border-blue-100/55">
-                                                <i data-lucide="user" class="w-5 h-5"></i>
+                            <div class="testimonial-slide select-none group">
+                                <!-- Outer Shell (Double-Bezel) -->
+                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <!-- Inner Core -->
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                        <div>
+                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
+                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h4>
+                                                    <p class="text-xs text-slate-400 truncate">Jakarta</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 class="font-extrabold text-slate-900 text-sm md:text-base">H. Muhammad Ridwan</h4>
-                                                <p class="text-xs text-slate-400">Jakarta</p>
-                                            </div>
+                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
+                                                "Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik."
+                                            </p>
                                         </div>
-                                        <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 font-light">
-                                            "Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik."
-                                        </p>
+                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
-                                    <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                 </div>
                             </div>
                             <!-- Testimonial 2 -->
-                            <div class="testimonial-slide select-none">
-                                <div class="soft-card glow-card p-8 rounded-3xl soft-shadow transition-all duration-300 hover:shadow-lg flex flex-col justify-between h-full bg-white border border-slate-100/80">
-                                    <div>
-                                        <div class="flex items-center gap-4 mb-6">
-                                            <div class="w-12 h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-sm border border-blue-100/55">
-                                                <i data-lucide="user" class="w-5 h-5"></i>
+                            <div class="testimonial-slide select-none group">
+                                <!-- Outer Shell (Double-Bezel) -->
+                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <!-- Inner Core -->
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                        <div>
+                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
+                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h4>
+                                                    <p class="text-xs text-slate-400 truncate">Bandung</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 class="font-extrabold text-slate-900 text-sm md:text-base">Hj. Siti Aminah</h4>
-                                                <p class="text-xs text-slate-400">Bandung</p>
-                                            </div>
+                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
+                                                "Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!"
+                                            </p>
                                         </div>
-                                        <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 font-light">
-                                            "Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!"
-                                        </p>
+                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
-                                    <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                 </div>
                             </div>
                             <!-- Testimonial 3 -->
-                            <div class="testimonial-slide select-none">
-                                <div class="soft-card glow-card p-8 rounded-3xl soft-shadow transition-all duration-300 hover:shadow-lg flex flex-col justify-between h-full bg-white border border-slate-100/80">
-                                    <div>
-                                        <div class="flex items-center gap-4 mb-6">
-                                            <div class="w-12 h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-sm border border-blue-100/55">
-                                                <i data-lucide="user" class="w-5 h-5"></i>
+                            <div class="testimonial-slide select-none group">
+                                <!-- Outer Shell (Double-Bezel) -->
+                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <!-- Inner Core -->
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                        <div>
+                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
+                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                                </div>
+                                                <div class="min-w-0">
+                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h4>
+                                                    <p class="text-xs text-slate-400 truncate">Surabaya</p>
+                                                </div>
                                             </div>
-                                            <div>
-                                                <h4 class="font-extrabold text-slate-900 text-sm md:text-base">H. Achmad Fauzi</h4>
-                                                <p class="text-xs text-slate-400">Surabaya</p>
-                                            </div>
+                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
+                                                "Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia."
+                                            </p>
                                         </div>
-                                        <p class="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 font-light">
-                                            "Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia."
-                                        </p>
+                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
-                                    <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                 </div>
                             </div>
                         @endif
@@ -1767,7 +1806,7 @@
                 </div>
             </div>
             <!-- Testimonial Dots Navigation -->
-            <div class="flex justify-center items-center gap-2.5 mt-12" id="testimonial-dots">
+            <div class="flex justify-center items-center gap-2.5 mt-8 sm:mt-12" id="testimonial-dots">
             </div>
         </div>
     </section>
