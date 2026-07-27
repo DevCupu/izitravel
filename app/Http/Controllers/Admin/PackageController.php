@@ -150,16 +150,30 @@ class PackageController extends Controller
             'duration_days' => ['required', 'integer', 'min:1', 'max:60'],
             'departure_date' => ['required', 'date'],
             'airline' => ['required', 'string', 'max:255'],
+            'start_city' => ['nullable', 'string', 'max:255'],
+            'pembimbing' => ['nullable', 'string', 'max:255'],
             'hotel' => ['nullable', 'string', 'max:255'],
             'hotel_makkah' => ['nullable', 'string', 'max:255'],
             'hotel_makkah_nights' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'hotel_makkah_distance' => ['nullable', 'string', 'max:100'],
             'hotel_madinah' => ['nullable', 'string', 'max:255'],
             'hotel_madinah_nights' => ['nullable', 'integer', 'min:1', 'max:30'],
+            'hotel_madinah_distance' => ['nullable', 'string', 'max:100'],
             'inclusions' => ['nullable', 'array'],
             'inclusions.*.icon' => ['required_with:inclusions', 'string', 'max:50'],
             'inclusions.*.label' => ['required_with:inclusions', 'string', 'max:100'],
             'inclusions.*.desc' => ['nullable', 'string', 'max:255'],
+            'exclusions' => ['nullable', 'array'],
+            'exclusions.*.icon' => ['required_with:exclusions', 'string', 'max:50'],
+            'exclusions.*.label' => ['required_with:exclusions', 'string', 'max:100'],
+            'exclusions.*.desc' => ['nullable', 'string', 'max:255'],
+            'features' => ['nullable', 'array'],
+            'features.*.icon' => ['required_with:features', 'string', 'max:50'],
+            'features.*.label' => ['required_with:features', 'string', 'max:100'],
+            'features.*.color' => ['required_with:features', 'string', 'in:indigo,blue,amber,slate'],
             'price' => ['required', 'integer', 'min:0'],
+            'price_triple' => ['nullable', 'integer', 'min:0'],
+            'price_double' => ['nullable', 'integer', 'min:0'],
             'category' => ['nullable', 'string', 'max:50'],
             'badge_label' => ['nullable', 'string', 'max:50'],
             'badge_color' => ['nullable', 'string', 'in:amber,emerald,indigo,rose'],
@@ -176,6 +190,20 @@ class PackageController extends Controller
         // Build inclusions: filter out blank rows
         $rawInclusions = $request->input('inclusions', []);
         $data['inclusions'] = collect($rawInclusions)
+            ->filter(fn ($item) => !empty($item['label']))
+            ->values()
+            ->toArray() ?: null;
+
+        // Build exclusions: filter out blank rows
+        $rawExclusions = $request->input('exclusions', []);
+        $data['exclusions'] = collect($rawExclusions)
+            ->filter(fn ($item) => !empty($item['label']))
+            ->values()
+            ->toArray() ?: null;
+
+        // Build features: filter out blank rows
+        $rawFeatures = $request->input('features', []);
+        $data['features'] = collect($rawFeatures)
             ->filter(fn ($item) => !empty($item['label']))
             ->values()
             ->toArray() ?: null;

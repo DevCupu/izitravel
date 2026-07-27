@@ -60,10 +60,26 @@
                 <label for="airline" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Maskapai') }}</label>
                 <input type="text" id="airline" name="airline" value="{{ old('airline', $package->airline) }}" required
                     class="transition"
-                    placeholder="Contoh: Garuda Indonesia">
+                    placeholder="Contoh: Saudia Airlines (Direct)">
                 @error('airline') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
  
+            <div class="form-group">
+                <label for="start_city" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Kota Start (Keberangkatan)') }}</label>
+                <input type="text" id="start_city" name="start_city" value="{{ old('start_city', $package->start_city ?? 'Jakarta') }}" required
+                    class="transition"
+                    placeholder="Contoh: Jakarta">
+                @error('start_city') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="pembimbing" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Pembimbing / Muthawwif') }}</label>
+                <input type="text" id="pembimbing" name="pembimbing" value="{{ old('pembimbing', $package->pembimbing ?? 'Muthawwif IZI Travel') }}" required
+                    class="transition"
+                    placeholder="Contoh: Muthawwif IZI Travel">
+                @error('pembimbing') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
             <div class="md:col-span-2">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 flex items-center gap-1.5">
                     <i data-lucide="hotel" class="w-3.5 h-3.5"></i> Hotel Akomodasi
@@ -77,15 +93,22 @@
                         <div class="form-group">
                             <label for="hotel_makkah">Nama Hotel Makkah</label>
                             <input type="text" id="hotel_makkah" name="hotel_makkah" value="{{ old('hotel_makkah', $package->hotel_makkah) }}"
-                                class="transition" placeholder="Contoh: Safwah Royal Orchid">
+                                class="transition" placeholder="Contoh: Anjum Makkah Hotel">
                             @error('hotel_makkah') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                         <div class="form-group">
                             <label for="hotel_makkah_nights">Jumlah Malam di Makkah</label>
                             <input type="number" id="hotel_makkah_nights" name="hotel_makkah_nights" min="1" max="30"
                                 value="{{ old('hotel_makkah_nights', $package->hotel_makkah_nights) }}"
-                                class="transition" placeholder="Contoh: 7">
+                                class="transition" placeholder="Contoh: 5">
                             @error('hotel_makkah_nights') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="hotel_makkah_distance">Estimasi Jarak Makkah (meter)</label>
+                            <input type="text" id="hotel_makkah_distance" name="hotel_makkah_distance"
+                                value="{{ old('hotel_makkah_distance', $package->hotel_makkah_distance ?? '680 m') }}"
+                                class="transition" placeholder="Contoh: ± 680 m ke Masjidil Haram">
+                            @error('hotel_makkah_distance') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                     </div>
                     <!-- Hotel Madinah -->
@@ -96,15 +119,22 @@
                         <div class="form-group">
                             <label for="hotel_madinah">Nama Hotel Madinah</label>
                             <input type="text" id="hotel_madinah" name="hotel_madinah" value="{{ old('hotel_madinah', $package->hotel_madinah) }}"
-                                class="transition" placeholder="Contoh: Mövenpick Hotel">
+                                class="transition" placeholder="Contoh: Aqeeq Madinah Hotel">
                             @error('hotel_madinah') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                         <div class="form-group">
                             <label for="hotel_madinah_nights">Jumlah Malam di Madinah</label>
                             <input type="number" id="hotel_madinah_nights" name="hotel_madinah_nights" min="1" max="30"
                                 value="{{ old('hotel_madinah_nights', $package->hotel_madinah_nights) }}"
-                                class="transition" placeholder="Contoh: 4">
+                                class="transition" placeholder="Contoh: 3">
                             @error('hotel_madinah_nights') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="hotel_madinah_distance">Estimasi Jarak Madinah (meter)</label>
+                            <input type="text" id="hotel_madinah_distance" name="hotel_madinah_distance"
+                                value="{{ old('hotel_madinah_distance', $package->hotel_madinah_distance ?? '250 m') }}"
+                                class="transition" placeholder="Contoh: ± 250 m ke Masjid Nabawi">
+                            @error('hotel_madinah_distance') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                     </div>
                 </div>
@@ -115,18 +145,19 @@
                 <label for="hotel" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Hotel (Tampilan Singkat)') }}</label>
                 <input type="text" id="hotel" name="hotel" value="{{ old('hotel', $package->hotel) }}"
                     class="transition"
-                    placeholder="Contoh: Safwah Royal Orchid / Mövenpick">
+                    placeholder="Contoh: Anjum Makkah / Aqeeq Madinah">
                 <p class="mt-1 text-[10px] text-slate-400">Ditampilkan sebagai ringkasan hotel di card paket.</p>
-                @error('hotel') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
         </div>
     </div>
  
     <div class="border-t border-slate-100 dark:border-slate-700"></div>
- 
+  
     <!-- Section: Harga & Badge -->
     <div x-data="{ 
         rawPrice: @js(old('price', $package->price ?? 0)),
+        rawPriceTriple: @js(old('price_triple', $package->price_triple ?? 0)),
+        rawPriceDouble: @js(old('price_double', $package->price_double ?? 0)),
         badgeColor: @js(old('badge_color', $package->badge_color ?? '')),
         badgeLabel: @js(old('badge_label', $package->badge_label ?? '')),
         get formattedPrice() {
@@ -136,6 +167,22 @@
         set formattedPrice(val) {
             let clean = val.replace(/[^\d]/g, '');
             this.rawPrice = clean ? parseInt(clean) : '';
+        },
+        get formattedPriceTriple() {
+            if (!this.rawPriceTriple) return '';
+            return new Intl.NumberFormat('id-ID').format(this.rawPriceTriple);
+        },
+        set formattedPriceTriple(val) {
+            let clean = val.replace(/[^\d]/g, '');
+            this.rawPriceTriple = clean ? parseInt(clean) : '';
+        },
+        get formattedPriceDouble() {
+            if (!this.rawPriceDouble) return '';
+            return new Intl.NumberFormat('id-ID').format(this.rawPriceDouble);
+        },
+        set formattedPriceDouble(val) {
+            let clean = val.replace(/[^\d]/g, '');
+            this.rawPriceDouble = clean ? parseInt(clean) : '';
         }
     }" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm space-y-6">
         
@@ -171,14 +218,14 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <!-- Harga Field -->
             <div class="form-group">
-                <label for="price_display" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Harga Paket (Rp)') }}</label>
+                <label for="price_display" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Harga Quad (Sekamar Berempat) (Rp)') }}</label>
                 <div class="relative group">
                     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-black text-slate-400 group-focus-within:text-blue-500 transition-colors">Rp</span>
                     <!-- Hidden field to submit plain integer to the backend -->
                     <input type="hidden" name="price" :value="rawPrice">
                     <!-- Text field for formatted display -->
                     <input type="text" id="price_display" x-model="formattedPrice" required
-                        class="pl-12 transition text-base font-extrabold tracking-wide text-slate-800 dark:text-white" placeholder="Contoh: 29.700.000">
+                        class="pl-12 transition text-base font-extrabold tracking-wide text-slate-800 dark:text-white" placeholder="Contoh: 32.900.000">
                 </div>
                 <p class="mt-1 text-[10px] text-slate-400 dark:text-slate-500">Angka akan diformat otomatis dengan pemisah titik.</p>
                 @error('price') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
@@ -191,6 +238,32 @@
                     class="transition font-semibold" placeholder="Contoh: 1">
                 <p class="mt-1 text-[10px] text-slate-400 dark:text-slate-500">Menentukan urutan paket di landing page (0 teratas).</p>
                 @error('order') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <!-- Harga Triple Field -->
+            <div class="form-group">
+                <label for="price_triple_display" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Harga Triple (Sekamar Bertiga) (Rp)') }}</label>
+                <div class="relative group">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-black text-slate-400 group-focus-within:text-blue-500 transition-colors">Rp</span>
+                    <input type="hidden" name="price_triple" :value="rawPriceTriple">
+                    <input type="text" id="price_triple_display" x-model="formattedPriceTriple"
+                        class="pl-12 transition text-base font-extrabold tracking-wide text-slate-800 dark:text-white" placeholder="Contoh: 34.400.000">
+                </div>
+                <p class="mt-1 text-[10px] text-slate-450 dark:text-slate-500">Opsional: Kosongkan untuk menggunakan default (Harga Quad + Rp 1.500.000).</p>
+                @error('price_triple') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <!-- Harga Double Field -->
+            <div class="form-group">
+                <label for="price_double_display" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Harga Double (Sekamar Berdua) (Rp)') }}</label>
+                <div class="relative group">
+                    <span class="absolute left-4 top-1/2 -translate-y-1/2 text-sm font-black text-slate-400 group-focus-within:text-blue-500 transition-colors">Rp</span>
+                    <input type="hidden" name="price_double" :value="rawPriceDouble">
+                    <input type="text" id="price_double_display" x-model="formattedPriceDouble"
+                        class="pl-12 transition text-base font-extrabold tracking-wide text-slate-800 dark:text-white" placeholder="Contoh: 35.900.000">
+                </div>
+                <p class="mt-1 text-[10px] text-slate-450 dark:text-slate-500">Opsional: Kosongkan untuk menggunakan default (Harga Quad + Rp 3.000.000).</p>
+                @error('price_double') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
  
             <!-- Warna Badge Field -->
@@ -357,6 +430,261 @@
             Tambah Fasilitas
         </button>
         @error('inclusions') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+    </div>
+
+    <!-- Section: Biaya Belum Termasuk -->
+    @php
+        $defaultExclusions = [
+            ['icon' => 'syringe', 'label' => 'Vaksin Meningitis', 'desc' => 'Persyaratan wajib kesehatan dari dinas terkait'],
+            ['icon' => 'weight', 'label' => 'Kelebihan Bagasi', 'desc' => 'Sesuai dengan ketentuan berat maksimal dari maskapai'],
+            ['icon' => 'wallet', 'label' => 'Pengeluaran Pribadi', 'desc' => 'Membeli oleh-oleh, laundry, telepon, dll.'],
+            ['icon' => 'file-text', 'label' => 'Pembuatan Paspor', 'desc' => 'Dokumen resmi perjalanan luar negeri jemaah'],
+        ];
+        $exclusions = old('exclusions', $package->exclusions ?? $defaultExclusions);
+    @endphp
+    <div x-data="{
+        items: {{ json_encode($exclusions) }},
+        allIcons: {{ json_encode($allIcons) }},
+        pickerIndex: null,
+        iconSearch: '',
+        get filteredIcons() {
+            if (!this.iconSearch) return this.allIcons;
+            return this.allIcons.filter(n => n.includes(this.iconSearch.toLowerCase()));
+        },
+        openPicker(i) {
+            this.pickerIndex = (this.pickerIndex === i) ? null : i;
+            this.iconSearch = '';
+            if (this.pickerIndex !== null) {
+                this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+            }
+        },
+        selectIcon(i, name) {
+            this.items[i].icon = name;
+            this.pickerIndex = null;
+            this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+        },
+        addItem() {
+            this.items.push({ icon: 'x-circle', label: '', desc: '' });
+            this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+        },
+        removeItem(i) {
+            this.items.splice(i, 1);
+            if (this.pickerIndex === i) this.pickerIndex = null;
+        }
+    }" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-red-50 dark:bg-red-900/30 text-red-500 flex items-center justify-center shrink-0">
+                <i data-lucide="x-circle" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Biaya Belum Termasuk</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Klik ikon untuk mengganti, isi label dan deskripsi</p>
+            </div>
+        </div>
+
+        <div class="space-y-2 mb-3">
+            <template x-for="(item, i) in items" :key="i">
+                <div class="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-600">
+
+                    <!-- Icon Picker Trigger -->
+                    <div class="relative shrink-0 mt-5">
+                        <input type="hidden" :name="'exclusions['+i+'][icon]'" x-model="item.icon">
+                        <button type="button"
+                            @click="openPicker(i)"
+                            :title="'Ikon: ' + item.icon"
+                            class="w-10 h-10 flex flex-col items-center justify-center rounded-xl border-2 transition gap-0.5"
+                            :class="pickerIndex === i
+                                ? 'border-red-500 bg-red-50 dark:bg-red-900/30 text-red-650'
+                                : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-red-400'">
+                            <i :data-lucide="item.icon" class="w-4 h-4 pointer-events-none"></i>
+                            <span class="text-[8px] font-bold leading-none opacity-50" x-text="item.icon.slice(0,6)"></span>
+                        </button>
+
+                        <!-- Picker Dropdown -->
+                        <div x-show="pickerIndex === i"
+                            x-cloak
+                            @click.outside="pickerIndex = null"
+                            class="absolute left-0 top-full mt-1 z-50 w-72 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-600 p-3">
+                            <input x-model="iconSearch"
+                                type="text"
+                                placeholder="Cari nama ikon... (contoh: wallet)"
+                                class="w-full mb-2.5 px-3 py-2 text-xs rounded-xl border-slate-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white focus:border-red-500 focus:ring-red-500">
+                            <div class="grid grid-cols-7 gap-1 max-h-52 overflow-y-auto pr-1">
+                                <template x-for="icon in filteredIcons" :key="icon">
+                                    <button type="button"
+                                        @click="selectIcon(i, icon)"
+                                        :title="icon"
+                                        class="p-2 rounded-lg flex items-center justify-center transition group"
+                                        :class="item.icon === icon
+                                            ? 'bg-red-100 dark:bg-red-900/40 text-red-600 ring-2 ring-red-400'
+                                            : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'">
+                                        <i :data-lucide="icon" class="w-4 h-4 pointer-events-none"></i>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Label & Desc inputs -->
+                    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Label Biaya</label>
+                            <input type="text" :name="'exclusions['+i+'][label]'" x-model="item.label"
+                                class="w-full px-3 py-2 text-xs rounded-lg border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="Contoh: Vaksin Meningitis">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Deskripsi</label>
+                            <input type="text" :name="'exclusions['+i+'][desc]'" x-model="item.desc"
+                                class="w-full px-3 py-2 text-xs rounded-lg border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="Penjelasan singkat...">
+                        </div>
+                    </div>
+
+                    <!-- Remove button -->
+                    <button type="button" @click="removeItem(i)"
+                        class="mt-5 p-1.5 text-red-400 hover:text-red-650 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition shrink-0">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </template>
+        </div>
+
+        <button type="button" @click="addItem()"
+            class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 hover:bg-red-100 dark:hover:bg-red-900/40 rounded-xl border border-red-200 dark:border-red-700 transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            Tambah Biaya Belum Termasuk
+        </button>
+        @error('exclusions') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+    </div>
+
+    <!-- Section: Fitur Paket -->
+    @php
+        $defaultFeatures = [
+            ['label' => 'Kereta Cepat', 'icon' => 'train-front', 'color' => 'indigo'],
+            ['label' => 'Direct Flight', 'icon' => 'plane-takeoff', 'color' => 'blue'],
+            ['label' => 'Free Perlengkapan', 'icon' => 'gift', 'color' => 'amber'],
+        ];
+        $features = old('features', $package->features ?? $defaultFeatures);
+    @endphp
+    <div x-data="{
+        items: {{ json_encode($features) }},
+        allIcons: {{ json_encode($allIcons) }},
+        pickerIndex: null,
+        iconSearch: '',
+        get filteredIcons() {
+            if (!this.iconSearch) return this.allIcons;
+            return this.allIcons.filter(n => n.includes(this.iconSearch.toLowerCase()));
+        },
+        openPicker(i) {
+            this.pickerIndex = (this.pickerIndex === i) ? null : i;
+            this.iconSearch = '';
+            if (this.pickerIndex !== null) {
+                this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+            }
+        },
+        selectIcon(i, name) {
+            this.items[i].icon = name;
+            this.pickerIndex = null;
+            this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+        },
+        addItem() {
+            this.items.push({ icon: 'sparkles', label: '', color: 'blue' });
+            this.$nextTick(() => { if (window.lucide) lucide.createIcons(); });
+        },
+        removeItem(i) {
+            this.items.splice(i, 1);
+            if (this.pickerIndex === i) this.pickerIndex = null;
+        }
+    }" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center shrink-0">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Fitur Paket</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Klik ikon untuk mengganti, isi label dan pilih warna desain</p>
+            </div>
+        </div>
+
+        <div class="space-y-2 mb-3">
+            <template x-for="(item, i) in items" :key="i">
+                <div class="flex items-start gap-2 p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-600">
+
+                    <!-- Icon Picker Trigger -->
+                    <div class="relative shrink-0 mt-5">
+                        <input type="hidden" :name="'features['+i+'][icon]'" x-model="item.icon">
+                        <button type="button"
+                            @click="openPicker(i)"
+                            :title="'Ikon: ' + item.icon"
+                            class="w-10 h-10 flex flex-col items-center justify-center rounded-xl border-2 transition gap-0.5"
+                            :class="pickerIndex === i
+                                ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600'
+                                : 'border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:border-blue-400'">
+                            <i :data-lucide="item.icon" class="w-4 h-4 pointer-events-none"></i>
+                            <span class="text-[8px] font-bold leading-none opacity-50" x-text="item.icon.slice(0,6)"></span>
+                        </button>
+
+                        <!-- Picker Dropdown -->
+                        <div x-show="pickerIndex === i"
+                            x-cloak
+                            @click.outside="pickerIndex = null"
+                            class="absolute left-0 top-full mt-1 z-50 w-72 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-600 p-3">
+                            <input x-model="iconSearch"
+                                type="text"
+                                placeholder="Cari nama ikon... (contoh: plane)"
+                                class="w-full mb-2.5 px-3 py-2 text-xs rounded-xl border-slate-200 dark:border-slate-600 dark:bg-slate-700 dark:text-white focus:border-blue-500 focus:ring-blue-500">
+                            <div class="grid grid-cols-7 gap-1 max-h-52 overflow-y-auto pr-1">
+                                <template x-for="icon in filteredIcons" :key="icon">
+                                    <button type="button"
+                                        @click="selectIcon(i, icon)"
+                                        :title="icon"
+                                        class="p-2 rounded-lg flex items-center justify-center transition group"
+                                        :class="item.icon === icon
+                                            ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-600 ring-2 ring-blue-400'
+                                            : 'hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300'">
+                                        <i :data-lucide="icon" class="w-4 h-4 pointer-events-none"></i>
+                                    </button>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Label & Color inputs -->
+                    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Label Fitur</label>
+                            <input type="text" :name="'features['+i+'][label]'" x-model="item.label"
+                                class="w-full px-3 py-2 text-xs rounded-lg border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-blue-500 focus:ring-blue-500"
+                                placeholder="Contoh: Kereta Cepat">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1">Warna Desain</label>
+                            <select :name="'features['+i+'][color]'" x-model="item.color"
+                                class="w-full px-3 py-2 text-xs rounded-lg border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-blue-500 focus:ring-blue-500 font-bold">
+                                <option value="indigo">Indigo</option>
+                                <option value="blue">Blue</option>
+                                <option value="amber">Amber</option>
+                                <option value="slate">Slate</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Remove button -->
+                    <button type="button" @click="removeItem(i)"
+                        class="mt-5 p-1.5 text-red-400 hover:text-red-650 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition shrink-0">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </template>
+        </div>
+
+        <button type="button" @click="addItem()"
+            class="inline-flex items-center gap-2 px-4 py-2 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/20 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-xl border border-blue-200 dark:border-blue-700 transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            Tambah Fitur Paket
+        </button>
+        @error('features') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
     </div>
 
     <div class="border-t border-slate-100 dark:border-slate-700"></div>

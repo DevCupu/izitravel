@@ -96,6 +96,7 @@
                 'Pengaturan Utama' => [
                     ['identity', 'Identitas Website', 'globe', 'Nama website, logo perusahaan, dan favicon.'],
                     ['seo_advanced', 'SEO & Webmaster', 'sliders', 'Pengaturan lanjutan SEO, Open Graph, sitemap, dan robots.txt.'],
+                    ['terms_privacy', 'Syarat & Kebijakan', 'file-text', 'Kelola isi Syarat & Ketentuan serta Kebijakan Privasi website.'],
                 ],
                 'Tata Letak Halaman Utama (Berurutan)' => [
                     ['hero', '1. Section Hero / Beranda', 'sparkles', 'Teks kaligrafi, slogan, badge atas, 3 floating badges, statistik, 4 trust indicators, dan gambar background.'],
@@ -438,6 +439,32 @@
                         <textarea id="seo_robots_txt" name="seo_robots_txt" rows="5" class="font-mono text-xs" placeholder="User-agent: *&#10;Disallow: /admin&#10;Allow: /">{{ old('seo_robots_txt', $settings['seo_robots_txt'] ?? '') }}</textarea>
                         <p class="text-[10px] text-slate-400 mt-1">Mengontrol bagian website mana saja yang boleh dirayapi mesin pencari. Biarkan kosong untuk menggunakan konfigurasi bawaan yang aman.</p>
                         @error('seo_robots_txt') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Syarat & Kebijakan -->
+            <div x-show="q.length ? true : tab === 'terms_privacy'" class="space-y-6" x-cloak>
+                <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 sm:p-8 space-y-6">
+                    <div class="flex items-center gap-2 mb-2">
+                        <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center shrink-0">
+                            <i data-lucide="file-text" class="w-4 h-4"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white">Syarat & Ketentuan serta Kebijakan Privasi</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="terms_content">Konten Syarat & Ketentuan</label>
+                        <textarea id="terms_content" name="terms_content" rows="12" placeholder="Tulis syarat & ketentuan penggunaan di sini..." class="w-full text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400">{{ old('terms_content', $settings['terms_content'] ?? '') }}</textarea>
+                        <p class="text-[10px] text-slate-400 mt-1">Kosongkan jika ingin menggunakan halaman Syarat & Ketentuan default statis bawaan website.</p>
+                        @error('terms_content') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="form-group border-t border-slate-100 dark:border-slate-750/50 pt-5">
+                        <label for="privacy_content">Konten Kebijakan Privasi</label>
+                        <textarea id="privacy_content" name="privacy_content" rows="12" placeholder="Tulis kebijakan privasi penggunaan di sini..." class="w-full text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 focus:ring-2 focus:ring-blue-400 focus:border-blue-400">{{ old('privacy_content', $settings['privacy_content'] ?? '') }}</textarea>
+                        <p class="text-[10px] text-slate-400 mt-1">Kosongkan jika ingin menggunakan halaman Kebijakan Privasi default statis bawaan website.</p>
+                        @error('privacy_content') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                     </div>
                 </div>
             </div>

@@ -316,7 +316,7 @@
                             <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="map-pin" class="w-5 h-5"></i></span>
                             <div class="min-w-0">
                                 <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Start</p>
-                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">Jakarta</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">{{ $package->start_city ?: 'Jakarta' }}</p>
                             </div>
                         </div>
                         <!-- Pembimbing -->
@@ -324,7 +324,7 @@
                             <span class="bg-blue-600/10 text-blue-600 p-2.5 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="user-check" class="w-5 h-5"></i></span>
                             <div class="min-w-0">
                                 <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-wider mb-1">Pembimbing</p>
-                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">Muthawwif IZI Travel</p>
+                                <p class="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight">{{ $package->pembimbing ?: 'Muthawwif IZI Travel' }}</p>
                             </div>
                         </div>
                     </div>
@@ -352,18 +352,24 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="text-base font-black text-slate-800 leading-snug">{{ $package->hotel_makkah ?: ($package->hotel ?: 'Hotel Bintang Pilihan') }}</p>
-                                @php
-                                    preg_match('/(\d+)\s*m/i', $package->hotel_makkah, $makkahDist);
-                                    $makkahDistance = $makkahDist[0] ?? '680 m';
+                                <p class="text-base font-black text-slate-800 leading-snug">{{ $package->hotel_makkah ?: ($package->hotel ?: 'Hotel Bintang Pilihan') }}</p>                                @php
+                                    $makkahDistance = $package->hotel_makkah_distance;
+                                    if (empty($makkahDistance)) {
+                                        preg_match('/(\d+)\s*m/i', $package->hotel_makkah, $makkahDist);
+                                        $makkahDistance = isset($makkahDist[0]) ? '± ' . $makkahDist[0] . ' ke Masjidil Haram' : '± 680 m ke Masjidil Haram';
+                                    } else {
+                                        if (!str_contains($makkahDistance, 'Masjidil') && !str_contains($makkahDistance, 'Haram')) {
+                                            $makkahDistance = '± ' . $makkahDistance . ' ke Masjidil Haram';
+                                        }
+                                    }
                                 @endphp
                                 <div class="flex items-center gap-1.5 mt-2 text-xs font-bold text-slate-500">
                                     <i data-lucide="footprints" class="w-4 h-4 text-amber-500"></i>
-                                    <span>Estimasi Jarak: ± {{ $makkahDistance }} ke Masjidil Haram</span>
+                                    <span>Estimasi Jarak: {{ $makkahDistance }}</span>
                                 </div>
                             </div>
                         </div>
-
+ 
                         <!-- Hotel Madinah -->
                         <div class="flex flex-col gap-4 p-5 rounded-2xl border border-emerald-100/80 bg-emerald-50/20 relative overflow-hidden group hover:bg-emerald-50/40 transition duration-300">
                             <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl pointer-events-none"></div>
@@ -381,12 +387,19 @@
                             <div>
                                 <p class="text-base font-black text-slate-800 leading-snug">{{ $package->hotel_madinah ?: ($package->hotel ?: 'Hotel Bintang Pilihan') }}</p>
                                 @php
-                                    preg_match('/(\d+)\s*m/i', $package->hotel_madinah, $madinahDist);
-                                    $madinahDistance = $madinahDist[0] ?? '250 m';
+                                    $madinahDistance = $package->hotel_madinah_distance;
+                                    if (empty($madinahDistance)) {
+                                        preg_match('/(\d+)\s*m/i', $package->hotel_madinah, $madinahDist);
+                                        $madinahDistance = isset($madinahDist[0]) ? '± ' . $madinahDist[0] . ' ke Masjid Nabawi' : '± 250 m ke Masjid Nabawi';
+                                    } else {
+                                        if (!str_contains($madinahDistance, 'Nabawi')) {
+                                            $madinahDistance = '± ' . $madinahDistance . ' ke Masjid Nabawi';
+                                        }
+                                    }
                                 @endphp
                                 <div class="flex items-center gap-1.5 mt-2 text-xs font-bold text-slate-500">
                                     <i data-lucide="footprints" class="w-4 h-4 text-emerald-500"></i>
-                                    <span>Estimasi Jarak: ± {{ $madinahDistance }} ke Masjid Nabawi</span>
+                                    <span>Estimasi Jarak: {{ $madinahDistance }}</span>
                                 </div>
                             </div>
                         </div>
@@ -443,7 +456,7 @@
                             </h4>
                             <div class="grid grid-cols-1 gap-3">
                                 @php
-                                    $exclusions = [
+                                    $exclusions = $package->exclusions ?? [
                                         ['icon' => 'syringe', 'label' => 'Vaksin Meningitis', 'desc' => 'Persyaratan wajib kesehatan dari dinas terkait'],
                                         ['icon' => 'weight', 'label' => 'Kelebihan Bagasi', 'desc' => 'Sesuai dengan ketentuan berat maksimal dari maskapai'],
                                         ['icon' => 'wallet', 'label' => 'Pengeluaran Pribadi', 'desc' => 'Membeli oleh-oleh, laundry, telepon, dll.'],
@@ -453,7 +466,7 @@
                                 @foreach ($exclusions as $item)
                                     <div class="flex items-start gap-3.5 p-3.5 rounded-2xl border border-slate-100 bg-slate-50/40 hover:bg-rose-50/30 hover:border-rose-200 transition-all duration-300 group">
                                         <span class="bg-rose-50 text-rose-600 rounded-xl p-2.5 shrink-0 group-hover:bg-rose-600 group-hover:text-white transition duration-300 flex items-center justify-center">
-                                            <i data-lucide="{{ $item['icon'] }}" class="w-4.5 h-4.5"></i>
+                                            <i data-lucide="{{ $item['icon'] ?? 'x-circle' }}" class="w-4.5 h-4.5"></i>
                                         </span>
                                         <div class="min-w-0">
                                             <h4 class="text-xs sm:text-sm font-black text-slate-800 transition leading-snug">{{ $item['label'] }}</h4>
@@ -476,7 +489,7 @@
                     
                     <div class="flex flex-wrap gap-3">
                         @php
-                            $features = [
+                            $features = $package->features ?? [
                                 ['label' => 'Kereta Cepat', 'icon' => 'train-front', 'color' => 'indigo'],
                                 ['label' => 'Direct Flight', 'icon' => 'plane-takeoff', 'color' => 'blue'],
                                 ['label' => 'Free Perlengkapan', 'icon' => 'gift', 'color' => 'amber'],
@@ -484,16 +497,17 @@
                         @endphp
                         @foreach ($features as $f)
                             @php
-                                $colClass = match ($f['color']) {
+                                $color = $f['color'] ?? 'blue';
+                                $colClass = match ($color) {
                                     'indigo' => 'border-indigo-100 bg-indigo-50/50 text-indigo-750',
                                     'blue' => 'border-blue-100 bg-blue-50/50 text-blue-750',
                                     'amber' => 'border-amber-100 bg-amber-50/50 text-amber-750',
                                     default => 'border-slate-100 bg-slate-50/50 text-slate-700',
                                 };
-                                $icoColor = "text-" . $f['color'] . "-600";
+                                $icoColor = "text-" . $color . "-600";
                             @endphp
                             <div class="inline-flex items-center gap-2.5 px-4.5 py-3 rounded-2xl border {{ $colClass }} text-xs font-black shadow-sm">
-                                <i data-lucide="{{ $f['icon'] }}" class="w-4.5 h-4.5 {{ $icoColor }}"></i>
+                                <i data-lucide="{{ $f['icon'] ?? 'sparkles' }}" class="w-4.5 h-4.5 {{ $icoColor }}"></i>
                                 <span>{{ $f['label'] }}</span>
                             </div>
                         @endforeach
@@ -520,7 +534,7 @@
                         <div class="flex flex-col justify-between p-5 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden group hover:border-blue-600/30 transition duration-300">
                             <div>
                                 <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none mb-2">Triple (Sekamar Bertiga)</p>
-                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price + 1500000, 0, ',', '.') }}</p>
+                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price_triple ?: ($package->price + 1500000), 0, ',', '.') }}</p>
                             </div>
                             <p class="text-[10px] text-slate-400 mt-3 font-medium">Kamar untuk 3 orang jamaah</p>
                         </div>
@@ -529,7 +543,7 @@
                         <div class="flex flex-col justify-between p-5 rounded-2xl border border-slate-200 bg-white shadow-sm relative overflow-hidden group hover:border-blue-600/30 transition duration-300">
                             <div>
                                 <p class="text-[10px] text-slate-400 font-extrabold uppercase tracking-widest leading-none mb-2">Double (Sekamar Berdua)</p>
-                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price + 3000000, 0, ',', '.') }}</p>
+                                <p class="text-xl font-black text-slate-900">Rp {{ number_format($package->price_double ?: ($package->price + 3000000), 0, ',', '.') }}</p>
                             </div>
                             <p class="text-[10px] text-slate-400 mt-3 font-medium">Kamar untuk 2 orang jamaah</p>
                         </div>

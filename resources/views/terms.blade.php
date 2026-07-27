@@ -35,37 +35,43 @@
     <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-8 font-islamic">Syarat & Ketentuan</h1>
         <div class="prose prose-slate max-w-none space-y-6 text-sm leading-relaxed">
-            <p class="text-slate-600">Terakhir diperbarui: {{ date('d F Y') }}</p>
+            @if(!empty($settings['terms_content']))
+                <div class="whitespace-pre-line text-slate-600">
+                    {!! $settings['terms_content'] !!}
+                </div>
+            @else
+                <p class="text-slate-600">Terakhir diperbarui: {{ date('d F Y') }}</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">1. Penerimaan Ketentuan</h2>
-                <p class="text-slate-600">Dengan mengakses dan menggunakan situs web {{ $siteName }}, Anda menyetujui untuk terikat oleh syarat dan ketentuan yang tercantum di halaman ini. Jika Anda tidak setuju dengan bagian mana pun dari ketentuan ini, Anda tidak diperkenankan menggunakan layanan kami.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">1. Penerimaan Ketentuan</h2>
+                    <p class="text-slate-600">Dengan mengakses dan menggunakan situs web {{ $siteName }}, Anda menyetujui untuk terikat oleh syarat dan ketentuan yang tercantum di halaman ini. Jika Anda tidak setuju dengan bagian mana pun dari ketentuan ini, Anda tidak diperkenankan menggunakan layanan kami.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">2. Layanan</h2>
-                <p class="text-slate-600">{{ $siteName }} menyediakan layanan informasi dan pendaftaran paket perjalanan umrah. Kami berusaha menyajikan informasi yang akurat dan terkini, namun tidak menjamin kebebasan dari kesalahan atau kelalaian.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">2. Layanan</h2>
+                    <p class="text-slate-600">{{ $siteName }} menyediakan layanan informasi dan pendaftaran paket perjalanan umrah. Kami berusaha menyajikan informasi yang akurat dan terkini, namun tidak menjamin kebebasan dari kesalahan atau kelalaian.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">3. Pendaftaran & Pembayaran</h2>
-                <p class="text-slate-600">Pendaftaran dan pembayaran paket umrah dilakukan sesuai prosedur yang berlaku. Setelah pendaftaran dikonfirmasi, akan ada perjanjian terpisah yang mengatur hak dan kewajiban kedua belah pihak.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">3. Pendaftaran & Pembayaran</h2>
+                    <p class="text-slate-600">Pendaftaran dan pembayaran paket umrah dilakukan sesuai prosedur yang berlaku. Setelah pendaftaran dikonfirmasi, akan ada perjanjian terpisah yang mengatur hak dan kewajiban kedua belah pihak.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">4. Kekayaan Intelektual</h2>
-                <p class="text-slate-600">Seluruh konten yang terdapat di situs ini, termasuk teks, gambar, logo, dan materi lainnya, adalah milik {{ $siteName }} dan dilindungi oleh undang-undang hak cipta yang berlaku.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">4. Kekayaan Intelektual</h2>
+                    <p class="text-slate-600">Seluruh konten yang terdapat di situs ini, termasuk teks, gambar, logo, dan materi lainnya, adalah milik {{ $siteName }} dan dilindungi oleh undang-undang hak cipta yang berlaku.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">5. Perubahan Ketentuan</h2>
-                <p class="text-slate-600">Kami berhak untuk mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku segera setelah dipublikasikan di halaman ini.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">5. Perubahan Ketentuan</h2>
+                    <p class="text-slate-600">Kami berhak untuk mengubah syarat dan ketentuan ini sewaktu-waktu tanpa pemberitahuan sebelumnya. Perubahan akan berlaku segera setelah dipublikasikan di halaman ini.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">6. Hubungi Kami</h2>
-                <p class="text-slate-600">Jika Anda memiliki pertanyaan mengenai syarat dan ketentuan ini, silakan hubungi kami melalui halaman kontak yang tersedia.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">6. Hubungi Kami</h2>
+                    <p class="text-slate-600">Jika Anda memiliki pertanyaan mengenai syarat dan ketentuan ini, silakan hubungi kami melalui halaman kontak yang tersedia.</p>
+                </section>
+            @endif
         </div>
     </main>
 

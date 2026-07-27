@@ -1363,28 +1363,49 @@
                 $groupedPackages = $packages->groupBy(function ($p) {
                     return $p->category ?: 'Lainnya';
                 });
-                $categoryIcons = [
-                    'Ekonomi' => 'tag',
-                    'Premium' => 'crown',
-                    'VVIP' => 'gem',
-                ];
-                $categoryOrder = ['Ekonomi', 'Premium', 'VVIP', 'Lainnya'];
-                $sortedGroups = collect($categoryOrder)->filter(fn($c) => $groupedPackages->has($c))->mapWithKeys(fn($c) => [$c => $groupedPackages[$c]]);
+                
+                $dbCategories = \App\Models\Category::where('is_active', true)->orderBy('order')->pluck('name')->toArray();
+                
+                // Append any category names from grouped packages that aren't in $dbCategories
+                foreach ($groupedPackages as $catName => $pkgs) {
+                    $nameToUse = $catName ?: 'Lainnya';
+                    if (!in_array($nameToUse, $dbCategories)) {
+                        $dbCategories[] = $nameToUse;
+                    }
+                }
+                
+                $categoryOrder = array_unique($dbCategories);
+                
+                $sortedGroups = collect($categoryOrder)
+                    ->mapWithKeys(function($c) use ($groupedPackages) {
+                        $packagesOfCat = $groupedPackages->get($c);
+                        if ($c === 'Lainnya' && !$packagesOfCat) {
+                            $packagesOfCat = $groupedPackages->get('');
+                        }
+                        return $packagesOfCat ? [$c => $packagesOfCat] : [];
+                    });
             @endphp
 
             @foreach ($sortedGroups as $categoryName => $categoryPackages)
                 @php
-                    $icon = $categoryIcons[$categoryName] ?? 'package';
-                    $colorClass = match($categoryName) {
-                        'Ekonomi' => 'bg-emerald-50 border-emerald-100 text-emerald-600',
-                        'Premium' => 'bg-blue-50 border-blue-100 text-blue-600',
-                        'VVIP' => 'bg-amber-50 border-amber-100 text-amber-600',
-                        default => 'bg-slate-50 border-slate-100 text-slate-600',
-                    };
+                    $icon = 'package';
+                    $colorClass = 'bg-slate-50 border-slate-100 text-slate-600';
+                    
+                    $lowerName = strtolower($categoryName);
+                    if (str_contains($lowerName, 'ekonomi') || str_contains($lowerName, 'hemat') || str_contains($lowerName, 'promo')) {
+                        $icon = 'tag';
+                        $colorClass = 'bg-emerald-50 border-emerald-100 text-emerald-600';
+                    } elseif (str_contains($lowerName, 'vvip') || str_contains($lowerName, 'luxury') || str_contains($lowerName, 'gold') || str_contains($lowerName, 'super')) {
+                        $icon = 'gem';
+                        $colorClass = 'bg-amber-50 border-amber-100 text-amber-600';
+                    } elseif (str_contains($lowerName, 'premium') || str_contains($lowerName, 'vip') || str_contains($lowerName, 'exclusive')) {
+                        $icon = 'crown';
+                        $colorClass = 'bg-blue-50 border-blue-100 text-blue-600';
+                    }
                 @endphp
                 <div class="mb-14 last:mb-0">
                     <div class="flex items-center gap-3 mb-8 reveal">
-                        <div class="w-10 h-10 rounded-2xl {{ $colorClass }} shadow-sm">
+                        <div class="w-10 h-10 rounded-2xl {{ $colorClass }} shadow-sm flex items-center justify-center">
                             <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
                         </div>
                         <div>

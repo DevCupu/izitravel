@@ -34,37 +34,43 @@
     <main class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
         <h1 class="text-3xl sm:text-4xl font-bold text-slate-900 mb-8 font-islamic">Kebijakan Privasi</h1>
         <div class="prose prose-slate max-w-none space-y-6 text-sm leading-relaxed">
-            <p class="text-slate-600">Terakhir diperbarui: {{ date('d F Y') }}</p>
+            @if(!empty($settings['privacy_content']))
+                <div class="whitespace-pre-line text-slate-600">
+                    {!! $settings['privacy_content'] !!}
+                </div>
+            @else
+                <p class="text-slate-600">Terakhir diperbarui: {{ date('d F Y') }}</p>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">1. Informasi yang Kami Kumpulkan</h2>
-                <p class="text-slate-600">Kami mengumpulkan informasi yang Anda berikan secara sukarela, seperti nama, alamat email, nomor telepon, dan informasi lain yang diperlukan saat Anda mengisi formulir pendaftaran atau menghubungi kami.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">1. Informasi yang Kami Kumpulkan</h2>
+                    <p class="text-slate-600">Kami mengumpulkan informasi yang Anda berikan secara sukarela, seperti nama, alamat email, nomor telepon, dan informasi lain yang diperlukan saat Anda mengisi formulir pendaftaran atau menghubungi kami.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">2. Penggunaan Informasi</h2>
-                <p class="text-slate-600">Informasi yang kami kumpulkan digunakan untuk: memproses pendaftaran, merespons pertanyaan, mengirimkan informasi terkait layanan, dan meningkatkan kualitas layanan kami.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">2. Penggunaan Informasi</h2>
+                    <p class="text-slate-600">Informasi yang kami kumpulkan digunakan untuk: memproses pendaftaran, merespons pertanyaan, mengirimkan informasi terkait layanan, dan meningkatkan kualitas layanan kami.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">3. Perlindungan Data</h2>
-                <p class="text-slate-600">Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, perubahan, pengungkapan, atau penghancuran yang tidak sah.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">3. Perlindungan Data</h2>
+                    <p class="text-slate-600">Kami menerapkan langkah-langkah keamanan yang wajar untuk melindungi informasi pribadi Anda dari akses, perubahan, pengungkapan, atau penghancuran yang tidak sah.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">4. Cookie</h2>
-                <p class="text-slate-600">Situs web kami menggunakan cookie untuk meningkatkan pengalaman pengguna. Anda dapat mengatur preferensi cookie melalui pengaturan peramban Anda.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">4. Cookie</h2>
+                    <p class="text-slate-600">Situs web kami menggunakan cookie untuk meningkatkan pengalaman pengguna. Anda dapat mengatur preferensi cookie melalui pengaturan peramban Anda.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">5. Pihak Ketiga</h2>
-                <p class="text-slate-600">Kami tidak menjual, menukarkan, atau mentransfer informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">5. Pihak Ketiga</h2>
+                    <p class="text-slate-600">Kami tidak menjual, menukarkan, atau mentransfer informasi pribadi Anda kepada pihak ketiga tanpa persetujuan Anda, kecuali diwajibkan oleh hukum.</p>
+                </section>
 
-            <section>
-                <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">6. Perubahan Kebijakan</h2>
-                <p class="text-slate-600">Kebijakan privasi ini dapat diperbarui sewaktu-waktu. Setiap perubahan akan dipublikasikan di halaman ini.</p>
-            </section>
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 mt-8 mb-3">6. Perubahan Kebijakan</h2>
+                    <p class="text-slate-600">Kebijakan privasi ini dapat diperbarui sewaktu-waktu. Setiap perubahan akan dipublikasikan di halaman ini.</p>
+                </section>
+            @endif
         </div>
     </main>
 
