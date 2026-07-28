@@ -18,6 +18,7 @@
                 gaId: (@json(old('seo_google_analytics_id', $settings['seo_google_analytics_id'] ?? ''))) || '',
                 gscVerification: (@json(old('seo_google_console_verification', $settings['seo_google_console_verification'] ?? ''))) || '',
                 bingVerification: (@json(old('seo_bing_verification', $settings['seo_bing_verification'] ?? ''))) || '',
+                footerPpiuNumber: (@json(old('footer_ppiu_number', $settings['footer_ppiu_number'] ?? ''))) || '',
                 init() {
                     this.$watch('tab', v => localStorage.setItem('adminSettingsTab', v));
                     this.$watch('q', v => filterSettings(v));
@@ -775,17 +776,67 @@
                     </div>
                     <p class="text-xs text-slate-500 dark:text-slate-400 -mt-2">Dua gambar yang tampil bertumpuk di samping bagian Tentang Kami. Kosongkan untuk memakai gambar bawaan.</p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-slate-100 dark:border-slate-700 pb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6">
                         <div class="form-group">
                             <label for="about_ppiu_label">Label Badge Izin (di atas kolase)</label>
                             <input type="text" id="about_ppiu_label" name="about_ppiu_label" value="{{ old('about_ppiu_label', $settings['about_ppiu_label'] ?? '') }}" placeholder="Contoh: Izin PPIU Resmi" maxlength="100">
                             @error('about_ppiu_label') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="footer_ppiu_number">Nomor Izin PPIU</label>
-                            <input type="text" id="footer_ppiu_number" name="footer_ppiu_number" value="{{ old('footer_ppiu_number', $settings['footer_ppiu_number'] ?? '') }}" placeholder="Contoh: A10BS81" maxlength="150">
+                            <label for="about_footer_ppiu_number">Nomor Izin PPIU</label>
+                            <input type="text" id="about_footer_ppiu_number" name="footer_ppiu_number" x-model="footerPpiuNumber" placeholder="Contoh: A10BS81" maxlength="150">
                             <p class="text-[10px] text-slate-400 mt-1">Tampil di badge Tentang Kami & di footer.</p>
                             @error('footer_ppiu_number') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
+
+                    <!-- Badge Tambahan Pemisah Koma -->
+                    <div class="form-group pb-6">
+                        <label for="about_ppiu_badges_list">Badge Tambahan Kartu PPIU (Pemisah Koma)</label>
+                        <input type="text" id="about_ppiu_badges_list" name="about_ppiu_badges_list" value="{{ old('about_ppiu_badges_list', $settings['about_ppiu_badges_list'] ?? '100% Aman') }}" placeholder="Contoh: 100% Aman, Terakreditasi A, Terintegrasi SISKOPATUH" maxlength="255">
+                        <p class="text-[10px] text-slate-400 mt-1">Masukkan teks badge tambahan untuk kartu perizinan. Gunakan tanda koma (,) untuk memisahkan antar badge.</p>
+                        @error('about_ppiu_badges_list') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- Deskripsi Kartu PPIU -->
+                    <div class="form-group pb-6 border-b border-slate-100 dark:border-slate-700">
+                        <label for="about_ppiu_desc">Deskripsi Kartu PPIU</label>
+                        <textarea id="about_ppiu_desc" name="about_ppiu_desc" rows="3" placeholder="Masukkan deskripsi komitmen legalitas travel..." maxlength="500">{{ old('about_ppiu_desc', $settings['about_ppiu_desc'] ?? '') }}</textarea>
+                        <p class="text-[10px] text-slate-400 mt-1">Kalimat penjelasan komitmen perizinan yang tampil di dalam Kartu PPIU Halaman Utama.</p>
+                        @error('about_ppiu_desc') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <!-- Logo Izin Resmi PPIU -->
+                    <div class="space-y-2 border-b border-slate-100 dark:border-slate-700 pb-6">
+                        <label class="block text-xs font-bold text-slate-700 dark:text-slate-300">Logo Izin Resmi PPIU (Kemenag / Sertifikasi)</label>
+                        @php $ppiuLogoVal = $settings['about_ppiu_logo'] ?? null; @endphp
+                        <div class="flex items-center gap-4">
+                            <div class="w-[200px] h-[50px] rounded-xl border border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 flex items-center justify-center overflow-hidden p-1.5 shrink-0">
+                                @if(!empty($ppiuLogoVal))
+                                    <img id="about_ppiu_logo-preview" src="{{ str_starts_with($ppiuLogoVal, 'images/') ? asset($ppiuLogoVal) : asset('storage/' . $ppiuLogoVal) }}" alt="Logo PPIU" class="w-full h-full object-contain rounded-lg">
+                                @else
+                                    <div id="about_ppiu_logo-placeholder" class="text-[10px] text-slate-400 text-center flex flex-col items-center">
+                                        <i data-lucide="shield-check" class="w-5 h-5 mb-0.5 text-slate-300"></i>
+                                        <span>Default Icon</span>
+                                    </div>
+                                    <img id="about_ppiu_logo-preview" class="hidden w-full h-full object-contain rounded-lg">
+                                @endif
+                            </div>
+                            <div class="flex-1">
+                                <input type="file" id="about_ppiu_logo" name="about_ppiu_logo" class="hidden" accept="image/*" onchange="previewImage(this, 'about_ppiu_logo-preview', 'about_ppiu_logo-placeholder')">
+                                <label for="about_ppiu_logo" class="inline-flex items-center justify-center px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-bold text-slate-700 dark:text-slate-300 rounded-xl cursor-pointer transition">
+                                    Pilih Logo
+                                </label>
+                                <p class="text-[10px] text-slate-400 mt-1">PNG/JPG/WEBP, rekomendasi transparan, maks 2MB.</p>
+                                <p class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>Tampil di: Kartu Izin Resmi PPIU bagian Tentang Kami.</p>
+                                @if(!empty($ppiuLogoVal))
+                                    <label class="inline-flex items-center gap-1.5 mt-2 text-[11px] font-semibold text-red-500 cursor-pointer">
+                                        <input type="checkbox" name="about_ppiu_logo_remove" value="1" class="rounded border-slate-300 text-red-500 focus:ring-red-400">
+                                        Hapus (pakai ikon bawaan)
+                                    </label>
+                                @endif
+                                @error('about_ppiu_logo') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                            </div>
                         </div>
                     </div>
 
@@ -1521,7 +1572,7 @@
                         </div>
                         <div class="form-group">
                             <label for="footer_ppiu_number">Nomor Izin Resmi PPIU</label>
-                            <input type="text" id="footer_ppiu_number" name="footer_ppiu_number" value="{{ old('footer_ppiu_number', $settings['footer_ppiu_number'] ?? '') }}" placeholder="Contoh: A10BS81" maxlength="150">
+                            <input type="text" id="footer_ppiu_number" name="footer_ppiu_number" x-model="footerPpiuNumber" placeholder="Contoh: A10BS81" maxlength="150">
                             @error('footer_ppiu_number') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                     </div>

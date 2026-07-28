@@ -1004,7 +1004,7 @@
                     <p class="text-slate-600 text-sm md:text-base leading-relaxed font-normal text-center lg:text-left">
                         {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
                     </p>
-                    <div class="grid grid-cols-2 gap-6 pt-4">
+                    <div class="grid grid-cols-2 gap-6 pt-4 w-full">
                         <div class="group relative bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-blue-600/15 hover:border-amber-500/40 shadow-md hover:shadow-xl hover:shadow-amber-500/[0.02] transition-all duration-300 hover:-translate-y-1">
                             <div class="absolute top-4 right-4 text-blue-600/10 group-hover:text-blue-600/20 transition duration-300">
                                 <i data-lucide="smile" class="w-8 h-8"></i>
@@ -1035,15 +1035,70 @@
                         <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
                     </div>
+                </div>
+            </div>
 
-                    <!-- Floating Badge -->
-                    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-950/95 backdrop-blur-md border border-amber-500/30 text-white px-5 py-3.5 rounded-2xl shadow-2xl z-20 flex items-center gap-3 animate-float-medium select-none">
-                        <span class="bg-amber-500/10 text-amber-400 p-2.5 rounded-xl border border-amber-500/30 flex items-center justify-center">
-                            <i data-lucide="award" class="w-6 h-6"></i>
-                        </span>
-                        <div class="text-left">
-                            <p class="text-[9px] font-extrabold uppercase text-amber-400 tracking-wider">{{ $settings['about_ppiu_label'] ?? 'Izin PPIU Resmi' }}</p>
-                            <p class="font-black text-white text-xs mt-0.5">{{ $settings['footer_ppiu_number'] ?? 'A10BS81' }}</p>
+            <!-- Izin Resmi PPIU Card -->
+            <div class="mb-12 bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-200/60 dark:border-slate-700 border-l-4 border-l-amber-500 shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300 reveal-up">
+                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 md:gap-8 relative z-10">
+                    <div class="space-y-4 text-left flex-1">
+                        <!-- Logo & Badges Group -->
+                        <div class="space-y-3">
+                            @if(!empty($settings['about_ppiu_logo']))
+                                <div class="flex justify-center lg:justify-start">
+                                    <div class="inline-flex items-center justify-center w-[160px] h-[40px] rounded-lg bg-white p-1 border border-slate-100 shadow-sm overflow-hidden shrink-0">
+                                        <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="w-full h-full object-contain">
+                                    </div>
+                                </div>
+                            @else
+                                <div class="flex justify-center lg:justify-start">
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-wider">
+                                        <i data-lucide="award" class="w-3 h-3"></i>
+                                        Mitra Resmi Kemenag RI
+                                    </span>
+                                </div>
+                            @endif
+
+                            @php
+                                $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman')));
+                            @endphp
+                            @if(!empty($ppiuBadgesList))
+                                <div class="flex flex-wrap items-center justify-start gap-1.5">
+                                    @foreach($ppiuBadgesList as $badgeText)
+                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
+                                            <span class="w-1 h-1 rounded-full bg-emerald-500 shrink-0"></span>
+                                            {{ $badgeText }}
+                                        </span>
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+
+                        <!-- Card Text Content -->
+                        <div class="space-y-2">
+                            <h3 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                                {{ $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)' }}
+                            </h3>
+                            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-3xl font-light">
+                                {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Permit Number Display (Highlighted) -->
+                    <div class="shrink-0 w-full lg:w-auto">
+                        <div class="bg-gradient-to-br from-amber-50 to-amber-100/30 dark:from-amber-950/20 dark:to-slate-900/50 border border-amber-200 dark:border-amber-800/60 px-8 py-5 rounded-2xl text-center min-w-[220px] shadow-sm relative overflow-hidden group">
+                            <!-- Subtle golden light accent -->
+                            <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-amber-500/5 rounded-full blur-xl"></div>
+                            
+                            <p class="text-[10px] font-bold uppercase text-amber-700 dark:text-amber-500 tracking-wider font-mono">Nomor Izin PPIU</p>
+                            <p class="text-xl md:text-2xl font-black text-amber-600 dark:text-amber-400 mt-1 font-mono select-all tracking-wider">
+                                {{ $settings['footer_ppiu_number'] ?? 'A10BS81' }}
+                            </p>
+                            <div class="mt-3 pt-2.5 border-t border-amber-200/40 dark:border-amber-800/30 w-full flex items-center justify-center gap-1.5 text-[9px] text-amber-750 dark:text-amber-400 font-bold uppercase tracking-wider">
+                                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i>
+                                Resmi Terdaftar
+                            </div>
                         </div>
                     </div>
                 </div>

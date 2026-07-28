@@ -78,7 +78,7 @@ class SettingController extends Controller
             'trust_card_4_title', 'trust_card_4_subtitle', 'trust_card_4_icon',
             // About extra labels
             'about_badge', 'about_vision_label', 'about_mission_label',
-            'about_stat_1_label', 'about_stat_2_label', 'about_ppiu_label',
+            'about_stat_1_label', 'about_stat_2_label', 'about_ppiu_label', 'about_ppiu_logo', 'about_ppiu_badges_list', 'about_ppiu_desc',
             // Section headings & labels
             'packages_label', 'packages_section_title', 'packages_section_subtitle',
             'packages_price_label', 'packages_detail_btn',
@@ -293,6 +293,8 @@ class SettingController extends Controller
             'cta_consultation_label' => ['nullable', 'string', 'max:100'],
             'footer_contact_heading' => ['nullable', 'string', 'max:100'],
             'footer_ppiu_number'     => ['nullable', 'string', 'max:150'],
+            'about_ppiu_badges_list' => ['nullable', 'string', 'max:255'],
+            'about_ppiu_desc'        => ['nullable', 'string', 'max:500'],
             'haramain_density_base'  => ['nullable', 'integer', 'min:0'],
             'haramain_youtube_makkah' => ['nullable', 'string', 'max:255'],
             'haramain_youtube_madinah' => ['nullable', 'string', 'max:255'],
@@ -313,6 +315,7 @@ class SettingController extends Controller
             'feature_4_image'        => ['nullable', 'image', 'max:2048'],
             'feature_5_image'        => ['nullable', 'image', 'max:2048'],
             'feature_6_image'        => ['nullable', 'image', 'max:2048'],
+            'about_ppiu_logo'        => ['nullable', 'image', 'max:2048'],
         ]);
 
         foreach ($keys as $key) {
@@ -355,8 +358,8 @@ class SettingController extends Controller
             Setting::setValue('hero_image', $heroImagePath);
         }
 
-        // About collage images + hero floating badge images + Open Graph image
-        foreach (['about_image_1', 'about_image_2', 'hero_badge_1_image', 'hero_badge_2_image', 'hero_badge_3_image', 'seo_og_image'] as $field) {
+        // About collage images + hero floating badge images + Open Graph image + PPIU license logo
+        foreach (['about_image_1', 'about_image_2', 'hero_badge_1_image', 'hero_badge_2_image', 'hero_badge_3_image', 'seo_og_image', 'about_ppiu_logo'] as $field) {
             if ($request->boolean($field . '_remove')) {
                 $old = Setting::getValue($field);
                 if ($old && ! str_starts_with($old, 'images/')) {
