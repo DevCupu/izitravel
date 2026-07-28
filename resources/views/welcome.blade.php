@@ -1040,18 +1040,18 @@
 
             <!-- Izin Resmi PPIU Card -->
             <div class="mb-12 bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-200/60 dark:border-slate-700 border-l-4 border-l-amber-500 shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300 reveal-up">
-                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 md:gap-8 relative z-10">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 relative z-10">
                     <div class="space-y-4 text-left flex-1">
                         <!-- Logo & Badges Group -->
                         <div class="space-y-3">
                             @if(!empty($settings['about_ppiu_logo']))
-                                <div class="flex justify-center lg:justify-start">
+                                <div class="flex justify-start">
                                     <div class="inline-flex items-center justify-center w-[160px] h-[40px] rounded-lg bg-white p-1 border border-slate-100 shadow-sm overflow-hidden shrink-0">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="w-full h-full object-contain">
                                     </div>
                                 </div>
                             @else
-                                <div class="flex justify-center lg:justify-start">
+                                <div class="flex justify-start">
                                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-wider">
                                         <i data-lucide="award" class="w-3 h-3"></i>
                                         Mitra Resmi Kemenag RI
@@ -1086,7 +1086,7 @@
                     </div>
                     
                     <!-- Permit Number Display (Highlighted) -->
-                    <div class="shrink-0 w-full lg:w-auto">
+                    <div class="shrink-0 w-full md:w-auto">
                         <div class="bg-gradient-to-br from-amber-50 to-amber-100/30 dark:from-amber-950/20 dark:to-slate-900/50 border border-amber-200 dark:border-amber-800/60 px-8 py-5 rounded-2xl text-center min-w-[220px] shadow-sm relative overflow-hidden group">
                             <!-- Subtle golden light accent -->
                             <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-amber-500/5 rounded-full blur-xl"></div>
