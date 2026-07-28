@@ -52,6 +52,24 @@
                 
                 // Dynamic steps list
                 steps: @json(json_decode($stepsJson, true)) || [],
+                activeDropdown: null,
+                iconSearch: '',
+                allIcons: [
+                    'award', 'badge-check', 'building-2', 'compass', 'credit-card', 'file-check', 
+                    'file-text', 'plane', 'plane-takeoff', 'shield-check', 'sparkles', 'star', 
+                    'user-check', 'users', 'wallet', 'utensils', 'luggage', 'book-open', 'check-circle', 
+                    'clock', 'map-pin', 'phone', 'phone-call', 'mail', 'calendar', 'user', 'bus', 
+                    'sun', 'moon', 'camera', 'gift', 'package', 'flag', 'globe', 'map', 'thumbs-up', 
+                    'smile', 'coffee', 'bed', 'wifi', 'anchor', 'leaf', 'home', 'zap', 'image', 
+                    'video', 'music', 'headphones', 'mic', 'radio', 'help-circle', 'info', 
+                    'message-square', 'message-circle', 'heart', 'shield', 'check', 'settings', 
+                    'bell', 'search', 'lock', 'activity', 'bookmark', 'briefcase', 'layers', 'sliders'
+                ],
+                
+                filteredIcons() {
+                    if (!this.iconSearch) return this.allIcons;
+                    return this.allIcons.filter(i => i.toLowerCase().includes(this.iconSearch.toLowerCase()));
+                },
                 
                 addStep() {
                     this.steps.push({
@@ -1137,25 +1155,73 @@
                                 </h4>
 
                                 <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-1">
-                                    <!-- Icon Picker -->
-                                    <div class="form-group">
+                                    <!-- Icon Picker (Searchable Dropdown Popover) -->
+                                    <div class="form-group relative" @click.outside="if (activeDropdown === index) activeDropdown = null">
                                         <label class="block text-xs font-bold text-slate-750 dark:text-slate-300 mb-1">Nama Ikon</label>
-                                        <div class="flex items-center gap-2">
-                                            <div class="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-100 dark:border-violet-800/40">
-                                                <i :data-lucide="step.icon || 'help-circle'" class="w-5 h-5"></i>
+                                        
+                                        <div class="relative">
+                                            <!-- Button Trigger -->
+                                            <button type="button" @click="activeDropdown = (activeDropdown === index ? null : index); iconSearch = '';"
+                                                class="w-full flex items-center justify-between gap-3 px-3 py-2 text-sm bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl hover:border-violet-400 dark:hover:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-500/20 transition shadow-sm"
+                                                :class="{ 'ring-2 ring-violet-500/30 border-violet-500': activeDropdown === index }">
+                                                <div class="flex items-center gap-2 min-w-0">
+                                                    <div class="w-8 h-8 rounded-lg bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-100 dark:border-violet-800/40">
+                                                        <i :data-lucide="step.icon || 'help-circle'" class="w-4 h-4"></i>
+                                                    </div>
+                                                    <span class="truncate text-xs font-semibold text-slate-700 dark:text-slate-200" x-text="step.icon || 'Pilih ikon...'"></span>
+                                                </div>
+                                                <div class="flex items-center gap-1 shrink-0 text-slate-400">
+                                                    <span class="text-[10px] uppercase font-bold tracking-wider px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400">Cari</span>
+                                                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 transition-transform duration-200" :class="{ 'rotate-180': activeDropdown === index }"></i>
+                                                </div>
+                                            </button>
+
+                                            <!-- Dropdown Popup -->
+                                            <div x-show="activeDropdown === index" 
+                                                x-cloak 
+                                                x-transition:enter="transition ease-out duration-150"
+                                                x-transition:enter-start="opacity-0 scale-95 -translate-y-1"
+                                                x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                                                x-transition:leave="transition ease-in duration-100"
+                                                x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                                                x-transition:leave-end="opacity-0 scale-95 -translate-y-1"
+                                                class="absolute left-0 top-full mt-1.5 z-50 p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 w-72 sm:w-80">
+                                                
+                                                <!-- Search Bar -->
+                                                <div class="relative mb-2.5">
+                                                    <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"></i>
+                                                    <input x-model="iconSearch"
+                                                        type="text"
+                                                        placeholder="Cari ikon... (cth: compass)"
+                                                        class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 focus:border-violet-500 focus:ring-violet-500 focus:bg-white dark:focus:bg-slate-800">
+                                                </div>
+
+                                                <!-- Icons Grid -->
+                                                <div class="grid grid-cols-6 sm:grid-cols-7 gap-1.5 max-h-48 overflow-y-auto pr-1">
+                                                    <template x-for="icon in filteredIcons()" :key="icon">
+                                                        <button type="button"
+                                                            @click="step.icon = icon; activeDropdown = null;"
+                                                            :title="icon"
+                                                            class="p-2 rounded-xl flex flex-col items-center justify-center gap-1 transition-all border border-transparent"
+                                                            :class="step.icon === icon 
+                                                                ? 'bg-violet-500 text-white font-bold shadow-md shadow-violet-500/30' 
+                                                                : 'hover:bg-slate-100 dark:hover:bg-slate-700/60 text-slate-600 dark:text-slate-300 border-slate-100/50 dark:border-slate-700/50'">
+                                                            <i :data-lucide="icon" class="w-4 h-4 pointer-events-none"></i>
+                                                        </button>
+                                                    </template>
+                                                    <template x-if="filteredIcons().length === 0">
+                                                        <div class="col-span-6 sm:col-span-7 py-6 text-center text-xs text-slate-400">
+                                                            <i data-lucide="search-x" class="w-5 h-5 mx-auto mb-1 opacity-50"></i>
+                                                            Ikon "<span x-text="iconSearch"></span>" tidak ditemukan
+                                                        </div>
+                                                    </template>
+                                                </div>
+
+                                                <div class="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
+                                                    <span>Dipilih: <strong class="text-violet-600 dark:text-violet-400 font-bold" x-text="step.icon || 'Belum ada'"></strong></span>
+                                                    <button type="button" x-show="step.icon" @click="step.icon = ''; activeDropdown = null;" class="text-red-500 hover:underline">Hapus</button>
+                                                </div>
                                             </div>
-                                            <input type="text" x-model="step.icon" placeholder="Contoh: compass" class="flex-1 text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800">
-                                        </div>
-                                        <!-- Quick Selection Icons -->
-                                        <div class="flex flex-wrap gap-1 mt-2">
-                                            <template x-for="iconName in ['message-square', 'compass', 'credit-card', 'file-text', 'book-open', 'plane-takeoff', 'phone', 'map-pin', 'award', 'badge-check', 'star', 'users']">
-                                                <button type="button" @click="step.icon = iconName" 
-                                                    class="p-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:text-violet-600 dark:hover:text-violet-400 transition"
-                                                    :class="step.icon === iconName ? 'border-violet-500 ring-1 ring-violet-500/20 text-violet-600 bg-violet-50 dark:bg-violet-900/30' : 'text-slate-500 dark:text-slate-400'"
-                                                    :title="iconName">
-                                                    <i :data-lucide="iconName" class="w-3.5 h-3.5"></i>
-                                                </button>
-                                            </template>
                                         </div>
                                     </div>
 
