@@ -1352,14 +1352,35 @@
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-nowrap gap-y-8 gap-x-4 md:gap-0 items-start max-w-5xl mx-auto reveal">
                 @php
-                    $steps = [
-                        ['key' => 1, 'icon' => $settings['registration_step_1_icon'] ?? 'message-square'],
-                        ['key' => 2, 'icon' => $settings['registration_step_2_icon'] ?? 'compass'],
-                        ['key' => 3, 'icon' => $settings['registration_step_3_icon'] ?? 'credit-card'],
-                        ['key' => 4, 'icon' => $settings['registration_step_4_icon'] ?? 'file-text'],
-                        ['key' => 5, 'icon' => $settings['registration_step_5_icon'] ?? 'book-open'],
-                        ['key' => 6, 'icon' => $settings['registration_step_6_icon'] ?? 'plane-takeoff'],
-                    ];
+                    $stepsJson = $settings['registration_steps'] ?? null;
+                    $steps = [];
+                    if ($stepsJson) {
+                        $steps = json_decode($stepsJson, true);
+                    }
+                    if (empty($steps)) {
+                        for ($i = 1; $i <= 6; $i++) {
+                            $title = $settings['registration_step_' . $i . '_title'] ?? null;
+                            $desc = $settings['registration_step_' . $i . '_description'] ?? null;
+                            $icon = $settings['registration_step_' . $i . '_icon'] ?? null;
+                            if ($title || $desc) {
+                                $steps[] = [
+                                    'title' => $title ?? '',
+                                    'description' => $desc ?? '',
+                                    'icon' => $icon ?? 'compass'
+                                ];
+                            }
+                        }
+                    }
+                    if (empty($steps)) {
+                        $steps = [
+                            ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'message-square'],
+                            ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'compass'],
+                            ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen paspor, foto, dan syarat administrasi.', 'icon' => 'credit-card'],
+                            ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan Anda.', 'icon' => 'file-text'],
+                            ['title' => 'Manasik', 'description' => 'Ikuti bimbingan manasik teori & praktek sesuai sunnah.', 'icon' => 'book-open'],
+                            ['title' => 'Berangkat', 'description' => 'Pelepasan di bandara dan mulai perjalanan ibadah Anda.', 'icon' => 'plane-takeoff'],
+                        ];
+                    }
                 @endphp
                 @foreach ($steps as $index => $step)
                     @if ($index > 0)
@@ -1372,10 +1393,10 @@
                     @endif
                     <div class="flex flex-col items-center group flex-1">
                         <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/25 transform transition duration-300 group-hover:scale-105 group-hover:shadow-blue-500/35">
-                            <i data-lucide="{{ $step['icon'] }}" class="w-7 h-7"></i>
+                            <i data-lucide="{{ $step['icon'] ?? 'compass' }}" class="w-7 h-7"></i>
                         </div>
-                        <p class="font-extrabold text-slate-900 text-sm md:text-base">{{ $settings['registration_step_' . $step['key'] . '_title'] ?? '' }}</p>
-                        <p class="text-xs text-slate-400 mt-1 max-w-[150px] mx-auto leading-relaxed hidden md:block">{{ $settings['registration_step_' . $step['key'] . '_description'] ?? '' }}</p>
+                        <p class="font-extrabold text-slate-900 text-sm md:text-base">{{ $step['title'] ?? '' }}</p>
+                        <p class="text-xs text-slate-400 mt-1 max-w-[150px] mx-auto leading-relaxed hidden md:block">{{ $step['description'] ?? '' }}</p>
                     </div>
                 @endforeach
             </div>

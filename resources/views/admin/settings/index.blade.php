@@ -8,6 +8,36 @@
         </p>
     </x-slot>
 
+    @php
+        $stepsJson = $settings['registration_steps'] ?? null;
+        if (!$stepsJson) {
+            $stepsList = [];
+            for ($i = 1; $i <= 6; $i++) {
+                $title = $settings['registration_step_' . $i . '_title'] ?? null;
+                $desc = $settings['registration_step_' . $i . '_description'] ?? null;
+                $icon = $settings['registration_step_' . $i . '_icon'] ?? null;
+                if ($title || $desc) {
+                    $stepsList[] = [
+                        'title' => $title ?? '',
+                        'description' => $desc ?? '',
+                        'icon' => $icon ?? 'compass'
+                    ];
+                }
+            }
+            if (empty($stepsList)) {
+                $stepsList = [
+                    ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'message-square'],
+                    ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'compass'],
+                    ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen paspor, foto, dan syarat administrasi.', 'icon' => 'credit-card'],
+                    ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan Anda.', 'icon' => 'file-text'],
+                    ['title' => 'Manasik', 'description' => 'Ikuti bimbingan manasik teori & praktek sesuai sunnah.', 'icon' => 'book-open'],
+                    ['title' => 'Berangkat', 'description' => 'Pelepasan di bandara dan mulai perjalanan ibadah Anda.', 'icon' => 'plane-takeoff'],
+                ];
+            }
+            $stepsJson = json_encode($stepsList);
+        }
+    @endphp
+
     <script>
         function settingsData() {
             return {
@@ -19,9 +49,49 @@
                 gscVerification: (@json(old('seo_google_console_verification', $settings['seo_google_console_verification'] ?? ''))) || '',
                 bingVerification: (@json(old('seo_bing_verification', $settings['seo_bing_verification'] ?? ''))) || '',
                 footerPpiuNumber: (@json(old('footer_ppiu_number', $settings['footer_ppiu_number'] ?? ''))) || '',
+                
+                // Dynamic steps list
+                steps: @json(json_decode($stepsJson, true)) || [],
+                
+                addStep() {
+                    this.steps.push({
+                        title: '',
+                        description: '',
+                        icon: 'compass'
+                    });
+                },
+                removeStep(index) {
+                    if (confirm('Apakah Anda yakin ingin menghapus langkah ini?')) {
+                        this.steps.splice(index, 1);
+                    }
+                },
+                moveUp(index) {
+                    if (index > 0) {
+                        const temp = this.steps[index];
+                        this.steps[index] = this.steps[index - 1];
+                        this.steps[index - 1] = temp;
+                    }
+                },
+                moveDown(index) {
+                    if (index < this.steps.length - 1) {
+                        const temp = this.steps[index];
+                        this.steps[index] = this.steps[index + 1];
+                        this.steps[index + 1] = temp;
+                    }
+                },
+                
                 init() {
                     this.$watch('tab', v => localStorage.setItem('adminSettingsTab', v));
                     this.$watch('q', v => filterSettings(v));
+                    
+                    // Watch steps deeply and re-trigger Lucide icon creation
+                    this.$watch('steps', () => {
+                        this.$nextTick(() => {
+                            if (typeof lucide !== 'undefined') {
+                                lucide.createIcons();
+                            }
+                        });
+                    }, { deep: true });
                 }
             };
         }
@@ -1034,46 +1104,93 @@
                     </div>
 
                     <p class="text-xs text-slate-500 dark:text-slate-400 -mt-2">Nama ikon mengikuti <a href="https://lucide.dev/icons/" target="_blank" class="text-blue-500 underline">Lucide Icons</a> (contoh: <code>compass</code>, <code>credit-card</code>, <code>plane-takeoff</code>).</p>
-                    @php
-                        $stepPlaceholders = [
-                            1 => ['Contoh: Pilih Paket', 'Contoh: Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'message-square'],
-                            2 => ['Contoh: Konsultasi', 'Contoh: Hubungi customer service kami untuk detail keberangkatan.', 'compass'],
-                            3 => ['Contoh: Kirim Berkas', 'Contoh: Lengkapi dokumen paspor, foto, dan syarat administrasi.', 'credit-card'],
-                            4 => ['Contoh: Uang Muka (DP)', 'Contoh: Lakukan deposit untuk mengamankan kursi penerbangan Anda.', 'file-text'],
-                            5 => ['Contoh: Manasik', 'Contoh: Ikuti bimbingan manasik teori & praktek sesuai sunnah.', 'book-open'],
-                            6 => ['Contoh: Berangkat', 'Contoh: Pelepasan di bandara dan mulai perjalanan ibadah Anda.', 'plane-takeoff'],
-                        ];
-                    @endphp
-                    @for ($i = 1; $i <= 6; $i++)
-                        <div class="border-b border-slate-100 dark:border-slate-700 pb-6 last:border-0 last:pb-0">
-                            <h4 class="text-xs font-black uppercase text-slate-400 mb-4">Langkah {{ $i }}</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                                <div class="form-group">
-                                    <label class="block text-xs font-bold text-slate-750 dark:text-slate-300 mb-1" for="registration_step_{{ $i }}_icon">Nama Ikon</label>
-                                    <x-icon-picker 
-                                        id="registration_step_{{ $i }}_icon" 
-                                        name="registration_step_{{ $i }}_icon" 
-                                        :value="old('registration_step_'.$i.'_icon', $settings['registration_step_'.$i.'_icon'] ?? '')" 
-                                        :placeholder="$stepPlaceholders[$i][2]" />
-                                    @error('registration_step_'.$i.'_icon') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+
+                    <!-- Hidden Input for Form Submission -->
+                    <input type="hidden" name="registration_steps" :value="JSON.stringify(steps)">
+
+                    <!-- Dynamic Steps List -->
+                    <div class="space-y-6">
+                        <template x-for="(step, index) in steps" :key="index">
+                            <div class="border border-slate-100 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-900/10 p-5 rounded-2xl space-y-4 relative group">
+                                <!-- Reorder and Delete Buttons -->
+                                <div class="absolute right-4 top-4 flex items-center gap-1.5">
+                                    <button type="button" @click="moveUp(index)" :disabled="index === 0"
+                                        class="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center transition"
+                                        title="Pindah Ke Atas">
+                                        <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                    <button type="button" @click="moveDown(index)" :disabled="index === steps.length - 1"
+                                        class="w-7 h-7 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700 disabled:opacity-40 flex items-center justify-center transition"
+                                        title="Pindah Ke Bawah">
+                                        <i data-lucide="arrow-down" class="w-3.5 h-3.5"></i>
+                                    </button>
+                                    <button type="button" @click="removeStep(index)"
+                                        class="w-7 h-7 rounded-lg bg-red-50 dark:bg-red-950/30 border border-red-100 dark:border-red-900/30 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/50 flex items-center justify-center transition"
+                                        title="Hapus Langkah">
+                                        <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="registration_step_{{ $i }}_title">Judul Langkah</label>
-                                    <input type="text" id="registration_step_{{ $i }}_title" name="registration_step_{{ $i }}_title"
-                                        value="{{ old('registration_step_'.$i.'_title', $settings['registration_step_'.$i.'_title'] ?? '') }}"
-                                        placeholder="{{ $stepPlaceholders[$i][0] }}" maxlength="100">
-                                    @error('registration_step_'.$i.'_title') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
-                                </div>
-                                <div class="form-group md:col-span-2">
-                                    <label for="registration_step_{{ $i }}_description">Deskripsi Langkah</label>
-                                    <input type="text" id="registration_step_{{ $i }}_description" name="registration_step_{{ $i }}_description"
-                                        value="{{ old('registration_step_'.$i.'_description', $settings['registration_step_'.$i.'_description'] ?? '') }}"
-                                        placeholder="{{ $stepPlaceholders[$i][1] }}" maxlength="255">
-                                    @error('registration_step_'.$i.'_description') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+
+                                <h4 class="text-xs font-black uppercase text-slate-400 flex items-center gap-2">
+                                    <span class="w-5 h-5 rounded-full bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 font-bold flex items-center justify-center" x-text="index + 1"></span>
+                                    Langkah Ke-<span x-text="index + 1"></span>
+                                </h4>
+
+                                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-1">
+                                    <!-- Icon Picker -->
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-slate-750 dark:text-slate-300 mb-1">Nama Ikon</label>
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-10 h-10 rounded-lg bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 flex items-center justify-center shrink-0 border border-violet-100 dark:border-violet-800/40">
+                                                <i :data-lucide="step.icon || 'help-circle'" class="w-5 h-5"></i>
+                                            </div>
+                                            <input type="text" x-model="step.icon" placeholder="Contoh: compass" class="flex-1 text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800">
+                                        </div>
+                                        <!-- Quick Selection Icons -->
+                                        <div class="flex flex-wrap gap-1 mt-2">
+                                            <template x-for="iconName in ['message-square', 'compass', 'credit-card', 'file-text', 'book-open', 'plane-takeoff', 'phone', 'map-pin', 'award', 'badge-check', 'star', 'users']">
+                                                <button type="button" @click="step.icon = iconName" 
+                                                    class="p-1 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-violet-50 dark:hover:bg-violet-900/20 hover:text-violet-600 dark:hover:text-violet-400 transition"
+                                                    :class="step.icon === iconName ? 'border-violet-500 ring-1 ring-violet-500/20 text-violet-600 bg-violet-50 dark:bg-violet-900/30' : 'text-slate-500 dark:text-slate-400'"
+                                                    :title="iconName">
+                                                    <i :data-lucide="iconName" class="w-3.5 h-3.5"></i>
+                                                </button>
+                                            </template>
+                                        </div>
+                                    </div>
+
+                                    <!-- Title Input -->
+                                    <div class="form-group">
+                                        <label class="block text-xs font-bold text-slate-750 dark:text-slate-300 mb-1">Judul Langkah</label>
+                                        <input type="text" x-model="step.title" placeholder="Contoh: Pilih Paket" maxlength="100" class="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800">
+                                    </div>
+
+                                    <!-- Description Input -->
+                                    <div class="form-group md:col-span-2">
+                                        <label class="block text-xs font-bold text-slate-750 dark:text-slate-300 mb-1">Deskripsi Langkah</label>
+                                        <input type="text" x-model="step.description" placeholder="Contoh: Pilih paket yang sesuai dengan tanggal dan keinginan Anda." class="w-full text-xs px-2.5 py-2 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-800">
+                                    </div>
                                 </div>
                             </div>
+                        </template>
+
+                        <!-- Empty State -->
+                        <div x-show="steps.length === 0" class="py-12 border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl text-center">
+                            <i data-lucide="help-circle" class="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto mb-3"></i>
+                            <h5 class="text-sm font-bold text-slate-700 dark:text-slate-300">Belum ada langkah pendaftaran</h5>
+                            <p class="text-xs text-slate-400 dark:text-slate-500 mt-1">Klik tombol di bawah untuk mulai menambahkan langkah pendaftaran baru.</p>
                         </div>
-                    @endfor
+
+                        <!-- Add Step Button -->
+                        <div class="flex justify-center pt-2">
+                            <button type="button" @click="addStep()"
+                                class="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-600 hover:bg-violet-700 active:scale-95 text-white text-xs font-black uppercase tracking-wider rounded-xl transition shadow-md shadow-violet-500/20">
+                                <i data-lucide="plus-circle" class="w-4 h-4"></i>
+                                Tambah Langkah Baru
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 

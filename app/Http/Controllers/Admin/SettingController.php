@@ -90,7 +90,7 @@ class SettingController extends Controller
             'team_section_title', 'team_section_subtitle', 'team_other_section_label',
             'partners_section_title', 'partners_extra',
             'faq_section_title',
-            'registration_title', 'registration_subtitle',
+            'registration_title', 'registration_subtitle', 'registration_steps',
             // Partnership (Kemitraan) section
             'partnership_badge', 'partnership_title', 'partnership_subtitle', 'partnership_reg_label',
             'partnership_cta_title', 'partnership_cta_desc', 'partnership_cta_button',
@@ -295,6 +295,7 @@ class SettingController extends Controller
             'footer_ppiu_number'     => ['nullable', 'string', 'max:150'],
             'about_ppiu_badges_list' => ['nullable', 'string', 'max:255'],
             'about_ppiu_desc'        => ['nullable', 'string', 'max:500'],
+            'registration_steps'     => ['nullable', 'string'],
             'haramain_density_base'  => ['nullable', 'integer', 'min:0'],
             'haramain_youtube_makkah' => ['nullable', 'string', 'max:255'],
             'haramain_youtube_madinah' => ['nullable', 'string', 'max:255'],
