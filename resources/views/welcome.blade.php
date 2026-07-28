@@ -1580,21 +1580,21 @@
     <!-- BEGIN: Partners -->
     <section class="py-16 bg-slate-50/20" data-purpose="partners-logo-cloud">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-extrabold text-center text-slate-900 mb-10 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
-            <div class="flex flex-wrap justify-center items-center gap-10 md:gap-14 opacity-70 reveal">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-slate-900 mb-12 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
+            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
                 @foreach ($partners as $partner)
-                    <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
+                    <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300 h-8 xs:h-9 md:h-12 lg:h-14">
                         @if ($partner->logo_type === 'svg')
-                            <div class="h-7 flex items-center justify-center text-slate-700 dark:text-slate-350">
+                            <div class="h-full flex items-center justify-center text-slate-700 dark:text-slate-350 [&>svg]:!h-full [&>svg]:w-auto">
                                 {!! $partner->logo_path !!}
                             </div>
                         @else
-                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-7 w-auto object-contain" width="112" height="28" loading="lazy" decoding="async">
+                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-full w-auto object-contain" loading="lazy" decoding="async">
                         @endif
                     </div>
                 @endforeach
                 <!-- Premium Hotel Link -->
-                <div class="text-amber-500 font-extrabold text-base italic hover:text-amber-600 transition duration-300">
+                <div class="text-amber-500 font-extrabold text-lg md:text-2xl italic hover:text-amber-600 transition duration-300">
                     {{ $settings['partners_extra'] ?? '+ Akomodasi Bintang 5' }}
                 </div>
             </div>
