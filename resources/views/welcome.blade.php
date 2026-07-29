@@ -1793,7 +1793,7 @@
                                             $thumbnailUrl = "https://img.youtube.com/vi/" . $videoId . "/hqdefault.jpg";
                                         } elseif (preg_match('/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/i', $videoUrl, $matches)) {
                                             $parsedEmbedUrl = "https://www.instagram.com/reel/" . $matches[1] . "/embed";
-                                            $thumbnailUrl = 'instagram';
+                                            $thumbnailUrl = "https://www.instagram.com/reel/" . $matches[1] . "/media/?size=l";
                                         } elseif (preg_match('/(?:vimeo\.com\/(?:channels\/[^\/]+\/|groups\/[^\/]+\/video\/|album\/[^\/]+\/video\/|video\/|)|player\.vimeo\.com\/video\/)([0-9]+)/i', $videoUrl, $matches)) {
                                             $videoId = $matches[1];
                                             $parsedEmbedUrl = "https://player.vimeo.com/video/" . $videoId . "?autoplay=1";
@@ -1848,7 +1848,7 @@
                                                     <div class="flex items-center gap-3 sm:gap-4 min-w-0">
                                                         @if(!empty($testimonial->photo))
                                                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
-                                                                <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover">
+                                                                 <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover">
                                                             </div>
                                                         @else
                                                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
@@ -1866,19 +1866,26 @@
                                                         @endfor
                                                     </div>
                                                 </div>
-
+ 
                                                 @if(!empty($parsedEmbedUrl))
                                                     <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-slate-100 shadow-inner z-20 group/video cursor-pointer"
-                                                         onclick="window.playTestimonialVideo(this, '{{ $parsedEmbedUrl }}')">
-                                                        @if(!empty($thumbnailUrl) && $thumbnailUrl !== 'instagram' && $thumbnailUrl !== 'vimeo')
-                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105">
-                                                        @else
-                                                            <div class="w-full h-full bg-gradient-to-br from-blue-600/95 to-indigo-900 flex flex-col items-center justify-center p-4 text-center">
-                                                                <span class="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
+                                                         onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
+                                                        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-indigo-950 flex flex-col items-center justify-center p-4 text-center">
+                                                            <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="Instagram Reel Fallback">
+                                                            <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                                                                <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
                                                                 <span class="text-white font-extrabold text-sm truncate max-w-full">{{ $testimonial->name }}</span>
+                                                                @if(str_contains($parsedEmbedUrl, 'instagram.com'))
+                                                                    <span class="text-white/60 text-[9px] font-bold mt-1 flex items-center gap-1.5">
+                                                                        <i data-lucide="instagram" class="w-3 h-3 text-pink-500"></i> Instagram Reel
+                                                                    </span>
+                                                                @endif
                                                             </div>
+                                                        </div>
+                                                        @if(!empty($thumbnailUrl))
+                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105" onerror="this.style.display='none'">
                                                         @endif
-                                                        <div class="absolute inset-0 bg-slate-950/20 group-hover/video:bg-slate-950/30 transition-all duration-300 flex items-center justify-center">
+                                                        <div class="absolute inset-0 bg-slate-950/20 group-hover/video:bg-slate-950/30 transition-all duration-300 flex items-center justify-center z-30">
                                                             <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
                                                                 <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
                                                             </div>
@@ -2010,6 +2017,16 @@
                 <div class="w-24 h-[3px] bg-slate-200/60 dark:bg-slate-800/60 rounded-full overflow-hidden relative">
                     <div id="testimonial-progress" class="absolute top-0 left-0 h-full bg-blue-600 w-0 rounded-full"></div>
                 </div>
+
+                @if(isset($allTestimonialsCount) && $allTestimonialsCount > 7)
+                    <div class="mt-4 flex justify-center">
+                        <a href="{{ route('public.testimonials') }}" 
+                           class="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-slate-50 text-blue-600 hover:text-blue-750 font-bold rounded-full border border-slate-200/80 shadow-sm hover:shadow transition-all duration-200 active:scale-95 text-xs sm:text-sm">
+                            <i data-lucide="message-square" class="w-4 h-4"></i>
+                            <span>Lihat Semua Testimoni ({{ $allTestimonialsCount }})</span>
+                        </a>
+                    </div>
+                @endif
             </div>
         </div>
     </section>
@@ -3379,9 +3396,11 @@
                     lastTime = performance.now();
                 };
 
-                window.playTestimonialVideo = (container, embedUrl) => {
+                window.playTestimonialVideo = (embedUrl) => {
                     isLightboxActive = true; // pause autoplay
-                    container.innerHTML = `<iframe class="w-full h-full absolute inset-0" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                    if (window.openVideoTestimonialModal) {
+                        window.openVideoTestimonialModal(embedUrl);
+                    }
                 };
 
                 // Hover Pause events
@@ -4299,6 +4318,21 @@
         </span>
     </a>
 
+    <!-- Video Testimonial Modal (Premium & Smartphone-Adaptive for Instagram) -->
+    <div id="video-testimonial-modal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 cursor-pointer" onclick="window.closeVideoTestimonialModal()"></div>
+        <div class="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 flex flex-col items-center border border-white/10" id="video-modal-content">
+            <!-- Close Button -->
+            <button onclick="window.closeVideoTestimonialModal()" class="absolute top-4 right-4 z-[110] bg-slate-900/60 hover:bg-slate-800/80 text-white p-2 rounded-full transition active:scale-95 border border-white/10" aria-label="Tutup Video">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <!-- Video Wrapper -->
+            <div id="video-modal-iframe-container" class="w-full h-full aspect-video flex items-center justify-center">
+                <!-- iframe will be injected here -->
+            </div>
+        </div>
+    </div>
+
     <!-- Drawer Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -4338,6 +4372,72 @@
             mobileNavLinks.forEach(link => {
                 link.addEventListener('click', closeDrawer);
             });
+        });
+
+        // Global Modal Logic for Video Testimonials
+        window.closeVideoTestimonialModal = () => {
+            const modal = document.getElementById('video-testimonial-modal');
+            const modalContent = document.getElementById('video-modal-content');
+            const iframeContainer = document.getElementById('video-modal-iframe-container');
+            
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+                iframeContainer.innerHTML = '';
+                
+                // Resume autoplay
+                if (typeof window.resumeTestimonialAutoplay === 'function') {
+                    window.resumeTestimonialAutoplay();
+                }
+            }, 300);
+        };
+
+        window.openVideoTestimonialModal = (embedUrl) => {
+            const modal = document.getElementById('video-testimonial-modal');
+            const modalContent = document.getElementById('video-modal-content');
+            const iframeContainer = document.getElementById('video-modal-iframe-container');
+            
+            // Check if it is instagram
+            const isInstagram = embedUrl.includes('instagram.com');
+            
+            if (isInstagram) {
+                // Portrait style (smartphone aspect ratio)
+                modalContent.className = "relative w-full max-w-sm bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 border border-white/10";
+                iframeContainer.className = "w-full aspect-[9/16] h-[75vh]";
+            } else {
+                // Landscape style
+                modalContent.className = "relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 border border-white/10";
+                iframeContainer.className = "w-full aspect-video";
+            }
+            
+            iframeContainer.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Trigger reflow
+            void modal.offsetWidth;
+            modal.classList.remove('opacity-0');
+            modal.classList.add('opacity-100');
+            modalContent.classList.remove('scale-95');
+            modalContent.classList.add('scale-100');
+            
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        };
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('video-testimonial-modal');
+            if (modal && !modal.classList.contains('hidden') && e.key === 'Escape') {
+                window.closeVideoTestimonialModal();
+            }
         });
     </script>
 </body>

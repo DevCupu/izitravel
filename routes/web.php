@@ -15,6 +15,7 @@ Route::get('/', [HomeController::class, 'index']);
 Route::get('/artikel/{slug}', [HomeController::class, 'showArticle'])->name('articles.show');
 Route::get('/paket/{slug}', [HomeController::class, 'showPackage'])->name('packages.show');
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('public.gallery');
+Route::get('/testimoni', [HomeController::class, 'testimonials'])->name('public.testimonials');
 Route::get('/syarat-ketentuan', [HomeController::class, 'terms'])->name('public.terms');
 Route::get('/kebijakan-privasi', [HomeController::class, 'privacy'])->name('public.privacy');
 Route::get('/robots.txt', [HomeController::class, 'robots'])->name('public.robots');

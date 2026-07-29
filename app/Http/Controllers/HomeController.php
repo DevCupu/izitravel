@@ -22,10 +22,13 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
+        $allTestimonialsCount = Testimonial::query()->where('is_active', true)->count();
+
         $testimonials = Testimonial::query()
             ->where('is_active', true)
             ->orderBy('order')
             ->orderBy('id')
+            ->take(7)
             ->get();
 
         $galleries = Gallery::query()
@@ -60,7 +63,7 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('welcome', compact('packages', 'testimonials', 'galleries', 'faqs', 'articles', 'teams', 'partners', 'settings'));
+        return view('welcome', compact('packages', 'testimonials', 'allTestimonialsCount', 'galleries', 'faqs', 'articles', 'teams', 'partners', 'settings'));
     }
 
     public function gallery(Request $request)
@@ -118,6 +121,19 @@ class HomeController extends Controller
         );
 
         return view('gallery', compact('paginatedAlbums', 'settings'));
+    }
+
+    public function testimonials(Request $request)
+    {
+        $settings = Setting::pluck('value', 'key')->toArray();
+
+        $testimonials = Testimonial::query()
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->orderBy('id')
+            ->paginate(12);
+
+        return view('testimonials', compact('testimonials', 'settings'));
     }
 
     public function showArticle($slug)
