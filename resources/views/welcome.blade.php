@@ -4407,12 +4407,16 @@
             
             if (isInstagram) {
                 // Portrait style (smartphone aspect ratio)
-                modalContent.className = "relative w-full max-w-sm bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 border border-white/10";
-                iframeContainer.className = "w-full aspect-[9/16] h-[75vh]";
+                modalContent.style.maxWidth = '380px';
+                iframeContainer.style.aspectRatio = '9/16';
+                iframeContainer.style.height = '75vh';
+                iframeContainer.style.maxHeight = '650px';
             } else {
                 // Landscape style
-                modalContent.className = "relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 border border-white/10";
-                iframeContainer.className = "w-full aspect-video";
+                modalContent.style.maxWidth = '896px';
+                iframeContainer.style.aspectRatio = '16/9';
+                iframeContainer.style.height = 'auto';
+                iframeContainer.style.maxHeight = 'none';
             }
             
             iframeContainer.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
