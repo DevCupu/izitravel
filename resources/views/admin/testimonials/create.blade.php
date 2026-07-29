@@ -13,7 +13,7 @@
 
     <div class="max-w-4xl animate-fade-in-up">
         <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 sm:p-8">
-            <form method="POST" action="{{ route('admin.testimonials.store') }}" class="space-y-6">
+            <form method="POST" action="{{ route('admin.testimonials.store') }}" class="space-y-6" enctype="multipart/form-data">
                 @csrf
                 @php($testimonial = new \App\Models\Testimonial())
                 @include('admin.testimonials._form')

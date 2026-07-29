@@ -528,6 +528,9 @@
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: transform;
         }
+        #testimonial-track.grabbing {
+            transition: none !important;
+        }
         .testimonial-slide {
             flex-shrink: 0;
             width: 100%;
@@ -1779,6 +1782,62 @@
                     <div id="testimonial-track" class="cursor-grab active:cursor-grabbing">
                         @if($testimonials->count() > 0)
                             @foreach ($testimonials as $testimonial)
+                                @php
+                                    $videoUrl = $testimonial->video_url ?? '';
+                                    $parsedEmbedUrl = null;
+                                    $thumbnailUrl = null;
+                                    if (!empty($videoUrl)) {
+                                        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $videoUrl, $matches)) {
+                                            $videoId = $matches[1];
+                                            $parsedEmbedUrl = "https://www.youtube.com/embed/" . $videoId . "?autoplay=1";
+                                            $thumbnailUrl = "https://img.youtube.com/vi/" . $videoId . "/hqdefault.jpg";
+                                        } elseif (preg_match('/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/i', $videoUrl, $matches)) {
+                                            $parsedEmbedUrl = "https://www.instagram.com/reel/" . $matches[1] . "/embed";
+                                            $thumbnailUrl = 'instagram';
+                                        } elseif (preg_match('/(?:vimeo\.com\/(?:channels\/[^\/]+\/|groups\/[^\/]+\/video\/|album\/[^\/]+\/video\/|video\/|)|player\.vimeo\.com\/video\/)([0-9]+)/i', $videoUrl, $matches)) {
+                                            $videoId = $matches[1];
+                                            $parsedEmbedUrl = "https://player.vimeo.com/video/" . $videoId . "?autoplay=1";
+                                            $thumbnailUrl = 'vimeo';
+                                        }
+                                    }
+                                    
+                                    // Generate initials
+                                    $initial = 'U';
+                                    if (!empty($testimonial->name)) {
+                                        $initial = strtoupper(substr(trim($testimonial->name), 0, 1));
+                                    }
+                                    
+                                    // Custom gradient colors based on initial character
+                                    $gradients = [
+                                        'A' => 'from-rose-500 to-red-600',
+                                        'B' => 'from-pink-500 to-rose-600',
+                                        'C' => 'from-purple-500 to-indigo-600',
+                                        'D' => 'from-indigo-500 to-blue-600',
+                                        'E' => 'from-blue-500 to-sky-600',
+                                        'F' => 'from-cyan-500 to-blue-600',
+                                        'G' => 'from-teal-500 to-emerald-600',
+                                        'H' => 'from-emerald-500 to-green-600',
+                                        'I' => 'from-green-500 to-lime-600',
+                                        'J' => 'from-orange-500 to-amber-600',
+                                        'K' => 'from-amber-500 to-yellow-600',
+                                        'L' => 'from-red-500 to-orange-600',
+                                        'M' => 'from-blue-600 to-indigo-700',
+                                        'N' => 'from-violet-600 to-purple-700',
+                                        'O' => 'from-rose-600 to-pink-700',
+                                        'P' => 'from-teal-600 to-cyan-700',
+                                        'Q' => 'from-emerald-600 to-teal-700',
+                                        'R' => 'from-blue-500 to-indigo-600',
+                                        'S' => 'from-sky-500 to-blue-600',
+                                        'T' => 'from-indigo-600 to-violet-750',
+                                        'U' => 'from-violet-500 to-purple-600',
+                                        'V' => 'from-purple-600 to-fuchsia-700',
+                                        'W' => 'from-fuchsia-500 to-pink-600',
+                                        'X' => 'from-pink-600 to-rose-700',
+                                        'Y' => 'from-rose-500 to-orange-600',
+                                        'Z' => 'from-orange-600 to-red-700'
+                                    ];
+                                    $gradient = $gradients[$initial] ?? 'from-blue-500 to-indigo-600';
+                                @endphp
                                 <div class="testimonial-slide select-none group">
                                     <!-- Outer Shell (Double-Bezel) -->
                                     <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
@@ -1787,38 +1846,52 @@
                                             <div>
                                                 <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                     <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600/10 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-600/10 flex-shrink-0 relative">
-                                                            <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
-                                                            @if(!empty($testimonial->video_url))
-                                                                <span class="absolute -bottom-1 -right-1 bg-amber-500 text-slate-950 w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center border border-white shadow-md">
-                                                                    <i data-lucide="play" class="w-1.5 h-1.5 sm:w-2 sm:h-2 fill-current ml-0.5 animate-pulse"></i>
-                                                                </span>
-                                                            @endif
-                                                        </div>
+                                                        @if(!empty($testimonial->photo))
+                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                                <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover">
+                                                            </div>
+                                                        @else
+                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                                {{ $initial }}
+                                                            </div>
+                                                        @endif
                                                         <div class="min-w-0">
                                                             <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h4>
                                                             <p class="text-xs text-slate-400 truncate">{{ $testimonial->location }}</p>
                                                         </div>
                                                     </div>
-                                                    @if(!empty($testimonial->video_url))
-                                                        <button class="play-testimonial-btn flex-shrink-0 bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 text-blue-600 dark:text-blue-400 w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shadow-md active:scale-95 transition-all duration-300 group-hover:scale-105" 
-                                                                data-video-url="{{ $testimonial->video_url }}" 
-                                                                data-name="{{ $testimonial->name }}"
-                                                                data-location="{{ $testimonial->location }}"
-                                                                title="Putar Video Testimoni"
-                                                                aria-label="Play video testimonial">
-                                                            <i data-lucide="play" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current ml-0.5 transition-transform group-hover:translate-x-0.5"></i>
-                                                        </button>
-                                                    @endif
+                                                    <div class="flex text-amber-500 gap-0.5">
+                                                        @for ($i = 0; $i < $testimonial->rating; $i++)
+                                                            <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
+                                                        @endfor
+                                                    </div>
                                                 </div>
-                                                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
-                                                    "{{ $testimonial->message }}"
-                                                </p>
-                                            </div>
-                                            <div class="flex text-amber-400 font-bold gap-1 text-xs">
-                                                @for ($i = 0; $i < $testimonial->rating; $i++)
-                                                    ★
-                                                @endfor
+
+                                                @if(!empty($parsedEmbedUrl))
+                                                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-slate-100 shadow-inner z-20 group/video cursor-pointer"
+                                                         onclick="window.playTestimonialVideo(this, '{{ $parsedEmbedUrl }}')">
+                                                        @if(!empty($thumbnailUrl) && $thumbnailUrl !== 'instagram' && $thumbnailUrl !== 'vimeo')
+                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105">
+                                                        @else
+                                                            <div class="w-full h-full bg-gradient-to-br from-blue-600/95 to-indigo-900 flex flex-col items-center justify-center p-4 text-center">
+                                                                <span class="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
+                                                                <span class="text-white font-extrabold text-sm truncate max-w-full">{{ $testimonial->name }}</span>
+                                                            </div>
+                                                        @endif
+                                                        <div class="absolute inset-0 bg-slate-950/20 group-hover/video:bg-slate-950/30 transition-all duration-300 flex items-center justify-center">
+                                                            <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
+                                                                <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+
+                                                <div class="relative mt-2">
+                                                    <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                        {{ $testimonial->message }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -1828,73 +1901,94 @@
                             <!-- Fallback static items -->
                             <!-- Testimonial 1 -->
                             <div class="testimonial-slide select-none group">
-                                <!-- Outer Shell (Double-Bezel) -->
                                 <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <!-- Inner Core -->
                                     <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
-                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
-                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                        M
+                                                    </div>
+                                                    <div class="min-w-0">
+                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h4>
+                                                        <p class="text-xs text-slate-400 truncate">Jakarta</p>
+                                                    </div>
                                                 </div>
-                                                <div class="min-w-0">
-                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h4>
-                                                    <p class="text-xs text-slate-400 truncate">Jakarta</p>
+                                                <div class="flex text-amber-500 gap-0.5">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
+                                                    @endfor
                                                 </div>
                                             </div>
-                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
-                                                "Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik."
-                                            </p>
+                                            <div class="relative mt-2">
+                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                    Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik.
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Testimonial 2 -->
                             <div class="testimonial-slide select-none group">
-                                <!-- Outer Shell (Double-Bezel) -->
                                 <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <!-- Inner Core -->
                                     <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
-                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
-                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                        S
+                                                    </div>
+                                                    <div class="min-w-0">
+                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h4>
+                                                        <p class="text-xs text-slate-400 truncate">Bandung</p>
+                                                    </div>
                                                 </div>
-                                                <div class="min-w-0">
-                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h4>
-                                                    <p class="text-xs text-slate-400 truncate">Bandung</p>
+                                                <div class="flex text-amber-500 gap-0.5">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
+                                                    @endfor
                                                 </div>
                                             </div>
-                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
-                                                "Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!"
-                                            </p>
+                                            <div class="relative mt-2">
+                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                    Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Testimonial 3 -->
                             <div class="testimonial-slide select-none group">
-                                <!-- Outer Shell (Double-Bezel) -->
                                 <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <!-- Inner Core -->
                                     <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
-                                            <div class="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-50/80 flex items-center justify-center text-blue-600 font-extrabold text-xs sm:text-sm border border-blue-100/55">
-                                                    <i data-lucide="user" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
+                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                        A
+                                                    </div>
+                                                    <div class="min-w-0">
+                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h4>
+                                                        <p class="text-xs text-slate-400 truncate">Surabaya</p>
+                                                    </div>
                                                 </div>
-                                                <div class="min-w-0">
-                                                    <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h4>
-                                                    <p class="text-xs text-slate-400 truncate">Surabaya</p>
+                                                <div class="flex text-amber-500 gap-0.5">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
+                                                    @endfor
                                                 </div>
                                             </div>
-                                            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-light">
-                                                "Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia."
-                                            </p>
+                                            <div class="relative mt-2">
+                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                    Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia.
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="flex text-amber-400 font-bold gap-1 text-xs">★★★★★</div>
                                     </div>
                                 </div>
                             </div>
@@ -1902,8 +1996,20 @@
                     </div>
                 </div>
             </div>
-            <!-- Testimonial Dots Navigation -->
-            <div class="flex justify-center items-center gap-2.5 mt-8 sm:mt-12" id="testimonial-dots">
+            <!-- Testimonial Controls & Dots Navigation (Sleek Floating Pill) -->
+            <div class="flex flex-col items-center gap-4 mt-8 sm:mt-12">
+                <div class="inline-flex items-center gap-3 bg-slate-100/80 dark:bg-slate-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/50 dark:border-slate-800/50 shadow-sm" id="testimonial-controls-wrapper">
+                    <button id="toggle-play-testimonial" class="flex items-center justify-center bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-600 w-7 h-7 rounded-full shadow-sm border border-slate-100 dark:border-slate-700 transition active:scale-95 duration-200" aria-label="Pause Autoplay">
+                        <i data-lucide="pause" class="w-3.5 h-3.5" id="play-pause-icon"></i>
+                    </button>
+                    <div class="h-4 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="flex justify-center items-center gap-2" id="testimonial-dots">
+                    </div>
+                </div>
+                <!-- Premium Progress Bar -->
+                <div class="w-24 h-[3px] bg-slate-200/60 dark:bg-slate-800/60 rounded-full overflow-hidden relative">
+                    <div id="testimonial-progress" class="absolute top-0 left-0 h-full bg-blue-600 w-0 rounded-full"></div>
+                </div>
             </div>
         </div>
     </section>
@@ -2696,6 +2802,11 @@
             lightboxContentBox.classList.add('scale-100');
 
             showLightboxItem(startIndex);
+
+            // Pause testimonial autoplay when lightbox is opened
+            if (typeof window.pauseTestimonialAutoplay === 'function') {
+                window.pauseTestimonialAutoplay();
+            }
         };
 
         const closeLightbox = () => {
@@ -2713,6 +2824,11 @@
                 lightboxIframe.setAttribute('src', '');
                 lightboxImg.setAttribute('src', '');
             }, 300);
+
+            // Resume testimonial autoplay when lightbox is closed
+            if (typeof window.resumeTestimonialAutoplay === 'function') {
+                window.resumeTestimonialAutoplay();
+            }
         };
 
         const navigateLightbox = (direction) => {
@@ -3108,6 +3224,10 @@
             const prevBtn = document.getElementById('prev-testimonial');
             const nextBtn = document.getElementById('next-testimonial');
             const dotsContainer = document.getElementById('testimonial-dots');
+            const progressBar = document.getElementById('testimonial-progress');
+            const togglePlayBtn = document.getElementById('toggle-play-testimonial');
+            const playPauseIcon = document.getElementById('play-pause-icon');
+            const sliderContainer = document.getElementById('testimonial-slider-container');
             
             if (track && slides.length > 0) {
                 let currentIndex = 0;
@@ -3117,6 +3237,15 @@
                 let currentTranslate = 0;
                 let prevTranslate = 0;
                 let animationID = 0;
+
+                // Autoplay settings
+                const AUTOPLAY_DURATION = 5000; // 5 seconds per slide
+                let isAutoplayPaused = false;
+                let isHovered = false;
+                let isLightboxActive = false;
+                let elapsed = 0;
+                let lastTime = 0;
+                let progressAnimID = 0;
 
                 const getItemsPerSlide = () => {
                     if (window.innerWidth >= 1024) return 3;
@@ -3145,6 +3274,7 @@
                         dot.addEventListener('click', () => {
                             currentIndex = i;
                             setPositionByIndex();
+                            resetAutoplayTimer();
                         });
                         dotsContainer.appendChild(dot);
                     }
@@ -3169,18 +3299,133 @@
                     track.style.transform = `translateX(${currentTranslate}px)`;
                     updateDots();
 
-                    if (prevBtn) prevBtn.disabled = (currentIndex === 0);
-                    if (nextBtn) nextBtn.disabled = (currentIndex >= slides.length - itemsPerSlide);
-                    
-                    if (prevBtn) prevBtn.style.opacity = currentIndex === 0 ? '0.4' : '1';
-                    if (nextBtn) nextBtn.style.opacity = currentIndex >= slides.length - itemsPerSlide ? '0.4' : '1';
+                    // Loop mode always has active arrows
+                    if (prevBtn) {
+                        prevBtn.disabled = false;
+                        prevBtn.style.opacity = '1';
+                    }
+                    if (nextBtn) {
+                        nextBtn.disabled = false;
+                        nextBtn.style.opacity = '1';
+                    }
                 };
 
+                const goToNextSlide = () => {
+                    const maxIndex = Math.max(0, slides.length - itemsPerSlide);
+                    if (currentIndex < maxIndex) {
+                        currentIndex++;
+                    } else {
+                        currentIndex = 0;
+                    }
+                    setPositionByIndex();
+                };
+
+                const goToPrevSlide = () => {
+                    const maxIndex = Math.max(0, slides.length - itemsPerSlide);
+                    if (currentIndex > 0) {
+                        currentIndex--;
+                    } else {
+                        currentIndex = maxIndex;
+                    }
+                    setPositionByIndex();
+                };
+
+                const resetAutoplayTimer = () => {
+                    elapsed = 0;
+                    if (progressBar) {
+                        progressBar.style.width = '0%';
+                    }
+                    lastTime = performance.now();
+                };
+
+                // Advanced Autoplay Loop using requestAnimationFrame
+                const startProgressTimer = () => {
+                    lastTime = performance.now();
+                    cancelAnimationFrame(progressAnimID);
+                    
+                    const animateProgress = () => {
+                        const now = performance.now();
+                        const delta = now - lastTime;
+                        lastTime = now;
+
+                        const shouldPause = isAutoplayPaused || isHovered || isDragging || isLightboxActive;
+
+                        if (!shouldPause) {
+                            elapsed += delta;
+                            if (elapsed >= AUTOPLAY_DURATION) {
+                                elapsed = 0;
+                                goToNextSlide();
+                            }
+                        }
+
+                        if (progressBar) {
+                            const percentage = shouldPause && isAutoplayPaused ? 0 : Math.min((elapsed / AUTOPLAY_DURATION) * 100, 100);
+                            progressBar.style.width = `${percentage}%`;
+                        }
+
+                        progressAnimID = requestAnimationFrame(animateProgress);
+                    };
+
+                    progressAnimID = requestAnimationFrame(animateProgress);
+                };
+
+                // Register global hooks for Lightbox player interaction
+                window.pauseTestimonialAutoplay = () => {
+                    isLightboxActive = true;
+                };
+
+                window.resumeTestimonialAutoplay = () => {
+                    isLightboxActive = false;
+                    lastTime = performance.now();
+                };
+
+                window.playTestimonialVideo = (container, embedUrl) => {
+                    isLightboxActive = true; // pause autoplay
+                    container.innerHTML = `<iframe class="w-full h-full absolute inset-0" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                };
+
+                // Hover Pause events
+                if (sliderContainer) {
+                    sliderContainer.addEventListener('mouseenter', () => {
+                        isHovered = true;
+                    });
+                    sliderContainer.addEventListener('mouseleave', () => {
+                        isHovered = false;
+                        lastTime = performance.now();
+                    });
+                }
+
+                // Play/Pause manual toggle
+                if (togglePlayBtn) {
+                    togglePlayBtn.addEventListener('click', () => {
+                        isAutoplayPaused = !isAutoplayPaused;
+                        if (isAutoplayPaused) {
+                            if (playPauseIcon) {
+                                playPauseIcon.setAttribute('data-lucide', 'play');
+                            }
+                            togglePlayBtn.setAttribute('aria-label', 'Play Autoplay');
+                            elapsed = 0;
+                            if (progressBar) progressBar.style.width = '0%';
+                        } else {
+                            if (playPauseIcon) {
+                                playPauseIcon.setAttribute('data-lucide', 'pause');
+                            }
+                            togglePlayBtn.setAttribute('aria-label', 'Pause Autoplay');
+                            lastTime = performance.now();
+                        }
+                        if (typeof lucide !== 'undefined' && typeof lucide.createIcons === 'function') {
+                            lucide.createIcons();
+                        }
+                    });
+                }
+
+                // Drag/Touch Swipe Logic
                 const dragStart = (e) => {
                     isDragging = true;
                     startPos = getPositionX(e);
                     animationID = requestAnimationFrame(animation);
                     track.classList.add('grabbing');
+                    resetAutoplayTimer();
                 };
 
                 const dragMove = (e) => {
@@ -3196,15 +3441,24 @@
                     
                     const movedBy = currentTranslate - prevTranslate;
                     const slideWidth = slides[0].getBoundingClientRect().width;
+                    const maxIndex = Math.max(0, slides.length - itemsPerSlide);
                     
-                    if (movedBy < -slideWidth * 0.2 && currentIndex < slides.length - itemsPerSlide) {
-                        currentIndex += 1;
-                    }
-                    if (movedBy > slideWidth * 0.2 && currentIndex > 0) {
-                        currentIndex -= 1;
+                    if (movedBy < -slideWidth * 0.2) {
+                        if (currentIndex < maxIndex) {
+                            currentIndex += 1;
+                        } else {
+                            currentIndex = 0;
+                        }
+                    } else if (movedBy > slideWidth * 0.2) {
+                        if (currentIndex > 0) {
+                            currentIndex -= 1;
+                        } else {
+                            currentIndex = maxIndex;
+                        }
                     }
                     
                     setPositionByIndex();
+                    resetAutoplayTimer();
                 };
 
                 const getPositionX = (e) => {
@@ -3227,24 +3481,21 @@
 
                 if (prevBtn) {
                     prevBtn.addEventListener('click', () => {
-                        if (currentIndex > 0) {
-                            currentIndex--;
-                            setPositionByIndex();
-                        }
+                        goToPrevSlide();
+                        resetAutoplayTimer();
                     });
                 }
 
                 if (nextBtn) {
                     nextBtn.addEventListener('click', () => {
-                        if (currentIndex < slides.length - itemsPerSlide) {
-                            currentIndex++;
-                            setPositionByIndex();
-                        }
+                        goToNextSlide();
+                        resetAutoplayTimer();
                     });
                 }
 
                 window.addEventListener('resize', updateSliderDimensions);
                 updateSliderDimensions();
+                startProgressTimer();
             }
 
             // 7. FAQ Smooth Height Accordion Toggle

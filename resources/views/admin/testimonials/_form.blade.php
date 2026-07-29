@@ -28,6 +28,26 @@
                 @error('location') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
         </div>
+
+        <div class="form-group mt-4">
+            <label for="photo" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Foto Profil (Avatar)') }}</label>
+            <div class="flex items-center gap-4">
+                @if(!empty($testimonial->photo))
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 shrink-0 relative group">
+                        <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="Avatar" class="w-full h-full object-cover">
+                    </div>
+                @else
+                    <div class="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center shrink-0 border border-slate-200 dark:border-slate-700">
+                        <i data-lucide="user" class="w-6 h-6"></i>
+                    </div>
+                @endif
+                <div class="flex-1 min-w-0">
+                    <input type="file" id="photo" name="photo" accept="image/*" class="w-full text-xs text-slate-500 dark:text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 dark:file:bg-blue-900/20 file:text-blue-600 dark:file:text-blue-400 hover:file:bg-blue-100 dark:hover:file:bg-blue-900/35 transition cursor-pointer">
+                    <p class="text-[10px] text-slate-400 dark:text-slate-500 mt-1">Mendukung format PNG, JPG, JPEG, atau WEBP. Maksimal 2MB.</p>
+                </div>
+            </div>
+            @error('photo') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+        </div>
     </div>
 
     <div class="border-t border-slate-100 dark:border-slate-700"></div>

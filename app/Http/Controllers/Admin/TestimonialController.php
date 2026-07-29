@@ -46,6 +46,10 @@ class TestimonialController extends Controller
     {
         $data = $this->validateData($request);
 
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
+        }
+
         Testimonial::create($data);
 
         return redirect()->route('admin.testimonials.index')->with('status', 'Testimoni berhasil ditambahkan.');
@@ -70,6 +74,13 @@ class TestimonialController extends Controller
 
         $data = $this->validateData($request);
 
+        if ($request->hasFile('photo')) {
+            if ($testimonial->photo) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($testimonial->photo);
+            }
+            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
+        }
+
         $testimonial->update($data);
 
         return redirect()->route('admin.testimonials.index')->with('status', 'Testimoni berhasil diperbarui.');
@@ -81,6 +92,10 @@ class TestimonialController extends Controller
     public function destroy(string $id)
     {
         $testimonial = Testimonial::findOrFail($id);
+
+        if ($testimonial->photo) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($testimonial->photo);
+        }
 
         $testimonial->delete();
 
@@ -95,6 +110,7 @@ class TestimonialController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'location' => ['required', 'string', 'max:255'],
+            'photo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:2048'],
             'message' => ['required', 'string'],
             'video_url' => ['nullable', 'url', 'max:255'],
             'rating' => ['required', 'integer', 'min:1', 'max:5'],

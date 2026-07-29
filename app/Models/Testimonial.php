@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 #[Fillable([
     'name',
     'location',
+    'photo',
     'message',
     'video_url',
     'rating',
