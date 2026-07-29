@@ -174,7 +174,7 @@
     <!-- END: Floating Header -->
 
     <!-- BEGIN: Banner Header -->
-    <section class="relative pt-32 pb-16 bg-blue-950 overflow-hidden islamic-pattern">
+    <section class="relative pt-44 pb-16 md:pt-32 bg-blue-950 overflow-hidden islamic-pattern">
         <div class="absolute inset-0 bg-slate-900/60 pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
             <span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full w-fit uppercase tracking-wider border border-amber-500/20">

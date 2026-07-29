@@ -116,7 +116,7 @@
     <!-- END: Floating Header -->
 
     <!-- BEGIN: Banner Header -->
-    <section class="relative pt-36 pb-20 bg-blue-950 overflow-hidden islamic-pattern">
+    <section class="relative pt-44 pb-20 md:pt-36 bg-blue-950 overflow-hidden islamic-pattern">
         <div class="absolute inset-0 bg-slate-950/70 pointer-events-none"></div>
         
         <!-- Glowing background accent -->
