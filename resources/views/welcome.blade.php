@@ -1060,7 +1060,7 @@
                                 </div>
                             @else
                                 <div class="flex justify-start">
-                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-amber-600/5 dark:from-amber-500/20 dark:to-transparent border border-amber-500/20 dark:border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-300 group-hover:border-amber-500/40">
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-amber-600/5 dark:from-amber-500/20 dark:to-transparent border border-amber-500/20 dark:border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-300 group-hover:border-amber-500/40 whitespace-nowrap">
                                         <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400 animate-pulse"></i>
                                         Mitra Resmi Kemenag RI
                                     </span>
@@ -1124,7 +1124,7 @@
                     
                     <!-- Permit Number Display (Highlighted Luxury Seal) -->
                     <div class="shrink-0 w-full lg:w-auto flex items-center justify-center">
-                        <div class="bg-gradient-to-br from-[#113a6b] via-[#0b284c] to-[#06182f] border border-amber-500/30 px-8 py-6 rounded-3xl text-center min-w-[260px] w-full lg:w-auto shadow-xl relative overflow-hidden group/permit transition-all duration-300 hover:border-amber-500/50">
+                        <div class="border border-amber-500/30 px-8 py-6 rounded-3xl text-center min-w-[260px] w-full lg:w-auto shadow-xl relative overflow-hidden group/permit transition-all duration-300 hover:border-amber-500/50" style="background: linear-gradient(135deg, #113a6b 0%, #0b284c 50%, #06182f 100%);">
                             <!-- Golden background shine light effect -->
                             <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl pointer-events-none group-hover/permit:scale-125 transition-transform duration-500"></div>
                             
