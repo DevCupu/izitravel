@@ -47,7 +47,21 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="font-bold text-slate-900 dark:text-white line-clamp-1">{{ $article->title }}</div>
-                                    <div class="text-[11px] font-bold text-blue-600 dark:text-blue-400 mt-0.5 uppercase tracking-wider">{{ $article->category }}</div>
+                                    <div class="flex items-center flex-wrap gap-2 mt-1">
+                                        <span class="text-[11px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{{ $article->category }}</span>
+                                        @if($article->tags)
+                                            <div class="flex flex-wrap gap-1">
+                                                @foreach(array_slice(array_filter(array_map('trim', explode(',', $article->tags))), 0, 3) as $t)
+                                                    <span class="text-[9px] font-extrabold text-slate-450 dark:text-slate-500 bg-slate-100/50 dark:bg-slate-900 px-1.5 py-0.5 rounded-md">
+                                                        {{ $t }}
+                                                    </span>
+                                                @endforeach
+                                                @if(count(array_filter(array_map('trim', explode(',', $article->tags)))) > 3)
+                                                    <span class="text-[9px] font-bold text-slate-400">...</span>
+                                                @endif
+                                            </div>
+                                        @endif
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4">
                                     <div class="font-semibold text-slate-800 dark:text-slate-200">{{ $article->author }}</div>

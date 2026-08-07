@@ -79,6 +79,17 @@
             </div>
 
             <div class="md:col-span-2 form-group">
+                <label for="tags">{{ __('Tags / Hashtags (Pemisah Koma)') }}</label>
+                <input type="text" id="tags" name="tags" value="{{ old('tags', $article->tags ?? '') }}"
+                    class="transition"
+                    placeholder="Contoh: umrah, tips, doa, makkah">
+                <p class="mt-1 text-[11px] text-slate-400 dark:text-slate-500">
+                    Masukkan tag atau hashtag dipisah koma. Karakter '#' bersifat opsional (akan otomatis ditambahkan jika tidak ditulis).
+                </p>
+                @error('tags') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="md:col-span-2 form-group">
                 <label for="excerpt">{{ __('Kutipan Ringkas (Excerpt)') }}</label>
                 <textarea id="excerpt" name="excerpt" rows="2"
                     class="transition"
@@ -268,6 +279,60 @@
     }
     .dark .ck.ck-toolbar .ck-button:hover {
         background: #1e293b !important;
+    }
+    /* Style overrides for CKEditor content to counter Tailwind resets */
+    .ck-content strong, .ck-content b {
+        font-weight: 700 !important;
+    }
+    .ck-content em, .ck-content i {
+        font-style: italic !important;
+    }
+    .ck-content ul {
+        list-style-type: disc !important;
+        padding-left: 1.5rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .ck-content ol {
+        list-style-type: decimal !important;
+        padding-left: 1.5rem !important;
+        margin-top: 0.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    .ck-content li {
+        list-style: inherit !important;
+        margin-bottom: 0.25rem !important;
+    }
+    .ck-content h2 {
+        font-size: 1.5rem !important;
+        font-weight: 800 !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+        color: inherit !important;
+    }
+    .ck-content h3 {
+        font-size: 1.25rem !important;
+        font-weight: 700 !important;
+        margin-top: 1.25rem !important;
+        margin-bottom: 0.5rem !important;
+        color: inherit !important;
+    }
+    .ck-content h4 {
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        margin-top: 1rem !important;
+        margin-bottom: 0.5rem !important;
+        color: inherit !important;
+    }
+    .ck-content blockquote {
+        border-left: 4px solid #0388d1 !important;
+        padding-left: 1rem !important;
+        font-style: italic !important;
+        margin: 1rem 0 !important;
+        background: rgba(0,0,0,0.02) !important;
+    }
+    .dark .ck-content blockquote {
+        background: rgba(255,255,255,0.02) !important;
     }
 </style>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>

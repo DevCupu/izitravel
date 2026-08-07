@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/artikel/{slug}', [HomeController::class, 'showArticle'])->name('articles.show');
+Route::get('/artikel/tag/{tag}', [HomeController::class, 'tagArticles'])->name('public.articles.tag');
 Route::get('/paket/{slug}', [HomeController::class, 'showPackage'])->name('packages.show');
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('public.gallery');
 Route::get('/testimoni', [HomeController::class, 'testimonials'])->name('public.testimonials');

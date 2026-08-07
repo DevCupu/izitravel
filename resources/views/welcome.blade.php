@@ -979,7 +979,7 @@
     <!-- END: HeroSection -->
 
     <!-- BEGIN: Tentang Kami -->
-    <section class="py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
+    <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
         <!-- Blurred Nabawi Mosque Background Image (Split Left with Right Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
@@ -993,7 +993,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Top Layout: Description, Stats, and 3D Photo Stack Collage -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-20">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-10">
                 <!-- Left: Short description & stats -->
                 <div class="lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
                     <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
@@ -1042,34 +1042,68 @@
             </div>
 
             <!-- Izin Resmi PPIU Card -->
-            <div class="mb-12 bg-white dark:bg-slate-800 rounded-3xl p-6 md:p-8 border border-slate-200/60 dark:border-slate-700 border-l-4 border-l-amber-500 shadow-sm relative overflow-hidden group hover:shadow-md transition-all duration-300 reveal-up">
-                <div class="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8 relative z-10">
-                    <div class="space-y-4 text-left flex-1">
+            <div class="my-16 md:my-24 bg-gradient-to-br from-white via-amber-50/[0.02] to-amber-50/[0.08] dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-900/90 rounded-[2.25rem] p-6 md:p-10 border border-amber-500/15 dark:border-amber-500/10 shadow-[0_10px_35px_rgba(200,158,43,0.02)] dark:shadow-none relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(200,158,43,0.06)] hover:border-amber-500/25 dark:hover:border-amber-500/20 transition-all duration-500 reveal-up before:absolute before:left-0 before:top-0 before:h-full before:w-[5px] before:bg-gradient-to-b before:from-amber-400 before:via-amber-500 before:to-yellow-300 before:rounded-l-[2.25rem]">
+                
+                <!-- Background ambient decorative circles -->
+                <div class="absolute -left-16 -top-16 w-36 h-36 bg-amber-500/5 rounded-full blur-2xl pointer-events-none group-hover:scale-110 transition duration-500"></div>
+                <div class="absolute right-[20%] -bottom-16 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition duration-500"></div>
+
+                <div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-10 relative z-10">
+                    <div class="space-y-5 text-left flex-1 flex flex-col justify-between">
                         <!-- Logo & Badges Group -->
-                        <div class="space-y-3">
+                        <div class="space-y-4">
                             @if(!empty($settings['about_ppiu_logo']))
                                 <div class="flex justify-start">
-                                    <div class="inline-flex items-center justify-center w-[160px] h-[40px] rounded-lg bg-white p-1 border border-slate-100 shadow-sm overflow-hidden shrink-0">
+                                    <div class="inline-flex items-center justify-center w-[160px] h-[45px] rounded-xl bg-white p-2 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-102">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="w-full h-full object-contain">
                                     </div>
                                 </div>
                             @else
                                 <div class="flex justify-start">
-                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-950/20 border border-amber-100 dark:border-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold uppercase tracking-wider">
-                                        <i data-lucide="award" class="w-3 h-3"></i>
+                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-amber-600/5 dark:from-amber-500/20 dark:to-transparent border border-amber-500/20 dark:border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-300 group-hover:border-amber-500/40">
+                                        <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400 animate-pulse"></i>
                                         Mitra Resmi Kemenag RI
                                     </span>
                                 </div>
                             @endif
 
                             @php
+                                $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
                                 $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman')));
+                                
+                                // Clean up and deduplicate badges that match the main PPIU label to avoid redundant text
+                                $ppiuBadgesList = array_filter($ppiuBadgesList, function($badge) use ($ppiuLabelText) {
+                                    $cleanBadge = strtolower(str_replace([' ', '-', '_'], '', $badge));
+                                    $cleanLabel = strtolower(str_replace([' ', '-', '_'], '', $ppiuLabelText));
+                                    return $cleanBadge !== $cleanLabel && !str_contains($cleanLabel, $cleanBadge) && !str_contains($cleanBadge, $cleanLabel);
+                                });
                             @endphp
+                            
                             @if(!empty($ppiuBadgesList))
-                                <div class="flex flex-wrap items-center justify-start gap-1.5">
+                                <div class="flex flex-wrap items-center justify-start gap-2 pt-1">
                                     @foreach($ppiuBadgesList as $badgeText)
-                                        <span class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-slate-50 dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider">
-                                            <span class="w-1 h-1 rounded-full bg-emerald-500 shrink-0"></span>
+                                        @php
+                                            $lowerBadge = strtolower($badgeText);
+                                            $badgeIcon = 'check-circle';
+                                            $badgeColorClass = 'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border-slate-200/60 dark:border-slate-800';
+                                            $iconColorClass = 'text-emerald-500';
+                                            
+                                            if (str_contains($lowerBadge, 'aman')) {
+                                                $badgeIcon = 'shield-check';
+                                                $badgeColorClass = 'text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/10 border-emerald-200/50 dark:border-emerald-900/20';
+                                                $iconColorClass = 'text-emerald-500';
+                                            } elseif (str_contains($lowerBadge, 'akreditasi')) {
+                                                $badgeIcon = 'award';
+                                                $badgeColorClass = 'text-amber-700 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/10 border-amber-200/50 dark:border-amber-900/20';
+                                                $iconColorClass = 'text-amber-500';
+                                            } elseif (str_contains($lowerBadge, 'ppiu') || str_contains($lowerBadge, 'izin')) {
+                                                $badgeIcon = 'file-check';
+                                                $badgeColorClass = 'text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/10 border-blue-200/50 dark:border-blue-900/20';
+                                                $iconColorClass = 'text-blue-500';
+                                            }
+                                        @endphp
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl border text-[10px] md:text-[11px] font-extrabold uppercase tracking-wider {{ $badgeColorClass }} transition-all duration-300 hover:scale-[1.03]">
+                                            <i data-lucide="{{ $badgeIcon }}" class="w-3.5 h-3.5 {{ $iconColorClass }} shrink-0"></i>
                                             {{ $badgeText }}
                                         </span>
                                     @endforeach
@@ -1078,28 +1112,35 @@
                         </div>
 
                         <!-- Card Text Content -->
-                        <div class="space-y-2">
-                            <h3 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white tracking-tight">
-                                {{ $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)' }}
+                        <div class="space-y-2.5">
+                            <h3 class="text-xl md:text-2xl font-black text-[#113a6b] dark:text-white tracking-tight">
+                                {{ $ppiuLabelText }}
                             </h3>
-                            <p class="text-slate-500 dark:text-slate-400 text-xs md:text-sm leading-relaxed max-w-3xl font-light">
+                            <p class="text-slate-650 dark:text-slate-300 text-xs md:text-sm leading-relaxed max-w-3xl font-light">
                                 {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
                             </p>
                         </div>
                     </div>
                     
-                    <!-- Permit Number Display (Highlighted) -->
-                    <div class="shrink-0 w-full md:w-auto">
-                        <div class="bg-gradient-to-br from-amber-50 to-amber-100/30 dark:from-amber-950/20 dark:to-slate-900/50 border border-amber-200 dark:border-amber-800/60 px-8 py-5 rounded-2xl text-center min-w-[220px] shadow-sm relative overflow-hidden group">
-                            <!-- Subtle golden light accent -->
-                            <div class="absolute -right-6 -bottom-6 w-16 h-16 bg-amber-500/5 rounded-full blur-xl"></div>
+                    <!-- Permit Number Display (Highlighted Luxury Seal) -->
+                    <div class="shrink-0 w-full lg:w-auto flex items-center justify-center">
+                        <div class="bg-gradient-to-br from-[#113a6b] via-[#0b284c] to-[#06182f] border border-amber-500/30 px-8 py-6 rounded-3xl text-center min-w-[260px] w-full lg:w-auto shadow-xl relative overflow-hidden group/permit transition-all duration-300 hover:border-amber-500/50">
+                            <!-- Golden background shine light effect -->
+                            <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl pointer-events-none group-hover/permit:scale-125 transition-transform duration-500"></div>
                             
-                            <p class="text-[10px] font-bold uppercase text-amber-700 dark:text-amber-500 tracking-wider font-mono">Nomor Izin PPIU</p>
-                            <p class="text-xl md:text-2xl font-black text-amber-600 dark:text-amber-400 mt-1 font-mono select-all tracking-wider">
+                            <!-- Star Decors inside the box -->
+                            <div class="absolute top-3 right-3 text-amber-500/10 pointer-events-none">
+                                <i data-lucide="star" class="w-8 h-8 rotate-12"></i>
+                            </div>
+
+                            <p class="text-[10px] font-black uppercase text-amber-400 dark:text-amber-300 tracking-widest font-mono">Nomor Izin PPIU</p>
+                            <p class="text-2xl md:text-3xl font-black text-white mt-1.5 font-mono select-all tracking-wider drop-shadow-md">
                                 {{ $settings['footer_ppiu_number'] ?? 'A10BS81' }}
                             </p>
-                            <div class="mt-3 pt-2.5 border-t border-amber-200/40 dark:border-amber-800/30 w-full flex items-center justify-center gap-1.5 text-[9px] text-amber-750 dark:text-amber-400 font-bold uppercase tracking-wider">
-                                <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-500"></i>
+                            
+                            <div class="mt-4 pt-3.5 border-t border-white/10 w-full flex items-center justify-center gap-2 text-[10px] text-emerald-450 font-black uppercase tracking-widest">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-ping absolute left-1/2 -translate-x-[64px] hidden"></span>
+                                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
                                 Resmi Terdaftar
                             </div>
                         </div>
@@ -1108,7 +1149,7 @@
             </div>
 
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
                 <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300 reveal-left">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
@@ -1139,7 +1180,7 @@
             </div>
 
             <!-- Bottom Layout: Founders section -->
-            <div class="text-center space-y-4 mb-12 reveal">
+            <div class="text-center space-y-4 mb-8 reveal">
                 <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">{{ $settings['team_section_title'] ?? 'Di Balik Layar IZI Travel' }}</h3>
                 <p class="text-slate-500 max-w-lg mx-auto text-xs md:text-sm leading-relaxed font-light">
                     {{ $settings['team_section_subtitle'] ?? 'Dipimpin oleh tim profesional berpengalaman yang mendedikasikan diri sepenuhnya untuk melayani tamu-tamu Allah SWT.' }}
@@ -1207,7 +1248,7 @@
     <!-- END: Tentang Kami -->
 
     <!-- BEGIN: Why Choose Us -->
-    <section class="py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
         <!-- Blurred Kaaba Background Image (Split Right with Left Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
@@ -1408,7 +1449,7 @@
     <!-- END: RegistrationFlow -->
 
     <!-- BEGIN: FeaturedPackages -->
-    <section class="relative py-24 mt-16 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
+    <section class="relative py-16 md:py-24 mt-8 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
         <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Right Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
@@ -1581,9 +1622,9 @@
     <!-- END: FeaturedPackages -->
 
     <!-- BEGIN: Partners -->
-    <section class="py-16 bg-slate-50/20" data-purpose="partners-logo-cloud">
+    <section class="py-8 md:py-10 bg-slate-50/20" data-purpose="partners-logo-cloud">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-slate-900 mb-12 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-slate-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
             <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
                 @foreach ($partners as $partner)
                     <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
@@ -1606,7 +1647,7 @@
     <!-- END: Partners -->
 
     <!-- BEGIN: Gallery -->
-    <section class="py-24 bg-stone-50" id="galeri" data-purpose="gallery-section">
+    <section class="py-16 md:py-24 bg-stone-50" id="galeri" data-purpose="gallery-section">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center space-y-4 mb-12 reveal">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
@@ -2033,7 +2074,7 @@
     <!-- END: Testimonials -->
 
     <!-- BEGIN: Articles -->
-    <section class="py-24 bg-stone-50 overflow-hidden relative" id="artikel" data-purpose="articles-section">
+    <section class="py-16 md:py-24 bg-stone-50 overflow-hidden relative" id="artikel" data-purpose="articles-section">
         <!-- Glow backdrops -->
         <div class="absolute left-1/4 top-1/4 w-[450px] h-[220px] bg-blue-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
         <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
@@ -2087,6 +2128,20 @@
                                 <p class="text-slate-500 text-xs md:text-sm leading-relaxed font-light line-clamp-3">
                                     {{ $article->excerpt }}
                                 </p>
+                                @if(!empty($article->tags))
+                                    @php
+                                        $cardTags = array_filter(array_map('trim', explode(',', $article->tags)));
+                                    @endphp
+                                    @if(!empty($cardTags))
+                                        <div class="flex flex-wrap gap-1.5 mt-3">
+                                            @foreach($cardTags as $tag)
+                                                <a href="{{ route('public.articles.tag', str_replace('#', '', $tag)) }}" class="text-[10px] font-black text-blue-500 hover:text-blue-700 transition tracking-wide">
+                                                    {{ str_starts_with($tag, '#') ? $tag : '#' . $tag }}
+                                                </a>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                @endif
                             </div>
                         </div>
 
@@ -2115,7 +2170,7 @@
     <!-- END: Articles -->
 
     <!-- BEGIN: Kabar Haramain & Waktu Tanah Suci -->
-    <section class="py-24 bg-[#071930] text-white relative overflow-hidden" id="haramain-info">
+    <section class="py-16 md:py-24 bg-[#071930] text-white relative overflow-hidden" id="haramain-info">
         <!-- Ambient Light Blobs -->
         <div class="absolute -left-[10%] top-[10%] w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute -right-[10%] bottom-[10%] w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -2330,7 +2385,7 @@
     <!-- END: Kabar Haramain & Waktu Tanah Suci -->
 
     <!-- BEGIN: Kemitraan -->
-    <section class="py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section">
+    <section class="py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>
@@ -2469,7 +2524,7 @@
 
 
     <!-- BEGIN: FAQ -->
-    <section class="py-24 relative overflow-hidden bg-stone-100/40" data-purpose="faq-section">
+    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-100/40" data-purpose="faq-section">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>

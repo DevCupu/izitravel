@@ -19,6 +19,7 @@ class Article extends Model
         'published_at',
         'is_active',
         'order',
+        'tags',
     ];
 
     protected $casts = [

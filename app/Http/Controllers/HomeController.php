@@ -155,6 +155,20 @@ class HomeController extends Controller
         return view('articles.show', compact('article', 'recommendedArticles', 'settings'));
     }
 
+    public function tagArticles($tag)
+    {
+        $cleanTag = '#' . str_replace('#', '', $tag);
+        $articles = Article::where('is_active', true)
+            ->where('tags', 'like', "%{$cleanTag}%")
+            ->orderBy('order')
+            ->orderBy('id', 'desc')
+            ->paginate(9);
+
+        $settings = Setting::pluck('value', 'key')->toArray();
+
+        return view('articles.tag', compact('articles', 'tag', 'settings'));
+    }
+
     public function showPackage($slug)
     {
         $package = Package::where('slug', $slug)
@@ -233,6 +247,27 @@ class HomeController extends Controller
             $xml[] = '    <lastmod>' . $article->updated_at->toAtomString() . '</lastmod>';
             $xml[] = '    <changefreq>weekly</changefreq>';
             $xml[] = '    <priority>0.6</priority>';
+            $xml[] = '  </url>';
+        }
+
+        // 5. Unique Tags
+        $tags = [];
+        foreach ($articles as $art) {
+            if ($art->tags) {
+                $artTags = explode(',', $art->tags);
+                foreach ($artTags as $t) {
+                    $tClean = trim(str_replace('#', '', $t));
+                    if (!empty($tClean)) {
+                        $tags[$tClean] = true;
+                    }
+                }
+            }
+        }
+        foreach (array_keys($tags) as $tag) {
+            $xml[] = '  <url>';
+            $xml[] = "    <loc>" . route('public.articles.tag', $tag) . "</loc>";
+            $xml[] = '    <changefreq>weekly</changefreq>';
+            $xml[] = '    <priority>0.5</priority>';
             $xml[] = '  </url>';
         }
         

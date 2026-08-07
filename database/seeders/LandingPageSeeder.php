@@ -240,6 +240,7 @@ class LandingPageSeeder extends Seeder
             'image' => 'images/gallery_manasik.webp',
             'is_active' => true,
             'order' => 1,
+            'tags' => '#fiqih, #panduan, #umrah, #sunnah',
         ]);
 
         Article::updateOrCreate(
@@ -261,6 +262,7 @@ class LandingPageSeeder extends Seeder
             'image' => 'images/gallery_departure.webp',
             'is_active' => true,
             'order' => 2,
+            'tags' => '#tips, #kesehatan, #cuaca, #stamina',
         ]);
 
         Article::updateOrCreate(
@@ -280,6 +282,7 @@ class LandingPageSeeder extends Seeder
             'image' => 'images/gallery_madinah2.webp',
             'is_active' => true,
             'order' => 3,
+            'tags' => '#raudhah, #nabawi, #madinah, #sejarah',
         ]);
 
         // 3. Teams Data (Di Balik Layar)

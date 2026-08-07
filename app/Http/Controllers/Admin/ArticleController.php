@@ -101,12 +101,26 @@ class ArticleController extends Controller
             'image' => ['nullable', 'image', 'max:2048'],
             'is_active' => ['nullable', 'boolean'],
             'order' => ['nullable', 'integer', 'min:0'],
+            'tags' => ['nullable', 'string', 'max:255'],
         ];
 
         $data = $request->validate($rules);
 
         $data['is_active'] = $request->boolean('is_active');
         $data['order'] = $data['order'] ?? 0;
+
+        if ($request->filled('tags')) {
+            $tagsArray = array_map(function($tag) {
+                $tag = trim($tag);
+                if (!empty($tag) && !str_starts_with($tag, '#')) {
+                    $tag = '#' . $tag;
+                }
+                return $tag;
+            }, explode(',', $request->input('tags')));
+            $data['tags'] = implode(', ', array_filter($tagsArray));
+        } else {
+            $data['tags'] = null;
+        }
 
         unset($data['image']);
 

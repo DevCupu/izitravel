@@ -20,7 +20,9 @@
     <link rel="apple-touch-icon" href="{{ isset($settings['site_favicon']) ? (str_starts_with($settings['site_favicon'], 'images/') ? asset($settings['site_favicon']) : asset('storage/' . $settings['site_favicon'])) : asset('images/favicon.png') }}">
     <meta name="description" content="{{ $article->excerpt ?? ($settings['site_description'] ?? '') }}">
     
-    @if(!empty($settings['seo_meta_keywords']))
+    @if(!empty($article->tags))
+    <meta name="keywords" content="{{ str_replace('#', '', $article->tags) }}{{ !empty($settings['seo_meta_keywords']) ? ', ' . $settings['seo_meta_keywords'] : '' }}" />
+    @elseif(!empty($settings['seo_meta_keywords']))
     <meta name="keywords" content="{{ $settings['seo_meta_keywords'] }}" />
     @endif
 
@@ -57,6 +59,11 @@
     <meta property="og:title" content="{{ $article->title }} - {{ $settings['site_name'] ?? 'IZI Travel' }}" />
     <meta property="og:description" content="{{ $article->excerpt ?? ($settings['site_description'] ?? '') }}" />
     <meta property="og:image" content="{{ $article->image_url }}" />
+    @if(!empty($article->tags))
+        @foreach(explode(',', $article->tags) as $tag)
+            <meta property="article:tag" content="{{ trim(str_replace('#', '', $tag)) }}" />
+        @endforeach
+    @endif
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image" />
@@ -91,7 +98,7 @@
         }
       },
       "datePublished": "{{ $article->created_at ? $article->created_at->toIso8601String() : '' }}",
-      "dateModified": "{{ $article->updated_at ? $article->updated_at->toIso8601String() : '' }}"
+      "dateModified": "{{ $article->updated_at ? $article->updated_at->toIso8601String() : '' }}"{{ !empty($article->tags) ? ",\n      \"keywords\": \"" . str_replace('"', '\"', str_replace('#', '', $article->tags)) . "\"" : "" }}
     }
     </script>
 
@@ -188,6 +195,65 @@
             padding-bottom: 0.75rem;
             border-radius: 0 12px 12px 0;
         }
+
+        /* HTML formatting overrides inside .prose */
+        .prose strong, .prose b {
+            font-weight: 700 !important;
+            color: #0f172a;
+        }
+
+        .prose em, .prose i {
+            font-style: italic !important;
+        }
+
+        .prose ul {
+            list-style-type: disc !important;
+            padding-left: 1.75rem !important;
+            margin-top: 1rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .prose ol {
+            list-style-type: decimal !important;
+            padding-left: 1.75rem !important;
+            margin-top: 1rem !important;
+            margin-bottom: 1.5rem !important;
+        }
+
+        .prose li {
+            margin-bottom: 0.5rem !important;
+            color: #4b5563;
+            line-height: 1.7;
+            font-size: 1.05rem;
+            font-weight: 300;
+            list-style: inherit !important;
+        }
+
+        .prose a {
+            color: #2563eb !important;
+            text-decoration: underline !important;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .prose a:hover {
+            color: #1d4ed8 !important;
+        }
+
+        .prose img {
+            max-width: 100% !important;
+            height: auto !important;
+            border-radius: 1rem !important;
+            margin: 2rem auto !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            display: block;
+        }
+
+        .prose hr {
+            border: 0;
+            border-top: 1px solid #e2e8f0;
+            margin: 2rem 0 !important;
+        }
     </style>
 </head>
 
@@ -279,6 +345,23 @@
                 <div class="prose max-w-none text-slate-650 text-base leading-relaxed space-y-6 font-light select-text mb-12">
                     {!! $article->content !!}
                 </div>
+
+                <!-- Article Tags -->
+                @if(!empty($article->tags))
+                    @php
+                        $tagsList = array_filter(array_map('trim', explode(',', $article->tags)));
+                    @endphp
+                    @if(!empty($tagsList))
+                        <div class="flex flex-wrap items-center gap-2 mb-10 pt-5 border-t border-slate-100 dark:border-slate-800">
+                            <span class="text-xs text-slate-400 font-extrabold uppercase tracking-wider mr-1">Tags:</span>
+                            @foreach($tagsList as $tag)
+                                <a href="{{ route('public.articles.tag', str_replace('#', '', $tag)) }}" class="inline-flex items-center text-xs font-semibold text-blue-600 hover:text-white bg-blue-50/50 hover:bg-blue-600 border border-blue-100/40 hover:border-transparent px-3 py-1 rounded-xl transition duration-200">
+                                    {{ str_starts_with($tag, '#') ? $tag : '#' . $tag }}
+                                </a>
+                            @endforeach
+                        </div>
+                    @endif
+                @endif
 
                 <!-- Author Bio Card -->
                 <div class="bg-slate-50/50 border border-slate-100/80 rounded-3xl p-6 md:p-8 flex items-start gap-4 md:gap-6">
