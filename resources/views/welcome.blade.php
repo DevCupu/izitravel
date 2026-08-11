@@ -1041,32 +1041,23 @@
                 </div>
             </div>
 
-            <!-- Izin Resmi PPIU Card -->
+            <!-- Izin Resmi PPIU -->
             <div class="my-16 md:my-24 reveal-up">
-                <div class="relative rounded-[2.25rem] bg-white dark:bg-slate-800 p-7 sm:p-10 lg:p-12 border border-amber-500/15 dark:border-amber-500/10 shadow-[0_25px_70px_-20px_rgba(17,58,107,0.18)] dark:shadow-[0_25px_70px_-25px_rgba(0,0,0,0.6)] overflow-hidden">
+                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-7 sm:p-10 lg:p-12">
+                    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
 
-                    <!-- Gold hairline top edge -->
-                    <div class="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
-                    <!-- Ambient glows -->
-                    <div class="absolute -right-24 -top-24 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
-                    <div class="absolute -left-28 -bottom-28 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"></div>
-                    <!-- Dot-grid watermark -->
-                    <div class="absolute inset-0 opacity-[0.4] pointer-events-none" style="background-image: radial-gradient(circle, rgba(100,116,139,0.09) 1px, transparent 1px); background-size: 24px 24px;"></div>
-
-                    <div class="relative grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-                        <!-- LEFT: Trust Story -->
-                        <div class="lg:col-span-7 space-y-6">
-                            <!-- Eyebrow: official partner chip -->
-                            <div class="flex flex-wrap items-center gap-3">
-                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 dark:border-amber-500/25 text-amber-700 dark:text-amber-400 text-[10px] md:text-[11px] font-black uppercase tracking-[0.18em] whitespace-nowrap">
-                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
-                                    Mitra Resmi Kemenag RI
-                                </span>
+                        <!-- Konten utama -->
+                        <div class="lg:col-span-7">
+                            <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                                 @if(!empty($settings['about_ppiu_logo']))
-                                    <div class="inline-flex items-center justify-center w-[170px] h-[50px] rounded-xl bg-white dark:bg-slate-900 p-2 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
-                                        <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="w-full h-full object-contain">
+                                    <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                                        <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
+                                <span class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
+                                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
+                                    Mitra Resmi Kemenag RI
+                                </span>
                             </div>
 
                             @php
@@ -1081,104 +1072,61 @@
                                 });
                             @endphp
 
-                            <div>
-                                <h3 class="text-2xl md:text-[1.75rem] font-black text-[#113a6b] dark:text-white tracking-tight leading-tight">
-                                    {{ $ppiuLabelText }}
-                                </h3>
-                                <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-sm md:text-[15px] leading-relaxed font-light max-w-2xl">
-                                    {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
-                                </p>
-                            </div>
+                            <h3 class="mt-6 text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                                {{ $ppiuLabelText }}
+                            </h3>
+                            <p class="mt-3 text-sm md:text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-2xl">
+                                {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
+                            </p>
 
                             @if(!empty($ppiuBadgesList))
-                                <div class="flex flex-wrap items-center gap-2.5">
+                                <div class="mt-6 flex flex-wrap items-center gap-2.5">
                                     @foreach($ppiuBadgesList as $badgeText)
                                         @php
                                             $lowerBadge = strtolower($badgeText);
-                                            $badgeIcon = 'check-circle';
-                                            $badgeColorClass = 'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border-slate-200/60 dark:border-slate-800';
-                                            $iconColorClass = 'text-emerald-500';
-
+                                            $badgeIcon = 'badge-check';
                                             if (str_contains($lowerBadge, 'aman')) {
                                                 $badgeIcon = 'shield-check';
-                                                $badgeColorClass = 'text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/10 border-emerald-200/50 dark:border-emerald-900/20';
-                                                $iconColorClass = 'text-emerald-500';
                                             } elseif (str_contains($lowerBadge, 'akreditasi')) {
                                                 $badgeIcon = 'award';
-                                                $badgeColorClass = 'text-amber-700 dark:text-amber-400 bg-amber-50/50 dark:bg-amber-950/10 border-amber-200/50 dark:border-amber-900/20';
-                                                $iconColorClass = 'text-amber-500';
                                             } elseif (str_contains($lowerBadge, 'ppiu') || str_contains($lowerBadge, 'izin')) {
                                                 $badgeIcon = 'file-check';
-                                                $badgeColorClass = 'text-blue-700 dark:text-blue-400 bg-blue-50/50 dark:bg-blue-950/10 border-blue-200/50 dark:border-blue-900/20';
-                                                $iconColorClass = 'text-blue-500';
                                             }
                                         @endphp
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl border text-[10px] md:text-[11px] font-extrabold uppercase tracking-wider {{ $badgeColorClass }} transition-all duration-300 hover:scale-[1.03]">
-                                            <i data-lucide="{{ $badgeIcon }}" class="w-3.5 h-3.5 {{ $iconColorClass }} shrink-0"></i>
+                                        <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
+                                            <i data-lucide="{{ $badgeIcon }}" class="w-3.5 h-3.5 text-emerald-600"></i>
                                             {{ $badgeText }}
                                         </span>
                                     @endforeach
                                 </div>
                             @endif
 
-                            <!-- Trust footer row -->
-                            <div class="flex flex-wrap gap-x-7 gap-y-2.5 pt-5 border-t border-slate-100 dark:border-slate-700/60">
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+                            <ul class="mt-8 space-y-3 border-t border-slate-100 dark:border-slate-700 pt-6">
+                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                                     Sesuai Syariat Islam
-                                </span>
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="landmark" class="w-4 h-4 text-blue-500"></i>
+                                </li>
+                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                                     Diakui &amp; Diawasi Kemenag RI
-                                </span>
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="users" class="w-4 h-4 text-amber-500"></i>
+                                </li>
+                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                                     Jamaah Dilindungi
-                                </span>
-                            </div>
+                                </li>
+                            </ul>
                         </div>
 
-                        <!-- RIGHT: Official Permit Seal -->
-                        <div class="lg:col-span-5 flex justify-center lg:justify-end">
-                            <div class="relative w-full max-w-[380px]">
-                                <!-- Gold glow frame -->
-                                <div class="absolute -inset-1.5 rounded-[2rem] bg-gradient-to-br from-amber-400/50 via-amber-500/20 to-amber-600/40 blur-md"></div>
-                                <!-- Seal body -->
-                                <div class="relative rounded-[1.75rem] px-7 py-9 sm:px-9 text-center overflow-hidden border border-white/10" style="background: linear-gradient(145deg, #123c70 0%, #0a2547 52%, #041326 100%);">
-                                    <!-- Inner details -->
-                                    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent"></div>
-                                    <div class="absolute -right-12 -top-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
-                                    <div class="absolute bottom-3 right-4 text-amber-400/10 pointer-events-none">
-                                        <i data-lucide="star" class="w-9 h-9 rotate-12"></i>
-                                    </div>
-                                    <div class="absolute bottom-3 left-4 text-amber-400/10 pointer-events-none">
-                                        <i data-lucide="star" class="w-6 h-6 -rotate-12"></i>
-                                    </div>
-
-                                    <!-- Shield emblem -->
-                                    <div class="relative mx-auto w-[72px] h-[72px] rounded-full bg-gradient-to-br from-amber-300 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30 ring-4 ring-amber-400/15">
-                                        <i data-lucide="badge-check" class="w-9 h-9 text-white drop-shadow"></i>
-                                    </div>
-
-                                    <p class="mt-6 text-[10px] font-black uppercase text-amber-400 tracking-[0.24em]">Izin Penyelenggara</p>
-                                    <p class="mt-1 text-[10px] font-bold uppercase text-slate-300/90 tracking-[0.14em]">Perjalanan Ibadah Umrah (PPIU)</p>
-
-                                    <!-- Number plate -->
-                                    <div class="mt-6 rounded-2xl border border-amber-400/20 bg-white/[0.04] py-4 px-3">
-                                        <p class="text-[9px] font-black uppercase text-slate-400 tracking-[0.28em]">Nomor Izin PPIU</p>
-                                        <p class="mt-2 text-2xl md:text-[1.55rem] font-black text-white tracking-wider select-all font-mono">
-                                            {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
-                                        </p>
-                                    </div>
-
-                                    <!-- Verification status -->
-                                    <div class="mt-6 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-400/25">
-                                        <span class="relative flex w-2 h-2">
-                                            <span class="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping"></span>
-                                            <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald-400"></span>
-                                        </span>
-                                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400">Resmi Terdaftar</span>
-                                    </div>
+                        <!-- Plat nomor izin: gaya dokumen resmi -->
+                        <div class="lg:col-span-5">
+                            <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-900 dark:bg-slate-950 px-7 py-9 text-center">
+                                <p class="text-[11px] font-semibold uppercase tracking-widest text-slate-300">Izin Penyelenggara Perjalanan Ibadah Umrah (PPIU)</p>
+                                <p class="mt-5 text-2xl md:text-[1.7rem] font-semibold text-white tracking-wider select-all font-mono">
+                                    {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
+                                </p>
+                                <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-center gap-2">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                    <span class="text-[11px] font-semibold uppercase tracking-widest text-emerald-400">Resmi Terdaftar</span>
                                 </div>
                             </div>
                         </div>
