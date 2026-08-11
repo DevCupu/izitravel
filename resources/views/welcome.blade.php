@@ -2165,6 +2165,16 @@
                     </div>
                 @endforeach
             </div>
+
+            @if ($articles->count() >= 6)
+                <div class="flex justify-center mt-12 reveal">
+                    <a href="{{ route('public.articles.index') }}"
+                       class="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.97] rounded-full font-bold text-sm text-white transition-all duration-200 shadow-lg shadow-blue-500/25">
+                        {{ $settings['articles_view_all'] ?? 'Lihat Semua Artikel' }}
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            @endif
         </div>
     </section>
     <!-- END: Articles -->

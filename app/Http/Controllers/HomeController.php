@@ -49,6 +49,7 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->orderBy('order')
             ->orderBy('id', 'desc')
+            ->take(6)
             ->get();
 
         $teams = Team::query()
@@ -134,6 +135,20 @@ class HomeController extends Controller
             ->paginate(12);
 
         return view('testimonials', compact('testimonials', 'settings'));
+    }
+
+    public function articles(Request $request)
+    {
+        $articles = Article::query()
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->orderBy('id', 'desc')
+            ->paginate(6)
+            ->withQueryString();
+
+        $settings = Setting::pluck('value', 'key')->toArray();
+
+        return view('articles.index', compact('articles', 'settings'));
     }
 
     public function showArticle($slug)
@@ -226,6 +241,13 @@ class HomeController extends Controller
         // 2. Gallery
         $xml[] = '  <url>';
         $xml[] = "    <loc>{$siteUrl}/galeri</loc>";
+        $xml[] = '    <changefreq>weekly</changefreq>';
+        $xml[] = '    <priority>0.7</priority>';
+        $xml[] = '  </url>';
+
+        // 2b. Articles Index
+        $xml[] = '  <url>';
+        $xml[] = "    <loc>{$siteUrl}/artikel</loc>";
         $xml[] = '    <changefreq>weekly</changefreq>';
         $xml[] = '    <priority>0.7</priority>';
         $xml[] = '  </url>';
