@@ -99,7 +99,7 @@
 
             <div class="md:col-span-2 form-group">
                 <label for="content">{{ __('Isi Konten Artikel') }}</label>
-                <textarea id="content" name="content" rows="8" required
+                <textarea id="content" name="content" rows="8"
                     class="transition"
                     placeholder="Tulis isi konten lengkap artikel dalam format teks / HTML...">{{ old('content', $article->content ?? '') }}</textarea>
                 @error('content') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
@@ -347,8 +347,22 @@
                 .then(editor => {
                     const form = textarea.closest('form');
                     if (form) {
-                        form.addEventListener('submit', () => {
+                        form.addEventListener('submit', (e) => {
                             textarea.value = editor.getData();
+                            const isEmpty = !editor.getData().replace(/<[^>]*>/g, '').trim();
+                            if (isEmpty) {
+                                e.preventDefault();
+                                editor.focus();
+                                const editable = textarea.nextElementSibling?.querySelector('.ck-editor__editable');
+                                if (editable) {
+                                    editable.style.borderColor = '#ef4444';
+                                    editable.style.transition = 'border-color 0.2s';
+                                    setTimeout(() => { editable.style.borderColor = ''; }, 2000);
+                                }
+                                window.dispatchEvent(new CustomEvent('toast', {
+                                    detail: { message: 'Isi konten artikel tidak boleh kosong.', type: 'error' }
+                                }));
+                            }
                         });
                     }
                 })
