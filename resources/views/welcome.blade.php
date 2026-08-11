@@ -1043,91 +1043,80 @@
 
             <!-- Izin Resmi PPIU -->
             <div class="my-16 md:my-24 reveal-up">
-                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 p-7 sm:p-10 lg:p-12">
-                    <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm shadow-slate-900/[0.03]">
+                    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center p-7 sm:p-10 lg:p-12">
 
                         <!-- Konten utama -->
-                        <div class="lg:col-span-7">
+                        <div class="lg:col-span-7 space-y-5">
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                                 @if(!empty($settings['about_ppiu_logo']))
                                     <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
-                                <span class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wider">
-                                    <i data-lucide="shield-check" class="w-4 h-4 text-emerald-600"></i>
-                                    Mitra Resmi Kemenag RI
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                    Legalitas Perusahaan
                                 </span>
                             </div>
 
                             @php
-                                $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
-                                $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman, Izin PPIU Resmi')));
-
-                                // Clean up and deduplicate badges that match the main PPIU label to avoid redundant text
-                                $ppiuBadgesList = array_filter($ppiuBadgesList, function($badge) use ($ppiuLabelText) {
-                                    $cleanBadge = strtolower(str_replace([' ', '-', '_'], '', $badge));
-                                    $cleanLabel = strtolower(str_replace([' ', '-', '_'], '', $ppiuLabelText));
-                                    return $cleanBadge !== $cleanLabel && !str_contains($cleanLabel, $cleanBadge) && !str_contains($cleanBadge, $cleanLabel);
-                                });
+                                $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Izin Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
                             @endphp
 
-                            <h3 class="mt-6 text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
                                 {{ $ppiuLabelText }}
                             </h3>
-                            <p class="mt-3 text-sm md:text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-2xl">
+                            <p class="text-sm md:text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-2xl">
                                 {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
                             </p>
 
-                            @if(!empty($ppiuBadgesList))
-                                <div class="mt-6 flex flex-wrap items-center gap-2.5">
-                                    @foreach($ppiuBadgesList as $badgeText)
-                                        @php
-                                            $lowerBadge = strtolower($badgeText);
-                                            $badgeIcon = 'badge-check';
-                                            if (str_contains($lowerBadge, 'aman')) {
-                                                $badgeIcon = 'shield-check';
-                                            } elseif (str_contains($lowerBadge, 'akreditasi')) {
-                                                $badgeIcon = 'award';
-                                            } elseif (str_contains($lowerBadge, 'ppiu') || str_contains($lowerBadge, 'izin')) {
-                                                $badgeIcon = 'file-check';
-                                            }
-                                        @endphp
-                                        <span class="inline-flex items-center gap-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-900 px-3 py-1.5 text-[11px] font-semibold text-slate-600 dark:text-slate-300">
-                                            <i data-lucide="{{ $badgeIcon }}" class="w-3.5 h-3.5 text-emerald-600"></i>
-                                            {{ $badgeText }}
-                                        </span>
-                                    @endforeach
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-slate-200 dark:border-slate-700">
+                                <div class="flex items-center gap-3">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">01</span>
+                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Izin PPIU Terdaftar</p>
                                 </div>
-                            @endif
+                                <div class="flex items-center gap-3">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">02</span>
+                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Pengawasan Kementerian Haji dan Umrah</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">03</span>
+                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Nomor Izin Dapat Diverifikasi</p>
+                                </div>
+                            </div>
 
-                            <ul class="mt-8 space-y-3 border-t border-slate-100 dark:border-slate-700 pt-6">
-                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                                    Sesuai Syariat Islam
-                                </li>
-                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                                    Diakui &amp; Diawasi Kemenag RI
-                                </li>
-                                <li class="flex items-center gap-2.5 text-sm font-medium text-slate-600 dark:text-slate-300">
-                                    <i data-lucide="check" class="w-4 h-4 text-emerald-600 shrink-0"></i>
-                                    Jamaah Dilindungi
-                                </li>
-                            </ul>
+                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-slate-400 dark:text-slate-500 max-w-2xl">
+                                <i data-lucide="scale" class="w-3.5 h-3.5 shrink-0 mt-px text-slate-300"></i>
+                                Penyelenggaraan tunduk pada Undang-Undang No. 8 Tahun 2019 tentang Penyelenggaraan Ibadah Haji dan Umrah.
+                            </p>
                         </div>
 
-                        <!-- Plat nomor izin: gaya dokumen resmi -->
+                        <!-- Plat nomor izin -->
                         <div class="lg:col-span-5">
-                            <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-900 dark:bg-slate-950 px-7 py-9 text-center">
-                                <p class="text-[11px] font-semibold uppercase tracking-widest text-slate-300">Izin Penyelenggara Perjalanan Ibadah Umrah (PPIU)</p>
-                                <p class="mt-5 text-2xl md:text-[1.7rem] font-semibold text-white tracking-wider select-all font-mono">
-                                    {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
-                                </p>
-                                <div class="mt-6 pt-5 border-t border-white/10 flex items-center justify-center gap-2">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                                    <span class="text-[11px] font-semibold uppercase tracking-widest text-emerald-400">Resmi Terdaftar</span>
-                                </div>
+                            <div class="relative overflow-hidden bg-slate-900 dark:bg-slate-950 rounded-xl px-8 py-10 sm:py-12 text-center">
+                                <!-- Faint islamic pattern watermark -->
+                                <div class="absolute inset-0 islamic-pattern opacity-[0.4] pointer-events-none"></div>
+                                <div class="relative">
+                                    <div class="inline-flex items-center justify-center gap-2">
+                                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Nomor Izin</p>
+                                    </div>
+                                    <p class="mt-5 text-[1.5rem] sm:text-[1.9rem] leading-tight tracking-tight font-semibold text-white select-all font-mono">
+                                        {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
+                                    </p>
+                                    <div class="mt-7 pt-5 border-t border-white/10">
+                                        <p class="text-[11px] font-medium text-slate-400">Diterbitkan &amp; diawasi oleh Kementerian Haji dan Umrah RI</p>
+                                        <div class="mt-5 flex items-center justify-center gap-2">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                                            <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400">Resmi Terdaftar</span>
+                                        </div>
+                                    </div>
+                                    <a href="https://haji.go.id/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 hover:text-white transition duration-200">
+                                        Verifikasi di Kemenhaj (haji.go.id)
+                                        <i data-lucide="external-link" class="w-3 h-3"></i>
+                                    </a>
+                        </div>
                             </div>
                         </div>
                     </div>
@@ -1915,9 +1904,9 @@
                                                         <div class="absolute inset-0 bg-slate-950/20 group-hover/video:bg-slate-950/30 transition-all duration-300 flex items-center justify-center z-30">
                                                             <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
                                                                 <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                        </div>
+                            </div>
+                        </div>
                                                 @endif
 
                                                 <div class="relative mt-2">
