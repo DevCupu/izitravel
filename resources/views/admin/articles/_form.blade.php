@@ -181,8 +181,7 @@
                 <label class="relative inline-flex items-center cursor-pointer" x-data="{ checked: {{ old('is_active', $article->is_active ?? true) ? 'true' : 'false' }} }">
                     <input type="hidden" name="is_active" value="0">
                     <input type="checkbox" name="is_active" value="1" x-model="checked" class="sr-only peer">
-                    <div @click="checked = !checked"
-                         class="toggle-switch" :class="checked && 'active'">
+                    <div class="toggle-switch" :class="checked && 'active'">
                         <div class="toggle-dot"></div>
                     </div>
                 </label>
