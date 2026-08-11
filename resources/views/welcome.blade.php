@@ -1069,15 +1069,6 @@
                                 @endif
                             </div>
 
-                            <div>
-                                <h3 class="text-2xl md:text-[1.75rem] font-black text-[#113a6b] dark:text-white tracking-tight leading-tight">
-                                    {{ $ppiuLabelText }}
-                                </h3>
-                                <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-sm md:text-[15px] leading-relaxed font-light max-w-2xl">
-                                    {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
-                                </p>
-                            </div>
-
                             @php
                                 $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
                                 $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman, Izin PPIU Resmi')));
@@ -1089,6 +1080,15 @@
                                     return $cleanBadge !== $cleanLabel && !str_contains($cleanLabel, $cleanBadge) && !str_contains($cleanBadge, $cleanLabel);
                                 });
                             @endphp
+
+                            <div>
+                                <h3 class="text-2xl md:text-[1.75rem] font-black text-[#113a6b] dark:text-white tracking-tight leading-tight">
+                                    {{ $ppiuLabelText }}
+                                </h3>
+                                <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-sm md:text-[15px] leading-relaxed font-light max-w-2xl">
+                                    {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
+                                </p>
+                            </div>
 
                             @if(!empty($ppiuBadgesList))
                                 <div class="flex flex-wrap items-center gap-2.5">
