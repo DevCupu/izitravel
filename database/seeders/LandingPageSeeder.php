@@ -201,7 +201,7 @@ class LandingPageSeeder extends Seeder
             'footer_maps_heading' => 'Google Maps',
             'footer_social_heading' => 'Socials',
             'footer_ppiu_label' => 'Izin PPIU',
-            'footer_ppiu_number' => 'A10BS81',
+            'footer_ppiu_number' => '91202054619660001',
 
             // SEO & Search Engine Optimizations for Google / Bing Rank
             'seo_meta_keywords' => 'IZI TRAVEL, IZITRAVEL, IZI Travel Makassar, Travel Umroh Makassar, Travel Haji Makassar, Paket Umrah Premium Makassar, Penyelenggara Perjalanan Ibadah Umrah Resmi, Muthawwif Sunnah Makassar, Agen Umrah Terpercaya',

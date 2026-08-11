@@ -726,7 +726,7 @@
                 @endif
                 
                 <!-- Badge Kemenag (Navy blue glass) -->
-                @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '2024')); @endphp
+                @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
                     <div class="inline-flex items-center gap-2 bg-[#051c33]/85 border border-[#0d345c] text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 shadow-sm animate-fade-in-up delay-100">
                         <i data-lucide="shield-check" class="w-4 h-4 text-[#c89e2b]"></i>
@@ -1042,35 +1042,46 @@
             </div>
 
             <!-- Izin Resmi PPIU Card -->
-            <div class="my-16 md:my-24 bg-gradient-to-br from-white via-amber-50/[0.02] to-amber-50/[0.08] dark:from-slate-800 dark:via-slate-800/95 dark:to-slate-900/90 rounded-[2.25rem] p-6 md:p-10 border border-amber-500/15 dark:border-amber-500/10 shadow-[0_10px_35px_rgba(200,158,43,0.02)] dark:shadow-none relative overflow-hidden group hover:shadow-[0_20px_50px_rgba(200,158,43,0.06)] hover:border-amber-500/25 dark:hover:border-amber-500/20 transition-all duration-500 reveal-up before:absolute before:left-0 before:top-0 before:h-full before:w-[5px] before:bg-gradient-to-b before:from-amber-400 before:via-amber-500 before:to-yellow-300 before:rounded-l-[2.25rem]">
-                
-                <!-- Background ambient decorative circles -->
-                <div class="absolute -left-16 -top-16 w-36 h-36 bg-amber-500/5 rounded-full blur-2xl pointer-events-none group-hover:scale-110 transition duration-500"></div>
-                <div class="absolute right-[20%] -bottom-16 w-48 h-48 bg-blue-500/5 rounded-full blur-3xl pointer-events-none group-hover:scale-110 transition duration-500"></div>
+            <div class="my-16 md:my-24 reveal-up">
+                <div class="relative rounded-[2.25rem] bg-white dark:bg-slate-800 p-7 sm:p-10 lg:p-12 border border-amber-500/15 dark:border-amber-500/10 shadow-[0_25px_70px_-20px_rgba(17,58,107,0.18)] dark:shadow-[0_25px_70px_-25px_rgba(0,0,0,0.6)] overflow-hidden">
 
-                <div class="flex flex-col lg:flex-row items-stretch justify-between gap-8 lg:gap-10 relative z-10">
-                    <div class="space-y-5 text-left flex-1 flex flex-col justify-between">
-                        <!-- Logo & Badges Group -->
-                        <div class="space-y-4">
-                            @if(!empty($settings['about_ppiu_logo']))
-                                <div class="flex justify-start">
-                                    <div class="inline-flex items-center justify-center w-[160px] h-[45px] rounded-xl bg-white p-2 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-102">
+                    <!-- Gold hairline top edge -->
+                    <div class="absolute top-0 inset-x-0 h-[3px] bg-gradient-to-r from-transparent via-amber-400 to-transparent"></div>
+                    <!-- Ambient glows -->
+                    <div class="absolute -right-24 -top-24 w-72 h-72 bg-amber-400/10 rounded-full blur-3xl pointer-events-none"></div>
+                    <div class="absolute -left-28 -bottom-28 w-80 h-80 bg-blue-600/5 rounded-full blur-3xl pointer-events-none"></div>
+                    <!-- Dot-grid watermark -->
+                    <div class="absolute inset-0 opacity-[0.4] pointer-events-none" style="background-image: radial-gradient(circle, rgba(100,116,139,0.09) 1px, transparent 1px); background-size: 24px 24px;"></div>
+
+                    <div class="relative grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+                        <!-- LEFT: Trust Story -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <!-- Eyebrow: official partner chip -->
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 dark:bg-amber-500/15 border border-amber-500/30 dark:border-amber-500/25 text-amber-700 dark:text-amber-400 text-[10px] md:text-[11px] font-black uppercase tracking-[0.18em] whitespace-nowrap">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                    Mitra Resmi Kemenag RI
+                                </span>
+                                @if(!empty($settings['about_ppiu_logo']))
+                                    <div class="inline-flex items-center justify-center w-[170px] h-[50px] rounded-xl bg-white dark:bg-slate-900 p-2 border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="w-full h-full object-contain">
                                     </div>
-                                </div>
-                            @else
-                                <div class="flex justify-start">
-                                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-500/10 to-amber-600/5 dark:from-amber-500/20 dark:to-transparent border border-amber-500/20 dark:border-amber-500/30 text-amber-700 dark:text-amber-400 text-xs font-black uppercase tracking-wider shadow-sm transition-all duration-300 group-hover:border-amber-500/40 whitespace-nowrap">
-                                        <i data-lucide="award" class="w-4 h-4 text-amber-600 dark:text-amber-400 animate-pulse"></i>
-                                        Mitra Resmi Kemenag RI
-                                    </span>
-                                </div>
-                            @endif
+                                @endif
+                            </div>
+
+                            <div>
+                                <h3 class="text-2xl md:text-[1.75rem] font-black text-[#113a6b] dark:text-white tracking-tight leading-tight">
+                                    {{ $ppiuLabelText }}
+                                </h3>
+                                <p class="mt-3.5 text-slate-600 dark:text-slate-300 text-sm md:text-[15px] leading-relaxed font-light max-w-2xl">
+                                    {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
+                                </p>
+                            </div>
 
                             @php
                                 $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
-                                $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman')));
-                                
+                                $ppiuBadgesList = array_filter(array_map('trim', explode(',', $settings['about_ppiu_badges_list'] ?? '100% Aman, Izin PPIU Resmi')));
+
                                 // Clean up and deduplicate badges that match the main PPIU label to avoid redundant text
                                 $ppiuBadgesList = array_filter($ppiuBadgesList, function($badge) use ($ppiuLabelText) {
                                     $cleanBadge = strtolower(str_replace([' ', '-', '_'], '', $badge));
@@ -1078,16 +1089,16 @@
                                     return $cleanBadge !== $cleanLabel && !str_contains($cleanLabel, $cleanBadge) && !str_contains($cleanBadge, $cleanLabel);
                                 });
                             @endphp
-                            
+
                             @if(!empty($ppiuBadgesList))
-                                <div class="flex flex-wrap items-center justify-start gap-2 pt-1">
+                                <div class="flex flex-wrap items-center gap-2.5">
                                     @foreach($ppiuBadgesList as $badgeText)
                                         @php
                                             $lowerBadge = strtolower($badgeText);
                                             $badgeIcon = 'check-circle';
                                             $badgeColorClass = 'text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900 border-slate-200/60 dark:border-slate-800';
                                             $iconColorClass = 'text-emerald-500';
-                                            
+
                                             if (str_contains($lowerBadge, 'aman')) {
                                                 $badgeIcon = 'shield-check';
                                                 $badgeColorClass = 'text-emerald-700 dark:text-emerald-400 bg-emerald-50/50 dark:bg-emerald-950/10 border-emerald-200/50 dark:border-emerald-900/20';
@@ -1109,39 +1120,66 @@
                                     @endforeach
                                 </div>
                             @endif
-                        </div>
 
-                        <!-- Card Text Content -->
-                        <div class="space-y-2.5">
-                            <h3 class="text-xl md:text-2xl font-black text-[#113a6b] dark:text-white tracking-tight">
-                                {{ $ppiuLabelText }}
-                            </h3>
-                            <p class="text-slate-650 dark:text-slate-300 text-xs md:text-sm leading-relaxed max-w-3xl font-light">
-                                {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
-                            </p>
-                        </div>
-                    </div>
-                    
-                    <!-- Permit Number Display (Highlighted Luxury Seal) -->
-                    <div class="shrink-0 w-full lg:w-auto flex items-center justify-center">
-                        <div class="border border-amber-500/30 px-8 py-6 rounded-3xl text-center min-w-[260px] w-full lg:w-auto shadow-xl relative overflow-hidden group/permit transition-all duration-300 hover:border-amber-500/50" style="background: linear-gradient(135deg, #113a6b 0%, #0b284c 50%, #06182f 100%);">
-                            <!-- Golden background shine light effect -->
-                            <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-amber-500/10 rounded-full blur-2xl pointer-events-none group-hover/permit:scale-125 transition-transform duration-500"></div>
-                            
-                            <!-- Star Decors inside the box -->
-                            <div class="absolute top-3 right-3 text-amber-500/10 pointer-events-none">
-                                <i data-lucide="star" class="w-8 h-8 rotate-12"></i>
+                            <!-- Trust footer row -->
+                            <div class="flex flex-wrap gap-x-7 gap-y-2.5 pt-5 border-t border-slate-100 dark:border-slate-700/60">
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500"></i>
+                                    Sesuai Syariat Islam
+                                </span>
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="landmark" class="w-4 h-4 text-blue-500"></i>
+                                    Diakui &amp; Diawasi Kemenag RI
+                                </span>
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold text-slate-600 dark:text-slate-300">
+                                    <i data-lucide="users" class="w-4 h-4 text-amber-500"></i>
+                                    Jamaah Dilindungi
+                                </span>
                             </div>
+                        </div>
 
-                            <p class="text-[10px] font-black uppercase text-amber-400 dark:text-amber-300 tracking-widest font-mono">Nomor Izin PPIU</p>
-                            <p class="text-2xl md:text-3xl font-black text-white mt-1.5 font-mono select-all tracking-wider drop-shadow-md">
-                                {{ $settings['footer_ppiu_number'] ?? 'A10BS81' }}
-                            </p>
-                            
-                            <div class="mt-4 pt-3.5 border-t border-white/10 w-full flex items-center justify-center gap-2 text-[10px] text-emerald-450 font-black uppercase tracking-widest">
-                                <span class="w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)] animate-ping absolute left-1/2 -translate-x-[64px] hidden"></span>
-                                <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-                                Resmi Terdaftar
+                        <!-- RIGHT: Official Permit Seal -->
+                        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+                            <div class="relative w-full max-w-[380px]">
+                                <!-- Gold glow frame -->
+                                <div class="absolute -inset-1.5 rounded-[2rem] bg-gradient-to-br from-amber-400/50 via-amber-500/20 to-amber-600/40 blur-md"></div>
+                                <!-- Seal body -->
+                                <div class="relative rounded-[1.75rem] px-7 py-9 sm:px-9 text-center overflow-hidden border border-white/10" style="background: linear-gradient(145deg, #123c70 0%, #0a2547 52%, #041326 100%);">
+                                    <!-- Inner details -->
+                                    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-amber-300/70 to-transparent"></div>
+                                    <div class="absolute -right-12 -top-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
+                                    <div class="absolute bottom-3 right-4 text-amber-400/10 pointer-events-none">
+                                        <i data-lucide="star" class="w-9 h-9 rotate-12"></i>
+                                    </div>
+                                    <div class="absolute bottom-3 left-4 text-amber-400/10 pointer-events-none">
+                                        <i data-lucide="star" class="w-6 h-6 -rotate-12"></i>
+                                    </div>
+
+                                    <!-- Shield emblem -->
+                                    <div class="relative mx-auto w-[72px] h-[72px] rounded-full bg-gradient-to-br from-amber-300 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/30 ring-4 ring-amber-400/15">
+                                        <i data-lucide="badge-check" class="w-9 h-9 text-white drop-shadow"></i>
+                                    </div>
+
+                                    <p class="mt-6 text-[10px] font-black uppercase text-amber-400 tracking-[0.24em]">Izin Penyelenggara</p>
+                                    <p class="mt-1 text-[10px] font-bold uppercase text-slate-300/90 tracking-[0.14em]">Perjalanan Ibadah Umrah (PPIU)</p>
+
+                                    <!-- Number plate -->
+                                    <div class="mt-6 rounded-2xl border border-amber-400/20 bg-white/[0.04] py-4 px-3">
+                                        <p class="text-[9px] font-black uppercase text-slate-400 tracking-[0.28em]">Nomor Izin PPIU</p>
+                                        <p class="mt-2 text-2xl md:text-[1.55rem] font-black text-white tracking-wider select-all font-mono">
+                                            {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
+                                        </p>
+                                    </div>
+
+                                    <!-- Verification status -->
+                                    <div class="mt-6 inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-400/25">
+                                        <span class="relative flex w-2 h-2">
+                                            <span class="absolute inline-flex w-full h-full rounded-full bg-emerald-400 opacity-60 animate-ping"></span>
+                                            <span class="relative inline-flex w-2 h-2 rounded-full bg-emerald-400"></span>
+                                        </span>
+                                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-emerald-400">Resmi Terdaftar</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -2775,7 +2813,7 @@
                             </div>
                         </div>
                         <p class="text-base font-black tracking-widest text-slate-100 font-heading">
-                            No: {{ $settings['footer_ppiu_number'] ?? 'A10BS81' }}
+                            No: {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
                         </p>
                         <p class="text-[10px] text-slate-400 mt-2 flex items-center gap-1.5 font-medium">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
