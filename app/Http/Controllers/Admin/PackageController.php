@@ -152,6 +152,8 @@ class PackageController extends Controller
             'airline' => ['required', 'string', 'max:255'],
             'start_city' => ['nullable', 'string', 'max:255'],
             'pembimbing' => ['nullable', 'string', 'max:255'],
+            'manasik_date' => ['nullable', 'date'],
+            'manasik_location' => ['nullable', 'string', 'max:255'],
             'hotel' => ['nullable', 'string', 'max:255'],
             'hotel_makkah' => ['nullable', 'string', 'max:255'],
             'hotel_makkah_nights' => ['nullable', 'integer', 'min:1', 'max:30'],
@@ -171,6 +173,10 @@ class PackageController extends Controller
             'features.*.icon' => ['required_with:features', 'string', 'max:50'],
             'features.*.label' => ['required_with:features', 'string', 'max:100'],
             'features.*.color' => ['required_with:features', 'string', 'in:indigo,blue,amber,slate'],
+            'itinerary' => ['nullable', 'array'],
+            'itinerary.*.day' => ['required_with:itinerary', 'integer', 'min:1'],
+            'itinerary.*.title' => ['required_with:itinerary', 'string', 'max:255'],
+            'itinerary.*.desc' => ['nullable', 'string', 'max:1000'],
             'price' => ['required', 'integer', 'min:0'],
             'price_triple' => ['nullable', 'integer', 'min:0'],
             'price_double' => ['nullable', 'integer', 'min:0'],
@@ -190,21 +196,28 @@ class PackageController extends Controller
         // Build inclusions: filter out blank rows
         $rawInclusions = $request->input('inclusions', []);
         $data['inclusions'] = collect($rawInclusions)
-            ->filter(fn ($item) => !empty($item['label']))
+            ->filter(fn ($item) => ! empty($item['label']))
             ->values()
             ->toArray() ?: null;
 
         // Build exclusions: filter out blank rows
         $rawExclusions = $request->input('exclusions', []);
         $data['exclusions'] = collect($rawExclusions)
-            ->filter(fn ($item) => !empty($item['label']))
+            ->filter(fn ($item) => ! empty($item['label']))
             ->values()
             ->toArray() ?: null;
 
         // Build features: filter out blank rows
         $rawFeatures = $request->input('features', []);
         $data['features'] = collect($rawFeatures)
-            ->filter(fn ($item) => !empty($item['label']))
+            ->filter(fn ($item) => ! empty($item['label']))
+            ->values()
+            ->toArray() ?: null;
+
+        // Build itinerary: filter out blank rows
+        $rawItinerary = $request->input('itinerary', []);
+        $data['itinerary'] = collect($rawItinerary)
+            ->filter(fn ($item) => ! empty($item['title']))
             ->values()
             ->toArray() ?: null;
 

@@ -80,6 +80,21 @@
                 @error('pembimbing') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
 
+            <div class="form-group">
+                <label for="manasik_date" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Tanggal Manasik') }}</label>
+                <input type="date" id="manasik_date" name="manasik_date" value="{{ old('manasik_date', optional($package->manasik_date ?? null)->format('Y-m-d')) }}"
+                    class="transition">
+                @error('manasik_date') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="manasik_location" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Lokasi Manasik') }}</label>
+                <input type="text" id="manasik_location" name="manasik_location" value="{{ old('manasik_location', $package->manasik_location ?? '') }}"
+                    class="transition"
+                    placeholder="Contoh: Aula Kantor IZI Travel">
+                @error('manasik_location') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
+
             <div class="md:col-span-2">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3 flex items-center gap-1.5">
                     <i data-lucide="hotel" class="w-3.5 h-3.5"></i> Hotel Akomodasi
@@ -685,6 +700,79 @@
             Tambah Fitur Paket
         </button>
         @error('features') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+    </div>
+
+    <!-- Section: Itinerary Perjalanan -->
+    @php
+        $itinerary = old('itinerary', $package->itinerary ?? []);
+    @endphp
+    <div x-data="{
+        items: {{ json_encode($itinerary) }},
+        addItem() {
+            const nextDay = this.items.length ? Math.max(...this.items.map(i => parseInt(i.day) || 0)) + 1 : 1;
+            this.items.push({ day: nextDay, title: '', desc: '' });
+        },
+        removeItem(i) {
+            this.items.splice(i, 1);
+        }
+    }" class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-4">
+            <div class="w-8 h-8 rounded-lg bg-teal-50 dark:bg-teal-900/30 text-teal-500 flex items-center justify-center shrink-0">
+                <i data-lucide="route" class="w-4 h-4"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Itinerary Perjalanan</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Rincian kegiatan per hari selama perjalanan</p>
+            </div>
+        </div>
+
+        <div class="space-y-4 mb-4">
+            <template x-for="(item, i) in items" :key="i">
+                <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-600">
+
+                    <div class="flex items-center justify-between gap-3 mb-4">
+                        <div class="flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-teal-600 text-white flex items-center justify-center text-sm font-black shrink-0">
+                                <span x-text="item.day || (i + 1)"></span>
+                            </span>
+                            <div class="flex items-center gap-2">
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400">Hari ke-</label>
+                                <input type="number" :name="'itinerary['+i+'][day]'" x-model="item.day" min="1"
+                                    class="w-20 px-3 py-2 text-sm text-center font-black rounded-lg border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-teal-500 focus:ring-teal-500">
+                            </div>
+                        </div>
+
+                        <!-- Remove button -->
+                        <button type="button" @click="removeItem(i)"
+                            class="p-2 text-red-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition shrink-0">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Judul Kegiatan</label>
+                            <input type="text" :name="'itinerary['+i+'][title]'" x-model="item.title"
+                                class="w-full px-4 py-3 text-sm rounded-xl border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-teal-500 focus:ring-teal-500"
+                                placeholder="Contoh: Keberangkatan Jakarta - Madinah">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase mb-1.5">Deskripsi</label>
+                            <textarea :name="'itinerary['+i+'][desc]'" x-model="item.desc" rows="2"
+                                class="w-full px-4 py-3 text-sm rounded-xl border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-teal-500 focus:ring-teal-500 resize-y"
+                                placeholder="Penjelasan singkat kegiatan hari ini..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <button type="button" @click="addItem()"
+            class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-teal-600 dark:text-teal-400 bg-teal-50 dark:bg-teal-900/20 hover:bg-teal-100 dark:hover:bg-teal-900/40 rounded-xl border border-teal-200 dark:border-teal-700 transition">
+            <i data-lucide="plus" class="w-3.5 h-3.5"></i>
+            Tambah Hari Itinerary
+        </button>
+        @error('itinerary') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
     </div>
 
     <div class="border-t border-slate-100 dark:border-slate-700"></div>

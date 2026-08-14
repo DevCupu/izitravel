@@ -22,6 +22,7 @@ use Illuminate\Support\Str;
     'inclusions',
     'exclusions',
     'features',
+    'itinerary',
     'price',
     'price_triple',
     'price_double',
@@ -35,6 +36,8 @@ use Illuminate\Support\Str;
     'order',
     'start_city',
     'pembimbing',
+    'manasik_date',
+    'manasik_location',
 ])]
 class Package extends Model
 {
@@ -70,7 +73,7 @@ class Package extends Model
             ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
             ->exists()
         ) {
-            $slug = $original . '-' . $counter++;
+            $slug = $original.'-'.$counter++;
         }
 
         return $slug;
@@ -85,6 +88,7 @@ class Package extends Model
     {
         return [
             'departure_date' => 'date',
+            'manasik_date' => 'date',
             'price' => 'integer',
             'price_triple' => 'integer',
             'price_double' => 'integer',
@@ -94,10 +98,16 @@ class Package extends Model
             'inclusions' => 'array',
             'exclusions' => 'array',
             'features' => 'array',
+            'itinerary' => 'array',
             'category' => 'string',
             'is_active' => 'boolean',
             'order' => 'integer',
         ];
+    }
+
+    public function registrations()
+    {
+        return $this->hasMany(Registration::class);
     }
 
     public function getImageUrlAttribute(): ?string

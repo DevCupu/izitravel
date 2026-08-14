@@ -108,16 +108,19 @@
                                     @endif
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
-                                    <div class="flex items-center justify-end gap-1 opacity-60 group-hover:opacity-100 transition">
-                                        <a href="{{ route('admin.packages.edit', $package) }}" class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition" title="{{ __('Ubah') }}">
+                                    <div class="flex items-center justify-end gap-2">
+                                        <a href="{{ route('admin.packages.jemaah.index', $package) }}" class="shrink-0 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:border-emerald-200 dark:hover:border-emerald-800 hover:text-emerald-600 dark:hover:text-emerald-400 transition" title="{{ __('Jemaah') }}">
+                                            <i data-lucide="users" class="w-4 h-4"></i>
+                                        </a>
+                                        <a href="{{ route('admin.packages.edit', $package) }}" class="shrink-0 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-600 dark:hover:text-blue-400 transition" title="{{ __('Ubah') }}">
                                             <i data-lucide="pencil" class="w-4 h-4"></i>
                                         </a>
-                                        <form method="POST" action="{{ route('admin.packages.destroy', $package) }}" class="delete-form">
+                                        <form method="POST" action="{{ route('admin.packages.destroy', $package) }}" class="delete-form shrink-0">
                                             @csrf
                                             @method('DELETE')
                                             <button type="button"
                                                     @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus paket &quot;{{ $package->name }}&quot;?' })"
-                                                    class="p-2 rounded-lg text-slate-500 dark:text-slate-400 hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition"
+                                                    class="shrink-0 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-red-50 dark:hover:bg-red-900/30 hover:border-red-200 dark:hover:border-red-800 hover:text-red-600 dark:hover:text-red-400 transition"
                                                     title="{{ __('Hapus') }}">
                                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                                             </button>

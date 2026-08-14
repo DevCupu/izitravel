@@ -78,6 +78,22 @@
                 pointer-events: none;
             }
 
+            /* ── Sidebar collapse (desktop) ── */
+            aside.sidebar-bg { transition: width 0.25s ease; }
+            .sidebar-logo-full { transition: height 0.25s ease; }
+            aside.is-collapsed { width: 5rem !important; }
+            aside.is-collapsed .nav-label,
+            aside.is-collapsed .nav-badge,
+            aside.is-collapsed .nav-section-label,
+            aside.is-collapsed .sidebar-user-info,
+            aside.is-collapsed .sidebar-user-menu {
+                display: none !important;
+            }
+            aside.is-collapsed nav a { justify-content: center; }
+            aside.is-collapsed .sidebar-logo-bar { justify-content: center; padding-left: 0; padding-right: 0; }
+            aside.is-collapsed .sidebar-footer-inner { justify-content: center; }
+            aside.is-collapsed .sidebar-logo-full { height: 1.5rem; }
+
             /* ── Dark mode ── */
             .dark body, .dark .admin-body { background: #0f172a; color: #e2e8f0; }
             .dark .sidebar-bg { background: #0c1222; border-color: rgba(255,255,255,0.05); }
@@ -394,6 +410,7 @@
     <body class="antialiased admin-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300"
           x-data="{
               sidebarOpen: false,
+              sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true',
               toasts: [],
               addToast(msg, type = 'success') {
                   const id = Date.now();
@@ -494,14 +511,21 @@
         <!-- ═══════ Sidebar ═══════ -->
         <aside
             class="sidebar-bg fixed inset-y-0 left-0 z-50 w-[260px] bg-slate-900 dark:bg-slate-950 text-slate-300 flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0"
-            :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+            :class="(sidebarOpen ? 'translate-x-0' : '-translate-x-full') + (sidebarCollapsed ? ' is-collapsed' : '')"
         >
             <div class="sidebar-accent"></div>
 
+            <!-- Collapse toggle (desktop only) -->
+            <button @click="sidebarCollapsed = !sidebarCollapsed; localStorage.setItem('sidebarCollapsed', sidebarCollapsed)"
+                    class="hidden lg:flex absolute -right-3 top-[60px] w-6 h-6 rounded-full bg-slate-800 dark:bg-slate-700 border border-white/10 text-slate-300 hover:text-white hover:bg-slate-700 items-center justify-center shadow-lg transition z-10"
+                    :title="sidebarCollapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'">
+                <i data-lucide="chevron-left" class="w-3.5 h-3.5 transition-transform" :class="sidebarCollapsed ? 'rotate-180' : ''"></i>
+            </button>
+
             <!-- Logo -->
-            <div class="h-[72px] flex items-center px-6 border-b border-white/[0.06] shrink-0">
+            <div class="sidebar-logo-bar h-[72px] flex items-center px-6 border-b border-white/[0.06] shrink-0">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
-                    <img src="{{ asset('images/Izi LOGO WHITE.webp') }}" alt="IZI Travel" class="h-7 w-auto transition-transform group-hover:scale-105" width="531" height="240">
+                    <img src="{{ asset('images/Izi LOGO WHITE.webp') }}" alt="IZI Travel" class="sidebar-logo-full h-7 w-auto transition-transform group-hover:scale-105" width="531" height="240">
                     <div class="hidden">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Admin Panel</span>
                     </div>
@@ -510,107 +534,118 @@
 
             <!-- Nav -->
             <nav class="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
-                <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Menu Utama</p>
+                <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Menu Utama</p>
 
                 <a href="{{ route('admin.dashboard') }}"
+                   :title="sidebarCollapsed ? 'Dashboard' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.dashboard') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="layout-dashboard" class="w-[18px] h-[18px] shrink-0"></i>
-                    Dashboard
+                    <span class="nav-label">Dashboard</span>
                 </a>
 
                 {{-- Menu "Pengguna" disembunyikan: sistem hanya punya 1 admin. Edit akun via "Profil Saya" (menu pojok kanan atas). --}}
 
                 <div class="pt-5 pb-1">
-                    <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Konten</p>
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Konten</p>
                 </div>
 
                 <a href="{{ route('admin.teams.index') }}"
+                   :title="sidebarCollapsed ? 'Tim Kami' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.teams.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="contact" class="w-[18px] h-[18px] shrink-0"></i>
-                    Tim Kami
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Team::count() }}</span>
+                    <span class="nav-label">Tim Kami</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Team::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.packages.index') }}"
+                   :title="sidebarCollapsed ? 'Paket Umrah' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.packages.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="package" class="w-[18px] h-[18px] shrink-0"></i>
-                    Paket Umrah
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Package::count() }}</span>
+                    <span class="nav-label">Paket Umrah</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Package::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.categories.index') }}"
+                   :title="sidebarCollapsed ? 'Kategori Paket' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.categories.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="tag" class="w-[18px] h-[18px] shrink-0"></i>
-                    Kategori Paket
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Category::count() }}</span>
+                    <span class="nav-label">Kategori Paket</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Category::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.galleries.index') }}"
+                   :title="sidebarCollapsed ? 'Galeri' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.galleries.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="image" class="w-[18px] h-[18px] shrink-0"></i>
-                    Galeri
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Gallery::count() }}</span>
+                    <span class="nav-label">Galeri</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Gallery::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.testimonials.index') }}"
+                   :title="sidebarCollapsed ? 'Testimoni' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.testimonials.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="message-square-quote" class="w-[18px] h-[18px] shrink-0"></i>
-                    Testimoni
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Testimonial::count() }}</span>
+                    <span class="nav-label">Testimoni</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Testimonial::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.articles.index') }}"
+                   :title="sidebarCollapsed ? 'Artikel' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.articles.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="book-open" class="w-[18px] h-[18px] shrink-0"></i>
-                    Artikel
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Article::count() }}</span>
+                    <span class="nav-label">Artikel</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Article::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.partners.index') }}"
+                   :title="sidebarCollapsed ? 'Mitra Maskapai' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.partners.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="plane-takeoff" class="w-[18px] h-[18px] shrink-0"></i>
-                    Mitra Maskapai
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Partner::count() }}</span>
+                    <span class="nav-label">Mitra Maskapai</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Partner::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.faqs.index') }}"
+                   :title="sidebarCollapsed ? 'FAQ' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.faqs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="help-circle" class="w-[18px] h-[18px] shrink-0"></i>
-                    FAQ
-                    <span class="ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Faq::count() }}</span>
+                    <span class="nav-label">FAQ</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Faq::count() }}</span>
                 </a>
 
                 <a href="{{ route('admin.settings.index') }}"
+                   :title="sidebarCollapsed ? 'Pengaturan Web' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.settings.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                     <i data-lucide="settings" class="w-[18px] h-[18px] shrink-0"></i>
-                    Pengaturan Web
+                    <span class="nav-label">Pengaturan Web</span>
                 </a>
 
                 <div class="pt-5 pb-1">
-                    <p class="px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Lainnya</p>
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Lainnya</p>
                 </div>
 
                 <a href="{{ url('/') }}" target="_blank"
+                   :title="sidebarCollapsed ? 'Lihat Website' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all duration-200">
                     <i data-lucide="external-link" class="w-[18px] h-[18px] shrink-0"></i>
-                    Lihat Website
+                    <span class="nav-label">Lihat Website</span>
                 </a>
             </nav>
 
             <!-- Sidebar footer -->
             <div class="p-3 border-t border-white/[0.06] shrink-0">
-                <div class="flex items-center gap-3 px-3 py-3 rounded-xl bg-white/[0.03]">
+                <div class="sidebar-footer-inner flex items-center gap-3 px-3 py-3 rounded-xl bg-white/[0.03]">
                     <div class="relative shrink-0">
                         <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-lg shadow-blue-500/20">
                             {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr(Auth::user()->name, 0, 1)) }}
                         </div>
                         <span class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 rounded-full border-2 border-slate-900"></span>
                     </div>
-                    <div class="min-w-0 flex-1">
+                    <div class="sidebar-user-info min-w-0 flex-1">
                         <p class="text-sm font-bold text-white truncate">{{ Auth::user()->name }}</p>
                         <p class="text-[11px] text-slate-500 truncate">Administrator</p>
                     </div>
-                    <div x-data="{ open: false }" class="relative">
+                    <div x-data="{ open: false }" class="sidebar-user-menu relative">
                         <button @click="open = !open" class="p-1.5 rounded-lg text-slate-500 hover:text-white hover:bg-white/10 transition">
                             <i data-lucide="more-vertical" class="w-4 h-4"></i>
                         </button>
@@ -638,7 +673,8 @@
         </aside>
 
         <!-- ═══════ Main content ═══════ -->
-        <div class="lg:pl-[260px] flex flex-col min-h-screen">
+        <div class="flex flex-col min-h-screen transition-[padding] duration-300 ease-in-out"
+             :class="sidebarCollapsed ? 'lg:pl-20' : 'lg:pl-[260px]'">
 
             <!-- Topbar -->
             <header class="topbar-bg sticky top-0 z-30 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200/80 dark:border-slate-700/50">

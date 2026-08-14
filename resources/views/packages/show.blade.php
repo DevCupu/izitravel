@@ -330,12 +330,46 @@
                     </div>
                 </div>
 
+                <!-- Itinerary Perjalanan -->
+                @if (!empty($package->itinerary))
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-teal-600 shadow-sm shadow-teal-500/50"></span> Itinerary Perjalanan
+                    </h3>
+
+                    <div class="space-y-5">
+                        @foreach ($package->itinerary as $day)
+                            <div class="flex items-start gap-4">
+                                <div class="flex flex-col items-center shrink-0">
+                                    <span class="w-10 h-10 rounded-full bg-teal-600 text-white flex items-center justify-center text-xs font-black shadow-sm">
+                                        {{ $day['day'] ?? ($loop->iteration) }}
+                                    </span>
+                                    @if (!$loop->last)
+                                        <span class="w-px flex-1 bg-teal-200 mt-2"></span>
+                                    @endif
+                                </div>
+                                <div class="min-w-0 pb-1">
+                                    <p class="text-[10px] text-teal-600 font-extrabold uppercase tracking-wider mb-1">
+                                        Hari ke-{{ $day['day'] ?? $loop->iteration }}
+                                        <span class="text-slate-400 normal-case font-bold">&middot; {{ $package->departure_date->copy()->addDays(($day['day'] ?? $loop->iteration) - 1)->locale('id')->translatedFormat('l, d F Y') }}</span>
+                                    </p>
+                                    <h4 class="text-sm font-black text-slate-800 leading-snug">{{ $day['title'] ?? '' }}</h4>
+                                    @if (!empty($day['desc']))
+                                        <p class="text-xs text-slate-500 font-medium mt-1 leading-relaxed">{{ $day['desc'] }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
                 <!-- Akomodasi Hotel -->
                 <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
                     <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
                         <span class="w-2.5 h-2.5 rounded-full bg-amber-600 shadow-sm shadow-amber-500/50"></span> Akomodasi Hotel
                     </h3>
-                    
+
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <!-- Hotel Makkah -->
                         <div class="flex flex-col gap-4 p-5 rounded-2xl border border-amber-100/80 bg-amber-50/20 relative overflow-hidden group hover:bg-amber-50/40 transition duration-300">
@@ -369,7 +403,7 @@
                                 </div>
                             </div>
                         </div>
- 
+
                         <!-- Hotel Madinah -->
                         <div class="flex flex-col gap-4 p-5 rounded-2xl border border-emerald-100/80 bg-emerald-50/20 relative overflow-hidden group hover:bg-emerald-50/40 transition duration-300">
                             <div class="absolute -right-4 -bottom-4 w-16 h-16 bg-emerald-500/5 rounded-full blur-xl pointer-events-none"></div>
@@ -406,12 +440,45 @@
                     </div>
                 </div>
 
+                <!-- Fitur Paket -->
+                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
+                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
+                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-sm shadow-blue-500/50"></span> Fitur Paket
+                    </h3>
+
+                    <div class="flex flex-wrap gap-3">
+                        @php
+                            $features = $package->features ?? [
+                                ['label' => 'Kereta Cepat', 'icon' => 'train-front', 'color' => 'indigo'],
+                                ['label' => 'Direct Flight', 'icon' => 'plane-takeoff', 'color' => 'blue'],
+                                ['label' => 'Free Perlengkapan', 'icon' => 'gift', 'color' => 'amber'],
+                            ];
+                        @endphp
+                        @foreach ($features as $f)
+                            @php
+                                $color = $f['color'] ?? 'blue';
+                                $colClass = match ($color) {
+                                    'indigo' => 'border-indigo-100 bg-indigo-50/50 text-indigo-750',
+                                    'blue' => 'border-blue-100 bg-blue-50/50 text-blue-750',
+                                    'amber' => 'border-amber-100 bg-amber-50/50 text-amber-750',
+                                    default => 'border-slate-100 bg-slate-50/50 text-slate-700',
+                                };
+                                $icoColor = "text-" . $color . "-600";
+                            @endphp
+                            <div class="inline-flex items-center gap-2.5 px-4.5 py-3 rounded-2xl border {{ $colClass }} text-xs font-black shadow-sm">
+                                <i data-lucide="{{ $f['icon'] ?? 'sparkles' }}" class="w-4.5 h-4.5 {{ $icoColor }}"></i>
+                                <span>{{ $f['label'] }}</span>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
                 <!-- Rincian Biaya -->
                 <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
                     <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-600 shadow-sm shadow-emerald-500/50"></span> Rincian Biaya
                     </h3>
-                    
+
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         <!-- Biaya Termasuk -->
                         <div class="space-y-4">
@@ -478,39 +545,6 @@
                                 @endforeach
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Fitur Paket -->
-                <div class="bg-white rounded-3xl border border-slate-100 p-6 sm:p-8 shadow-xl shadow-slate-900/5 space-y-6">
-                    <h3 class="text-slate-900 font-extrabold text-sm uppercase tracking-wider flex items-center gap-2.5 pb-4 border-b border-slate-100">
-                        <span class="w-2.5 h-2.5 rounded-full bg-blue-600 shadow-sm shadow-blue-500/50"></span> Fitur Paket
-                    </h3>
-                    
-                    <div class="flex flex-wrap gap-3">
-                        @php
-                            $features = $package->features ?? [
-                                ['label' => 'Kereta Cepat', 'icon' => 'train-front', 'color' => 'indigo'],
-                                ['label' => 'Direct Flight', 'icon' => 'plane-takeoff', 'color' => 'blue'],
-                                ['label' => 'Free Perlengkapan', 'icon' => 'gift', 'color' => 'amber'],
-                            ];
-                        @endphp
-                        @foreach ($features as $f)
-                            @php
-                                $color = $f['color'] ?? 'blue';
-                                $colClass = match ($color) {
-                                    'indigo' => 'border-indigo-100 bg-indigo-50/50 text-indigo-750',
-                                    'blue' => 'border-blue-100 bg-blue-50/50 text-blue-750',
-                                    'amber' => 'border-amber-100 bg-amber-50/50 text-amber-750',
-                                    default => 'border-slate-100 bg-slate-50/50 text-slate-700',
-                                };
-                                $icoColor = "text-" . $color . "-600";
-                            @endphp
-                            <div class="inline-flex items-center gap-2.5 px-4.5 py-3 rounded-2xl border {{ $colClass }} text-xs font-black shadow-sm">
-                                <i data-lucide="{{ $f['icon'] ?? 'sparkles' }}" class="w-4.5 h-4.5 {{ $icoColor }}"></i>
-                                <span>{{ $f['label'] }}</span>
-                            </div>
-                        @endforeach
                     </div>
                 </div>
 
@@ -600,9 +634,13 @@
                         </svg>
                         Pesan via WhatsApp
                     </a>
-                    <a href="{{ $brochure_link }}" target="_blank" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-700 py-3 rounded-xl font-bold border border-amber-200 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
+                    <a href="{{ $brochure_link }}" target="_blank" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-800 py-3 rounded-xl font-extrabold border-2 border-amber-300 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
                         <i data-lucide="file-text" class="w-4 h-4"></i>
                         <span>{{ $package->brochure ? 'Unduh Brosur PDF' : 'Minta Brosur PDF' }}</span>
+                    </a>
+                    <a href="{{ route('public.jemaah.tracking') }}" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 py-3 rounded-xl font-extrabold border-2 border-blue-300 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
+                        <i data-lucide="search-check" class="w-4 h-4"></i>
+                        <span>Sudah Terdaftar? Cek Status Keberangkatan</span>
                     </a>
                 </div>
 
@@ -654,9 +692,13 @@
                                     </svg>
                                     Pesan via WhatsApp
                                 </a>
-                                <a href="{{ $brochure_link }}" target="_blank" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-700 py-3 rounded-xl font-bold border border-amber-200/60 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
+                                <a href="{{ $brochure_link }}" target="_blank" class="w-full bg-amber-50 hover:bg-amber-100 text-amber-800 py-3 rounded-xl font-extrabold border-2 border-amber-300 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
                                     <i data-lucide="file-text" class="w-4 h-4 flex-shrink-0"></i>
                                     <span>{{ $package->brochure ? 'Unduh Brosur PDF' : 'Minta Brosur PDF' }}</span>
+                                </a>
+                                <a href="{{ route('public.jemaah.tracking') }}" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-800 py-3 rounded-xl font-extrabold border-2 border-blue-300 transition-all duration-200 text-xs text-center flex items-center justify-center gap-2 active:scale-95">
+                                    <i data-lucide="search-check" class="w-4 h-4 flex-shrink-0"></i>
+                                    <span>Sudah Terdaftar? Cek Status Keberangkatan</span>
                                 </a>
                             </div>
                         </div>
