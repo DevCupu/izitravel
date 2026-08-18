@@ -646,20 +646,27 @@
 
         /* Redesigned Hero Background */
         #beranda {
-            background-color: #113a6b !important;
-            background-image: linear-gradient(to right, #113a6b 0%, #113a6b 45%, rgba(17, 58, 107, 0.92) 55%, rgba(17, 58, 107, 0.65) 68%, rgba(17, 58, 107, 0.3) 82%, rgba(17, 58, 107, 0.1) 92%, transparent 100%), url('{{ $heroImageUrl }}') !important;
-            background-size: auto 100%;
-            background-position: right center;
+            background-color: #0a1628 !important;
+            background-image: linear-gradient(to right, #0a1628 0%, #0c1e38 30%, rgba(10, 22, 40, 0.88) 44%, rgba(10, 22, 40, 0.55) 58%, rgba(10, 22, 40, 0.2) 72%, rgba(10, 22, 40, 0.05) 85%, transparent 100%), url('{{ $heroImageUrl }}') !important;
+            background-size: cover;
+            background-position: center center;
             background-repeat: no-repeat;
             position: relative;
+            min-height: 100vh;
         }
         
+        @media (min-width: 1024px) {
+            #beranda {
+                background-position: 60% center;
+                min-height: 100vh;
+            }
+        }
         
         @media (max-width: 1023px) {
             #beranda {
                 background-size: cover;
                 background-position: center center;
-                background-image: linear-gradient(to bottom, rgba(17, 58, 107, 0.9) 0%, rgba(17, 58, 107, 0.96) 100%), url('{{ $heroImageUrl }}') !important;
+                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.85) 0%, rgba(10, 22, 40, 0.96) 100%), url('{{ $heroImageUrl }}') !important;
             }
         }
 
@@ -735,11 +742,16 @@
                 @endif
 
                 @php
-                    $hero_tagline = $settings['site_tagline'] ?? 'Perjalanan Umrah Nyaman & Penuh Makna';
-                    if ($hero_tagline === 'Wujudkan Umrah Impian Anda Bersama IZI Travel' || $hero_tagline === 'Perjalanan Umrah Nyaman & Penuh Makna') {
-                        $line1 = "Perjalanan Umrah";
-                        $line2 = "Nyaman &";
-                        $line3 = "Penuh Makna";
+                    $hero_tagline = $settings['site_tagline'] ?? 'Jalan Mudah ke Baitullah Semua Kalangan';
+                    if (
+                        $hero_tagline === 'Wujudkan Umrah Impian Anda Bersama IZI Travel' ||
+                        $hero_tagline === 'Perjalanan Umrah Nyaman & Penuh Makna' ||
+                        $hero_tagline === 'Jalan Mudah ke Baitullah Semua Kalangan'
+                    ) {
+                        $line1 = "Jalan Mudah";
+                        $line2 = "ke Baitullah";
+                        $line3 = "Semua Kalangan";
+                        $line3Gold = false; // line3 is white, not gold
                     } else {
                         // Dynamic splitter
                         $words = explode(' ', $hero_tagline);
@@ -753,50 +765,47 @@
                             $line2 = '';
                             $line3 = '';
                         }
+                        $line3Gold = true;
                     }
                     
-                    $site_desc = $settings['site_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi, serta bimbingan ibadah yang mutawatir sesuai sunnah.';
+                    $site_desc = $settings['site_description'] ?? 'Perjalanan Umrah yang nyaman, aman, dan terpercaya — dari keberangkatan hingga kembali ke tanah air.';
                 @endphp
 
-                <h1 class="text-4xl md:text-5xl lg:text-[62px] font-calligraphy text-white leading-[1.12] mb-6 tracking-tight animate-fade-in-up delay-200">
+                <h1 class="text-5xl md:text-6xl lg:text-[72px] font-calligraphy text-white leading-[1.08] mb-5 tracking-tight animate-fade-in-up delay-200">
                     <span class="block text-white">{{ $line1 }}</span>
                     @if(!empty($line2))
-                        <span class="block text-[#c89e2b] font-bold">{{ $line2 }}</span>
+                        <span class="block text-[#c89e2b]">{{ $line2 }}</span>
                     @endif
                     @if(!empty($line3))
-                        <span class="block text-[#c89e2b] font-bold">{{ $line3 }}</span>
+                        <span class="block {{ ($line3Gold ?? true) ? 'text-[#c89e2b]' : 'text-white' }}">{{ $line3 }}</span>
                     @endif
                 </h1>
 
-                <p class="text-base md:text-lg text-white/80 mb-6 leading-relaxed font-light max-w-xl animate-fade-in-up delay-300 mx-auto lg:mx-0">
+                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg animate-fade-in-up delay-300 mx-auto lg:mx-0">
                     {{ $site_desc }}
                 </p>
 
-                <!-- Floating Badges / Trust Badges -->
-                <div class="flex flex-wrap justify-center lg:justify-start gap-2.5 mb-8 animate-fade-in-up delay-350">
+                <!-- Hero Feature Icons Row -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-4 mb-8 animate-fade-in-up delay-350">
                     @php
-                        $defaultBadges = [
-                            1 => 'Standar Pelayanan Bintang 5',
-                            2 => 'Hotel Eksklusif Pelataran Masjid',
-                            3 => 'Jaminan Tiket PP & Visa Resmi',
+                        $heroFeatures = [
+                            ['icon' => 'star', 'title' => $settings['hero_feature_1_title'] ?? 'Pelayanan', 'sub' => $settings['hero_feature_1_sub'] ?? 'Nyaman & Aman'],
+                            ['icon' => 'building-2', 'title' => $settings['hero_feature_2_title'] ?? 'Hotel Pilihan', 'sub' => $settings['hero_feature_2_sub'] ?? 'Makkah & Madinah'],
+                            ['icon' => 'plane', 'title' => $settings['hero_feature_3_title'] ?? 'Tiket PP & Visa', 'sub' => $settings['hero_feature_3_sub'] ?? 'Resmi'],
+                            ['icon' => 'users', 'title' => $settings['hero_feature_4_title'] ?? 'Pendampingan', 'sub' => $settings['hero_feature_4_sub'] ?? 'Mutawwif'],
                         ];
                     @endphp
-                    @for ($b = 1; $b <= 3; $b++)
-                        @php
-                            $badgeText = $settings['hero_badge_'.$b] ?? $defaultBadges[$b];
-                            $badgeImg = $settings['hero_badge_'.$b.'_image'] ?? '';
-                        @endphp
-                        @if (!empty($badgeText))
-                            <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3.5 py-1.5 text-white/90 text-xs backdrop-blur-sm shadow-sm">
-                                @if (!empty($badgeImg))
-                                    <img src="{{ str_starts_with($badgeImg, 'images/') ? asset($badgeImg) : asset('storage/' . $badgeImg) }}" alt="" class="w-4 h-4 object-contain shrink-0" width="16" height="16" decoding="async">
-                                @else
-                                    <i data-lucide="{{ $b === 1 ? 'star' : ($b === 2 ? 'building' : 'plane') }}" class="w-4 h-4 text-[#c89e2b] shrink-0"></i>
-                                @endif
-                                <span class="font-medium tracking-wide">{{ $badgeText }}</span>
+                    @foreach ($heroFeatures as $feat)
+                        <div class="flex items-center gap-2.5">
+                            <div class="shrink-0 w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center">
+                                <i data-lucide="{{ $feat['icon'] }}" class="w-4 h-4 text-[#c89e2b]"></i>
                             </div>
-                        @endif
-                    @endfor
+                            <div class="min-w-0">
+                                <p class="text-xs font-bold text-white leading-tight truncate">{{ $feat['title'] }}</p>
+                                <p class="text-[10px] text-white/55 font-medium leading-tight">{{ $feat['sub'] }}</p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
 
                 <!-- Actions CTA Buttons -->
@@ -811,29 +820,26 @@
                     </a>
                 </div>
                 
-                <!-- Trust Indicators Glass Cards Grid -->
+                <!-- Bottom Stats Bar -->
                 @php
-                    $defaultTrustCards = [
-                        1 => ['Berizin Resmi', 'Kemenag RI', 'shield-check'],
-                        2 => ['Tim Profesional', 'Berpengalaman', 'users'],
-                        3 => ['Fasilitas Lengkap', 'Hotel & Transportasi', 'building-2'],
-                        4 => ['Pelayanan Prima', 'Kenyamanan Anda', 'heart'],
+                    $heroStats = [
+                        ['icon' => 'shield-check', 'value' => $settings['hero_stat_berizin'] ?? 'BERIZIN', 'label' => 'RESMI', 'sub' => $settings['hero_stat_berizin_sub'] ?? 'Kemenag RI'],
+                        ['icon' => 'users', 'value' => $settings['about_departed_count'] ?? '500', 'label' => '+ JAMAAH', 'sub' => $settings['hero_stat_jamaah_sub'] ?? 'Telah Berangkat'],
+                        ['icon' => 'star', 'value' => $settings['about_satisfaction_rate'] ?? '4.9', 'label' => '/5 RATING', 'sub' => $settings['hero_stat_rating_sub'] ?? 'Dari Jamaah'],
+                        ['icon' => 'heart', 'value' => '100%', 'label' => 'AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
                     ];
                 @endphp
-                <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 animate-fade-in-up delay-500">
-                    @foreach ($defaultTrustCards as $idx => [$defTitle, $defSub, $defIcon])
-                        @php
-                            $tcTitle = $settings['trust_card_'.$idx.'_title'] ?? $defTitle;
-                            $tcSub = $settings['trust_card_'.$idx.'_subtitle'] ?? $defSub;
-                            $tcIcon = $settings['trust_card_'.$idx.'_icon'] ?? $defIcon;
-                        @endphp
+                <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-5 py-4 mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
+                    @foreach ($heroStats as $stat)
                         <div class="flex items-center gap-3">
-                            <div class="p-2.5 rounded-xl bg-white/5 border border-white/10 text-[#c89e2b] flex-shrink-0">
-                                <i data-lucide="{{ $tcIcon }}" class="w-6 h-6"></i>
+                            <div class="shrink-0 w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
+                                <i data-lucide="{{ $stat['icon'] }}" class="w-4.5 h-4.5 text-[#c89e2b]" style="width:18px;height:18px"></i>
                             </div>
-                            <div>
-                                <p class="text-xs font-bold text-white uppercase tracking-wider">{{ $tcTitle }}</p>
-                                <p class="text-[10px] text-white/60 font-medium">{{ $tcSub }}</p>
+                            <div class="min-w-0">
+                                <p class="text-xs font-black text-white tracking-wider leading-none">
+                                    <span class="text-sm">{{ $stat['value'] }}</span>{{ $stat['label'] }}
+                                </p>
+                                <p class="text-[10px] text-white/50 font-medium mt-0.5 leading-none">{{ $stat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
