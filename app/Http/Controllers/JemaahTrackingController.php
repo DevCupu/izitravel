@@ -24,7 +24,7 @@ class JemaahTrackingController extends Controller
             ]);
         }
 
-        $settings = Setting::pluck('value', 'key');
+        $settings = Setting::allValues();
 
         return view('lacak-jemaah', compact('settings'));
     }
@@ -38,7 +38,7 @@ class JemaahTrackingController extends Controller
      */
     public function result(Request $request)
     {
-        $settings = Setting::pluck('value', 'key');
+        $settings = Setting::allValues();
         $passport = $request->string('passport')->trim()->toString();
         $birthDate = $request->string('birth_date')->trim()->toString();
 

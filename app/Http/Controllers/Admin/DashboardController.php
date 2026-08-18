@@ -52,19 +52,21 @@ class DashboardController extends Controller
             ['label' => 'Mitra Maskapai', 'count' => $totalPartners, 'color' => '#14b8a6'],
         ];
 
-        // Departure schedule trend (Next 6 months)
+        // Departure schedule trend (Next 6 months) — one query grouped in PHP instead of 6 separate counts
+        $rangeStart = now()->startOfMonth();
+        $packagesByMonth = Package::where('is_active', true)
+            ->whereBetween('departure_date', [$rangeStart, $rangeStart->copy()->addMonths(6)])
+            ->get(['departure_date'])
+            ->groupBy(fn ($package) => $package->departure_date->format('Y-m'));
+
         $departureTrend = collect();
         for ($i = 0; $i < 6; $i++) {
-            $monthDate = now()->startOfMonth()->addMonths($i);
-            $count = Package::where('is_active', true)
-                ->whereYear('departure_date', $monthDate->year)
-                ->whereMonth('departure_date', $monthDate->month)
-                ->count();
-            
+            $monthDate = $rangeStart->copy()->addMonths($i);
+
             $departureTrend->push([
                 'label' => $monthDate->translatedFormat('M Y'),
                 'short_label' => $monthDate->translatedFormat('M'),
-                'count' => $count,
+                'count' => $packagesByMonth->get($monthDate->format('Y-m'), collect())->count(),
             ]);
         }
 

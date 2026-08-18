@@ -43,7 +43,7 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         $articles = Article::query()
             ->where('is_active', true)
@@ -69,7 +69,7 @@ class HomeController extends Controller
 
     public function gallery(Request $request)
     {
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         $galleriesQuery = Gallery::query()->where('is_active', true);
 
@@ -126,7 +126,7 @@ class HomeController extends Controller
 
     public function testimonials(Request $request)
     {
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         $testimonials = Testimonial::query()
             ->where('is_active', true)
@@ -146,7 +146,7 @@ class HomeController extends Controller
             ->paginate(6)
             ->withQueryString();
 
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         return view('articles.index', compact('articles', 'settings'));
     }
@@ -157,7 +157,7 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         // Get 3 other active articles as recommendations
         $recommendedArticles = Article::where('id', '!=', $article->id)
@@ -179,7 +179,7 @@ class HomeController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(9);
 
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         return view('articles.tag', compact('articles', 'tag', 'settings'));
     }
@@ -190,7 +190,7 @@ class HomeController extends Controller
             ->where('is_active', true)
             ->firstOrFail();
 
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
 
         // Get other active packages as recommendations
         $otherPackages = Package::where('id', '!=', $package->id)
@@ -301,14 +301,14 @@ class HomeController extends Controller
 
     public function terms()
     {
-        $settings = Setting::pluck('value', 'key');
+        $settings = Setting::allValues();
 
         return view('terms', compact('settings'));
     }
 
     public function privacy()
     {
-        $settings = Setting::pluck('value', 'key');
+        $settings = Setting::allValues();
 
         return view('privacy', compact('settings'));
     }

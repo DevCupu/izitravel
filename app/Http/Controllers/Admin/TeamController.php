@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Team;
+use App\Support\ImageOptimizer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,7 +39,7 @@ class TeamController extends Controller
         $data = $this->validateData($request);
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('teams', 'public');
+            $data['image'] = ImageOptimizer::optimize($request->file('image'), 'teams', 400);
         }
 
         Team::create($data);
@@ -61,7 +62,7 @@ class TeamController extends Controller
             if ($team->image && ! str_starts_with($team->image, 'images/')) {
                 Storage::disk('public')->delete($team->image);
             }
-            $data['image'] = $request->file('image')->store('teams', 'public');
+            $data['image'] = ImageOptimizer::optimize($request->file('image'), 'teams', 400);
         }
 
         $team->update($data);

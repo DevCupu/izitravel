@@ -78,7 +78,7 @@
         <nav class="bg-white border border-slate-100/80 rounded-full shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 flex items-center justify-between transition-all duration-300">
             <div class="flex items-center gap-3">
                 <a href="{{ url('/') }}">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain" width="687" height="240" fetchpriority="high" decoding="async" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain" width="480" height="168" fetchpriority="high" decoding="async" />
                 </a>
             </div>
             
@@ -221,7 +221,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
                 <!-- Col 1: Branding & Socials (4 Span) -->
                 <div class="lg:col-span-4 space-y-6">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $siteName }}" class="h-11 w-auto object-contain" width="531" height="240" loading="lazy" decoding="async" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $siteName }}" class="h-11 w-auto object-contain" width="480" height="217" loading="lazy" decoding="async" />
                     <p class="text-slate-400 text-sm leading-relaxed font-light">
                         {{ $settings['site_description'] ?? 'IZI Travel berkomitmen memberikan pelayanan perjalanan ibadah Umrah dan Haji terbaik secara profesional, amanah, dan terpercaya demi kenyamanan ibadah Anda.' }}
                     </p>
@@ -354,7 +354,7 @@
                     <!-- Google Maps Wrapper -->
                     <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl h-28 relative group transition duration-300 hover:border-blue-500/30">
                         @if(isset($settings['contact_gmaps']) && !empty($settings['contact_gmaps']))
-                            <iframe src="{{ $settings['contact_gmaps'] }}" class="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="{{ $settings['contact_gmaps'] }}" title="Lokasi Kantor IZI Travel" class="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         @else
                             <div class="w-full h-28 bg-slate-900 flex items-center justify-center">
                                 <span class="text-slate-500 text-xs">Peta Lokasi</span>
@@ -470,7 +470,6 @@
     <!-- END: Mobile Navigation Drawer -->
 
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@0.462.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Initialize Lucide Icons

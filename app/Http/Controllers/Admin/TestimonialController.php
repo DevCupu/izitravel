@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Testimonial;
+use App\Support\ImageOptimizer;
 use Illuminate\Http\Request;
 
 class TestimonialController extends Controller
@@ -47,7 +48,7 @@ class TestimonialController extends Controller
         $data = $this->validateData($request);
 
         if ($request->hasFile('photo')) {
-            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
+            $data['photo'] = ImageOptimizer::optimize($request->file('photo'), 'testimonials', 400);
         }
 
         Testimonial::create($data);
@@ -78,7 +79,7 @@ class TestimonialController extends Controller
             if ($testimonial->photo) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($testimonial->photo);
             }
-            $data['photo'] = $request->file('photo')->store('testimonials', 'public');
+            $data['photo'] = ImageOptimizer::optimize($request->file('photo'), 'testimonials', 400);
         }
 
         $testimonial->update($data);

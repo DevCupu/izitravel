@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
+use App\Support\ImageOptimizer;
 use Illuminate\Http\Request;
 
 class SettingController extends Controller
 {
     public function index()
     {
-        $settings = Setting::pluck('value', 'key')->toArray();
+        $settings = Setting::allValues();
         return view('admin.settings.index', compact('settings'));
     }
 
@@ -337,7 +338,7 @@ class SettingController extends Controller
             if ($oldLogo && ! str_starts_with($oldLogo, 'images/')) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($oldLogo);
             }
-            $logoPath = $request->file('site_logo')->store('settings', 'public');
+            $logoPath = ImageOptimizer::optimize($request->file('site_logo'), 'settings', 300);
             Setting::setValue('site_logo', $logoPath);
         }
 
@@ -346,7 +347,7 @@ class SettingController extends Controller
             if ($oldFavicon && ! str_starts_with($oldFavicon, 'images/')) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($oldFavicon);
             }
-            $faviconPath = $request->file('site_favicon')->store('settings', 'public');
+            $faviconPath = ImageOptimizer::optimize($request->file('site_favicon'), 'settings', 300);
             Setting::setValue('site_favicon', $faviconPath);
         }
 
@@ -355,7 +356,7 @@ class SettingController extends Controller
             if ($oldHeroImage && ! str_starts_with($oldHeroImage, 'images/')) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($oldHeroImage);
             }
-            $heroImagePath = $request->file('hero_image')->store('settings', 'public');
+            $heroImagePath = ImageOptimizer::optimize($request->file('hero_image'), 'settings', 1920);
             Setting::setValue('hero_image', $heroImagePath);
         }
 
@@ -375,7 +376,8 @@ class SettingController extends Controller
                 if ($old && ! str_starts_with($old, 'images/')) {
                     \Illuminate\Support\Facades\Storage::disk('public')->delete($old);
                 }
-                $path = $request->file($field)->store('settings', 'public');
+                $maxDimension = $field === 'seo_og_image' ? 1200 : 1000;
+                $path = ImageOptimizer::optimize($request->file($field), 'settings', $maxDimension);
                 Setting::setValue($field, $path);
             }
         }
@@ -399,7 +401,7 @@ class SettingController extends Controller
                 if ($old && ! str_starts_with($old, 'images/')) {
                     \Illuminate\Support\Facades\Storage::disk('public')->delete($old);
                 }
-                $path = $request->file($field)->store('settings', 'public');
+                $path = ImageOptimizer::optimize($request->file($field), 'settings', 1000);
                 Setting::setValue($field, $path);
             }
         }

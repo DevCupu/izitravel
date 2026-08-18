@@ -37,7 +37,7 @@ class PublicPagesTest extends TestCase
             'content' => 'Berikut adalah panduan tata cara umrah sesuai sunnah.',
             'category' => 'panduan',
             'author' => 'Tim Redaksi IZI Travel',
-            'is_published' => true,
+            'is_active' => true,
         ]);
 
         $response = $this->get('/artikel/' . $article->slug);

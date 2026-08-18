@@ -62,7 +62,7 @@
         <nav class="bg-white border border-slate-100/80 rounded-full shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 flex items-center justify-between transition-all duration-300">
             <div class="flex items-center gap-3">
                 <a href="{{ url('/') }}">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain" width="687" height="240" fetchpriority="high" decoding="async" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $siteName }}" class="h-8 w-auto object-contain" width="480" height="168" fetchpriority="high" decoding="async" />
                 </a>
             </div>
 
@@ -470,7 +470,7 @@
         <div class="absolute -right-20 -bottom-20 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
         <div class="max-w-[85rem] mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
             <div class="flex flex-col md:flex-row items-center justify-between gap-6 mb-10">
-                <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $siteName }}" class="h-11 w-auto object-contain" width="531" height="240" loading="lazy" decoding="async" />
+                <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $siteName }}" class="h-11 w-auto object-contain" width="480" height="217" loading="lazy" decoding="async" />
                 <div class="flex items-center gap-4 text-xs text-slate-400">
                     <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-500"></i>{{ $settings['contact_phone'] ?? '+62 811-1234-5678' }}</span>
                     <span class="flex items-center gap-1.5"><i data-lucide="mail" class="w-3.5 h-3.5 text-amber-500"></i>{{ $settings['contact_email'] ?? 'info@izitravel.co.id' }}</span>
@@ -527,7 +527,6 @@
     </div>
     <!-- END: Mobile Navigation Drawer -->
 
-    <script src="https://unpkg.com/lucide@0.462.0"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) window.lucide.createIcons();

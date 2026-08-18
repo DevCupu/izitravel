@@ -36,7 +36,7 @@
     <body class="text-slate-800 antialiased">
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-10 sm:pt-0 bg-stone-50 auth-pattern px-4">
             <a href="/" class="mb-2">
-                <img src="{{ asset('images/Izi LOGO.webp') }}" alt="IZI Travel" class="h-12 w-auto" width="687" height="240">
+                <img src="{{ asset('images/Izi LOGO.webp') }}" alt="IZI Travel" class="h-12 w-auto" width="480" height="168">
             </a>
 
             <div class="w-full sm:max-w-md mt-6 px-6 py-8 sm:px-10 sm:py-10 bg-white border border-slate-100 shadow-xl shadow-slate-900/5 overflow-hidden sm:rounded-3xl">

@@ -12,7 +12,7 @@
     // Hero background image: pakai yang diupload admin (key "hero_image"), fallback ke default.
     $heroImageUrl = !empty($settings['hero_image'])
         ? (str_starts_with($settings['hero_image'], 'images/') ? asset($settings['hero_image']) : asset('storage/' . $settings['hero_image']))
-        : asset('images/hero_kaaba_4k.png');
+        : asset('images/hero_kaaba_4k.webp');
 
     // Find nearest package and upcoming packages for countdown and schedule card
     $nearestPackage = null;
@@ -155,8 +155,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google Fonts: Outfit, Inter, El Messiri & Amiri (Islamic Calligraphic Style) -->
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Outfit, Inter, El Messiri & Amiri (Islamic Calligraphic Style) — loaded non-blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
     <style>
         html {
             scroll-behavior: smooth;
@@ -253,20 +254,6 @@
             border: 1px solid rgba(226, 232, 240, 0.5);
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .animated-gradient-bg {
-            /* Gradasi Fajar Haramain Bergerak Lembut (Warna Lebih Terlihat) */
-            background-image: linear-gradient(-45deg, #d0e7ff, #fdf2c5, #d6f6e5, #ece9ff);
-            background-size: 400% 400%;
-            animation: gradientMove 24s ease-in-out infinite;
-            will-change: background-position;
-        }
-
         @keyframes auroraWave1 {
             0% { transform: translate(0px, 0px) scale(1) rotate(-5deg); opacity: 0.7; }
             50% { transform: translate(40px, -20px) scale(1.08) rotate(3deg); opacity: 0.95; }
@@ -306,11 +293,9 @@
 
         /* Respect reduced-motion preference and ease up on heavy continuous animations */
         @media (prefers-reduced-motion: reduce) {
-            .animated-gradient-bg,
             .animate-aurora-1,
             .animate-aurora-2,
             .animate-aurora-3,
-            .animate-text-shimmer,
             .animate-pulse-glow {
                 animation: none;
             }
@@ -378,17 +363,6 @@
             transform: translateY(0);
         }
 
-        /* Glowing Text Shimmer */
-        @keyframes textShimmer {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .animate-text-shimmer {
-            animation: textShimmer 8s linear infinite;
-        }
-
         /* Apple/Vercel Style Glowing Borders */
         .glow-card {
             position: relative;
@@ -414,14 +388,29 @@
             opacity: 1;
         }
 
-        /* Floating WhatsApp Glow Pulse */
+        /* Floating WhatsApp Glow Pulse — transform/opacity only so it runs on the compositor, not box-shadow repaint */
         @keyframes pulseGlow {
-            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+            0% { transform: scale(0.95); }
+            70% { transform: scale(1); }
+            100% { transform: scale(0.95); }
+        }
+        @keyframes pulseRing {
+            0% { transform: scale(1); opacity: 0.7; }
+            70% { transform: scale(1.7); opacity: 0; }
+            100% { transform: scale(1.7); opacity: 0; }
         }
         .animate-pulse-glow {
+            position: relative;
             animation: pulseGlow 2s infinite;
+        }
+        .animate-pulse-glow::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            background: rgba(16, 185, 129, 0.7);
+            animation: pulseRing 2s infinite;
+            pointer-events: none;
         }
 
         /* Word by Word Reveal Style */
@@ -690,7 +679,7 @@
     <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50">
         <nav class="bg-white/90 backdrop-blur-md border border-white/60 rounded-full shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 flex items-center justify-between transition-all duration-300">
             <div class="flex items-center gap-3">
-                <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-8 w-auto object-contain" width="687" height="240" fetchpriority="high" decoding="async" />
+                <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-8 w-auto object-contain" width="480" height="168" fetchpriority="high" decoding="async" />
             </div>
             
             <!-- Desktop Navigation Links -->
@@ -718,6 +707,7 @@
     </header>
     <!-- END: Floating Header -->
 
+    <main>
     <!-- BEGIN: HeroSection (Modern Split Layout) -->
     <section id="beranda" class="relative pt-32 pb-20 overflow-hidden" data-purpose="hero-banner">
         <!-- Aurora Wave Effects (Stretched & Wavy Ambient Lights styled in gold/blue) -->
@@ -868,7 +858,7 @@
                                         <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
                                         Keberangkatan Terdekat
                                     </span>
-                                    <h3 class="text-xs text-white/95 font-bold truncate max-w-[180px] sm:max-w-[210px] mt-0.5">{{ $nearestPackage->name }}</h3>
+                                    <h2 class="text-xs text-white/95 font-bold truncate max-w-[180px] sm:max-w-[210px] mt-0.5">{{ $nearestPackage->name }}</h2>
                                 </div>
                             </div>
                         </div>
@@ -1589,7 +1579,7 @@
                                             <p class="font-extrabold text-lg md:text-xl text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
                                         </div>
                                     </div>
-                                    <a href="{{ route('packages.show', $package->slug) }}" class="magnetic-button inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
+                                    <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
                                         <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
                                         <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
                                     </a>
@@ -1756,7 +1746,7 @@
                     
                     <!-- Video Embed Wrapper -->
                     <div id="lightbox-video-container" class="aspect-video w-full hidden">
-                        <iframe id="lightbox-iframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe id="lightbox-iframe" title="Pemutar video galeri" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
                 
@@ -1870,7 +1860,7 @@
                                                     <div class="flex items-center gap-3 sm:gap-4 min-w-0">
                                                         @if(!empty($testimonial->photo))
                                                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
-                                                                 <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover">
+                                                                 <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover" width="48" height="48" loading="lazy" decoding="async">
                                                             </div>
                                                         @else
                                                             <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
@@ -1878,7 +1868,7 @@
                                                             </div>
                                                         @endif
                                                         <div class="min-w-0">
-                                                            <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h4>
+                                                            <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
                                                             <p class="text-xs text-slate-400 truncate">{{ $testimonial->location }}</p>
                                                         </div>
                                                     </div>
@@ -1939,7 +1929,7 @@
                                                         M
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h4>
+                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h3>
                                                         <p class="text-xs text-slate-400 truncate">Jakarta</p>
                                                     </div>
                                                 </div>
@@ -1970,7 +1960,7 @@
                                                         S
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h4>
+                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h3>
                                                         <p class="text-xs text-slate-400 truncate">Bandung</p>
                                                     </div>
                                                 </div>
@@ -2001,7 +1991,7 @@
                                                         A
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h4 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h4>
+                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h3>
                                                         <p class="text-xs text-slate-400 truncate">Surabaya</p>
                                                     </div>
                                                 </div>
@@ -2318,7 +2308,7 @@
                                 <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group" 
                                      style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('{{ asset('images/package_kaaba.webp') }}');">
                                      <!-- Play Button -->
-                                     <button id="haramain-play-btn" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
+                                     <button id="haramain-play-btn" aria-label="Putar siaran langsung" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
                                          <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
                                      </button>
                                      <span class="mt-4 text-xs font-bold text-white tracking-widest uppercase bg-black/40 px-4.5 py-2 rounded-full border border-white/10 z-20 select-none">Klik untuk Memutar Live Stream</span>
@@ -2578,6 +2568,7 @@
         </div>
     </section>
     <!-- END: CTASection -->
+    </main>
 
     <!-- BEGIN: Footer -->
     <footer class="bg-slate-950 text-white py-16 md:py-24 relative overflow-hidden islamic-pattern-blue-soft animate-fade-in" id="kontak" data-purpose="main-footer">
@@ -2599,12 +2590,12 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
                 <!-- Col 1: Branding & Socials (4 Span) -->
                 <div class="lg:col-span-4 space-y-6">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-11 w-auto object-contain" width="531" height="240" loading="lazy" decoding="async" />
+                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-11 w-auto object-contain" width="480" height="217" loading="lazy" decoding="async" />
                     <p class="text-slate-400 text-sm leading-relaxed font-light">
                         {{ $settings['site_description'] ?? 'IZI Travel berkomitmen memberikan pelayanan perjalanan ibadah Umrah dan Haji terbaik secara profesional, amanah, dan terpercaya demi kenyamanan ibadah Anda.' }}
                     </p>
                     <div class="space-y-3">
-                        <h4 class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Koneksi Media Sosial</h4>
+                        <h3 class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Koneksi Media Sosial</h3>
                         <div class="flex flex-wrap gap-2.5">
                             @if(isset($settings['social_facebook']) && !empty($settings['social_facebook']))
                             <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_facebook'] }}" target="_blank" aria-label="Facebook">
@@ -2648,7 +2639,7 @@
 
                 <!-- Col 2: Quick Links (2 Span) -->
                 <div class="lg:col-span-2 space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Menu Utama</h4>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Menu Utama</h3>
                     <ul class="space-y-3.5 text-xs text-slate-400">
                         <li>
                             <a href="{{ url('/#beranda') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
@@ -2697,7 +2688,7 @@
 
                 <!-- Col 3: Hubungi Kami (3 Span) -->
                 <div class="lg:col-span-3 space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">{{ $settings['footer_contact_heading'] ?? 'Hubungi Kami' }}</h4>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">{{ $settings['footer_contact_heading'] ?? 'Hubungi Kami' }}</h3>
                     <ul class="space-y-4 text-xs text-slate-400">
                         <li class="flex items-start gap-3.5 group/item">
                             <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 group-hover/item:border-amber-500 transition duration-300">
@@ -2728,11 +2719,11 @@
 
                 <!-- Col 4: Maps & Legalitas (3 Span) -->
                 <div class="lg:col-span-3 space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Legalitas &amp; Lokasi</h4>
+                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Legalitas &amp; Lokasi</h3>
                     <!-- Google Maps Wrapper -->
                     <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl h-28 relative group transition duration-300 hover:border-blue-500/30">
                         @if(isset($settings['contact_gmaps']) && !empty($settings['contact_gmaps']))
-                            <iframe src="{{ $settings['contact_gmaps'] }}" class="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            <iframe src="{{ $settings['contact_gmaps'] }}" title="Lokasi Kantor IZI Travel" class="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         @else
                             <img src="{{ asset('images/map_thumbnail.webp') }}" alt="Google Maps Pin" class="w-full h-28 object-cover transition duration-500 group-hover:scale-105" width="600" height="600" loading="lazy" decoding="async" />
                         @endif
@@ -2778,8 +2769,7 @@
     </footer>
     <!-- END: Footer -->
 
-    <!-- Lucide Icons (loaded at end of body so it doesn't block initial render) -->
-    <script src="https://unpkg.com/lucide@0.462.0"></script>
+    <!-- Lucide Icons: bundled via resources/js/app.js (window.lucide) -->
     <script>
         // Unified Album Lightbox Logic
         const lightbox = document.getElementById('gallery-lightbox');
@@ -4299,7 +4289,7 @@
                 <!-- Header inside drawer -->
                 <div class="flex items-center justify-between pb-4 border-b border-slate-100">
                     <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
-                    <button id="mobile-drawer-close" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
+                    <button id="mobile-drawer-close" aria-label="Tutup menu" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                 </div>
@@ -4465,7 +4455,7 @@
                 iframeContainer.style.maxHeight = 'none';
             }
             
-            iframeContainer.innerHTML = `<iframe class="w-full h-full" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            iframeContainer.innerHTML = `<iframe class="w-full h-full" title="Video testimoni" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
             
             modal.classList.remove('hidden');
             modal.classList.add('flex');

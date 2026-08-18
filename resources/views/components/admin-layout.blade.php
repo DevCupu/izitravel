@@ -525,7 +525,7 @@
             <!-- Logo -->
             <div class="sidebar-logo-bar h-[72px] flex items-center px-6 border-b border-white/[0.06] shrink-0">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 group">
-                    <img src="{{ asset('images/Izi LOGO WHITE.webp') }}" alt="IZI Travel" class="sidebar-logo-full h-7 w-auto transition-transform group-hover:scale-105" width="531" height="240">
+                    <img src="{{ asset('images/Izi LOGO WHITE.webp') }}" alt="IZI Travel" class="sidebar-logo-full h-7 w-auto transition-transform group-hover:scale-105" width="480" height="217">
                     <div class="hidden">
                         <span class="text-[10px] font-bold uppercase tracking-widest text-slate-500">Admin Panel</span>
                     </div>
@@ -764,7 +764,6 @@
         </div>
 
         <!-- Scripts -->
-        <script src="https://unpkg.com/lucide@0.462.0"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
         <script>
             // Initial render and tagging
