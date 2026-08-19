@@ -400,7 +400,10 @@
             100% { transform: scale(1.7); opacity: 0; }
         }
         .animate-pulse-glow {
-            position: relative;
+            /* No position here: the WhatsApp button already has Tailwind's `fixed` class,
+               which is enough to position the ::before ring below. Setting `relative` here
+               used to fight `fixed` for the position property (same specificity, this rule
+               loads after Tailwind's CSS) and broke the button's fixed placement. */
             animation: pulseGlow 2s infinite;
         }
         .animate-pulse-glow::before {
