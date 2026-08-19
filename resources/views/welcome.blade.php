@@ -301,10 +301,8 @@
             }
         }
 
-        /* GPU-accelerate the elements driven by the mousemove parallax effect */
-        #hero-image-card,
-        #hero-islamic-pattern,
-        #hero-gradient-bg {
+        /* GPU-accelerate the element driven by the mousemove parallax effect */
+        #hero-image-card {
             will-change: transform;
         }
 
@@ -347,20 +345,15 @@
         .delay-100 { animation-delay: 100ms; }
         .delay-200 { animation-delay: 200ms; }
         .delay-300 { animation-delay: 300ms; }
+        .delay-350 { animation-delay: 350ms; }
         .delay-400 { animation-delay: 400ms; }
         .delay-500 { animation-delay: 500ms; }
 
-        /* Scroll Reveal Styles */
+        /* Scroll Reveal Styles — resting state only; Motion (resources/js/app.js) animates to visible and holds the end state */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* Apple/Vercel Style Glowing Borders */
@@ -424,80 +417,29 @@
             display: inline-block;
             opacity: 0;
             transform: translateY(12px);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
-        }
-        .reveal-words.active .reveal-word {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Floating Badge Animations */
-        @keyframes floatSlow {
-            0% { transform: translateY(0px) translateZ(30px); }
-            50% { transform: translateY(-12px) translateZ(30px); }
-            100% { transform: translateY(0px) translateZ(30px); }
-        }
-        @keyframes floatSlower {
-            0% { transform: translateY(0px) translateZ(30px); }
-            50% { transform: translateY(-18px) translateZ(30px); }
-            100% { transform: translateY(0px) translateZ(30px); }
-        }
-        @keyframes floatMedium {
-            0% { transform: translateY(0px) translateZ(30px); }
-            50% { transform: translateY(-8px) translateZ(30px); }
-            100% { transform: translateY(0px) translateZ(30px); }
-        }
-        .animate-float-slow {
-            animation: floatSlow 6s ease-in-out infinite;
-        }
-        .animate-float-slower {
-            animation: floatSlower 8s ease-in-out infinite;
-        }
-        .animate-float-medium {
-            animation: floatMedium 5s ease-in-out infinite;
         }
 
         /* Premium Scroll Reveal Directions */
         .reveal-left {
             opacity: 0;
             transform: translateX(-35px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
         .reveal-right {
             opacity: 0;
             transform: translateX(35px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
         .reveal-scale {
             opacity: 0;
             transform: scale(0.95);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: opacity, transform;
-        }
-        .reveal-spring {
-            opacity: 0;
-            transform: translateY(40px) scale(0.95);
-            transition: opacity 1s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1s cubic-bezier(0.34, 1.56, 0.64, 1);
-            will-change: opacity, transform;
-        }
-        .reveal-skew {
-            opacity: 0;
-            transform: translateY(50px) skewY(2deg);
-            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
         .reveal-card, .reveal-child {
             opacity: 0;
             transform: translateY(35px) scale(0.97);
-            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
-        }
-        .reveal-left.active, .reveal-right.active, .reveal-scale.active, .reveal-spring.active, .reveal-skew.active, .reveal-card.active, .reveal-child.active {
-            opacity: 1;
-            transform: translate(0) scale(1) skew(0);
         }
 
         /* FAQ Smooth Height Accordion grid styles */
@@ -544,7 +486,9 @@
         /* Premium Micro-Animations and Micro-Interactions */
         .magnetic-button {
             display: inline-flex;
-            transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1);
+            /* No transform transition here: Motion now drives the magnetic x/y movement
+               directly (see script below) — a competing CSS transition on the same
+               property caused the WhatsApp button regression fixed earlier, same risk here. */
         }
         
         header nav a {
@@ -840,8 +784,8 @@
             </div>
 
             <!-- Right Column: Info Widget (Glassmorphism card) -->
-            <div class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/30 rounded-[2.5rem] p-7 shadow-2xl relative overflow-hidden text-white w-full backdrop-blur-xl group hover:border-[#c89e2b]/50 transition-all duration-500">
+            <div id="hero-right-col" class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
+                <div id="hero-image-card" class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/30 rounded-[2.5rem] p-7 shadow-2xl relative overflow-hidden text-white w-full backdrop-blur-xl group hover:border-[#c89e2b]/50 transition-all duration-500">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
 
@@ -2455,7 +2399,7 @@
                 </div>
 
                 <!-- Tier 3: Benefit & Reward -->
-                <div class="reveal-card bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
                     
@@ -3021,55 +2965,46 @@
             }
         };
 
-        // Interactive 3D Mouse Parallax Effect for Hero
-        const heroSection = document.querySelector('[data-purpose="hero-banner"]');
-        const heroRightCol = document.getElementById('hero-right-col');
-        const imageCard = document.getElementById('hero-image-card');
-        const gradientBg = document.getElementById('hero-gradient-bg');
+        // Advanced Interactions & Performance-Driven Animations
+        document.addEventListener("DOMContentLoaded", () => {
+            // Interactive 3D Mouse Parallax Effect for Hero
+            // (hero-image-card/hero-right-col were referenced by CSS/JS but never actually present
+            // in the markup — a leftover from an older hero layout. Restored the ids on the current
+            // schedule-card widget so this tilt effect actually runs. Also: this whole thing has to
+            // live inside DOMContentLoaded — Motion/lucide are set by the deferred Vite bundle
+            // script, which runs after any top-level classic <script> code like this used to be.)
+            const heroSection = document.querySelector('[data-purpose="hero-banner"]');
+            const heroRightCol = document.getElementById('hero-right-col');
+            const imageCard = document.getElementById('hero-image-card');
 
-        if (heroSection && imageCard && gradientBg) {
-            heroRightCol.style.perspective = '1000px';
+            if (heroSection && imageCard) {
+                heroRightCol.style.perspective = '1000px';
 
-            let ticking = false;
-            heroSection.addEventListener('mousemove', (e) => {
-                if (!ticking) {
+                // Motion spring instead of a CSS transition — the tilt now chases the cursor with
+                // real physics (slight overshoot/settle) instead of snapping along a fixed easing curve.
+                const tiltSpring = { type: Motion.spring, stiffness: 150, damping: 20, mass: 0.5 };
+
+                let ticking = false;
+                heroSection.addEventListener('mousemove', (e) => {
+                    if (ticking) return;
+                    ticking = true;
                     window.requestAnimationFrame(() => {
                         const rect = heroSection.getBoundingClientRect();
                         const x = (e.clientX - rect.left) / rect.width - 0.5;
                         const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-                        // Disable transition during active movement for direct response
-                        imageCard.style.transition = 'none';
-                        gradientBg.style.transition = 'none';
+                        // 3D rotation on the schedule card, max 15deg
+                        Motion.animate(imageCard, { rotateX: -y * 15, rotateY: x * 15, z: 10 }, tiltSpring);
 
-                        // 3D Rotation on the image card
-                        const tiltX = -y * 15; // Max 15 deg
-                        const tiltY = x * 15;
-                        imageCard.style.transform = `rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(10px)`;
-
-                        // Parallax shift for the gradient background (opposite direction for depth)
-                        const moveGradientX = x * -25;
-                        const moveGradientY = y * -25;
-                        gradientBg.style.transform = `translate(${moveGradientX}px, ${moveGradientY}px)`;
-                        
                         ticking = false;
                     });
-                    ticking = true;
-                }
-            });
+                });
 
-            // Reset transitions smoothly on mouse leave
-            heroSection.addEventListener('mouseleave', () => {
-                imageCard.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-                gradientBg.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+                heroSection.addEventListener('mouseleave', () => {
+                    Motion.animate(imageCard, { rotateX: 0, rotateY: 0, z: 0 }, tiltSpring);
+                });
+            }
 
-                imageCard.style.transform = 'rotateX(0deg) rotateY(0deg) translateZ(0px)';
-                gradientBg.style.transform = 'translate(0px, 0px)';
-            });
-        }
-
-        // Advanced Interactions & Performance-Driven Animations
-        document.addEventListener("DOMContentLoaded", () => {
             // Render Lucide Icons
             lucide.createIcons();
 
@@ -3225,14 +3160,6 @@
                 // Start after initial delay
                 setTimeout(type, 1800);
             }
-
-            // 3. Stagger Animations Delay Injector
-            document.querySelectorAll('[data-stagger="true"]').forEach(parent => {
-                const revealableItems = parent.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-                revealableItems.forEach((item, index) => {
-                    item.style.transitionDelay = `${index * 120}ms`;
-                });
-            });
 
             // 4. Stats Counter Count-up
             const runCounters = () => {
@@ -3581,17 +3508,18 @@
                 });
             });
 
-            // 8. Magnetic Buttons Acceleration Effect
+            // 8. Magnetic Buttons — Motion spring instead of a raw style.transform snap
+            const magneticSpring = { type: Motion.spring, stiffness: 300, damping: 20, mass: 0.5 };
             document.querySelectorAll('.magnetic-button').forEach(btn => {
                 btn.addEventListener('mousemove', (e) => {
                     const rect = btn.getBoundingClientRect();
                     const x = e.clientX - rect.left - rect.width / 2;
                     const y = e.clientY - rect.top - rect.height / 2;
-                    btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+                    Motion.animate(btn, { x: x * 0.15, y: y * 0.15 }, magneticSpring);
                 });
-                
+
                 btn.addEventListener('mouseleave', () => {
-                    btn.style.transform = 'translate(0px, 0px)';
+                    Motion.animate(btn, { x: 0, y: 0 }, magneticSpring);
                 });
             });
 
@@ -3618,35 +3546,53 @@
                     }
                 };
                 walkTextNodes(el);
-
-                const wordSpans = el.querySelectorAll('.reveal-word');
-                wordSpans.forEach((span, index) => {
-                    span.style.transitionDelay = `${index * 45}ms`;
-                });
             });
 
-             // 10. Unified Scroll Reveal Animation (Intersection Observer)
-             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-words, .reveal-spring, .reveal-skew, .reveal-stagger');
-             const revealObserver = new IntersectionObserver((entries, observer) => {
-                 entries.forEach(entry => {
-                     if (entry.isIntersecting) {
-                         if (entry.target.classList.contains('reveal-stagger')) {
-                             const children = entry.target.querySelectorAll('.reveal-card, .reveal-child');
-                             children.forEach((child, index) => {
-                                 child.style.transitionDelay = `${index * 80}ms`;
-                                 child.classList.add('active');
-                             });
-                         }
-                         entry.target.classList.add('active');
-                         observer.unobserve(entry.target);
-                     }
-                 });
-             }, {
-                 threshold: 0.05,
-                 rootMargin: '0px 0px -40px 0px'
-             });
- 
-             revealElements.forEach(el => revealObserver.observe(el));
+            // 10. Scroll reveal via Motion — replaces the old CSS-transition + IntersectionObserver
+            // system. Explicit [from, to] keyframes so Motion doesn't need to decompose the CSS
+            // resting transform already set on these elements (used as the no-JS fallback state).
+            const REVEAL_KEYFRAMES = {
+                reveal: { opacity: [0, 1], y: [30, 0] },
+                'reveal-left': { opacity: [0, 1], x: [-35, 0] },
+                'reveal-right': { opacity: [0, 1], x: [35, 0] },
+                'reveal-scale': { opacity: [0, 1], scale: [0.95, 1] },
+            };
+            const revealSpring = { type: Motion.spring, bounce: 0.15, duration: 0.7 };
+            const revealViewport = { margin: '0px 0px -40px 0px', amount: 0.05 };
+
+            document.querySelectorAll('.reveal-stagger').forEach(parent => {
+                const stop = Motion.inView(parent, () => {
+                    const children = parent.querySelectorAll('.reveal-card, .reveal-child');
+                    Motion.animate(
+                        children,
+                        { opacity: [0, 1], y: [35, 0], scale: [0.97, 1] },
+                        { delay: Motion.stagger(0.08), ...revealSpring }
+                    );
+                    stop();
+                }, revealViewport);
+            });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+                if (el.closest('.reveal-stagger')) return; // handled above as a staggered group
+
+                const variant = ['reveal-left', 'reveal-right', 'reveal-scale'].find(cls => el.classList.contains(cls)) || 'reveal';
+                const stop = Motion.inView(el, () => {
+                    Motion.animate(el, REVEAL_KEYFRAMES[variant], revealSpring);
+                    stop();
+                }, revealViewport);
+            });
+
+            document.querySelectorAll('.reveal-words').forEach(el => {
+                const stop = Motion.inView(el, () => {
+                    const wordSpans = el.querySelectorAll('.reveal-word');
+                    Motion.animate(
+                        wordSpans,
+                        { opacity: [0, 1], y: [12, 0] },
+                        { delay: Motion.stagger(0.045), duration: 0.5, ease: 'easeOut' }
+                    );
+                    stop();
+                }, revealViewport);
+            });
 
             // 11. Glow Card Border Effect (Performance Throttled)
             const glowCards = document.querySelectorAll('.glow-card');
