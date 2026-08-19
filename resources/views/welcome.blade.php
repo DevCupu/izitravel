@@ -459,11 +459,11 @@
         }
         #testimonial-track {
             display: flex;
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            /* No transition here: dragging sets style.transform directly every frame (needs to
+               stay instant), and the "commit to nearest slide" snap is driven by Motion.animate()
+               in the script below — a competing CSS transition on the same property caused the
+               WhatsApp button regression fixed earlier, same risk here. */
             will-change: transform;
-        }
-        #testimonial-track.grabbing {
-            transition: none !important;
         }
         .testimonial-slide {
             flex-shrink: 0;
@@ -519,66 +519,6 @@
         .kemitraan-card-amber::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
         .kemitraan-card-emerald::before { background: linear-gradient(90deg, #10b981, #047857); }
 
-        /* Premium Detail Modal */
-        #detail-drawer {
-            transition: visibility 0.4s;
-        }
-        #detail-drawer.hidden {
-            visibility: hidden;
-            pointer-events: none;
-        }
-        #detail-drawer:not(.hidden) {
-            visibility: visible;
-            pointer-events: auto;
-        }
-        #detail-drawer #drawer-backdrop {
-            transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #detail-drawer.active #drawer-backdrop {
-            opacity: 1;
-        }
-
-        /* Mobile-first: slide up as a bottom-sheet */
-        #detail-drawer #drawer-content {
-            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateY(100%);
-            opacity: 1;
-        }
-        #detail-drawer.active #drawer-content {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Desktop: centered card that scales + lifts in */
-        @media (min-width: 640px) {
-            #detail-drawer #drawer-content {
-                transform: translateY(20px) scale(0.97);
-                opacity: 0;
-            }
-            #detail-drawer.active #drawer-content {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* Hide scrollbar but keep scroll on the content area */
-        #drawer-scroll {
-            scrollbar-width: thin;
-            scrollbar-color: rgba(148,163,184,0.4) transparent;
-        }
-        #drawer-scroll::-webkit-scrollbar { width: 5px; }
-        #drawer-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148,163,184,0.35);
-            border-radius: 99px;
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            #detail-drawer #drawer-content,
-            #detail-drawer #drawer-backdrop {
-                transition: opacity 0.2s ease;
-                transform: none;
-            }
-        }
 
         /* Redesigned Hero Background */
         #beranda {
@@ -1668,7 +1608,7 @@
         </div>
 
         <!-- Unified Gallery Lightbox Modal -->
-        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
             <!-- Close Button -->
             <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
                 <i data-lucide="x" class="w-6 h-6"></i>
@@ -1685,7 +1625,7 @@
             </button>
             
             <!-- Content Container -->
-            <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 transition-transform duration-300 scale-95" id="lightbox-content-box">
+            <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 scale-95" id="lightbox-content-box">
                 <!-- Media Area -->
                 <div class="relative w-full max-h-[70vh] flex items-center justify-center rounded-3xl overflow-hidden bg-black/40 border border-white/5 shadow-2xl">
                     <!-- Image Display -->
@@ -2718,6 +2658,13 @@
 
     <!-- Lucide Icons: bundled via resources/js/app.js (window.lucide) -->
     <script>
+        // Shared open/close panel animation helpers (lightbox, mobile drawer, video modal) —
+        // Motion.animate() returns a promise that resolves when the animation actually finishes,
+        // so callers don't need the old reflow-hack (`void el.offsetWidth`) + magic-number
+        // setTimeout that just guessed how long the CSS transition would take.
+        const panelIn = (elements, keyframes) => Motion.animate(elements, keyframes, { duration: 0.35, ease: [0.16, 1, 0.3, 1] });
+        const panelOut = (elements, keyframes) => Motion.animate(elements, keyframes, { duration: 0.3, ease: [0.16, 1, 0.3, 1] });
+
         // Unified Album Lightbox Logic
         const lightbox = document.getElementById('gallery-lightbox');
         const lightboxClose = document.getElementById('lightbox-close');
@@ -2790,16 +2737,12 @@
 
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
-            
+
             // Body scroll lock
             document.body.style.overflow = 'hidden';
 
-            // Animate fade in
-            void lightbox.offsetWidth;
-            lightbox.classList.remove('opacity-0');
-            lightbox.classList.add('opacity-100');
-            lightboxContentBox.classList.remove('scale-95');
-            lightboxContentBox.classList.add('scale-100');
+            panelIn(lightbox, { opacity: [0, 1] });
+            panelIn(lightboxContentBox, { scale: [0.95, 1] });
 
             showLightboxItem(startIndex);
 
@@ -2809,21 +2752,19 @@
             }
         };
 
-        const closeLightbox = () => {
-            lightbox.classList.remove('opacity-100');
-            lightbox.classList.add('opacity-0');
-            lightboxContentBox.classList.remove('scale-100');
-            lightboxContentBox.classList.add('scale-95');
-            
+        const closeLightbox = async () => {
             // Unlock scroll
             document.body.style.overflow = '';
 
-            setTimeout(() => {
-                lightbox.classList.remove('flex');
-                lightbox.classList.add('hidden');
-                lightboxIframe.setAttribute('src', '');
-                lightboxImg.setAttribute('src', '');
-            }, 300);
+            await Promise.all([
+                panelOut(lightbox, { opacity: [1, 0] }),
+                panelOut(lightboxContentBox, { scale: [1, 0.95] }),
+            ]);
+
+            lightbox.classList.remove('flex');
+            lightbox.classList.add('hidden');
+            lightboxIframe.setAttribute('src', '');
+            lightboxImg.setAttribute('src', '');
 
             // Resume testimonial autoplay when lightbox is closed
             if (typeof window.resumeTestimonialAutoplay === 'function') {
@@ -3161,43 +3102,27 @@
                 setTimeout(type, 1800);
             }
 
-            // 4. Stats Counter Count-up
+            // 4. Stats Counter Count-up — Motion.animate() tweens the plain number,
+            // replacing the hand-rolled requestAnimationFrame loop + manual ease-out-quad math.
             const runCounters = () => {
-                const counters = document.querySelectorAll('.stat-counter');
-                counters.forEach(counter => {
+                document.querySelectorAll('.stat-counter').forEach(counter => {
                     const target = parseInt(counter.getAttribute('data-target'), 10);
                     const suffix = counter.getAttribute('data-suffix') || '';
-                    const duration = 1500; // ms
-                    const startTime = performance.now();
 
-                    const updateCount = (currentTime) => {
-                        const elapsedTime = currentTime - startTime;
-                        const progress = Math.min(elapsedTime / duration, 1);
-                        const easeProgress = progress * (2 - progress); // Ease out Quad
-                        const value = Math.floor(easeProgress * target);
-                        counter.textContent = value + suffix;
-
-                        if (progress < 1) {
-                            requestAnimationFrame(updateCount);
-                        } else {
-                            counter.textContent = target + suffix;
-                        }
-                    };
-                    requestAnimationFrame(updateCount);
+                    Motion.animate(0, target, {
+                        duration: 1.5,
+                        ease: 'easeOut',
+                        onUpdate: (value) => { counter.textContent = Math.floor(value) + suffix; },
+                    });
                 });
             };
 
             const statsSection = document.querySelector('#tentang-kami');
             if (statsSection) {
-                const statsObserver = new IntersectionObserver((entries, observer) => {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            runCounters();
-                            observer.unobserve(entry.target);
-                        }
-                    });
-                }, { threshold: 0.1 });
-                statsObserver.observe(statsSection);
+                const stop = Motion.inView(statsSection, () => {
+                    runCounters();
+                    stop();
+                }, { amount: 0.1 });
             }
 
 
@@ -3279,7 +3204,10 @@
                     const slideWidth = slides[0].getBoundingClientRect().width;
                     currentTranslate = currentIndex * -slideWidth;
                     prevTranslate = currentTranslate;
-                    track.style.transform = `translateX(${currentTranslate}px)`;
+                    // Spring glide to the target slide (dragging itself still sets style.transform
+                    // directly every frame in the animation() rAF loop below — only the "commit to
+                    // nearest slide" snap uses Motion).
+                    Motion.animate(track, { x: currentTranslate }, { type: Motion.spring, stiffness: 300, damping: 30 });
                     updateDots();
 
                     // Loop mode always has active arrows
@@ -4227,12 +4155,12 @@
     <!-- END: Mobile Bottom Navigation Bar -->
 
     <!-- BEGIN: Mobile Navigation Drawer (Modern Soft UI Overlay) -->
-    <div id="mobile-drawer" class="fixed inset-0 z-[100] invisible transition-all duration-300">
+    <div id="mobile-drawer" class="fixed inset-0 z-[100] invisible">
         <!-- Backdrop with soft blur -->
-        <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-md opacity-0 transition-opacity duration-300"></div>
-        
+        <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-md opacity-0"></div>
+
         <!-- Drawer Content -->
-        <div id="mobile-drawer-content" class="absolute top-0 right-0 h-full w-[290px] sm:w-[340px] bg-white/95 backdrop-blur-xl border-l border-slate-100 shadow-2xl p-6 flex flex-col justify-between translate-x-full transition-transform duration-300 ease-out rounded-l-[2rem]">
+        <div id="mobile-drawer-content" class="absolute top-0 right-0 h-full w-[290px] sm:w-[340px] bg-white/95 backdrop-blur-xl border-l border-slate-100 shadow-2xl p-6 flex flex-col justify-between translate-x-full rounded-l-[2rem]">
             <!-- Scrollable content area -->
             <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
                 <!-- Header inside drawer -->
@@ -4304,9 +4232,9 @@
     </a>
 
     <!-- Video Testimonial Modal (Premium & Smartphone-Adaptive for Instagram) -->
-    <div id="video-testimonial-modal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div id="video-testimonial-modal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
         <div class="absolute inset-0 cursor-pointer" onclick="window.closeVideoTestimonialModal()"></div>
-        <div class="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl transition-transform duration-300 scale-95 flex flex-col items-center border border-white/10" id="video-modal-content">
+        <div class="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl scale-95 flex flex-col items-center border border-white/10" id="video-modal-content">
             <!-- Close Button -->
             <button onclick="window.closeVideoTestimonialModal()" class="absolute top-4 right-4 z-[110] bg-slate-900/60 hover:bg-slate-800/80 text-white p-2 rounded-full transition active:scale-95 border border-white/10" aria-label="Tutup Video">
                 <i data-lucide="x" class="w-5 h-5"></i>
@@ -4331,23 +4259,19 @@
             const openDrawer = () => {
                 mobileDrawer.classList.remove('invisible');
                 mobileDrawer.classList.add('flex');
-                // Trigger reflow
-                void mobileDrawer.offsetWidth;
-                mobileDrawerBackdrop.classList.remove('opacity-0');
-                mobileDrawerBackdrop.classList.add('opacity-100');
-                mobileDrawerContent.classList.remove('translate-x-full');
-                mobileDrawerContent.classList.add('translate-x-0');
+
+                panelIn(mobileDrawerBackdrop, { opacity: [0, 1] });
+                panelIn(mobileDrawerContent, { x: ['100%', '0%'] });
             };
 
-            const closeDrawer = () => {
-                mobileDrawerBackdrop.classList.remove('opacity-100');
-                mobileDrawerBackdrop.classList.add('opacity-0');
-                mobileDrawerContent.classList.remove('translate-x-0');
-                mobileDrawerContent.classList.add('translate-x-full');
-                setTimeout(() => {
-                    mobileDrawer.classList.add('invisible');
-                    mobileDrawer.classList.remove('flex');
-                }, 300);
+            const closeDrawer = async () => {
+                await Promise.all([
+                    panelOut(mobileDrawerBackdrop, { opacity: [1, 0] }),
+                    panelOut(mobileDrawerContent, { x: ['0%', '100%'] }),
+                ]);
+
+                mobileDrawer.classList.add('invisible');
+                mobileDrawer.classList.remove('flex');
             };
 
             if (mobileBottomMenuTrigger) mobileBottomMenuTrigger.addEventListener('click', openDrawer);
@@ -4360,36 +4284,34 @@
         });
 
         // Global Modal Logic for Video Testimonials
-        window.closeVideoTestimonialModal = () => {
+        window.closeVideoTestimonialModal = async () => {
             const modal = document.getElementById('video-testimonial-modal');
             const modalContent = document.getElementById('video-modal-content');
             const iframeContainer = document.getElementById('video-modal-iframe-container');
-            
-            modal.classList.remove('opacity-100');
-            modal.classList.add('opacity-0');
-            modalContent.classList.remove('scale-100');
-            modalContent.classList.add('scale-95');
-            
-            setTimeout(() => {
-                modal.classList.remove('flex');
-                modal.classList.add('hidden');
-                iframeContainer.innerHTML = '';
-                
-                // Resume autoplay
-                if (typeof window.resumeTestimonialAutoplay === 'function') {
-                    window.resumeTestimonialAutoplay();
-                }
-            }, 300);
+
+            await Promise.all([
+                panelOut(modal, { opacity: [1, 0] }),
+                panelOut(modalContent, { scale: [1, 0.95] }),
+            ]);
+
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            iframeContainer.innerHTML = '';
+
+            // Resume autoplay
+            if (typeof window.resumeTestimonialAutoplay === 'function') {
+                window.resumeTestimonialAutoplay();
+            }
         };
 
         window.openVideoTestimonialModal = (embedUrl) => {
             const modal = document.getElementById('video-testimonial-modal');
             const modalContent = document.getElementById('video-modal-content');
             const iframeContainer = document.getElementById('video-modal-iframe-container');
-            
+
             // Check if it is instagram
             const isInstagram = embedUrl.includes('instagram.com');
-            
+
             if (isInstagram) {
                 // Portrait style (smartphone aspect ratio)
                 modalContent.style.maxWidth = '380px';
@@ -4403,19 +4325,15 @@
                 iframeContainer.style.height = 'auto';
                 iframeContainer.style.maxHeight = 'none';
             }
-            
+
             iframeContainer.innerHTML = `<iframe class="w-full h-full" title="Video testimoni" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
-            
+
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            
-            // Trigger reflow
-            void modal.offsetWidth;
-            modal.classList.remove('opacity-0');
-            modal.classList.add('opacity-100');
-            modalContent.classList.remove('scale-95');
-            modalContent.classList.add('scale-100');
-            
+
+            panelIn(modal, { opacity: [0, 1] });
+            panelIn(modalContent, { scale: [0.95, 1] });
+
             if (window.lucide) {
                 window.lucide.createIcons();
             }

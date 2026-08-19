@@ -766,77 +766,84 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
         <script>
-            // Initial render and tagging
-            lucide.createIcons();
-            document.querySelectorAll('svg[data-lucide]').forEach(svg => {
-                svg.setAttribute('data-lucide-rendered', svg.getAttribute('data-lucide'));
-            });
+            // Everything here has to wait for DOMContentLoaded — window.lucide is set by the
+            // deferred Vite bundle script, which runs after a top-level classic <script> like
+            // this one would otherwise execute (this used to throw "lucide is not defined" and
+            // silently kill the rest of the block below it, including the MutationObserver that
+            // keeps icons in sync with Alpine — that's why icons kept vanishing in admin).
+            document.addEventListener('DOMContentLoaded', () => {
+                // Initial render and tagging
+                lucide.createIcons();
+                document.querySelectorAll('svg[data-lucide]').forEach(svg => {
+                    svg.setAttribute('data-lucide-rendered', svg.getAttribute('data-lucide'));
+                });
 
-            let lucideRefreshTimer = null;
-            window.refreshLucideIcons = function() {
-                if (lucideRefreshTimer) clearTimeout(lucideRefreshTimer);
-                lucideRefreshTimer = setTimeout(() => {
-                    if (window.lucide && typeof window.lucide.createIcons === 'function') {
-                        let shouldRun = false;
-                        
-                        // Case 1: Unprocessed <i> elements
-                        if (document.querySelectorAll('i[data-lucide]').length > 0) {
-                            shouldRun = true;
-                        }
-                        
-                        // Case 2: svg[data-lucide] whose attribute changed dynamically (from Alpine.js icon pickers)
-                        if (!shouldRun) {
-                            const svgs = document.querySelectorAll('svg[data-lucide]');
-                            for (const svg of svgs) {
-                                if (svg.getAttribute('data-lucide') !== svg.getAttribute('data-lucide-rendered')) {
-                                    shouldRun = true;
-                                    break;
+                let lucideRefreshTimer = null;
+                window.refreshLucideIcons = function() {
+                    if (lucideRefreshTimer) clearTimeout(lucideRefreshTimer);
+                    lucideRefreshTimer = setTimeout(() => {
+                        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+                            let shouldRun = false;
+
+                            // Case 1: Unprocessed <i> elements
+                            if (document.querySelectorAll('i[data-lucide]').length > 0) {
+                                shouldRun = true;
+                            }
+
+                            // Case 2: svg[data-lucide] whose attribute changed dynamically (from Alpine.js icon pickers)
+                            if (!shouldRun) {
+                                const svgs = document.querySelectorAll('svg[data-lucide]');
+                                for (const svg of svgs) {
+                                    if (svg.getAttribute('data-lucide') !== svg.getAttribute('data-lucide-rendered')) {
+                                        shouldRun = true;
+                                        break;
+                                    }
                                 }
                             }
-                        }
-                        
-                        if (shouldRun) {
-                            window.lucide.createIcons();
-                            document.querySelectorAll('svg[data-lucide]').forEach(svg => {
-                                svg.setAttribute('data-lucide-rendered', svg.getAttribute('data-lucide'));
-                            });
-                        }
-                    }
-                }, 30);
-            };
 
-            // Re-init lucide after Alpine renders dynamic content
-            document.addEventListener('alpine:initialized', () => {
-                window.refreshLucideIcons();
-            });
-
-            // Watch for Alpine DOM changes to re-init icons dynamically
-            const observer = new MutationObserver((mutations) => {
-                let shouldCreate = false;
-                for (const mutation of mutations) {
-                    if (mutation.type === 'childList') {
-                        for (const node of mutation.addedNodes) {
-                            if (node.nodeType === 1) { // Element node
-                                if ((node.tagName === 'I' && node.hasAttribute('data-lucide')) || (node.querySelector && node.querySelector('i[data-lucide]'))) {
-                                    shouldCreate = true;
-                                    break;
-                                }
+                            if (shouldRun) {
+                                window.lucide.createIcons();
+                                document.querySelectorAll('svg[data-lucide]').forEach(svg => {
+                                    svg.setAttribute('data-lucide-rendered', svg.getAttribute('data-lucide'));
+                                });
                             }
                         }
-                    } else if (mutation.type === 'attributes' && mutation.attributeName === 'data-lucide') {
-                        shouldCreate = true;
-                    }
-                    if (shouldCreate) break;
-                }
-                if (shouldCreate) {
+                    }, 30);
+                };
+
+                // Re-init lucide after Alpine renders dynamic content
+                document.addEventListener('alpine:initialized', () => {
                     window.refreshLucideIcons();
-                }
-            });
-            observer.observe(document.body, { 
-                childList: true, 
-                subtree: true, 
-                attributes: true, 
-                attributeFilter: ['data-lucide']
+                });
+
+                // Watch for Alpine DOM changes to re-init icons dynamically
+                const observer = new MutationObserver((mutations) => {
+                    let shouldCreate = false;
+                    for (const mutation of mutations) {
+                        if (mutation.type === 'childList') {
+                            for (const node of mutation.addedNodes) {
+                                if (node.nodeType === 1) { // Element node
+                                    if ((node.tagName === 'I' && node.hasAttribute('data-lucide')) || (node.querySelector && node.querySelector('i[data-lucide]'))) {
+                                        shouldCreate = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        } else if (mutation.type === 'attributes' && mutation.attributeName === 'data-lucide') {
+                            shouldCreate = true;
+                        }
+                        if (shouldCreate) break;
+                    }
+                    if (shouldCreate) {
+                        window.refreshLucideIcons();
+                    }
+                });
+                observer.observe(document.body, {
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeFilter: ['data-lucide']
+                });
             });
         </script>
 
