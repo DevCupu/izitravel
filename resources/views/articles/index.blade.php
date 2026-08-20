@@ -20,11 +20,40 @@
     <meta name="keywords" content="artikel, {{ $settings['seo_meta_keywords'] }}" />
     @endif
     <link rel="canonical" href="{{ url('/artikel') }}" />
+    <meta name="robots" content="index, follow" />
+
+    @php
+        $ogTitle = "Semua Artikel - {$siteName}";
+        $ogDesc = 'Kumpulan artikel lengkap mengenai panduan ibadah, tips umrah, serta kabar haramain terbaru bersama ' . $siteName . '.';
+        $ogImage = asset('images/Izi LOGO.webp');
+        if (!empty($settings['seo_og_image'])) {
+            $ogImage = str_starts_with($settings['seo_og_image'], 'images/') ? asset($settings['seo_og_image']) : asset('storage/' . $settings['seo_og_image']);
+        } elseif (!empty($settings['site_logo'])) {
+            $ogImage = str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo']);
+        }
+    @endphp
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ url()->current() }}" />
+    <meta property="og:title" content="{{ $ogTitle }}" />
+    <meta property="og:description" content="{{ $ogDesc }}" />
+    <meta property="og:image" content="{{ $ogImage }}" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="{{ url()->current() }}" />
+    <meta property="twitter:title" content="{{ $ogTitle }}" />
+    <meta property="twitter:description" content="{{ $ogDesc }}" />
+    <meta property="twitter:image" content="{{ $ogImage }}" />
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Google Fonts: Plus Jakarta Sans & Inter — loaded non-blocking -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"></noscript>
     <style>
         html {
             scroll-behavior: smooth;
@@ -126,9 +155,9 @@
                                     <span class="text-slate-300 text-xs">•</span>
                                     <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{{ $article->published_at }}</span>
                                 </div>
-                                <h3 class="text-base md:text-lg font-bold text-slate-900 leading-snug group-hover:text-blue-600 transition duration-150">
+                                <h2 class="text-base md:text-lg font-bold text-slate-900 leading-snug group-hover:text-blue-600 transition duration-150">
                                     <a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a>
-                                </h3>
+                                </h2>
                                 <p class="text-slate-505 text-xs font-light leading-relaxed line-clamp-3">
                                     {{ $article->excerpt }}
                                 </p>
