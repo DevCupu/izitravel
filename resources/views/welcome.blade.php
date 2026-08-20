@@ -226,7 +226,7 @@
         .section-ornament svg { opacity: 0.85; }
 
         /* 3. Button: Inter SemiBold (600) */
-        button, .btn, a.btn, a[class*="bg-blue-600"], a[class*="bg-gradient-"], a[class*="bg-slate-50"], .gallery-tab-btn {
+        button, .btn, a.btn, a[class*="bg-blue-600"], a[class*="bg-gradient-"], a[class*="bg-stone-50"], .gallery-tab-btn {
             font-family: 'Inter', sans-serif !important;
             font-weight: 600 !important;
         }
@@ -556,7 +556,7 @@
     </style>
 </head>
 
-<body class="bg-stone-50 text-slate-800 overflow-x-hidden antialiased">
+<body class="bg-stone-50 text-stone-800 overflow-x-hidden antialiased">
     <!-- Scroll Progress Bar (mengisi saat scroll ke bawah) -->
     <div id="scroll-progress-track" class="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none bg-transparent">
         <div id="scroll-progress-bar" class="h-full w-full origin-left bg-gradient-to-r from-blue-600 via-emerald-500 to-amber-500 shadow-[0_1px_6px_rgba(37,99,235,0.4)] transition-transform duration-100 ease-out" style="transform: scaleX(0);"></div>
@@ -570,7 +570,7 @@
             </div>
             
             <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex items-center space-x-1 font-medium text-slate-600">
+            <div class="hidden md:flex items-center space-x-1 font-medium text-stone-600">
                 <a class="text-blue-600 bg-blue-600/10 px-3.5 py-2 rounded-full transition duration-200" href="#beranda">Beranda</a>
                 <a class="hover:text-blue-600 hover:bg-blue-600/5 px-3.5 py-2 rounded-full transition duration-200" href="#tentang-kami">Tentang Kami</a>
                 <a class="hover:text-blue-600 hover:bg-blue-600/5 px-3.5 py-2 rounded-full transition duration-200" href="#paket-umrah">Paket Umrah</a>
@@ -754,27 +754,27 @@
                         <div id="hero-countdown" class="grid grid-cols-4 gap-3 mb-6 relative z-10" data-date="{{ \Carbon\Carbon::parse($nearestPackage->departure_date)->format('Y-m-d') }}">
                             <!-- Days -->
                             <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-slate-950/40 z-10 pointer-events-none"></div>
+                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-days">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-slate-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Hari</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Hari</span>
                             </div>
                             <!-- Hours -->
                             <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-slate-950/40 z-10 pointer-events-none"></div>
+                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-hours">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-slate-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Jam</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Jam</span>
                             </div>
                             <!-- Minutes -->
                             <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-slate-950/40 z-10 pointer-events-none"></div>
+                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-mins">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-slate-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Menit</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Menit</span>
                             </div>
                             <!-- Seconds -->
                             <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-slate-950/40 z-10 pointer-events-none"></div>
+                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-secs">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-slate-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Detik</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Detik</span>
                             </div>
                         </div>
                     @else
@@ -787,7 +787,7 @@
                     <!-- Total Departed & Upcoming Schedule -->
                     <div class="space-y-6 relative z-10">
                         <!-- Departed Stat Badge (Trust Seal Banner) -->
-                        <div class="bg-gradient-to-r from-emerald-500/10 via-teal-500/5 to-[#0b2038]/50 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between shadow-inner relative overflow-hidden group/seal">
+                        <div class="bg-gradient-to-r from-emerald-500/10 via-emerald-600/5 to-[#0b2038]/50 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between shadow-inner relative overflow-hidden group/seal">
                             <div class="absolute -right-8 -top-8 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl pointer-events-none group-hover/seal:scale-125 transition-transform duration-500"></div>
                             <div class="flex items-center gap-3">
                                 <span class="p-2.5 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-emerald-400/5 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shadow-md">
@@ -884,26 +884,22 @@
                         <i data-lucide="info" class="w-3.5 h-3.5 text-blue-600/80"></i>
                         {{ $settings['about_badge'] ?? 'Tentang Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
                         {{ $settings['about_title'] ?? 'Melayani Perjalanan Suci Anda dengan Sepenuh Hati' }}
                     </h2>
-                    <p class="text-slate-600 text-sm md:text-base leading-relaxed font-normal text-center lg:text-left">
+                    <p class="text-stone-600 text-sm md:text-base leading-relaxed font-normal text-center lg:text-left">
                         {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
                     </p>
-                    <div class="grid grid-cols-2 gap-6 pt-4 w-full">
-                        <div class="group relative bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-blue-600/15 hover:border-amber-500/40 shadow-md hover:shadow-xl hover:shadow-amber-500/[0.02] transition-all duration-300 hover:-translate-y-1">
-                            <div class="absolute top-4 right-4 text-blue-600/10 group-hover:text-blue-600/20 transition duration-300">
-                                <i data-lucide="smile" class="w-8 h-8"></i>
-                            </div>
-                            <p class="text-4xl font-black bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
-                            <p class="text-[10px] text-slate-400 mt-2 uppercase font-extrabold tracking-wider leading-none">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4 w-full">
+                        <div class="inline-flex items-center gap-2.5 bg-white/95 backdrop-blur-md pl-3 pr-4 py-2.5 rounded-full border border-blue-600/15 shadow-sm">
+                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
+                            <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
+                            <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
                         </div>
-                        <div class="group relative bg-white/95 backdrop-blur-md p-6 rounded-2xl border border-blue-600/15 hover:border-amber-500/40 shadow-md hover:shadow-xl hover:shadow-amber-500/[0.02] transition-all duration-300 hover:-translate-y-1">
-                            <div class="absolute top-4 right-4 text-amber-500/10 group-hover:text-amber-500/20 transition duration-300">
-                                <i data-lucide="users" class="w-8 h-8"></i>
-                            </div>
-                            <p class="text-4xl font-black bg-gradient-to-r from-blue-600 to-sky-500 bg-clip-text text-transparent"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
-                            <p class="text-[10px] text-slate-400 mt-2 uppercase font-extrabold tracking-wider leading-none">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
+                        <div class="inline-flex items-center gap-2.5 bg-white/95 backdrop-blur-md pl-3 pr-4 py-2.5 rounded-full border border-blue-600/15 shadow-sm">
+                            <span class="shrink-0 w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
+                            <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
+                            <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
                         </div>
                     </div>
                 </div>
@@ -911,33 +907,33 @@
                 <!-- Right: Overlapping 3D Image Collage -->
                 <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
                     <!-- Base Backdrop Card (Departure Image) -->
-                    <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/10 border-4 border-white transform -rotate-2 hover:rotate-0 transition duration-500 select-none">
+                    <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-900/10 border-4 border-white transform -rotate-2 hover:rotate-0 transition duration-500 select-none">
                         <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/40 to-transparent"></div>
                     </div>
                     
                     <!-- Overlay Foreground Card (Manasik Preparation Image) -->
-                    <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/15 border-4 border-white transform rotate-3 hover:rotate-0 transition duration-500 z-10 select-none">
+                    <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-900/15 border-4 border-white transform rotate-3 hover:rotate-0 transition duration-500 z-10 select-none">
                         <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent"></div>
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/40 to-transparent"></div>
                     </div>
                 </div>
             </div>
 
             <!-- Izin Resmi PPIU -->
             <div class="my-16 md:my-24 reveal-up">
-                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm shadow-slate-900/[0.03]">
+                <div class="bg-white dark:bg-stone-800 rounded-2xl border border-stone-200 dark:border-stone-700 shadow-sm shadow-stone-900/[0.03]">
                     <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center p-7 sm:p-10 lg:p-12">
 
                         <!-- Konten utama -->
                         <div class="lg:col-span-7 space-y-5">
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                                 @if(!empty($settings['about_ppiu_logo']))
-                                    <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                                    <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
                                     <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
                                     Legalitas Perusahaan
                                 </span>
@@ -947,55 +943,55 @@
                                 $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Izin Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
                             @endphp
 
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+                            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
                                 {{ $ppiuLabelText }}
                             </h3>
-                            <p class="text-sm md:text-[15px] leading-relaxed text-slate-500 dark:text-slate-400 max-w-2xl">
+                            <p class="text-sm md:text-[15px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
                                 {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
                             </p>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-slate-200 dark:border-slate-700">
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-stone-200 dark:border-stone-700">
                                 <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">01</span>
-                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Izin PPIU Terdaftar</p>
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">01</span>
+                                    <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Izin PPIU Terdaftar</p>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">02</span>
-                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Pengawasan Kementerian Haji dan Umrah</p>
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">02</span>
+                                    <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Pengawasan Kementerian Haji dan Umrah</p>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-[11px] font-bold text-slate-500 dark:text-slate-400">03</span>
-                                    <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 leading-snug">Nomor Izin Dapat Diverifikasi</p>
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">03</span>
+                                    <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Nomor Izin Dapat Diverifikasi</p>
                                 </div>
                             </div>
 
-                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-slate-400 dark:text-slate-500 max-w-2xl">
-                                <i data-lucide="scale" class="w-3.5 h-3.5 shrink-0 mt-px text-slate-300"></i>
+                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-stone-400 dark:text-stone-500 max-w-2xl">
+                                <i data-lucide="scale" class="w-3.5 h-3.5 shrink-0 mt-px text-stone-300"></i>
                                 Penyelenggaraan tunduk pada Undang-Undang No. 8 Tahun 2019 tentang Penyelenggaraan Ibadah Haji dan Umrah.
                             </p>
                         </div>
 
                         <!-- Plat nomor izin -->
                         <div class="lg:col-span-5">
-                            <div class="relative overflow-hidden bg-slate-900 dark:bg-slate-950 rounded-xl px-8 py-10 sm:py-12 text-center">
+                            <div class="relative overflow-hidden bg-stone-900 dark:bg-stone-950 rounded-xl px-8 py-10 sm:py-12 text-center">
                                 <!-- Faint islamic pattern watermark -->
                                 <div class="absolute inset-0 islamic-pattern opacity-[0.4] pointer-events-none"></div>
                                 <div class="relative">
                                     <div class="inline-flex items-center justify-center gap-2">
-                                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
-                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400">Nomor Izin</p>
+                                        <i data-lucide="file-text" class="w-3.5 h-3.5 text-stone-400"></i>
+                                        <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">Nomor Izin</p>
                                     </div>
                                     <p class="mt-5 text-[1.5rem] sm:text-[1.9rem] leading-tight tracking-tight font-semibold text-white select-all font-mono">
                                         {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
                                     </p>
                                     <div class="mt-7 pt-5 border-t border-white/10">
-                                        <p class="text-[11px] font-medium text-slate-400">Diterbitkan &amp; diawasi oleh Kementerian Haji dan Umrah RI</p>
+                                        <p class="text-[11px] font-medium text-stone-400">Diterbitkan &amp; diawasi oleh Kementerian Haji dan Umrah RI</p>
                                         <div class="mt-5 flex items-center justify-center gap-2">
                                             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
                                             <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400">Resmi Terdaftar</span>
                                         </div>
                                     </div>
-                                    <a href="https://haji.go.id/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-1.5 text-[10px] font-semibold text-slate-400 hover:text-white transition duration-200">
+                                    <a href="https://haji.go.id/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-1.5 text-[10px] font-semibold text-stone-400 hover:text-white transition duration-200">
                                         Verifikasi di Kemenhaj (haji.go.id)
                                         <i data-lucide="external-link" class="w-3 h-3"></i>
                                     </a>
@@ -1009,28 +1005,28 @@
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-indigo-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300 reveal-left">
+                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300 reveal-left">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
                     <div>
                         <div class="bg-white/15 border border-white/20 p-3.5 rounded-2xl text-white w-fit mb-6 shadow-inner">
                             <i data-lucide="eye" class="w-6 h-6"></i>
                         </div>
                         <h3 class="font-extrabold text-white text-xl mb-4 tracking-tight">{{ $settings['about_vision_label'] ?? 'Visi Kami' }}</h3>
-                        <p class="text-slate-300 text-xs md:text-sm leading-relaxed font-light">
+                        <p class="text-stone-300 text-xs md:text-sm leading-relaxed font-light">
                             {{ $settings['about_vision'] ?? 'Menjadi penyelenggara perjalanan ibadah Umrah dan Haji tepercaya yang mengedepankan kemurnian ibadah sesuai sunnah serta pelayanan VIP demi kenyamanan jemaah.' }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Misi Card (Asymmetric 7-Span) -->
-                <div class="relative bg-white rounded-[2rem] p-8 md:p-10 border border-slate-100/80 shadow-xl shadow-slate-900/[0.02] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between group hover:scale-[1.01] transition duration-300 reveal-right">
+                <div class="relative bg-white rounded-[2rem] p-8 md:p-10 border border-stone-100/80 shadow-xl shadow-stone-900/[0.02] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between group hover:scale-[1.01] transition duration-300 reveal-right">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl"></div>
                     <div>
                         <div class="bg-amber-50 border border-amber-100 p-3.5 rounded-2xl text-amber-500 w-fit mb-6 shadow-sm">
                             <i data-lucide="target" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
-                        <p class="text-slate-500 text-xs md:text-sm leading-relaxed font-light">
+                        <h3 class="font-extrabold text-stone-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
+                        <p class="text-stone-500 text-xs md:text-sm leading-relaxed font-light">
                             {{ $settings['about_mission'] ?? 'Memberikan pelayanan akomodasi hotel bintang 5 di pelataran Masjidil Haram & Nabawi, memfasilitasi bimbingan manasik komprehensif, serta melayani jemaah dengan ramah dan profesional layaknya keluarga sendiri.' }}
                         </p>
                     </div>
@@ -1039,8 +1035,8 @@
 
             <!-- Bottom Layout: Founders section -->
             <div class="text-center space-y-4 mb-8 reveal">
-                <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">{{ $settings['team_section_title'] ?? 'Di Balik Layar IZI Travel' }}</h3>
-                <p class="text-slate-500 max-w-lg mx-auto text-xs md:text-sm leading-relaxed font-light">
+                <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 tracking-tight">{{ $settings['team_section_title'] ?? 'Di Balik Layar IZI Travel' }}</h3>
+                <p class="text-stone-500 max-w-lg mx-auto text-xs md:text-sm leading-relaxed font-light">
                     {{ $settings['team_section_subtitle'] ?? 'Dipimpin oleh tim profesional berpengalaman yang mendedikasikan diri sepenuhnya untuk melayani tamu-tamu Allah SWT.' }}
                 </p>
             </div>
@@ -1053,16 +1049,16 @@
             <!-- Founders Grid (Prominent) -->
             <div class="grid grid-cols-1 {{ $founders->count() === 1 ? 'max-w-md' : ($founders->count() === 2 ? 'md:grid-cols-2 max-w-3xl' : 'md:grid-cols-3 max-w-5xl') }} gap-8 mx-auto mb-12 reveal-stagger">
                 @foreach ($founders as $t)
-                    <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-slate-100/70 hover:border-blue-600/15 shadow-md shadow-slate-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group reveal-card">
-                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-sky-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-stone-100/70 hover:border-blue-600/15 shadow-md shadow-stone-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group reveal-card">
+                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
                         @if($t->image_url)
                             <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]" width="96" height="96" loading="lazy" decoding="async">
                         @else
                             <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-3xl font-extrabold shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]">{{ $t->initial ?? '...' }}</div>
                         @endif
-                        <h4 class="font-extrabold text-slate-900 text-lg mb-1">{{ $t->name }}</h4>
+                        <h4 class="font-extrabold text-stone-900 text-lg mb-1">{{ $t->name }}</h4>
                         <p class="text-blue-600 text-xs font-bold uppercase tracking-wider mb-4">{{ $t->role }}</p>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">
                             {{ $t->description }}
                         </p>
                     </div>
@@ -1074,25 +1070,25 @@
                 <div class="max-w-4xl mx-auto mt-16">
                     <div class="relative flex items-center justify-center mb-10 reveal">
                         <div class="absolute inset-0 flex items-center" aria-hidden="true">
-                            <div class="w-full border-t border-slate-200/60"></div>
+                            <div class="w-full border-t border-stone-200/60"></div>
                         </div>
                         <div class="relative bg-stone-50 px-4">
-                            <span class="text-xs font-black text-slate-400 uppercase tracking-widest">{{ $settings['team_other_section_label'] ?? 'Tim Pendukung & Pembimbing' }}</span>
+                            <span class="text-xs font-black text-stone-400 uppercase tracking-widest">{{ $settings['team_other_section_label'] ?? 'Tim Pendukung & Pembimbing' }}</span>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 reveal-stagger">
                         @foreach ($otherTeams as $t)
-                            <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-4 md:p-5 rounded-2xl border border-slate-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
+                            <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-4 md:p-5 rounded-2xl border border-stone-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
                                 @if($t->image_url)
                                     <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
                                 @else
                                     <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-base sm:text-lg font-extrabold shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0">{{ $t->initial ?? '...' }}</div>
                                 @endif
                                 <div class="min-w-0 flex-1">
-                                    <h5 class="font-extrabold text-slate-900 text-xs sm:text-sm mb-0.5 group-hover:text-blue-600 transition duration-200">{{ $t->name }}</h5>
+                                    <h5 class="font-extrabold text-stone-900 text-xs sm:text-sm mb-0.5 group-hover:text-blue-600 transition duration-200">{{ $t->name }}</h5>
                                     <p class="text-blue-600 text-[9px] sm:text-[10px] font-extrabold uppercase tracking-wider mb-2 leading-none">{{ $t->role }}</p>
-                                    <p class="text-slate-500 text-[10px] sm:text-xs leading-relaxed font-light">
+                                    <p class="text-stone-500 text-[10px] sm:text-xs leading-relaxed font-light">
                                         {{ $t->description }}
                                     </p>
                                 </div>
@@ -1123,11 +1119,11 @@
                         <i data-lucide="award" class="w-3.5 h-3.5 text-blue-600/80"></i>
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight text-center lg:text-left">
                         {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
                     </h2>
                 </div>
-                <p class="text-slate-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                <p class="text-stone-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
                     {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
                 </p>
             </div>
@@ -1137,7 +1133,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Feature 1: Wide Dark Bento Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-slate-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
+                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
                     <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-600/15 rounded-full blur-3xl"></div>
                     <div>
@@ -1154,7 +1150,7 @@
                 </div>
 
                 <!-- Feature 2: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_2_image']))
@@ -1163,13 +1159,13 @@
                                 <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 3: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_3_image']))
@@ -1178,13 +1174,13 @@
                                 <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 4: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_4_image']))
@@ -1193,13 +1189,13 @@
                                 <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 5: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-slate-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
                     <div>
                         <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
                             @if (!empty($settings['feature_5_image']))
@@ -1208,15 +1204,15 @@
                                 <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 6: Wide Horizontal Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-indigo-750 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
+                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
                     <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-sky-500/20 rounded-full blur-2xl"></div>
+                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
                     
                     <div class="bg-white/10 text-white p-4 rounded-2xl border border-white/20 shadow-inner flex-shrink-0 w-fit">
                         @if (!empty($settings['feature_6_image']))
@@ -1248,9 +1244,9 @@
                     <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     Cara Daftar
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight reveal-words">{{ $settings['registration_title'] ?? 'Alur Pendaftaran Mudah' }}</h2>
+                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['registration_title'] ?? 'Alur Pendaftaran Mudah' }}</h2>
                 @include('partials.ornament')
-                <p class="text-slate-500 font-light text-xs md:text-sm max-w-md mx-auto leading-relaxed">{{ $settings['registration_subtitle'] ?? '6 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel' }}</p>
+                <p class="text-stone-500 font-light text-xs md:text-sm max-w-md mx-auto leading-relaxed">{{ $settings['registration_subtitle'] ?? '6 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel' }}</p>
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-nowrap gap-y-8 gap-x-4 md:gap-0 items-start max-w-5xl mx-auto reveal">
                 @php
@@ -1287,18 +1283,18 @@
                 @foreach ($steps as $index => $step)
                     @if ($index > 0)
                         <!-- Arrow Connector -->
-                        <div class="hidden md:flex items-center h-16 px-2 text-slate-200/80">
+                        <div class="hidden md:flex items-center h-16 px-2 text-stone-200/80">
                             <svg class="w-8 h-4 stroke-current animate-pulse" fill="none" viewBox="0 0 24 24" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
                         </div>
                     @endif
                     <div class="flex flex-col items-center group flex-1">
-                        <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-sky-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/25 transform transition duration-300 group-hover:scale-105 group-hover:shadow-blue-500/35">
+                        <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/25 transform transition duration-300 group-hover:scale-105 group-hover:shadow-blue-500/35">
                             <i data-lucide="{{ $step['icon'] ?? 'compass' }}" class="w-7 h-7"></i>
                         </div>
-                        <p class="font-extrabold text-slate-900 text-sm md:text-base">{{ $step['title'] ?? '' }}</p>
-                        <p class="text-xs text-slate-400 mt-1 max-w-[150px] mx-auto leading-relaxed hidden md:block">{{ $step['description'] ?? '' }}</p>
+                        <p class="font-extrabold text-stone-900 text-sm md:text-base">{{ $step['title'] ?? '' }}</p>
+                        <p class="text-xs text-stone-400 mt-1 max-w-[150px] mx-auto leading-relaxed hidden md:block">{{ $step['description'] ?? '' }}</p>
                     </div>
                 @endforeach
             </div>
@@ -1328,11 +1324,11 @@
                         <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600/80"></i>
                         {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight reveal-words">
+                    <h2 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
                         {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
                     </h2>
                     @include('partials.ornament')
-                    <p class="text-slate-500 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
+                    <p class="text-stone-500 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
                         {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
                     </p>
                 </div>
@@ -1341,9 +1337,9 @@
                 $groupedPackages = $packages->groupBy(function ($p) {
                     return $p->category ?: 'Lainnya';
                 });
-                
+
                 $dbCategories = \App\Models\Category::where('is_active', true)->orderBy('order')->pluck('name')->toArray();
-                
+
                 // Append any category names from grouped packages that aren't in $dbCategories
                 foreach ($groupedPackages as $catName => $pkgs) {
                     $nameToUse = $catName ?: 'Lainnya';
@@ -1351,9 +1347,9 @@
                         $dbCategories[] = $nameToUse;
                     }
                 }
-                
+
                 $categoryOrder = array_unique($dbCategories);
-                
+
                 $sortedGroups = collect($categoryOrder)
                     ->mapWithKeys(function($c) use ($groupedPackages) {
                         $packagesOfCat = $groupedPackages->get($c);
@@ -1364,130 +1360,99 @@
                     });
             @endphp
 
-            @foreach ($sortedGroups as $categoryName => $categoryPackages)
-                @php
-                    $icon = 'package';
-                    $colorClass = 'bg-slate-50 border-slate-100 text-slate-600';
-                    
-                    $lowerName = strtolower($categoryName);
-                    if (str_contains($lowerName, 'ekonomi') || str_contains($lowerName, 'hemat') || str_contains($lowerName, 'promo')) {
-                        $icon = 'tag';
-                        $colorClass = 'bg-emerald-50 border-emerald-100 text-emerald-600';
-                    } elseif (str_contains($lowerName, 'vvip') || str_contains($lowerName, 'luxury') || str_contains($lowerName, 'gold') || str_contains($lowerName, 'super')) {
-                        $icon = 'gem';
-                        $colorClass = 'bg-amber-50 border-amber-100 text-amber-600';
-                    } elseif (str_contains($lowerName, 'premium') || str_contains($lowerName, 'vip') || str_contains($lowerName, 'exclusive')) {
-                        $icon = 'crown';
-                        $colorClass = 'bg-blue-50 border-blue-100 text-blue-600';
-                    }
-                @endphp
-                <div class="mb-14 last:mb-0">
-                    <div class="flex items-center gap-3 mb-8 reveal">
-                        <div class="w-10 h-10 rounded-2xl {{ $colorClass }} shadow-sm flex items-center justify-center">
-                            <i data-lucide="{{ $icon }}" class="w-5 h-5"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">Paket {{ $categoryName }}</h3>
-                            <p class="text-xs text-slate-400 font-medium">{{ $categoryPackages->count() }} paket tersedia</p>
-                        </div>
-                    </div>
+            <!-- Category Filter Tabs -->
+            <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
+                <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
+                    <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
+                    <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
+                    @foreach ($sortedGroups as $categoryName => $categoryPackages)
+                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
+                    @endforeach
+                </div>
+            </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
-                        @foreach ($categoryPackages as $package)
-                            @php
-                                $badgeClasses = match ($package->badge_color) {
-                                    'amber' => 'bg-amber-500 text-slate-950',
-                                    'emerald' => 'bg-emerald-600 text-white',
-                                    'indigo' => 'bg-indigo-600 text-white',
-                                    'rose' => 'bg-rose-600 text-white',
-                                    default => 'bg-slate-900 text-white',
-                                };
-                                $isFeatured = !empty($package->badge_label);
-                                $cardBorderClass = $isFeatured && $package->badge_color === 'amber' 
-                                    ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]' 
-                                    : 'border-slate-100/80 hover:border-blue-600/20 shadow-md shadow-slate-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
-                            @endphp
-                            <div class="reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-purpose="package-item">
-                                <div class="w-full">
-                                    <div class="relative aspect-[16/10] overflow-hidden select-none rounded-t-3xl">
-                                        <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="400" loading="lazy" decoding="async" />
-                                        @if ($package->badge_label)
-                                            <span class="absolute top-4 left-4 {{ $badgeClasses }} text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
-                                        @endif
-                                    </div>
-                                    <div class="p-6">
-                                        <h3 class="font-extrabold text-base md:text-lg text-slate-900 mb-4 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.5rem]">{{ $package->name }}</h3>
-                                        
-                                        <div class="grid grid-cols-2 gap-3 mb-2">
-                                            <div class="col-span-2 flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50">
-                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-5 h-5"></i></span>
-                                                <div>
-                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
-                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
-                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-5 h-5"></i></span>
-                                                <div class="min-w-0">
-                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
-                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->airline }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-center gap-3 bg-slate-50/50 p-3 rounded-xl border border-slate-100/50 min-w-0">
-                                                <span class="bg-blue-600/10 text-blue-600 p-2 rounded-xl border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-5 h-5"></i></span>
-                                                <div class="min-w-0">
-                                                    <p class="text-[10px] md:text-xs text-slate-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
-                                                    <p class="text-xs md:text-sm font-bold text-slate-700 leading-none truncate">{{ $package->hotel }}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="px-6 pb-6 pt-5 border-t-2 border-dashed border-slate-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
-                                    <!-- Ticket notches overlaying the dashed line -->
-                                    <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#fafaf9] border border-slate-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
-                                    <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-[#fafaf9] border border-slate-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
+                @foreach ($packages as $package)
+                    @php
+                        $badgeClasses = match ($package->badge_color) {
+                            'amber' => 'bg-amber-500 text-stone-950',
+                            'emerald' => 'bg-emerald-600 text-white',
+                            'indigo' => 'bg-blue-600 text-white',
+                            'rose' => 'bg-rose-600 text-white',
+                            default => 'bg-stone-900 text-white',
+                        };
+                        $isFeatured = !empty($package->badge_label);
+                        $cardBorderClass = $isFeatured && $package->badge_color === 'amber'
+                            ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]'
+                            : 'border-stone-100/80 hover:border-blue-600/20 shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
+                        $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
+                    @endphp
+                    <div class="package-item reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
+                        <div class="w-full">
+                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-3xl">
+                                <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" />
+                                @if ($package->badge_label)
+                                    <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
+                                @endif
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-extrabold text-sm md:text-base text-stone-900 mb-3 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.25rem]">{{ $package->name }}</h3>
 
-                                    <div class="flex items-center gap-3">
-                                        <!-- Tiny Barcode Stub -->
-                                        <div class="hidden xs:flex items-center gap-[1.5px] opacity-20 group-hover:opacity-35 transition duration-300 select-none flex-shrink-0">
-                                            <div class="w-[1.5px] h-6 bg-slate-800"></div>
-                                            <div class="w-[3px] h-6 bg-slate-800"></div>
-                                            <div class="w-[1px] h-6 bg-slate-800"></div>
-                                            <div class="w-[4px] h-6 bg-slate-800"></div>
-                                            <div class="w-[1.5px] h-6 bg-slate-800"></div>
-                                            <div class="w-[3px] h-6 bg-slate-800"></div>
-                                            <div class="w-[1px] h-6 bg-slate-800"></div>
-                                            <div class="w-[2px] h-6 bg-slate-800"></div>
-                                        </div>
-                                        <div>
-                                            <p class="text-[10px] md:text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
-                                            <p class="font-extrabold text-lg md:text-xl text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                                <div class="grid grid-cols-2 gap-2 mb-2">
+                                    <div class="col-span-2 flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
                                         </div>
                                     </div>
-                                    <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
-                                        <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
-                                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
-                                    </a>
+                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->airline }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->hotel }}</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        @endforeach
+                        </div>
+
+                        <div class="px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
+                            <!-- Ticket notches overlaying the dashed line -->
+                            <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+                            <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+
+                            <div>
+                                <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
+                                <p class="font-extrabold text-base text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                            </div>
+                            <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
+                                <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
+                            </a>
+                        </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            </div>
     </section>
     <!-- END: FeaturedPackages -->
 
     <!-- BEGIN: Partners -->
-    <section class="py-8 md:py-10 bg-slate-50/20" data-purpose="partners-logo-cloud">
+    <section class="py-8 md:py-10 bg-stone-50/20" data-purpose="partners-logo-cloud">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-slate-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-stone-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
             <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
                 @foreach ($partners as $partner)
                     <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
                         @if ($partner->logo_type === 'svg')
-                            <div class="h-10 md:h-16 flex items-center justify-center text-slate-700 dark:text-slate-350 [&>svg]:!h-full [&>svg]:w-auto">
+                            <div class="h-10 md:h-16 flex items-center justify-center text-stone-700 dark:text-stone-400 [&>svg]:!h-full [&>svg]:w-auto">
                                 {!! $partner->logo_path !!}
                             </div>
                         @else
@@ -1513,9 +1478,9 @@
                     <i data-lucide="images" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
+                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
                 @include('partials.ornament')
-                <p class="text-slate-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
+                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
                 
             @php
                 $albums = $galleries->groupBy(function($item) {
@@ -1551,23 +1516,23 @@
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
                 @foreach ($displayAlbums as $album)
                     <!-- Album Folder Card -->
-                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-slate-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
+                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
                          data-album-name="{{ $album->name }}"
                          data-items="{{ json_encode($album->items) }}">
                         
                         <!-- Folder Tab Shape Design -->
-                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-slate-50 border border-slate-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
+                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
                             @if ($album->cover_url)
                                 <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
                             @else
-                                <div class="flex flex-col items-center gap-2 text-slate-300">
+                                <div class="flex flex-col items-center gap-2 text-stone-300">
                                     <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
                                 </div>
                             @endif
                             
                             <!-- Folder Tag Badge on Top Left -->
-                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-slate-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
+                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-stone-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
                                 <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
                                 Album
                             </div>
@@ -1578,7 +1543,7 @@
                             </div>
 
                             <!-- Play Overlay if it contains videos -->
-                            <div class="absolute inset-0 bg-slate-950/20 group-hover:bg-slate-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                            <div class="absolute inset-0 bg-stone-950/20 group-hover:bg-stone-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                                 <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
                                     <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                                 </div>
@@ -1587,8 +1552,8 @@
 
                         <!-- Album Description Info -->
                         <div class="flex flex-col">
-                            <h3 class="font-extrabold text-slate-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
-                            <p class="text-[10px] sm:text-xs text-slate-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
+                            <h3 class="font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
+                            <p class="text-[10px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
                                 <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
                             </p>
@@ -1599,7 +1564,7 @@
 
             @if ($totalAlbumsCount > 6)
                 <div class="text-center mt-12">
-                    <a href="{{ route('public.gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 hover:text-blue-600 font-extrabold text-sm rounded-2xl shadow-sm hover:shadow transition-all duration-200 active:scale-95">
+                    <a href="{{ route('public.gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-blue-600 font-extrabold text-sm rounded-2xl shadow-sm hover:shadow transition-all duration-200 active:scale-95">
                         <i data-lucide="folder-open" class="w-4 h-4 text-blue-500"></i>
                         <span>Lihat Semua Album</span>
                     </a>
@@ -1608,7 +1573,7 @@
         </div>
 
         <!-- Unified Gallery Lightbox Modal -->
-        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-slate-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-stone-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
             <!-- Close Button -->
             <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
                 <i data-lucide="x" class="w-6 h-6"></i>
@@ -1661,17 +1626,17 @@
                     <i data-lucide="message-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['testimonials_label'] ?? 'Testimoni' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
+                <h2 class="text-3xl font-extrabold text-stone-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
                 @include('partials.ornament')
-                <p class="text-slate-500 font-medium text-sm md:text-base">{{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}</p>
+                <p class="text-stone-500 font-medium text-sm md:text-base">{{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}</p>
             </div>
             <!-- Testimonial Slider Viewport with Left/Right Arrows -->
             <div class="relative px-0 md:px-8" id="testimonial-slider-container">
                 <!-- Left & Right Arrow Buttons (Visible on MD and larger screens) -->
-                <button id="prev-testimonial" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-slate-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Previous Testimonial">
+                <button id="prev-testimonial" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-stone-50 text-stone-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-stone-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Previous Testimonial">
                     <i data-lucide="chevron-left" class="w-6 h-6"></i>
                 </button>
-                <button id="next-testimonial" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-slate-50 text-slate-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-slate-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Next Testimonial">
+                <button id="next-testimonial" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-stone-50 text-stone-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-stone-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Next Testimonial">
                     <i data-lucide="chevron-right" class="w-6 h-6"></i>
                 </button>
 
@@ -1708,55 +1673,55 @@
                                     
                                     // Custom gradient colors based on initial character
                                     $gradients = [
-                                        'A' => 'from-rose-500 to-red-600',
-                                        'B' => 'from-pink-500 to-rose-600',
-                                        'C' => 'from-purple-500 to-indigo-600',
-                                        'D' => 'from-indigo-500 to-blue-600',
-                                        'E' => 'from-blue-500 to-sky-600',
-                                        'F' => 'from-cyan-500 to-blue-600',
-                                        'G' => 'from-teal-500 to-emerald-600',
-                                        'H' => 'from-emerald-500 to-green-600',
-                                        'I' => 'from-green-500 to-lime-600',
-                                        'J' => 'from-orange-500 to-amber-600',
-                                        'K' => 'from-amber-500 to-yellow-600',
-                                        'L' => 'from-red-500 to-orange-600',
-                                        'M' => 'from-blue-600 to-indigo-700',
-                                        'N' => 'from-violet-600 to-purple-700',
-                                        'O' => 'from-rose-600 to-pink-700',
-                                        'P' => 'from-teal-600 to-cyan-700',
-                                        'Q' => 'from-emerald-600 to-teal-700',
-                                        'R' => 'from-blue-500 to-indigo-600',
-                                        'S' => 'from-sky-500 to-blue-600',
-                                        'T' => 'from-indigo-600 to-violet-750',
-                                        'U' => 'from-violet-500 to-purple-600',
-                                        'V' => 'from-purple-600 to-fuchsia-700',
-                                        'W' => 'from-fuchsia-500 to-pink-600',
-                                        'X' => 'from-pink-600 to-rose-700',
-                                        'Y' => 'from-rose-500 to-orange-600',
-                                        'Z' => 'from-orange-600 to-red-700'
+                                        'A' => 'from-blue-500 to-blue-700',
+                                        'B' => 'from-emerald-500 to-emerald-700',
+                                        'C' => 'from-amber-500 to-amber-700',
+                                        'D' => 'from-blue-600 to-emerald-600',
+                                        'E' => 'from-emerald-600 to-blue-600',
+                                        'F' => 'from-amber-600 to-blue-700',
+                                        'G' => 'from-blue-400 to-blue-600',
+                                        'H' => 'from-emerald-400 to-emerald-600',
+                                        'I' => 'from-amber-400 to-amber-600',
+                                        'J' => 'from-blue-700 to-amber-600',
+                                        'K' => 'from-amber-500 to-emerald-600',
+                                        'L' => 'from-emerald-500 to-amber-600',
+                                        'M' => 'from-blue-600 to-blue-900',
+                                        'N' => 'from-emerald-600 to-blue-700',
+                                        'O' => 'from-amber-600 to-emerald-700',
+                                        'P' => 'from-blue-500 to-amber-600',
+                                        'Q' => 'from-emerald-700 to-blue-800',
+                                        'R' => 'from-blue-500 to-emerald-600',
+                                        'S' => 'from-amber-500 to-blue-600',
+                                        'T' => 'from-blue-600 to-amber-700',
+                                        'U' => 'from-emerald-500 to-blue-700',
+                                        'V' => 'from-amber-600 to-blue-800',
+                                        'W' => 'from-blue-400 to-emerald-600',
+                                        'X' => 'from-emerald-600 to-amber-700',
+                                        'Y' => 'from-blue-500 to-blue-800',
+                                        'Z' => 'from-amber-700 to-blue-900'
                                     ];
-                                    $gradient = $gradients[$initial] ?? 'from-blue-500 to-indigo-600';
+                                    $gradient = $gradients[$initial] ?? 'from-blue-500 to-blue-700';
                                 @endphp
                                 <div class="testimonial-slide select-none group">
                                     <!-- Outer Shell (Double-Bezel) -->
-                                    <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
                                         <!-- Inner Core -->
-                                        <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                        <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
                                             <div>
                                                 <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                     <div class="flex items-center gap-3 sm:gap-4 min-w-0">
                                                         @if(!empty($testimonial->photo))
-                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
                                                                  <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover" width="48" height="48" loading="lazy" decoding="async">
                                                             </div>
                                                         @else
-                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
                                                                 {{ $initial }}
                                                             </div>
                                                         @endif
                                                         <div class="min-w-0">
-                                                            <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
-                                                            <p class="text-xs text-slate-400 truncate">{{ $testimonial->location }}</p>
+                                                            <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
+                                                            <p class="text-xs text-stone-400 truncate">{{ $testimonial->location }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="flex text-amber-500 gap-0.5">
@@ -1767,9 +1732,9 @@
                                                 </div>
  
                                                 @if(!empty($parsedEmbedUrl))
-                                                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-slate-100 shadow-inner z-20 group/video cursor-pointer"
+                                                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-stone-100 shadow-inner z-20 group/video cursor-pointer"
                                                          onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
-                                                        <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-indigo-950 flex flex-col items-center justify-center p-4 text-center">
+                                                        <div class="absolute inset-0 bg-gradient-to-br from-stone-900 to-blue-950 flex flex-col items-center justify-center p-4 text-center">
                                                             <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="Instagram Reel Fallback">
                                                             <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                                                                 <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
@@ -1784,7 +1749,7 @@
                                                         @if(!empty($thumbnailUrl))
                                                             <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105" onerror="this.style.display='none'">
                                                         @endif
-                                                        <div class="absolute inset-0 bg-slate-950/20 group-hover/video:bg-slate-950/30 transition-all duration-300 flex items-center justify-center z-30">
+                                                        <div class="absolute inset-0 bg-stone-950/20 group-hover/video:bg-stone-950/30 transition-all duration-300 flex items-center justify-center z-30">
                                                             <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
                                                                 <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
                         </div>
@@ -1793,8 +1758,8 @@
                                                 @endif
 
                                                 <div class="relative mt-2">
-                                                    <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                    <p class="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                    <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                    <p class="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
                                                         {{ $testimonial->message }}
                                                     </p>
                                                 </div>
@@ -1807,17 +1772,17 @@
                             <!-- Fallback static items -->
                             <!-- Testimonial 1 -->
                             <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
                                             <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                 <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
                                                         M
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h3>
-                                                        <p class="text-xs text-slate-400 truncate">Jakarta</p>
+                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h3>
+                                                        <p class="text-xs text-stone-400 truncate">Jakarta</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1827,8 +1792,8 @@
                                                 </div>
                                             </div>
                                             <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
                                                     Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik.
                                                 </p>
                                             </div>
@@ -1838,17 +1803,17 @@
                             </div>
                             <!-- Testimonial 2 -->
                             <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
                                             <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                 <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-pink-500 to-rose-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500 to-blue-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
                                                         S
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h3>
-                                                        <p class="text-xs text-slate-400 truncate">Bandung</p>
+                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h3>
+                                                        <p class="text-xs text-stone-400 truncate">Bandung</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1858,8 +1823,8 @@
                                                 </div>
                                             </div>
                                             <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
                                                     Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!
                                                 </p>
                                             </div>
@@ -1869,17 +1834,17 @@
                             </div>
                             <!-- Testimonial 3 -->
                             <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-slate-100/40 dark:bg-slate-900/10 border border-slate-200/40 dark:border-slate-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-slate-100/80 shadow-sm relative overflow-hidden flex-1">
+                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
+                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
                                         <div>
                                             <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
                                                 <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-rose-500 to-red-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-slate-900 shadow-md flex-shrink-0 relative">
+                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-emerald-500 to-blue-700 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
                                                         A
                                                     </div>
                                                     <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-slate-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h3>
-                                                        <p class="text-xs text-slate-400 truncate">Surabaya</p>
+                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h3>
+                                                        <p class="text-xs text-stone-400 truncate">Surabaya</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1889,8 +1854,8 @@
                                                 </div>
                                             </div>
                                             <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-slate-100/80 dark:text-slate-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-slate-650 dark:text-slate-350 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
+                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
                                                     Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia.
                                                 </p>
                                             </div>
@@ -1904,23 +1869,23 @@
             </div>
             <!-- Testimonial Controls & Dots Navigation (Sleek Floating Pill) -->
             <div class="flex flex-col items-center gap-4 mt-8 sm:mt-12">
-                <div class="inline-flex items-center gap-3 bg-slate-100/80 dark:bg-slate-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-slate-200/50 dark:border-slate-800/50 shadow-sm" id="testimonial-controls-wrapper">
-                    <button id="toggle-play-testimonial" class="flex items-center justify-center bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-600 w-7 h-7 rounded-full shadow-sm border border-slate-100 dark:border-slate-700 transition active:scale-95 duration-200" aria-label="Pause Autoplay">
+                <div class="inline-flex items-center gap-3 bg-stone-100/80 dark:bg-stone-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-stone-200/50 dark:border-stone-800/50 shadow-sm" id="testimonial-controls-wrapper">
+                    <button id="toggle-play-testimonial" class="flex items-center justify-center bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 hover:text-blue-600 w-7 h-7 rounded-full shadow-sm border border-stone-100 dark:border-stone-700 transition active:scale-95 duration-200" aria-label="Pause Autoplay">
                         <i data-lucide="pause" class="w-3.5 h-3.5" id="play-pause-icon"></i>
                     </button>
-                    <div class="h-4 w-[1px] bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="h-4 w-[1px] bg-stone-200 dark:bg-stone-700"></div>
                     <div class="flex justify-center items-center gap-2" id="testimonial-dots">
                     </div>
                 </div>
                 <!-- Premium Progress Bar -->
-                <div class="w-24 h-[3px] bg-slate-200/60 dark:bg-slate-800/60 rounded-full overflow-hidden relative">
+                <div class="w-24 h-[3px] bg-stone-200/60 dark:bg-stone-800/60 rounded-full overflow-hidden relative">
                     <div id="testimonial-progress" class="absolute top-0 left-0 h-full bg-blue-600 w-0 rounded-full"></div>
                 </div>
 
                 @if(isset($allTestimonialsCount) && $allTestimonialsCount > 7)
                     <div class="mt-4 flex justify-center">
                         <a href="{{ route('public.testimonials') }}" 
-                           class="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-slate-50 text-blue-600 hover:text-blue-750 font-bold rounded-full border border-slate-200/80 shadow-sm hover:shadow transition-all duration-200 active:scale-95 text-xs sm:text-sm">
+                           class="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-stone-50 text-blue-600 hover:text-blue-750 font-bold rounded-full border border-stone-200/80 shadow-sm hover:shadow transition-all duration-200 active:scale-95 text-xs sm:text-sm">
                             <i data-lucide="message-square" class="w-4 h-4"></i>
                             <span>Lihat Semua Testimoni ({{ $allTestimonialsCount }})</span>
                         </a>
@@ -1944,18 +1909,18 @@
                     <i data-lucide="book-open" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['articles_label'] ?? 'Artikel &amp; Inspirasi' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
+                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
                 @include('partials.ornament')
-                <p class="text-slate-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}</p>
+                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}</p>
                 
                 <!-- Category Filter Tabs -->
                 <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mt-6">
-                    <div class="relative flex items-center gap-1 bg-slate-100/80 p-1 rounded-full border border-slate-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
-                        <div id="article-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-slate-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 80px;"></div>
+                    <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
+                        <div id="article-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 80px;"></div>
                         <button class="article-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['articles_filter_all'] ?? 'Semua' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-slate-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="panduan-umrah">{{ $settings['articles_filter_panduan'] ?? 'Panduan Umrah' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-slate-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="tips-doa">{{ $settings['articles_filter_tips'] ?? 'Tips &amp; Doa' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-slate-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="info-haramain">{{ $settings['articles_filter_haramain'] ?? 'Info Haramain' }}</button>
+                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="panduan-umrah">{{ $settings['articles_filter_panduan'] ?? 'Panduan Umrah' }}</button>
+                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="tips-doa">{{ $settings['articles_filter_tips'] ?? 'Tips &amp; Doa' }}</button>
+                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="info-haramain">{{ $settings['articles_filter_haramain'] ?? 'Info Haramain' }}</button>
                     </div>
                 </div>
             </div>
@@ -1968,22 +1933,22 @@
                          data-purpose="article-item">
                         <div>
                             <!-- Cover Image -->
-                            <div class="relative h-52 overflow-hidden bg-slate-100">
+                            <div class="relative h-52 overflow-hidden bg-stone-100">
                                 <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" />
-                                <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-slate-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-slate-100/50 shadow-sm">{{ $article->category }}</span>
+                                <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-stone-100/50 shadow-sm">{{ $article->category }}</span>
                             </div>
                             
                             <!-- Card Body -->
                             <div class="p-6 md:p-8">
-                                <div class="flex items-center gap-3 text-[10px] text-slate-400 font-bold mb-3.5">
+                                <div class="flex items-center gap-3 text-[10px] text-stone-400 font-bold mb-3.5">
                                     <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> {{ $article->published_at }}</span>
-                                    <span class="w-1 h-1 rounded-full bg-slate-300"></span>
+                                    <span class="w-1 h-1 rounded-full bg-stone-300"></span>
                                     <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> {{ $article->read_time }} {{ $settings['articles_read_suffix'] ?? 'Baca' }}</span>
                                 </div>
-                                <h3 class="font-extrabold text-base md:text-lg text-slate-900 leading-snug mb-3 hover:text-blue-600 transition duration-200">
+                                <h3 class="font-extrabold text-base md:text-lg text-stone-900 leading-snug mb-3 hover:text-blue-600 transition duration-200">
                                     <a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a>
                                 </h3>
-                                <p class="text-slate-500 text-xs md:text-sm leading-relaxed font-light line-clamp-3">
+                                <p class="text-stone-500 text-xs md:text-sm leading-relaxed font-light line-clamp-3">
                                     {{ $article->excerpt }}
                                 </p>
                                 @if(!empty($article->tags))
@@ -2004,14 +1969,14 @@
                         </div>
 
                         <!-- Card Footer / Author -->
-                        <div class="px-6 pb-6 md:px-8 md:pb-8 pt-4 border-t border-slate-50 bg-slate-50/10 flex items-center justify-between">
+                        <div class="px-6 pb-6 md:px-8 md:pb-8 pt-4 border-t border-stone-50 bg-stone-50/10 flex items-center justify-between">
                             <div class="flex items-center gap-3">
                                 <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 font-extrabold text-xs flex items-center justify-center border border-blue-100/40">
                                     {{ collect(explode(' ', $article->author))->map(fn($w) => substr($w, 0, 1))->take(2)->join('') }}
                                 </div>
                                 <div>
-                                    <p class="text-xs font-extrabold text-slate-800">{{ $article->author }}</p>
-                                    <p class="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">{{ $article->author_role }}</p>
+                                    <p class="text-xs font-extrabold text-stone-800">{{ $article->author }}</p>
+                                    <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mt-0.5">{{ $article->author_role }}</p>
                                 </div>
                             </div>
                             <a class="group flex items-center gap-1 text-xs font-extrabold text-blue-600 hover:text-blue-700 transition" 
@@ -2048,7 +2013,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Section Header -->
-            <div class="text-center space-y-4 mb-16 reveal">
+            <div class="text-center space-y-4 mb-10 reveal">
                 <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                     <i data-lucide="clock" class="w-3.5 h-3.5"></i>
@@ -2063,15 +2028,15 @@
             </div>
 
             <!-- Main Layout Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
                 <!-- Left Column: Clock & Prayer Times Card (5-Span) -->
-                <div class="lg:col-span-5 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2rem] p-6 sm:p-8 shadow-2xl relative overflow-hidden reveal-left">
+                <div class="lg:col-span-5 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2rem] p-5 sm:p-6 shadow-2xl relative overflow-hidden reveal-left">
                     <!-- Glow decoration -->
                     <div class="absolute -right-12 -top-12 w-32 h-32 bg-[#c89e2b]/10 rounded-full blur-2xl pointer-events-none"></div>
 
                     <!-- City Toggle Tabs -->
-                    <div class="flex bg-white/5 border border-white/10 rounded-full p-1 mb-8 gap-1 overflow-x-auto scrollbar-none">
+                    <div class="flex bg-white/5 border border-white/10 rounded-full p-1 mb-5 gap-1 overflow-x-auto scrollbar-none">
                         <button onclick="setHaramainTab('makkah')" id="tab-btn-makkah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-[#071930] shadow-md shadow-[#c89e2b]/10">
                             Makkah
                         </button>
@@ -2087,43 +2052,43 @@
                     </div>
 
                     <!-- Location Title & Realtime Clock -->
-                    <div class="text-center mb-8">
+                    <div class="text-center mb-5">
                         <h3 id="clock-location-title" class="text-lg font-bold text-[#c89e2b] tracking-wide">Makkah Al-Mukarramah</h3>
-                        <div id="clock-time" class="text-4xl md:text-5xl font-black text-white my-3 tracking-wider font-mono">15:35:00 PM</div>
+                        <div id="clock-time" class="text-3xl md:text-4xl font-black text-white my-3 tracking-wider font-mono">15:35:00 PM</div>
                         <p id="clock-date" class="text-xs text-white/60 font-semibold">Jum'at, 17 Juli 2026</p>
                     </div>
 
                     <!-- Next Prayer Live Countdown -->
-                    <div class="bg-gradient-to-r from-[#c89e2b]/10 to-[#c89e2b]/20 border border-[#c89e2b]/30 rounded-2xl p-4 text-center mb-6">
+                    <div class="bg-gradient-to-r from-[#c89e2b]/10 to-[#c89e2b]/20 border border-[#c89e2b]/30 rounded-2xl p-4 text-center mb-5">
                         <p class="text-xs text-[#c89e2b] font-bold uppercase tracking-wider">Shalat Berikutnya</p>
                         <h4 id="next-prayer-name" class="text-lg font-extrabold text-white mt-1">Maghrib</h4>
                         <div id="next-prayer-countdown" class="text-xl font-mono font-black text-white tracking-widest mt-1.5">(01:25:16)</div>
                     </div>
 
                     <!-- Prayer Timings Grid -->
-                    <div class="space-y-3 text-left">
+                    <div class="space-y-2 text-left">
                         <!-- Subuh -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition">
+                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
                             <span class="text-sm font-semibold text-white/80">Subuh</span>
                             <span id="prayer-time-subuh" class="text-sm font-bold font-mono text-white">04:21</span>
                         </div>
                         <!-- Dzuhur -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition">
+                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
                             <span class="text-sm font-semibold text-white/80">Dzuhur</span>
                             <span id="prayer-time-dzuhur" class="text-sm font-bold font-mono text-white">12:27</span>
                         </div>
                         <!-- Ashar -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition">
+                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
                             <span class="text-sm font-semibold text-white/80">Ashar</span>
                             <span id="prayer-time-ashar" class="text-sm font-bold font-mono text-white">15:41</span>
                         </div>
                         <!-- Maghrib -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition">
+                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
                             <span class="text-sm font-semibold text-white/80">Maghrib</span>
                             <span id="prayer-time-maghrib" class="text-sm font-bold font-mono text-white">19:06</span>
                         </div>
                         <!-- Isya -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-3 hover:bg-white/10 transition">
+                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
                             <span class="text-sm font-semibold text-white/80">Isya</span>
                             <span id="prayer-time-isya" class="text-sm font-bold font-mono text-white">20:36</span>
                         </div>
@@ -2131,12 +2096,12 @@
                 </div>
 
                 <!-- Right Column: Live Stream & Weather / Info (7-Span) -->
-                <div class="lg:col-span-7 space-y-6 reveal-right">
+                <div class="lg:col-span-7 space-y-4 reveal-right">
                     <!-- Live Haramain Player Card -->
-                    <div class="bg-gradient-to-b from-slate-900/90 via-slate-900/80 to-slate-950/90 border border-amber-500/20 backdrop-blur-2xl rounded-[2.5rem] p-5 sm:p-7 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden group">
+                    <div class="bg-gradient-to-b from-stone-900/90 via-stone-900/80 to-stone-950/90 border border-amber-500/20 backdrop-blur-2xl rounded-[2.5rem] p-4 sm:p-5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden group">
                         <!-- Ambient Background Glows -->
-                        <div class="absolute -top-24 -right-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/15 transition-all duration-700"></div>
-                        <div class="absolute -bottom-24 -left-24 w-72 h-72 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
+                        <div class="absolute -top-24 -right-24 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/15 transition-all duration-700"></div>
+                        <div class="absolute -bottom-24 -left-24 w-56 h-56 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
                         <div class="relative z-10 space-y-4">
                             <!-- Top Header Bar -->
@@ -2173,7 +2138,7 @@
                             </div>
 
                             <!-- Video Player Frame (16:9 Aspect Ratio) -->
-                            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-amber-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] bg-slate-950 group/player">
+                            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-amber-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] bg-stone-950 group/player">
                                 <!-- Overlay Badges on Top of Video -->
                                 <div class="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
                                     <span class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-amber-500/30 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
@@ -2195,7 +2160,7 @@
                                 <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group" 
                                      style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('{{ asset('images/package_kaaba.webp') }}');">
                                      <!-- Play Button -->
-                                     <button id="haramain-play-btn" aria-label="Putar siaran langsung" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
+                                     <button id="haramain-play-btn" aria-label="Putar siaran langsung" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
                                          <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
                                      </button>
                                      <span class="mt-4 text-xs font-bold text-white tracking-widest uppercase bg-black/40 px-4.5 py-2 rounded-full border border-white/10 z-20 select-none">Klik untuk Memutar Live Stream</span>
@@ -2218,9 +2183,9 @@
                     </div>
 
                     <!-- Weather and Density Stat Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
                         <!-- Makkah Weather Widget -->
-                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 shadow-xl flex items-center justify-between">
+                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-xl flex items-center justify-between">
                             <div class="space-y-1">
                                 <p class="text-xs text-white/50 font-bold uppercase tracking-wider">Cuaca Makkah</p>
                                 <h4 id="weather-temp" class="text-3xl font-black text-white">41°C</h4>
@@ -2232,7 +2197,7 @@
                         </div>
 
                         <!-- Live Density Widget (Pilgrims Today) -->
-                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-5 shadow-xl flex items-center justify-between">
+                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-xl flex items-center justify-between">
                             <div class="space-y-1">
                                 <p class="text-xs text-white/50 font-bold uppercase tracking-wider">Estimasi Jamaah Hari Ini</p>
                                 <h4 id="density-counter" class="text-3xl font-black text-emerald-400 font-mono">{{ number_format((int)($settings['haramain_density_base'] ?? 254025), 0, ',', '.') }}</h4>
@@ -2271,7 +2236,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Tier 1: Freelance -->
-                <div class="reveal-card kemitraan-card kemitraan-card-blue bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+                <div class="reveal-card kemitraan-card kemitraan-card-blue bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-stone-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
                             <div class="bg-blue-50/80 p-4 rounded-2xl text-blue-600 w-fit">
@@ -2279,11 +2244,11 @@
                             </div>
                             <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_1_badge'] ?? 'Freelance' }}</span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-1">{{ $settings['partnership_tier_1_title'] ?? 'Mitra Freelance' }}</h3>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_1_title'] ?? 'Mitra Freelance' }}</h3>
+                        <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
                         <p class="text-3xl font-black text-blue-600 mb-6">{{ $settings['partnership_tier_1_price'] ?? 'FREE' }}</p>
-                        <div class="h-px bg-slate-100 mb-6"></div>
-                        <ul class="space-y-3.5 text-xs text-slate-600">
+                        <div class="h-px bg-stone-100 mb-6"></div>
+                        <ul class="space-y-3.5 text-xs text-stone-600">
                             <li class="flex items-center gap-3">
                                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>
                                 {{ $settings['partnership_tier_1_feature_1'] ?? 'Komisi Menarik per Jemaah' }}
@@ -2305,7 +2270,7 @@
                 </div>
 
                 <!-- Tier 2: Agen -->
-                <div class="reveal-card kemitraan-card kemitraan-card-amber bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-slate-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
+                <div class="reveal-card kemitraan-card kemitraan-card-amber bg-gradient-to-b from-blue-600/[0.02] to-white hover:from-blue-600/[0.06] glow-card p-8 rounded-3xl border border-blue-600/5 hover:border-blue-600/15 shadow-xl shadow-stone-900/5 hover:-translate-y-1 transition duration-300 flex flex-col justify-between">
                     <div>
                         <div class="flex items-center justify-between mb-6">
                             <div class="bg-amber-50 p-4 rounded-2xl text-amber-500 w-fit">
@@ -2313,11 +2278,11 @@
                             </div>
                             <span class="bg-amber-100/70 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_2_badge'] ?? 'Agen Resmi' }}</span>
                         </div>
-                        <h3 class="font-extrabold text-slate-900 text-lg mb-1">{{ $settings['partnership_tier_2_title'] ?? 'Mitra Agen' }}</h3>
-                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_2_title'] ?? 'Mitra Agen' }}</h3>
+                        <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
                         <p class="text-3xl font-black text-amber-500 mb-6">{{ $settings['partnership_tier_2_price'] ?? 'Rp 1.000.000' }}</p>
-                        <div class="h-px bg-slate-100 mb-6"></div>
-                        <ul class="space-y-3.5 text-xs text-slate-600">
+                        <div class="h-px bg-stone-100 mb-6"></div>
+                        <ul class="space-y-3.5 text-xs text-stone-600">
                             <li class="flex items-center gap-3">
                                 <i data-lucide="check" class="w-4 h-4 text-emerald-500 flex-shrink-0"></i>
                                 {{ $settings['partnership_tier_2_feature_1'] ?? 'Komisi maksimal &amp; bonus menarik' }}
@@ -2339,31 +2304,31 @@
                 </div>
 
                 <!-- Tier 3: Benefit & Reward -->
-                <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-stone-900 via-blue-950 to-stone-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
                     
                     <div class="relative z-10 flex flex-col justify-between h-full">
                         <div>
-                            <div class="mb-6 bg-amber-500 text-slate-950 p-4 rounded-2xl w-fit font-bold shadow-md shadow-amber-500/20">
+                            <div class="mb-6 bg-amber-500 text-stone-950 p-4 rounded-2xl w-fit font-bold shadow-md shadow-amber-500/20">
                                 <i data-lucide="gift" class="w-8 h-8"></i>
                             </div>
                             <h3 class="font-extrabold text-amber-400 text-lg mb-1">{{ $settings['partnership_tier_3_title'] ?? 'Keuntungan &amp; Reward' }}</h3>
-                            <p class="text-slate-400 text-[10px] uppercase font-bold tracking-wider mb-6">{{ $settings['partnership_tier_3_subtitle'] ?? 'Potensi Syiar Kemitraan' }}</p>
+                            <p class="text-stone-400 text-[10px] uppercase font-bold tracking-wider mb-6">{{ $settings['partnership_tier_3_subtitle'] ?? 'Potensi Syiar Kemitraan' }}</p>
                             
                             <div class="space-y-4">
                                 <!-- Komisi -->
                                 <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
                                     <p class="text-[9px] text-amber-500 font-bold uppercase tracking-wider">{{ $settings['partnership_reward_1_label'] ?? 'Komisi per Jemaah' }}</p>
                                     <p class="text-xl font-black mt-0.5">{{ $settings['partnership_reward_1_value'] ?? 'Hingga Rp 2.000.000' }}</p>
-                                    <p class="text-[10px] text-slate-400 mt-1 leading-snug">{{ $settings['partnership_reward_1_desc'] ?? 'Pendapatan langsung per jemaah yang melakukan pelunasan.' }}</p>
+                                    <p class="text-[10px] text-stone-400 mt-1 leading-snug">{{ $settings['partnership_reward_1_desc'] ?? 'Pendapatan langsung per jemaah yang melakukan pelunasan.' }}</p>
                                 </div>
                                 
                                 <!-- Reward -->
                                 <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
                                     <p class="text-[9px] text-amber-500 font-bold uppercase tracking-wider">{{ $settings['partnership_reward_2_label'] ?? 'Reward Prestasi' }}</p>
                                     <p class="text-xl font-black mt-0.5">{{ $settings['partnership_reward_2_value'] ?? 'Umroh Gratis' }}</p>
-                                    <p class="text-[10px] text-slate-400 mt-1 leading-snug">{{ $settings['partnership_reward_2_desc'] ?? 'Kesempatan ibadah umrah gratis bagi mitra yang mencapai target syiar.' }}</p>
+                                    <p class="text-[10px] text-stone-400 mt-1 leading-snug">{{ $settings['partnership_reward_2_desc'] ?? 'Kesempatan ibadah umrah gratis bagi mitra yang mencapai target syiar.' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -2372,11 +2337,11 @@
             </div>
 
             <!-- Kemitraan Call To Action -->
-            <div class="mt-16 bg-white border border-slate-100/80 rounded-3xl p-8 md:p-10 shadow-xl shadow-slate-900/5 flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto relative overflow-hidden reveal-scale">
+            <div class="mt-16 bg-white border border-stone-100/80 rounded-3xl p-8 md:p-10 shadow-xl shadow-stone-900/5 flex flex-col md:flex-row items-center justify-between gap-8 max-w-4xl mx-auto relative overflow-hidden reveal-scale">
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
                 <div class="text-left space-y-2 relative z-10">
-                    <h4 class="font-extrabold text-slate-900 text-lg md:text-xl">{{ $settings['partnership_cta_title'] ?? 'Tertarik Menjadi Mitra IZI Travel?' }}</h4>
-                    <p class="text-slate-400 text-xs md:text-sm font-light">{{ $settings['partnership_cta_desc'] ?? 'Dapatkan proposal penawaran kemitraan resmi dan diskusikan peluang kerja sama bersama tim kami.' }}</p>
+                    <h4 class="font-extrabold text-stone-900 text-lg md:text-xl">{{ $settings['partnership_cta_title'] ?? 'Tertarik Menjadi Mitra IZI Travel?' }}</h4>
+                    <p class="text-stone-400 text-xs md:text-sm font-light">{{ $settings['partnership_cta_desc'] ?? 'Dapatkan proposal penawaran kemitraan resmi dan diskusikan peluang kerja sama bersama tim kami.' }}</p>
                 </div>
                 <a class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-blue-500/15 transform active:scale-95 transition-all duration-300 flex items-center gap-2.5 text-xs flex-shrink-0 relative z-10" href="https://wa.me/{{ $wa_phone }}?text=Halo%20Admin%20IZI%20Travel,%20saya%20tertarik%20untuk%20bergabung%2520menjadi%2520mitra%2520syiar%2520Baitullah." target="_blank">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -2404,21 +2369,21 @@
                     <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     Tanya Jawab
                 </span>
-                <h2 class="text-3xl font-extrabold text-center text-slate-900 tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
+                <h2 class="text-3xl font-extrabold text-center text-stone-900 tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
                 @include('partials.ornament')
             </div>
             <div class="space-y-4 reveal">
                 @foreach ($faqs as $faq)
-                    <details class="faq-details group border border-slate-100/85 group-open:border-blue-600/20 rounded-2xl overflow-hidden transition-all duration-300 bg-white group-open:bg-blue-600/[0.02] soft-shadow">
-                        <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-blue-600/[0.03] group-open:bg-blue-600/[0.05] list-none font-bold text-slate-800 transition">
+                    <details class="faq-details group border border-stone-100/85 group-open:border-blue-600/20 rounded-2xl overflow-hidden transition-all duration-300 bg-white group-open:bg-blue-600/[0.02] soft-shadow">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-blue-600/[0.03] group-open:bg-blue-600/[0.05] list-none font-bold text-stone-800 transition">
                             {{ $faq->question }}
-                            <svg class="w-5 h-5 text-slate-400 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-stone-400 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </summary>
                         <div class="faq-content-wrapper">
                             <div class="overflow-hidden">
-                                <div class="p-5 text-slate-500 leading-relaxed text-sm font-light border-t border-slate-100/60">
+                                <div class="p-5 text-stone-500 leading-relaxed text-sm font-light border-t border-stone-100/60">
                                     {!! nl2br(e($faq->answer)) !!}
                                 </div>
                             </div>
@@ -2439,13 +2404,13 @@
         <div class="absolute inset-0 bg-stone-100/10 pointer-events-none z-10"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
             <div class="bg-gradient-to-br from-white/95 to-blue-600/[0.06] backdrop-blur-xl border border-blue-600/10 p-6 sm:p-12 md:p-16 rounded-[2rem] shadow-2xl shadow-blue-600/[0.03] reveal">
-                <h2 class="text-3xl md:text-5xl font-black text-slate-900 mb-6 tracking-tight">
+                <h2 class="text-3xl md:text-5xl font-black text-stone-900 mb-6 tracking-tight">
                     {{ $settings['cta_title'] ?? 'Siap Memulai Perjalanan Suci Anda?' }}
                 </h2>
-                <p class="text-lg text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-lg text-stone-600 mb-10 max-w-2xl mx-auto leading-relaxed">
                     {{ $settings['cta_description'] ?? 'Hubungi kami sekarang untuk mendapatkan rekomendasi paket terbaik sesuai kebutuhan dan budget perjalanan ibadah Anda.' }}
                 </p>
-                <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" class="bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 hover:from-amber-400 hover:to-amber-500 px-10 py-4 rounded-full font-extrabold flex items-center gap-3 mx-auto shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform active:scale-95 w-fit text-sm">
+                <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" class="bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 hover:from-amber-400 hover:to-amber-500 px-10 py-4 rounded-full font-extrabold flex items-center gap-3 mx-auto shadow-lg shadow-amber-500/20 hover:shadow-amber-500/30 transition-all duration-300 transform active:scale-95 w-fit text-sm">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
                     </svg>
@@ -2458,7 +2423,7 @@
     </main>
 
     <!-- BEGIN: Footer -->
-    <footer class="bg-slate-950 text-white py-16 md:py-24 relative overflow-hidden islamic-pattern-blue-soft animate-fade-in" id="kontak" data-purpose="main-footer">
+    <footer class="bg-stone-950 text-white py-16 md:py-24 relative overflow-hidden islamic-pattern-blue-soft animate-fade-in" id="kontak" data-purpose="main-footer">
         <!-- Thin glowing gradient border at the top -->
         <div class="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
         
@@ -2478,11 +2443,11 @@
                 <!-- Col 1: Branding & Socials (4 Span) -->
                 <div class="lg:col-span-4 space-y-6">
                     <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-11 w-auto object-contain" width="480" height="217" loading="lazy" decoding="async" />
-                    <p class="text-slate-400 text-sm leading-relaxed font-light">
+                    <p class="text-stone-400 text-sm leading-relaxed font-light">
                         {{ $settings['site_description'] ?? 'IZI Travel berkomitmen memberikan pelayanan perjalanan ibadah Umrah dan Haji terbaik secara profesional, amanah, dan terpercaya demi kenyamanan ibadah Anda.' }}
                     </p>
                     <div class="space-y-3">
-                        <h3 class="text-[10px] font-extrabold uppercase tracking-widest text-slate-500">Koneksi Media Sosial</h3>
+                        <h3 class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500">Koneksi Media Sosial</h3>
                         <div class="flex flex-wrap gap-2.5">
                             @if(isset($settings['social_facebook']) && !empty($settings['social_facebook']))
                             <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_facebook'] }}" target="_blank" aria-label="Facebook">
@@ -2527,7 +2492,7 @@
                 <!-- Col 2: Quick Links (2 Span) -->
                 <div class="lg:col-span-2 space-y-6">
                     <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Menu Utama</h3>
-                    <ul class="space-y-3.5 text-xs text-slate-400">
+                    <ul class="space-y-3.5 text-xs text-stone-400">
                         <li>
                             <a href="{{ url('/#beranda') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
                                 <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
@@ -2576,30 +2541,30 @@
                 <!-- Col 3: Hubungi Kami (3 Span) -->
                 <div class="lg:col-span-3 space-y-6">
                     <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">{{ $settings['footer_contact_heading'] ?? 'Hubungi Kami' }}</h3>
-                    <ul class="space-y-4 text-xs text-slate-400">
+                    <ul class="space-y-4 text-xs text-stone-400">
                         <li class="flex items-start gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 group-hover/item:border-amber-500 transition duration-300">
+                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
                                 <i data-lucide="map-pin" class="w-4 h-4"></i>
                             </span>
-                            <span class="leading-relaxed group-hover/item:text-slate-200 transition duration-200">{{ $settings['contact_address'] ?? 'Gedung IZI Travel, Jl. H. R. Rasuna Said Kav. X-7, Kuningan, Jakarta Selatan, DKI Jakarta 12940' }}</span>
+                            <span class="leading-relaxed group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_address'] ?? 'Gedung IZI Travel, Jl. H. R. Rasuna Said Kav. X-7, Kuningan, Jakarta Selatan, DKI Jakarta 12940' }}</span>
                         </li>
                         <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 group-hover/item:border-amber-500 transition duration-300">
+                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
                                 <i data-lucide="phone" class="w-4 h-4"></i>
                             </span>
-                            <span class="group-hover/item:text-slate-200 transition duration-200">{{ $settings['contact_phone'] ?? '+62 21 5200 8888' }}</span>
+                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_phone'] ?? '+62 21 5200 8888' }}</span>
                         </li>
                         <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 group-hover/item:border-amber-500 transition duration-300">
+                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
                                 <i data-lucide="mail" class="w-4 h-4"></i>
                             </span>
-                            <span class="group-hover/item:text-slate-200 transition duration-200">{{ $settings['contact_email'] ?? 'info@izitravel.co.id' }}</span>
+                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_email'] ?? 'info@izitravel.co.id' }}</span>
                         </li>
                         <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-slate-950 group-hover/item:border-amber-500 transition duration-300">
+                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
                                 <i data-lucide="clock" class="w-4 h-4"></i>
                             </span>
-                            <span class="group-hover/item:text-slate-200 transition duration-200">{{ $settings['office_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00' }}</span>
+                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['office_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00' }}</span>
                         </li>
                     </ul>
                 </div>
@@ -2614,8 +2579,8 @@
                         @else
                             <img src="{{ asset('images/map_thumbnail.webp') }}" alt="Google Maps Pin" class="w-full h-28 object-cover transition duration-500 group-hover:scale-105" width="600" height="600" loading="lazy" decoding="async" />
                         @endif
-                        <div class="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/10 transition duration-300 pointer-events-none flex items-end p-2.5">
-                            <span class="text-[9px] font-bold text-white/80 bg-slate-900/90 backdrop-blur-sm px-2 py-1 rounded-md border border-white/5 flex items-center gap-1 shadow-sm">
+                        <div class="absolute inset-0 bg-stone-950/40 group-hover:bg-stone-950/10 transition duration-300 pointer-events-none flex items-end p-2.5">
+                            <span class="text-[9px] font-bold text-white/80 bg-stone-900/90 backdrop-blur-sm px-2 py-1 rounded-md border border-white/5 flex items-center gap-1 shadow-sm">
                                 <i data-lucide="map" class="w-2.5 h-2.5 text-amber-500"></i>
                                 Lokasi Kantor Pusat
                             </span>
@@ -2630,13 +2595,13 @@
                             </div>
                             <div>
                                 <span class="text-[10px] text-amber-400 font-black tracking-widest block uppercase">Izin Resmi PPIU</span>
-                                <span class="text-[11px] text-slate-400 font-bold uppercase tracking-wider block mt-0.5">Kemenag RI</span>
+                                <span class="text-[11px] text-stone-400 font-bold uppercase tracking-wider block mt-0.5">Kemenag RI</span>
                             </div>
                         </div>
-                        <p class="text-base font-black tracking-widest text-slate-100 font-heading">
+                        <p class="text-base font-black tracking-widest text-stone-100 font-heading">
                             No: {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
                         </p>
-                        <p class="text-[10px] text-slate-400 mt-2 flex items-center gap-1.5 font-medium">
+                        <p class="text-[10px] text-stone-400 mt-2 flex items-center gap-1.5 font-medium">
                             <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
                             Terakreditasi A Penyelenggara Umrah
                         </p>
@@ -2645,7 +2610,7 @@
             </div>
 
             <!-- Bottom Copyright bar -->
-            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500">
                 <p>&copy; {{ date('Y') }} {{ $settings['site_name'] ?? 'IZI Travel' }}. All rights reserved.</p>
                 <div class="flex gap-6 font-light">
                     <a href="{{ route('public.terms') }}" class="hover:text-amber-500 transition duration-200">Syarat &amp; Ketentuan</a>
@@ -3041,13 +3006,13 @@
                 setActiveNav(
                     desktopNavLinks, 
                     "text-blue-600 bg-blue-50/80 px-3.5 py-2 rounded-full font-bold transition duration-200", 
-                    "hover:text-blue-600 hover:bg-slate-50/80 px-3.5 py-2 rounded-full transition duration-200 text-slate-600",
+                    "hover:text-blue-600 hover:bg-stone-50/80 px-3.5 py-2 rounded-full transition duration-200 text-stone-600",
                     isTop
                 );
                 setActiveNav(
                     mobileNavLinks, 
                     "flex flex-col items-center gap-1 text-blue-600 transition active:scale-95", 
-                    "flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-slate-500",
+                    "flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-stone-500",
                     false
                 );
             };
@@ -3178,7 +3143,7 @@
                     
                     for (let i = 0; i < totalDots; i++) {
                         const dot = document.createElement('span');
-                        dot.className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentIndex ? 'bg-blue-600 w-6' : 'bg-slate-200 hover:bg-slate-400'}`;
+                        dot.className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentIndex ? 'bg-blue-600 w-6' : 'bg-stone-200 hover:bg-stone-400'}`;
                         dot.addEventListener('click', () => {
                             currentIndex = i;
                             setPositionByIndex();
@@ -3195,7 +3160,7 @@
                         if (i === currentIndex) {
                             dots[i].className = 'w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 bg-blue-600 w-6';
                         } else {
-                            dots[i].className = 'w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 bg-slate-200 hover:bg-slate-400';
+                            dots[i].className = 'w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 bg-stone-200 hover:bg-stone-400';
                         }
                     }
                 };
@@ -3541,48 +3506,52 @@
                 });
             });
 
-            // 12. Interactive Package Search Filtering Logic
-            const searchMonth = document.getElementById('search-month');
-            const searchTier = document.getElementById('search-tier');
-            const searchPrice = document.getElementById('search-price');
-            const searchBtn = document.getElementById('search-btn');
-            const resetFilterBtn = document.getElementById('reset-filter-btn');
-            const noResultsState = document.getElementById('no-results-state');
-            const packageCards = document.querySelectorAll('.package-card');
+            // 12. Packages Category Tab Filter & Sliding Pill Logic
+            const packageTabBtns = document.querySelectorAll('.package-tab-btn');
+            const packageTabPill = document.getElementById('package-tab-pill');
+            const packageItems = document.querySelectorAll('.package-item');
 
-            if (searchMonth && searchTier && searchPrice && searchBtn && resetFilterBtn && noResultsState) {
-                const filterPackages = () => {
-                    const selectedMonth = searchMonth.value;
-                    const selectedTier = searchTier.value;
-                    const selectedPriceRange = searchPrice.value;
-                    let visibleCount = 0;
+            const updatePackageTabPill = (btn) => {
+                if (!packageTabPill || !btn) return;
+                packageTabPill.style.width = `${btn.offsetWidth}px`;
+                packageTabPill.style.left = `${btn.offsetLeft}px`;
+                packageTabPill.style.height = `${btn.offsetHeight}px`;
+                packageTabPill.style.top = `${btn.offsetTop}px`;
+            };
 
-                    packageCards.forEach(card => {
-                        const cardMonth = card.getAttribute('data-month');
-                        const cardTier = card.getAttribute('data-tier');
-                        const cardPrice = parseInt(card.getAttribute('data-price'), 10);
+            const activePackageBtn = document.querySelector('.package-tab-btn.active');
+            if (activePackageBtn) {
+                setTimeout(() => updatePackageTabPill(activePackageBtn), 150);
+            }
 
-                        const matchesMonth = (selectedMonth === 'all' || cardMonth === selectedMonth);
-                        const matchesTier = (selectedTier === 'all' || cardTier === selectedTier);
+            packageTabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    packageTabBtns.forEach(b => {
+                        b.classList.remove('active', 'text-blue-600');
+                        b.classList.add('text-stone-500');
+                    });
+                    btn.classList.add('active', 'text-blue-600');
+                    btn.classList.remove('text-stone-500');
+                    updatePackageTabPill(btn);
 
-                        let matchesPrice = false;
-                        if (selectedPriceRange === 'all') {
-                            matchesPrice = true;
-                        } else if (selectedPriceRange === 'low') {
-                            matchesPrice = (cardPrice < 35000000);
-                        } else if (selectedPriceRange === 'mid') {
-                            matchesPrice = (cardPrice >= 35000000 && cardPrice <= 45000000);
-                        } else if (selectedPriceRange === 'high') {
-                            matchesPrice = (cardPrice > 45000000);
-                        }
+                    const wrapper = btn.closest('.overflow-x-auto');
+                    if (wrapper) {
+                        const containerHalfWidth = wrapper.clientWidth / 2;
+                        const btnHalfWidth = btn.offsetWidth / 2;
+                        const scrollLeft = btn.offsetLeft - containerHalfWidth + btnHalfWidth;
+                        wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                    }
 
-                        if (matchesMonth && matchesTier && matchesPrice) {
+                    const filter = btn.getAttribute('data-filter');
+
+                    packageItems.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        if (filter === 'all' || category === filter) {
                             card.style.display = 'flex';
                             setTimeout(() => {
                                 card.style.opacity = '1';
                                 card.style.transform = 'scale(1)';
                             }, 50);
-                            visibleCount++;
                         } else {
                             card.style.opacity = '0';
                             card.style.transform = 'scale(0.95)';
@@ -3591,28 +3560,13 @@
                             }, 250);
                         }
                     });
+                });
+            });
 
-                    if (visibleCount === 0) {
-                        setTimeout(() => {
-                            noResultsState.classList.remove('hidden');
-                            noResultsState.classList.add('flex');
-                        }, 250);
-                    } else {
-                        noResultsState.classList.add('hidden');
-                        noResultsState.classList.remove('flex');
-                    }
-                };
-
-                const resetFilters = () => {
-                    searchMonth.value = 'all';
-                    searchTier.value = 'all';
-                    searchPrice.value = 'all';
-                    filterPackages();
-                };
-
-                searchBtn.addEventListener('click', filterPackages);
-                resetFilterBtn.addEventListener('click', resetFilters);
-            }
+            window.addEventListener('resize', () => {
+                const activeBtn = document.querySelector('.package-tab-btn.active');
+                if (activeBtn) updatePackageTabPill(activeBtn);
+            });
 
             // 14. Articles Category Tab Filter & Sliding Pill Logic
             const articleTabBtns = document.querySelectorAll('.article-tab-btn');
@@ -3647,10 +3601,10 @@
                 btn.addEventListener('click', () => {
                     articleTabBtns.forEach(b => {
                         b.classList.remove('active', 'text-blue-600');
-                        b.classList.add('text-slate-500');
+                        b.classList.add('text-stone-500');
                     });
                     btn.classList.add('active', 'text-blue-600');
-                    btn.classList.remove('text-slate-500');
+                    btn.classList.remove('text-stone-500');
                     updateArticleTabPill(btn);
 
                     // Smoothly center the clicked tab in the scrollable wrapper
@@ -4128,8 +4082,8 @@
     </script>
 
     <!-- BEGIN: Mobile Bottom Navigation Bar (App-Like) -->
-    <div class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md bg-white/95 backdrop-blur-md border border-slate-100 rounded-full shadow-[0_-10px_35px_-10px_rgba(0,0,0,0.1),_0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 z-50">
-        <div class="flex items-center justify-between text-slate-500 font-medium">
+    <div class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md bg-white/95 backdrop-blur-md border border-stone-100 rounded-full shadow-[0_-10px_35px_-10px_rgba(0,0,0,0.1),_0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 z-50">
+        <div class="flex items-center justify-between text-stone-500 font-medium">
             <a href="#beranda" class="flex flex-col items-center gap-1 text-blue-600 transition active:scale-95">
                 <i data-lucide="home" class="w-5 h-5"></i>
                 <span class="text-[9px] font-extrabold uppercase tracking-wider">Beranda</span>
@@ -4146,7 +4100,7 @@
                 <i data-lucide="book-open" class="w-5 h-5"></i>
                 <span class="text-[9px] font-extrabold uppercase tracking-wider">Artikel</span>
             </a>
-            <button id="mobile-bottom-menu-trigger" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-slate-500">
+            <button id="mobile-bottom-menu-trigger" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-stone-500">
                 <i data-lucide="menu" class="w-5 h-5"></i>
                 <span class="text-[9px] font-extrabold uppercase tracking-wider">Menu</span>
             </button>
@@ -4157,59 +4111,59 @@
     <!-- BEGIN: Mobile Navigation Drawer (Modern Soft UI Overlay) -->
     <div id="mobile-drawer" class="fixed inset-0 z-[100] invisible">
         <!-- Backdrop with soft blur -->
-        <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-md opacity-0"></div>
+        <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-stone-900/40 backdrop-blur-md opacity-0"></div>
 
         <!-- Drawer Content -->
-        <div id="mobile-drawer-content" class="absolute top-0 right-0 h-full w-[290px] sm:w-[340px] bg-white/95 backdrop-blur-xl border-l border-slate-100 shadow-2xl p-6 flex flex-col justify-between translate-x-full rounded-l-[2rem]">
+        <div id="mobile-drawer-content" class="absolute top-0 right-0 h-full w-[290px] sm:w-[340px] bg-white/95 backdrop-blur-xl border-l border-stone-100 shadow-2xl p-6 flex flex-col justify-between translate-x-full rounded-l-[2rem]">
             <!-- Scrollable content area -->
             <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
                 <!-- Header inside drawer -->
-                <div class="flex items-center justify-between pb-4 border-b border-slate-100">
+                <div class="flex items-center justify-between pb-4 border-b border-stone-100">
                     <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
-                    <button id="mobile-drawer-close" aria-label="Tutup menu" class="w-8 h-8 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-slate-800 transition active:scale-95 shadow-sm">
+                    <button id="mobile-drawer-close" aria-label="Tutup menu" class="w-8 h-8 rounded-full bg-stone-50 border border-stone-100 flex items-center justify-center text-stone-500 hover:text-stone-800 transition active:scale-95 shadow-sm">
                         <i data-lucide="x" class="w-4 h-4"></i>
                     </button>
                 </div>
                 
                 <!-- Navigation Links (Exact 8 items order) -->
                 <div class="flex flex-col space-y-1">
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#beranda">
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#beranda">
                         <span class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100/50"><i data-lucide="home" class="w-4 h-4"></i></span>
                         Beranda
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#tentang-kami">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="users" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#tentang-kami">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="users" class="w-4 h-4"></i></span>
                         Tentang Kami
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#paket-umrah">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="compass" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#paket-umrah">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="compass" class="w-4 h-4"></i></span>
                         Paket Umrah
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#galeri">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="image" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#galeri">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="image" class="w-4 h-4"></i></span>
                         Galeri
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#testimoni">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="message-square" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#testimoni">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="message-square" class="w-4 h-4"></i></span>
                         Testimoni
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#artikel">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="book-open" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#artikel">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="book-open" class="w-4 h-4"></i></span>
                         Artikel
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#kemitraan">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="award" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#kemitraan">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="award" class="w-4 h-4"></i></span>
                         Kemitraan
                     </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-slate-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
-                        <span class="w-8 h-8 rounded-xl bg-slate-50 text-slate-500 flex items-center justify-center border border-slate-200/50"><i data-lucide="phone-call" class="w-4 h-4"></i></span>
+                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
+                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="phone-call" class="w-4 h-4"></i></span>
                         Kontak
                     </a>
                 </div>
             </div>
             
             <!-- Fixed Bottom Section -->
-            <div class="pt-4 border-t border-slate-100 flex flex-col gap-3 mt-4 shrink-0">
+            <div class="pt-4 border-t border-stone-100 flex flex-col gap-3 mt-4 shrink-0">
                 <a class="w-full bg-blue-600 text-white py-2.5 rounded-xl font-bold hover:bg-blue-700 transition duration-200 flex items-center justify-center gap-2 text-xs shadow-lg shadow-blue-500/10 active:scale-95" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
@@ -4222,7 +4176,7 @@
     <!-- END: Mobile Navigation Drawer -->
 
     <!-- BEGIN: Floating WhatsApp Button -->
-    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" class="fixed bottom-20 md:bottom-6 right-6 z-50 bg-gradient-to-r from-emerald-500 to-green-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 flex items-center justify-center animate-pulse-glow hover:scale-110 active:scale-95 transition-all duration-300 group" aria-label="Hubungi WhatsApp">
+    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" class="fixed bottom-20 md:bottom-6 right-6 z-50 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 flex items-center justify-center animate-pulse-glow hover:scale-110 active:scale-95 transition-all duration-300 group" aria-label="Hubungi WhatsApp">
         <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
         </svg>
@@ -4232,11 +4186,11 @@
     </a>
 
     <!-- Video Testimonial Modal (Premium & Smartphone-Adaptive for Instagram) -->
-    <div id="video-testimonial-modal" class="fixed inset-0 z-[100] bg-slate-950/80 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
+    <div id="video-testimonial-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
         <div class="absolute inset-0 cursor-pointer" onclick="window.closeVideoTestimonialModal()"></div>
         <div class="relative w-full max-w-4xl bg-black rounded-3xl overflow-hidden shadow-2xl scale-95 flex flex-col items-center border border-white/10" id="video-modal-content">
             <!-- Close Button -->
-            <button onclick="window.closeVideoTestimonialModal()" class="absolute top-4 right-4 z-[110] bg-slate-900/60 hover:bg-slate-800/80 text-white p-2 rounded-full transition active:scale-95 border border-white/10" aria-label="Tutup Video">
+            <button onclick="window.closeVideoTestimonialModal()" class="absolute top-4 right-4 z-[110] bg-stone-900/60 hover:bg-stone-800/80 text-white p-2 rounded-full transition active:scale-95 border border-white/10" aria-label="Tutup Video">
                 <i data-lucide="x" class="w-5 h-5"></i>
             </button>
             <!-- Video Wrapper -->
