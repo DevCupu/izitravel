@@ -540,12 +540,22 @@
         
         @media (max-width: 1023px) {
             #beranda {
-                /* The photo itself is rendered by the .lg:hidden <img> banner above (see markup) —
-                   it fills its own shorter band without the crop-zoom a full-section cover forces
-                   on a square image. This is just the plain navy fallback/fade for the rest of the section. */
+                /* #hero-photo-band (below) renders the real photo in its own shorter band —
+                   avoids the crop-zoom a full-section cover forces on a square image.
+                   This is just the plain navy fallback/fade for the rest of the section. */
                 background-size: cover;
                 background-position: center center;
                 background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.75) 0%, rgba(10, 22, 40, 0.97) 78%, #0a1628 100%) !important;
+            }
+
+            /* Declared only inside this mobile media query so desktop browsers never fetch
+               this image at all (unlike an <img> tag, a non-matching-media background-image
+               is guaranteed to not be downloaded) — keeps desktop payload untouched. */
+            #hero-photo-band {
+                background-image: url('{{ $heroImageUrl }}');
+                background-size: cover;
+                background-position: center 22%;
+                background-repeat: no-repeat;
             }
         }
 
@@ -608,8 +618,7 @@
              (content-tall) section via cover without cropping into a heavy zoom, and "contain"
              leaves a big empty gap. Bounding the real photo to a shorter top band lets it fill
              that band with a much milder crop, then fades into the plain navy gradient below. -->
-        <div class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none">
-            <img src="{{ $heroImageUrl }}" alt="" class="w-full h-full object-cover object-[center_22%]" />
+        <div id="hero-photo-band" class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none animate-fade-in-up">
             <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/55 via-[#0a1628]/88 to-[#0a1628]"></div>
         </div>
 
@@ -628,7 +637,7 @@
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
-                    <div class="inline-flex items-center gap-2 bg-[#051c33]/85 border border-[#0d345c] text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 shadow-sm animate-fade-in-up delay-100">
+                    <div class="inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-sm border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 border-gold-glow animate-fade-in-up delay-100">
                         <i data-lucide="shield-check" class="w-4 h-4 text-[#c89e2b]"></i>
                         <span class="font-semibold tracking-wide">{{ $heroBadgeText }}</span>
                     </div>
@@ -664,7 +673,7 @@
                     $site_desc = $settings['site_description'] ?? 'Perjalanan Umrah yang nyaman, aman, dan terpercaya — dari keberangkatan hingga kembali ke tanah air.';
                 @endphp
 
-                <h1 class="text-5xl md:text-6xl lg:text-[72px] font-calligraphy text-white leading-[1.08] mb-5 tracking-tight animate-fade-in-up delay-200">
+                <h1 class="text-5xl md:text-6xl lg:text-[72px] font-calligraphy text-white leading-[1.08] mb-5 tracking-tight reveal-words">
                     <span class="block text-white">{{ $line1 }}</span>
                     @if(!empty($line2))
                         <span class="block text-[#c89e2b]">{{ $line2 }}</span>
