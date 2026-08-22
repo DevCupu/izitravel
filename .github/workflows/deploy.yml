@@ -37,9 +37,9 @@ jobs:
       - name: Update source and install PHP dependencies
         uses: appleboy/ssh-action@v1.2.2
         with:
-          host: colorado.iixcp.rumahweb.net
-          username: izim8295
-          port: 2223
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
@@ -59,9 +59,9 @@ jobs:
       - name: Upload Vite build
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: colorado.iixcp.rumahweb.net
-          username: izim8295
-          port: 2223
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: "public/build"
           target: "/home/izim8295/izitravel/public"
@@ -72,9 +72,9 @@ jobs:
       - name: Run Laravel deployment tasks
         uses: appleboy/ssh-action@v1.2.2
         with:
-          host: colorado.iixcp.rumahweb.net
-          username: izim8295
-          port: 2223
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             set -e
