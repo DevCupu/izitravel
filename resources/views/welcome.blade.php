@@ -540,12 +540,12 @@
         
         @media (max-width: 1023px) {
             #beranda {
-                /* Gradient layer keeps "cover" (fills the section); the photo layer uses
-                   "contain" so a near-square image isn't scaled up and crop-zoomed on
-                   tall phone screens — it shows fully framed against the navy backdrop. */
-                background-size: cover, contain;
-                background-position: center center, top center;
-                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.75) 0%, rgba(10, 22, 40, 0.97) 78%, #0a1628 100%), url('{{ $heroImageUrl }}') !important;
+                /* The photo itself is rendered by the .lg:hidden <img> banner above (see markup) —
+                   it fills its own shorter band without the crop-zoom a full-section cover forces
+                   on a square image. This is just the plain navy fallback/fade for the rest of the section. */
+                background-size: cover;
+                background-position: center center;
+                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.75) 0%, rgba(10, 22, 40, 0.97) 78%, #0a1628 100%) !important;
             }
         }
 
@@ -604,8 +604,17 @@
     <main>
     <!-- BEGIN: HeroSection (Modern Split Layout) -->
     <section id="beranda" class="relative pt-32 pb-20 overflow-hidden" data-purpose="hero-banner">
+        <!-- Mobile-only photo banner: a square/landscape source image can't fill this whole
+             (content-tall) section via cover without cropping into a heavy zoom, and "contain"
+             leaves a big empty gap. Bounding the real photo to a shorter top band lets it fill
+             that band with a much milder crop, then fades into the plain navy gradient below. -->
+        <div class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none">
+            <img src="{{ $heroImageUrl }}" alt="" class="w-full h-full object-cover object-[center_22%]" />
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/55 via-[#0a1628]/88 to-[#0a1628]"></div>
+        </div>
+
         <!-- Aurora Wave Effects (Stretched & Wavy Ambient Lights styled in gold/blue) -->
-        <div class="absolute -right-[10%] -top-[10%] w-[900px] h-[350px] bg-blue-500/10 rounded-[100%] blur-[100px] pointer-events-none animate-aurora-1"></div>
+        <div class="absolute -right-[10%] -top-[10%] w-[900px] h-[350px] bg-blue-500/5 lg:bg-blue-500/10 rounded-[100%] blur-[100px] pointer-events-none animate-aurora-1"></div>
         <div class="absolute -left-[10%] top-[10%] w-[800px] h-[300px] bg-[#c89e2b]/8 rounded-[100%] blur-[90px] pointer-events-none animate-aurora-2"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 lg:pt-12 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
