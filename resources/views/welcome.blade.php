@@ -540,9 +540,12 @@
         
         @media (max-width: 1023px) {
             #beranda {
-                background-size: cover;
-                background-position: center center;
-                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.85) 0%, rgba(10, 22, 40, 0.96) 100%), url('{{ $heroImageUrl }}') !important;
+                /* Gradient layer keeps "cover" (fills the section); the photo layer uses
+                   "contain" so a near-square image isn't scaled up and crop-zoomed on
+                   tall phone screens — it shows fully framed against the navy backdrop. */
+                background-size: cover, contain;
+                background-position: center center, top center;
+                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.75) 0%, rgba(10, 22, 40, 0.97) 78%, #0a1628 100%), url('{{ $heroImageUrl }}') !important;
             }
         }
 
@@ -605,12 +608,12 @@
         <div class="absolute -right-[10%] -top-[10%] w-[900px] h-[350px] bg-blue-500/10 rounded-[100%] blur-[100px] pointer-events-none animate-aurora-1"></div>
         <div class="absolute -left-[10%] top-[10%] w-[800px] h-[300px] bg-[#c89e2b]/8 rounded-[100%] blur-[90px] pointer-events-none animate-aurora-2"></div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-16 flex flex-col lg:flex-row items-center gap-12 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 lg:pt-12 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
-            <div class="lg:w-7/12 flex flex-col justify-center items-center lg:items-start text-center lg:text-left">
+            <div class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
                 @php $heroCalligraphy = array_key_exists('hero_calligraphy', $settings) ? $settings['hero_calligraphy'] : 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'; @endphp
                 @if (!empty($heroCalligraphy))
-                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
+                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-left" dir="rtl">{{ $heroCalligraphy }}</p>
                 @endif
                 
                 <!-- Badge Kemenag (Navy blue glass) -->
@@ -662,12 +665,12 @@
                     @endif
                 </h1>
 
-                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg animate-fade-in-up delay-300 mx-auto lg:mx-0">
+                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg animate-fade-in-up delay-300">
                     {{ $site_desc }}
                 </p>
 
-                <!-- Hero Feature Icons Row -->
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-5 gap-y-4 mb-8 animate-fade-in-up delay-350">
+                <!-- Hero Feature Icons Row: horizontal chip scroller on mobile, plain grid from sm+ -->
+                <div class="w-full flex sm:grid sm:grid-cols-4 gap-3 sm:gap-x-5 sm:gap-y-4 mb-6 lg:mb-8 overflow-x-auto sm:overflow-visible scrollbar-none snap-x snap-mandatory animate-fade-in-up delay-350">
                     @php
                         $heroFeatures = [
                             ['icon' => 'star', 'title' => $settings['hero_feature_1_title'] ?? 'Pelayanan', 'sub' => $settings['hero_feature_1_sub'] ?? 'Nyaman & Aman'],
@@ -677,20 +680,20 @@
                         ];
                     @endphp
                     @foreach ($heroFeatures as $feat)
-                        <div class="flex items-center gap-2.5">
+                        <div class="flex items-center gap-2.5 shrink-0 snap-start bg-white/5 border border-white/10 rounded-2xl px-3.5 py-2.5 sm:bg-transparent sm:border-0 sm:rounded-none sm:px-0 sm:py-0 sm:shrink">
                             <div class="shrink-0 w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center">
                                 <i data-lucide="{{ $feat['icon'] }}" class="w-4 h-4 text-[#c89e2b]"></i>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-xs font-bold text-white leading-tight truncate">{{ $feat['title'] }}</p>
-                                <p class="text-[10px] text-white/55 font-medium leading-tight">{{ $feat['sub'] }}</p>
+                                <p class="text-xs font-bold text-white leading-tight whitespace-nowrap sm:whitespace-normal sm:truncate">{{ $feat['title'] }}</p>
+                                <p class="text-[10px] text-white/55 font-medium leading-tight whitespace-nowrap sm:whitespace-normal">{{ $feat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
                 <!-- Actions CTA Buttons -->
-                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
+                <div class="flex flex-col sm:flex-row justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
                     <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-lg shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
@@ -710,7 +713,7 @@
                         ['icon' => 'heart', 'value' => '100%', 'label' => 'AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
                     ];
                 @endphp
-                <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-5 py-4 mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
+                <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-5 py-4 mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
                     @foreach ($heroStats as $stat)
                         <div class="flex items-center gap-3">
                             <div class="shrink-0 w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
