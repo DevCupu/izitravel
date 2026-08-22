@@ -1,0 +1,85 @@
+name: Deploy IZI Travel
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: production-izitravel
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # 2. Setup Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # 3. Install frontend dependencies
+      - name: Install Node dependencies
+        run: npm ci
+
+      # 4. Build Vite
+      - name: Build frontend
+        run: npm run build
+
+      # 5. Update source + Composer
+      - name: Update source and install PHP dependencies
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+
+            cd /home/izim8295/izitravel
+
+            git fetch origin main
+            git reset --hard origin/main
+
+            php -d disable_functions=none ~/bin/composer install \
+              --no-dev \
+              --optimize-autoloader \
+              --no-interaction \
+              --prefer-dist
+
+      # 6. Upload hasil Vite
+      - name: Upload Vite build
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "public/build"
+          target: "/home/izim8295/izitravel/public"
+          strip_components: 1
+          overwrite: true
+
+      # 7. Migration + Optimize Laravel
+      - name: Run Laravel deployment tasks
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            set -e
+
+            cd /home/izim8295/izitravel
+
+            php artisan migrate --force
+            php artisan optimize
