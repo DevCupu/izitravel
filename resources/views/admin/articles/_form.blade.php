@@ -333,15 +333,103 @@
     .dark .ck-content blockquote {
         background: rgba(255,255,255,0.02) !important;
     }
+    .ck-content figure.image {
+        margin: 1.5rem auto !important;
+        max-width: 100% !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .ck-content figure.image img {
+        border-radius: 0.75rem !important;
+        max-width: 100% !important;
+        height: auto !important;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .ck-content figure.media {
+        margin: 1.5rem auto !important;
+        max-width: 100% !important;
+        position: relative;
+    }
 </style>
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
 <script>
+    class MyUploadAdapter {
+        constructor(loader) {
+            this.loader = loader;
+        }
+
+        upload() {
+            return this.loader.file
+                .then(file => new Promise((resolve, reject) => {
+                    this._initRequest();
+                    this._initListeners(resolve, reject, file);
+                    this._sendRequest(file);
+                }));
+        }
+
+        abort() {
+            if (this.xhr) {
+                this.xhr.abort();
+            }
+        }
+
+        _initRequest() {
+            const xhr = this.xhr = new XMLHttpRequest();
+            xhr.open('POST', '{{ route("admin.articles.upload-image") }}', true);
+            xhr.setRequestHeader('x-csrf-token', '{{ csrf_token() }}');
+            xhr.responseType = 'json';
+        }
+
+        _initListeners(resolve, reject, file) {
+            const xhr = this.xhr;
+            const loader = this.loader;
+            const genericErrorText = `Gagal mengunggah file: ${file.name}.`;
+
+            xhr.addEventListener('error', () => reject(genericErrorText));
+            xhr.addEventListener('abort', () => reject());
+            xhr.addEventListener('load', () => {
+                const response = xhr.response;
+
+                if (!response || response.error) {
+                    return reject(response && response.error ? response.error.message : genericErrorText);
+                }
+
+                resolve({
+                    default: response.url
+                });
+            });
+
+            if (xhr.upload) {
+                xhr.upload.addEventListener('progress', evt => {
+                    if (evt.lengthComputable) {
+                        loader.uploadTotal = evt.total;
+                        loader.uploaded = evt.loaded;
+                    }
+                });
+            }
+        }
+
+        _sendRequest(file) {
+            const data = new FormData();
+            data.append('upload', file);
+            this.xhr.send(data);
+        }
+    }
+
+    function MyCustomUploadAdapterPlugin(editor) {
+        editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+            return new MyUploadAdapter(loader);
+        };
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         const textarea = document.querySelector('#content');
         if (textarea) {
             ClassicEditor
                 .create(textarea, {
-                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'undo', 'redo' ]
+                    extraPlugins: [ MyCustomUploadAdapterPlugin ],
+                    toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote', 'uploadImage', 'mediaEmbed', 'insertTable', 'undo', 'redo' ]
                 })
                 .then(editor => {
                     const form = textarea.closest('form');

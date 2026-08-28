@@ -78,6 +78,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::post('galleries/delete-album', [AdminGalleryController::class, 'deleteAlbum'])->name('galleries.delete-album');
     Route::resource('galleries', AdminGalleryController::class);
     Route::resource('faqs', AdminFaqController::class)->except('show');
+    Route::post('articles/upload-image', [ArticleController::class, 'uploadImage'])->name('articles.upload-image');
     Route::resource('articles', ArticleController::class)->except('show');
     Route::resource('teams', TeamController::class)->except('show');
     Route::resource('partners', PartnerController::class)->except('show');

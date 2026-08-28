@@ -86,6 +86,28 @@ class ArticleController extends Controller
         return redirect()->route('admin.articles.index')->with('status', 'Artikel berhasil dihapus.');
     }
 
+    public function uploadImage(Request $request)
+    {
+        $request->validate([
+            'upload' => ['required', 'image', 'max:5120'],
+        ]);
+
+        if ($request->hasFile('upload')) {
+            $path = $request->file('upload')->store('articles/media', 'public');
+            $url = Storage::disk('public')->url($path);
+
+            return response()->json([
+                'url' => $url
+            ]);
+        }
+
+        return response()->json([
+            'error' => [
+                'message' => 'Gagal mengunggah gambar.'
+            ]
+        ], 400);
+    }
+
     private function validateData(Request $request, ?string $id = null): array
     {
         $rules = [

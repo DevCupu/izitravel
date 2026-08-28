@@ -249,6 +249,26 @@
             display: block;
         }
 
+        .prose figure.image {
+            margin: 2rem auto !important;
+            max-width: 100% !important;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .prose figure.image img {
+            border-radius: 1rem !important;
+            max-width: 100% !important;
+            height: auto !important;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        .prose figure.media {
+            margin: 2rem auto !important;
+            max-width: 100% !important;
+        }
+
         .prose hr {
             border: 0;
             border-top: 1px solid #e2e8f0;
@@ -805,6 +825,51 @@
             if (window.lucide) {
                 window.lucide.createIcons();
             }
+        });
+    </script>
+    <!-- Resolve oembed (video elements) for CKEditor 5 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('oembed[url]').forEach(element => {
+                const url = element.getAttribute('url');
+                if (!url) return;
+                
+                let embedUrl = null;
+
+                // YouTube
+                if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = '';
+                    if (url.includes('youtube.com/watch')) {
+                        const urlParams = new URLSearchParams(new URL(url).search);
+                        videoId = urlParams.get('v');
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0];
+                    } else if (url.includes('youtube.com/embed/')) {
+                        videoId = url.split('youtube.com/embed/')[1].split('?')[0];
+                    }
+                    if (videoId) {
+                        embedUrl = `https://www.youtube.com/embed/${videoId}`;
+                    }
+                }
+                // Vimeo
+                else if (url.includes('vimeo.com')) {
+                    const videoId = url.split('/').pop();
+                    if (videoId) {
+                        embedUrl = `https://player.vimeo.com/video/${videoId}`;
+                    }
+                }
+
+                if (embedUrl) {
+                    const iframe = document.createElement('iframe');
+                    iframe.setAttribute('src', embedUrl);
+                    iframe.setAttribute('frameborder', '0');
+                    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                    iframe.setAttribute('allowfullscreen', 'true');
+                    iframe.className = 'w-full aspect-video rounded-2xl my-6 shadow-lg border border-slate-100';
+                    
+                    element.parentNode.replaceChild(iframe, element);
+                }
+            });
         });
     </script>
 </body>
