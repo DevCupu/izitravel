@@ -731,8 +731,8 @@
                 @php
                     $heroStats = [
                         ['icon' => 'shield-check', 'value' => $settings['hero_stat_berizin'] ?? 'BERIZIN', 'label' => 'RESMI', 'sub' => $settings['hero_stat_berizin_sub'] ?? 'Kemenag RI'],
-                        ['icon' => 'users', 'value' => $settings['about_departed_count'] ?? '500', 'label' => '+ JAMAAH', 'sub' => $settings['hero_stat_jamaah_sub'] ?? 'Telah Berangkat'],
-                        ['icon' => 'star', 'value' => $settings['about_satisfaction_rate'] ?? '4.9', 'label' => '/5 RATING', 'sub' => $settings['hero_stat_rating_sub'] ?? 'Dari Jamaah'],
+                        ['icon' => 'users', 'value' => ($settings['about_departed_count'] ?? '10') . 'K', 'label' => '+ JAMAAH', 'sub' => $settings['hero_stat_jamaah_sub'] ?? 'Telah Berangkat'],
+                        ['icon' => 'star', 'value' => $settings['about_satisfaction_rate'] ?? '99', 'label' => '% PUAS', 'sub' => $settings['hero_stat_rating_sub'] ?? 'Dari Jamaah'],
                         ['icon' => 'heart', 'value' => '100%', 'label' => 'AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
                     ];
                 @endphp
@@ -890,6 +890,331 @@
         </div>
     </section>
     <!-- END: HeroSection -->
+
+    <!-- BEGIN: Trust Bar -->
+    <section class="py-6 md:py-8 bg-white border-b border-stone-100 relative z-10" data-purpose="trust-bar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap items-center justify-center lg:justify-between gap-x-8 gap-y-4 reveal">
+                @php
+                    $trustBarStats = [
+                        ['icon' => 'shield-check', 'value' => $settings['hero_stat_berizin'] ?? 'BERIZIN', 'label' => $settings['hero_stat_berizin_sub'] ?? 'PPIU Resmi Kemenag RI'],
+                        ['icon' => 'users', 'value' => ($settings['about_departed_count'] ?? '10') . 'K+', 'label' => $settings['about_stat_2_label'] ?? 'Jamaah Berangkat'],
+                        ['icon' => 'smile', 'value' => ($settings['about_satisfaction_rate'] ?? '99') . '%', 'label' => $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah'],
+                        ['icon' => 'heart', 'value' => '100%', 'label' => $settings['hero_stat_amanah_sub'] ?? 'Amanah & Terpercaya'],
+                    ];
+                @endphp
+                @foreach ($trustBarStats as $stat)
+                    <div class="flex items-center gap-3">
+                        <span class="shrink-0 w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                            <i data-lucide="{{ $stat['icon'] }}" class="w-5 h-5"></i>
+                        </span>
+                        <div class="leading-tight">
+                            <p class="text-base font-black text-stone-900">{{ $stat['value'] }}</p>
+                            <p class="text-[11px] text-stone-500 font-bold uppercase tracking-wide">{{ $stat['label'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!-- END: Trust Bar -->
+
+    <!-- BEGIN: Why Choose Us -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
+        <!-- Blurred Kaaba Background Image (Split Right with Left Gradient Fade) -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
+            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
+        </div>
+
+        <!-- Section Header (Premium Split Layout) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
+                <div class="space-y-3 flex flex-col items-center lg:items-start">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="award" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                        {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
+                    </span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight text-center lg:text-left">
+                        {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
+                    </h2>
+                </div>
+                <p class="text-stone-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                    {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
+                <!-- Feature 1: Wide Dark Bento Card -->
+                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-600/15 rounded-full blur-3xl"></div>
+                    <div>
+                        <div class="mb-6 bg-amber-500/10 text-amber-400 p-4 rounded-2xl w-fit border border-amber-500/20 shadow-inner">
+                            @if (!empty($settings['feature_1_image']))
+                                <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-xl mb-3 group-hover:text-amber-400 transition duration-300">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
+                        <p class="text-blue-100/70 text-xs md:text-sm leading-relaxed max-w-xl font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Standard Card -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
+                            @if (!empty($settings['feature_2_image']))
+                                <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Standard Card -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
+                            @if (!empty($settings['feature_3_image']))
+                                <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4: Standard Card -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
+                            @if (!empty($settings['feature_4_image']))
+                                <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Standard Card -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                    <div>
+                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
+                            @if (!empty($settings['feature_5_image']))
+                                <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 6: Wide Horizontal Card -->
+                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
+                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
+                    
+                    <div class="bg-white/10 text-white p-4 rounded-2xl border border-white/20 shadow-inner flex-shrink-0 w-fit">
+                        @if (!empty($settings['feature_6_image']))
+                            <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                        @else
+                            <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
+                        @endif
+                    </div>
+                    <div class="space-y-2 w-full">
+                        <h3 class="font-extrabold text-white text-lg md:text-xl tracking-tight leading-tight">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
+                        <p class="text-blue-100/90 text-xs md:text-sm leading-relaxed max-w-3xl font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Why Choose Us -->
+
+    <!-- BEGIN: FeaturedPackages -->
+    <section class="relative py-16 md:py-24 mt-8 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
+        <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Right Gradient Fade) -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
+            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
+            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
+        </div>
+
+        <!-- Premium Ambient Glow Blobs -->
+        <div class="absolute left-1/2 -translate-x-1/2 top-1/4 w-[500px] h-[250px] bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
+        <div class="absolute left-1/3 top-1/2 w-[350px] h-[250px] bg-blue-400/8 rounded-full blur-[90px] pointer-events-none -z-10 animate-aurora-2"></div>
+        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[300px] bg-amber-400/6 rounded-full blur-[110px] pointer-events-none -z-10 animate-aurora-3"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                        {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
+                    </span>
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight reveal-words">
+                        {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
+                    </h2>
+                    @include('partials.ornament')
+                    <p class="text-stone-500 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
+                        {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
+                    </p>
+                </div>
+            </div>
+            @php
+                $groupedPackages = $packages->groupBy(function ($p) {
+                    return $p->category ?: 'Lainnya';
+                });
+
+                $dbCategories = \App\Models\Category::where('is_active', true)->orderBy('order')->pluck('name')->toArray();
+
+                // Append any category names from grouped packages that aren't in $dbCategories
+                foreach ($groupedPackages as $catName => $pkgs) {
+                    $nameToUse = $catName ?: 'Lainnya';
+                    if (!in_array($nameToUse, $dbCategories)) {
+                        $dbCategories[] = $nameToUse;
+                    }
+                }
+
+                $categoryOrder = array_unique($dbCategories);
+
+                $sortedGroups = collect($categoryOrder)
+                    ->mapWithKeys(function($c) use ($groupedPackages) {
+                        $packagesOfCat = $groupedPackages->get($c);
+                        if ($c === 'Lainnya' && !$packagesOfCat) {
+                            $packagesOfCat = $groupedPackages->get('');
+                        }
+                        return $packagesOfCat ? [$c => $packagesOfCat] : [];
+                    });
+            @endphp
+
+            <!-- Category Filter Tabs -->
+            <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
+                <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
+                    <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
+                    <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
+                    @foreach ($sortedGroups as $categoryName => $categoryPackages)
+                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
+                @foreach ($packages as $package)
+                    @php
+                        $badgeClasses = match ($package->badge_color) {
+                            'amber' => 'bg-amber-500 text-stone-950',
+                            'emerald' => 'bg-emerald-600 text-white',
+                            'indigo' => 'bg-blue-600 text-white',
+                            'rose' => 'bg-rose-600 text-white',
+                            default => 'bg-stone-900 text-white',
+                        };
+                        $isFeatured = !empty($package->badge_label);
+                        $cardBorderClass = $isFeatured && $package->badge_color === 'amber'
+                            ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]'
+                            : 'border-stone-100/80 hover:border-blue-600/20 shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
+                        $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
+                    @endphp
+                    <div class="package-item reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
+                        <div class="w-full">
+                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-3xl">
+                                <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" />
+                                @if ($package->badge_label)
+                                    <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
+                                @endif
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-extrabold text-sm md:text-base text-stone-900 mb-3 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.25rem]">{{ $package->name }}</h3>
+
+                                <div class="grid grid-cols-2 gap-2 mb-2">
+                                    <div class="col-span-2 flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->airline }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
+                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-4 h-4"></i></span>
+                                        <div class="min-w-0">
+                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
+                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->hotel }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
+                            <!-- Ticket notches overlaying the dashed line -->
+                            <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+                            <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
+
+                            <div>
+                                <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
+                                <p class="font-extrabold text-base text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
+                            </div>
+                            <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
+                                <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
+                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+    </section>
+    <!-- END: FeaturedPackages -->
+
+    <!-- BEGIN: Partners -->
+    <section class="py-8 md:py-10 bg-stone-50/20" data-purpose="partners-logo-cloud">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-stone-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
+            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
+                @foreach ($partners as $partner)
+                    <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
+                        @if ($partner->logo_type === 'svg')
+                            <div class="h-10 md:h-16 flex items-center justify-center text-stone-700 dark:text-stone-400 [&>svg]:!h-full [&>svg]:w-auto">
+                                {!! $partner->logo_path !!}
+                            </div>
+                        @else
+                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-10 md:h-16 w-auto object-contain" loading="lazy" decoding="async">
+                        @endif
+                    </div>
+                @endforeach
+                <!-- Premium Hotel Link -->
+                <div class="text-amber-500 font-extrabold text-lg md:text-2xl italic hover:text-amber-600 transition duration-300">
+                    {{ $settings['partners_extra'] ?? '+ Akomodasi Bintang 5' }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Partners -->
 
     <!-- BEGIN: Tentang Kami -->
     <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
@@ -1131,136 +1456,6 @@
     </section>
     <!-- END: Tentang Kami -->
 
-    <!-- BEGIN: Why Choose Us -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
-        <!-- Blurred Kaaba Background Image (Split Right with Left Gradient Fade) -->
-        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
-            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
-        </div>
-
-        <!-- Section Header (Premium Split Layout) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
-                <div class="space-y-3 flex flex-col items-center lg:items-start">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="award" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                        {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
-                    </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight text-center lg:text-left">
-                        {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
-                    </h2>
-                </div>
-                <p class="text-stone-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
-                    {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
-                </p>
-            </div>
-        </div>
-
-        <!-- Bento Grid Layout -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
-                <!-- Feature 1: Wide Dark Bento Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
-                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-600/15 rounded-full blur-3xl"></div>
-                    <div>
-                        <div class="mb-6 bg-amber-500/10 text-amber-400 p-4 rounded-2xl w-fit border border-amber-500/20 shadow-inner">
-                            @if (!empty($settings['feature_1_image']))
-                                <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                            @else
-                                <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
-                            @endif
-                        </div>
-                        <h3 class="font-extrabold text-white text-xl mb-3 group-hover:text-amber-400 transition duration-300">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
-                        <p class="text-blue-100/70 text-xs md:text-sm leading-relaxed max-w-xl font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
-                    </div>
-                </div>
-
-                <!-- Feature 2: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
-                            @if (!empty($settings['feature_2_image']))
-                                <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                            @else
-                                <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
-                            @endif
-                        </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
-                    </div>
-                </div>
-
-                <!-- Feature 3: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
-                            @if (!empty($settings['feature_3_image']))
-                                <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                            @else
-                                <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
-                            @endif
-                        </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
-                    </div>
-                </div>
-
-                <!-- Feature 4: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
-                            @if (!empty($settings['feature_4_image']))
-                                <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                            @else
-                                <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
-                            @endif
-                        </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
-                    </div>
-                </div>
-
-                <!-- Feature 5: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
-                    <div>
-                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
-                            @if (!empty($settings['feature_5_image']))
-                                <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                            @else
-                                <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
-                            @endif
-                        </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
-                    </div>
-                </div>
-
-                <!-- Feature 6: Wide Horizontal Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
-                    
-                    <div class="bg-white/10 text-white p-4 rounded-2xl border border-white/20 shadow-inner flex-shrink-0 w-fit">
-                        @if (!empty($settings['feature_6_image']))
-                            <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                        @else
-                            <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
-                        @endif
-                    </div>
-                    <div class="space-y-2 w-full">
-                        <h3 class="font-extrabold text-white text-lg md:text-xl tracking-tight leading-tight">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
-                        <p class="text-blue-100/90 text-xs md:text-sm leading-relaxed max-w-3xl font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END: Why Choose Us -->
-
     <!-- BEGIN: RegistrationFlow -->
     <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow">
         <!-- Background Image overlay -->
@@ -1274,7 +1469,7 @@
                     <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     Cara Daftar
                 </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['registration_title'] ?? 'Alur Pendaftaran Mudah' }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['registration_title'] ?? 'Alur Pendaftaran Mudah' }}</h2>
                 @include('partials.ornament')
                 <p class="text-stone-500 font-light text-xs md:text-sm max-w-md mx-auto leading-relaxed">{{ $settings['registration_subtitle'] ?? '6 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel' }}</p>
             </div>
@@ -1332,316 +1527,87 @@
     </section>
     <!-- END: RegistrationFlow -->
 
-    <!-- BEGIN: FeaturedPackages -->
-    <section class="relative py-16 md:py-24 mt-8 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
-        <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Right Gradient Fade) -->
-        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
-            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
-        </div>
-
-        <!-- Premium Ambient Glow Blobs -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-1/4 w-[500px] h-[250px] bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
-        <div class="absolute left-1/3 top-1/2 w-[350px] h-[250px] bg-blue-400/8 rounded-full blur-[90px] pointer-events-none -z-10 animate-aurora-2"></div>
-        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[300px] bg-amber-400/6 rounded-full blur-[110px] pointer-events-none -z-10 animate-aurora-3"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="mb-12 text-center reveal">
-                <div class="space-y-3 flex flex-col items-center">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+    <!-- BEGIN: Jamaah Portal -->
+    <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-blue-50/40 to-stone-50 relative overflow-hidden islamic-pattern-blue-soft" id="portal-jemaah" data-purpose="jamaah-portal-teaser">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left: Copy -->
+                <div class="space-y-6 reveal">
+                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm w-fit">
                         <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                        {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
+                        <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                        Portal Jemaah
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
-                        {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
-                    </h2>
-                    @include('partials.ornament')
-                    <p class="text-stone-500 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
-                        {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
-                    </p>
-                </div>
-            </div>
-            @php
-                $groupedPackages = $packages->groupBy(function ($p) {
-                    return $p->category ?: 'Lainnya';
-                });
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight leading-tight reveal-words">Setelah Booking, Perjalanan Anda Tetap Terpantau</h2>
+                    <p class="text-stone-500 font-medium text-sm md:text-base leading-relaxed max-w-lg">Cukup masukkan nomor paspor dan tanggal lahir Anda &mdash; pantau kesiapan dokumen, visa, tiket, dan hotel kapan saja, tanpa harus menunggu kabar dari tim kami.</p>
 
-                $dbCategories = \App\Models\Category::where('is_active', true)->orderBy('order')->pluck('name')->toArray();
-
-                // Append any category names from grouped packages that aren't in $dbCategories
-                foreach ($groupedPackages as $catName => $pkgs) {
-                    $nameToUse = $catName ?: 'Lainnya';
-                    if (!in_array($nameToUse, $dbCategories)) {
-                        $dbCategories[] = $nameToUse;
-                    }
-                }
-
-                $categoryOrder = array_unique($dbCategories);
-
-                $sortedGroups = collect($categoryOrder)
-                    ->mapWithKeys(function($c) use ($groupedPackages) {
-                        $packagesOfCat = $groupedPackages->get($c);
-                        if ($c === 'Lainnya' && !$packagesOfCat) {
-                            $packagesOfCat = $groupedPackages->get('');
-                        }
-                        return $packagesOfCat ? [$c => $packagesOfCat] : [];
-                    });
-            @endphp
-
-            <!-- Category Filter Tabs -->
-            <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
-                <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
-                    <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
-                    <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
-                    @foreach ($sortedGroups as $categoryName => $categoryPackages)
-                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
-                @foreach ($packages as $package)
-                    @php
-                        $badgeClasses = match ($package->badge_color) {
-                            'amber' => 'bg-amber-500 text-stone-950',
-                            'emerald' => 'bg-emerald-600 text-white',
-                            'indigo' => 'bg-blue-600 text-white',
-                            'rose' => 'bg-rose-600 text-white',
-                            default => 'bg-stone-900 text-white',
-                        };
-                        $isFeatured = !empty($package->badge_label);
-                        $cardBorderClass = $isFeatured && $package->badge_color === 'amber'
-                            ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]'
-                            : 'border-stone-100/80 hover:border-blue-600/20 shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
-                        $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
-                    @endphp
-                    <div class="package-item reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
-                        <div class="w-full">
-                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-3xl">
-                                <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" />
-                                @if ($package->badge_label)
-                                    <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
-                                @endif
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-extrabold text-sm md:text-base text-stone-900 mb-3 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.25rem]">{{ $package->name }}</h3>
-
-                                <div class="grid grid-cols-2 gap-2 mb-2">
-                                    <div class="col-span-2 flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->airline }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->hotel }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="grid grid-cols-2 gap-4 max-w-md">
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i data-lucide="file-check-2" class="w-4 h-4"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-stone-700">Dokumen</span>
                         </div>
-
-                        <div class="px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
-                            <!-- Ticket notches overlaying the dashed line -->
-                            <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
-                            <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
-
-                            <div>
-                                <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
-                                <p class="font-extrabold text-base text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
-                            </div>
-                            <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
-                                <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
-                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
-                            </a>
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i data-lucide="file-check" class="w-4 h-4"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-stone-700">Visa Umrah</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-stone-700">Tiket Pesawat</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-9 h-9 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 flex-shrink-0"><i data-lucide="building-2" class="w-4 h-4"></i></span>
+                            <span class="text-xs sm:text-sm font-bold text-stone-700">Hotel</span>
                         </div>
                     </div>
-                @endforeach
-            </div>
-    </section>
-    <!-- END: FeaturedPackages -->
 
-    <!-- BEGIN: Partners -->
-    <section class="py-8 md:py-10 bg-stone-50/20" data-purpose="partners-logo-cloud">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-stone-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
-            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
-                @foreach ($partners as $partner)
-                    <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
-                        @if ($partner->logo_type === 'svg')
-                            <div class="h-10 md:h-16 flex items-center justify-center text-stone-700 dark:text-stone-400 [&>svg]:!h-full [&>svg]:w-auto">
-                                {!! $partner->logo_path !!}
-                            </div>
-                        @else
-                            <img src="{{ $partner->logo_url }}" alt="{{ $partner->name }}" class="h-10 md:h-16 w-auto object-contain" loading="lazy" decoding="async">
-                        @endif
-                    </div>
-                @endforeach
-                <!-- Premium Hotel Link -->
-                <div class="text-amber-500 font-extrabold text-lg md:text-2xl italic hover:text-amber-600 transition duration-300">
-                    {{ $settings['partners_extra'] ?? '+ Akomodasi Bintang 5' }}
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END: Partners -->
-
-    <!-- BEGIN: Gallery -->
-    <section class="py-16 md:py-24 bg-stone-50" id="galeri" data-purpose="gallery-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center space-y-4 mb-12 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="images" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                    {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
-                </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
-                @include('partials.ornament')
-                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
-                
-            @php
-                $albums = $galleries->groupBy(function($item) {
-                    return trim($item->category_label) ?: 'Umum';
-                })->map(function($items, $name) {
-                    $coverItem = $items->firstWhere('type', 'photo') ?? $items->first();
-                    
-                    $mappedItems = $items->map(function($item) {
-                        return [
-                            'type' => $item->type,
-                            'src' => $item->image_url,
-                            'title' => $item->title,
-                            'category' => $item->type === 'video' ? ($item->video_platform === 'youtube' ? 'YouTube' : 'Instagram Reel') : ($item->category_label ?? 'Foto'),
-                            'video_id' => $item->video_id,
-                            'video_platform' => $item->video_platform,
-                        ];
-                    })->values();
-
-                    return (object) [
-                        'name' => $name,
-                        'cover_url' => $coverItem ? $coverItem->image_url : null,
-                        'items' => $mappedItems,
-                        'count' => $items->count(),
-                        'last_updated' => $items->max('updated_at'),
-                    ];
-                })->sortByDesc('last_updated');
-                
-                $totalAlbumsCount = $albums->count();
-                $displayAlbums = $albums->take(6);
-            @endphp
-            
-            <!-- Gallery Grid (Albums Folder View) -->
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
-                @foreach ($displayAlbums as $album)
-                    <!-- Album Folder Card -->
-                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
-                         data-album-name="{{ $album->name }}"
-                         data-items="{{ json_encode($album->items) }}">
-                        
-                        <!-- Folder Tab Shape Design -->
-                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
-                            <!-- Cover Image -->
-                            @if ($album->cover_url)
-                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
-                            @else
-                                <div class="flex flex-col items-center gap-2 text-stone-300">
-                                    <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
-                                </div>
-                            @endif
-                            
-                            <!-- Folder Tag Badge on Top Left -->
-                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-stone-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
-                                <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
-                                Album
-                            </div>
-                            
-                            <!-- Media Count Badge on Bottom Right -->
-                            <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-blue-600 text-white text-[8px] sm:text-[10px] font-black px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
-                                {{ $album->count }} <span class="hidden sm:inline">Foto &amp; Video</span><span class="inline sm:hidden">Media</span>
-                            </div>
-
-                            <!-- Play Overlay if it contains videos -->
-                            <div class="absolute inset-0 bg-stone-950/20 group-hover:bg-stone-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
-                                    <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Album Description Info -->
-                        <div class="flex flex-col">
-                            <h3 class="font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
-                            <p class="text-[10px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
-                                <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
-                                <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
-                            </p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            @if ($totalAlbumsCount > 6)
-                <div class="text-center mt-12">
-                    <a href="{{ route('public.gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-blue-600 font-extrabold text-sm rounded-2xl shadow-sm hover:shadow transition-all duration-200 active:scale-95">
-                        <i data-lucide="folder-open" class="w-4 h-4 text-blue-500"></i>
-                        <span>Lihat Semua Album</span>
+                    <a href="{{ route('public.jemaah.tracking') }}" class="group inline-flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.97] rounded-full font-bold text-sm text-white transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30 w-fit">
+                        <i data-lucide="search-check" class="w-4.5 h-4.5"></i>
+                        Cek Status Keberangkatan Saya
+                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
                     </a>
                 </div>
-            @endif
-        </div>
 
-        <!-- Unified Gallery Lightbox Modal -->
-        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-stone-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
-            <!-- Close Button -->
-            <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-            
-            <!-- Prev Button -->
-            <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Sebelumnya">
-                <i data-lucide="chevron-left" class="w-7 h-7"></i>
-            </button>
-            
-            <!-- Next Button -->
-            <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Selanjutnya">
-                <i data-lucide="chevron-right" class="w-7 h-7"></i>
-            </button>
-            
-            <!-- Content Container -->
-            <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 scale-95" id="lightbox-content-box">
-                <!-- Media Area -->
-                <div class="relative w-full max-h-[70vh] flex items-center justify-center rounded-3xl overflow-hidden bg-black/40 border border-white/5 shadow-2xl">
-                    <!-- Image Display -->
-                    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain hidden transition-all duration-300 opacity-0" />
-                    
-                    <!-- Video Embed Wrapper -->
-                    <div id="lightbox-video-container" class="aspect-video w-full hidden">
-                        <iframe id="lightbox-iframe" title="Pemutar video galeri" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- Right: Portal Preview Mockup -->
+                <div class="reveal-scale">
+                    <div class="bg-gradient-to-br from-[#0c2540] via-[#071930] to-[#030d1a] border border-[#c89e2b]/30 rounded-[2.5rem] p-6 sm:p-8 shadow-2xl relative overflow-hidden text-white">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <p class="text-[10px] font-bold uppercase tracking-widest text-amber-300/80">Status Persiapan</p>
+                                <p class="text-lg font-black">Umrah Syawal Istimewa</p>
+                            </div>
+                            <span class="text-[10px] font-black uppercase tracking-widest bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 px-3 py-1.5 rounded-full">75% Siap</span>
+                        </div>
+                        <div class="h-1.5 rounded-full bg-white/10 overflow-hidden mb-7">
+                            <div class="h-full w-3/4 rounded-full bg-gradient-to-r from-amber-400 to-emerald-400"></div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3">
+                                <span class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>
+                                <span class="text-sm font-semibold flex-1">Dokumen &amp; Paspor</span>
+                                <span class="text-[10px] font-bold text-emerald-300 uppercase tracking-wide">Selesai</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3">
+                                <span class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>
+                                <span class="text-sm font-semibold flex-1">Visa Umrah</span>
+                                <span class="text-[10px] font-bold text-emerald-300 uppercase tracking-wide">Selesai</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3">
+                                <span class="w-8 h-8 rounded-xl bg-emerald-500/15 text-emerald-300 flex items-center justify-center flex-shrink-0"><i data-lucide="check" class="w-4 h-4"></i></span>
+                                <span class="text-sm font-semibold flex-1">Tiket Pesawat PP</span>
+                                <span class="text-[10px] font-bold text-emerald-300 uppercase tracking-wide">Selesai</span>
+                            </div>
+                            <div class="flex items-center gap-3 bg-amber-500/10 border border-amber-400/20 rounded-2xl px-4 py-3">
+                                <span class="w-8 h-8 rounded-xl bg-amber-500/15 text-amber-300 flex items-center justify-center flex-shrink-0"><i data-lucide="loader" class="w-4 h-4"></i></span>
+                                <span class="text-sm font-semibold flex-1">Hotel Makkah &amp; Madinah</span>
+                                <span class="text-[10px] font-bold text-amber-300 uppercase tracking-wide">Diproses</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                
-                <!-- Caption / Info Area -->
-                <div class="w-full max-w-3xl text-center px-4">
-                    <span id="lightbox-tag" class="text-xs text-amber-400 font-extrabold uppercase tracking-widest block mb-1"></span>
-                    <h3 id="lightbox-title" class="text-white font-black text-lg md:text-xl tracking-wide"></h3>
-                    <p id="lightbox-counter" class="text-white/40 text-xs mt-2 font-bold tracking-widest"></p>
                 </div>
             </div>
         </div>
     </section>
-    <!-- END: Gallery -->
+    <!-- END: Jamaah Portal -->
 
     <!-- BEGIN: Testimonials -->
     <section class="py-16 md:py-24 bg-gradient-to-tr from-blue-600/12 via-blue-600/3 to-stone-50 overflow-hidden relative" id="testimoni" data-purpose="testimonials">
@@ -1656,7 +1622,7 @@
                     <i data-lucide="message-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['testimonials_label'] ?? 'Testimoni' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
                 @include('partials.ornament')
                 <p class="text-stone-500 font-medium text-sm md:text-base">{{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}</p>
             </div>
@@ -1933,6 +1899,150 @@
     </section>
     <!-- END: Testimonials -->
 
+    <!-- BEGIN: Gallery -->
+    <section class="py-16 md:py-24 bg-stone-50" id="galeri" data-purpose="gallery-section">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-4 mb-12 reveal">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                    <i data-lucide="images" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
+                @include('partials.ornament')
+                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
+                
+            @php
+                $albums = $galleries->groupBy(function($item) {
+                    return trim($item->category_label) ?: 'Umum';
+                })->map(function($items, $name) {
+                    $coverItem = $items->firstWhere('type', 'photo') ?? $items->first();
+                    
+                    $mappedItems = $items->map(function($item) {
+                        return [
+                            'type' => $item->type,
+                            'src' => $item->image_url,
+                            'title' => $item->title,
+                            'category' => $item->type === 'video' ? ($item->video_platform === 'youtube' ? 'YouTube' : 'Instagram Reel') : ($item->category_label ?? 'Foto'),
+                            'video_id' => $item->video_id,
+                            'video_platform' => $item->video_platform,
+                        ];
+                    })->values();
+
+                    return (object) [
+                        'name' => $name,
+                        'cover_url' => $coverItem ? $coverItem->image_url : null,
+                        'items' => $mappedItems,
+                        'count' => $items->count(),
+                        'last_updated' => $items->max('updated_at'),
+                    ];
+                })->sortByDesc('last_updated');
+                
+                $totalAlbumsCount = $albums->count();
+                $displayAlbums = $albums->take(6);
+            @endphp
+            
+            <!-- Gallery Grid (Albums Folder View) -->
+            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
+                @foreach ($displayAlbums as $album)
+                    <!-- Album Folder Card -->
+                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
+                         data-album-name="{{ $album->name }}"
+                         data-items="{{ json_encode($album->items) }}">
+                        
+                        <!-- Folder Tab Shape Design -->
+                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
+                            <!-- Cover Image -->
+                            @if ($album->cover_url)
+                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
+                            @else
+                                <div class="flex flex-col items-center gap-2 text-stone-300">
+                                    <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
+                                </div>
+                            @endif
+                            
+                            <!-- Folder Tag Badge on Top Left -->
+                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-stone-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
+                                <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
+                                Album
+                            </div>
+                            
+                            <!-- Media Count Badge on Bottom Right -->
+                            <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-blue-600 text-white text-[8px] sm:text-[10px] font-black px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
+                                {{ $album->count }} <span class="hidden sm:inline">Foto &amp; Video</span><span class="inline sm:hidden">Media</span>
+                            </div>
+
+                            <!-- Play Overlay if it contains videos -->
+                            <div class="absolute inset-0 bg-stone-950/20 group-hover:bg-stone-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
+                                    <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Album Description Info -->
+                        <div class="flex flex-col">
+                            <h3 class="font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
+                            <p class="text-[10px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
+                                <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
+                                <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
+                            </p>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            @if ($totalAlbumsCount > 6)
+                <div class="text-center mt-12">
+                    <a href="{{ route('public.gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-blue-600 font-extrabold text-sm rounded-2xl shadow-sm hover:shadow transition-all duration-200 active:scale-95">
+                        <i data-lucide="folder-open" class="w-4 h-4 text-blue-500"></i>
+                        <span>Lihat Semua Album</span>
+                    </a>
+                </div>
+            @endif
+        </div>
+
+        <!-- Unified Gallery Lightbox Modal -->
+        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-stone-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
+            <!-- Close Button -->
+            <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <!-- Prev Button -->
+            <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Sebelumnya">
+                <i data-lucide="chevron-left" class="w-7 h-7"></i>
+            </button>
+            
+            <!-- Next Button -->
+            <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Selanjutnya">
+                <i data-lucide="chevron-right" class="w-7 h-7"></i>
+            </button>
+            
+            <!-- Content Container -->
+            <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 scale-95" id="lightbox-content-box">
+                <!-- Media Area -->
+                <div class="relative w-full max-h-[70vh] flex items-center justify-center rounded-3xl overflow-hidden bg-black/40 border border-white/5 shadow-2xl">
+                    <!-- Image Display -->
+                    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain hidden transition-all duration-300 opacity-0" />
+                    
+                    <!-- Video Embed Wrapper -->
+                    <div id="lightbox-video-container" class="aspect-video w-full hidden">
+                        <iframe id="lightbox-iframe" title="Pemutar video galeri" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <!-- Caption / Info Area -->
+                <div class="w-full max-w-3xl text-center px-4">
+                    <span id="lightbox-tag" class="text-xs text-amber-400 font-extrabold uppercase tracking-widest block mb-1"></span>
+                    <h3 id="lightbox-title" class="text-white font-black text-lg md:text-xl tracking-wide"></h3>
+                    <p id="lightbox-counter" class="text-white/40 text-xs mt-2 font-bold tracking-widest"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Gallery -->
+
     <!-- BEGIN: Articles -->
     <section class="py-16 md:py-24 bg-stone-50 overflow-hidden relative" id="artikel" data-purpose="articles-section">
         <!-- Glow backdrops -->
@@ -1946,7 +2056,7 @@
                     <i data-lucide="book-open" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['articles_label'] ?? 'Artikel &amp; Inspirasi' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
                 @include('partials.ornament')
                 <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}</p>
                 
@@ -2267,7 +2377,7 @@
                     <i data-lucide="handshake" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['partnership_badge'] ?? 'Program Kemitraan' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-blue-950 tracking-tight reveal-words">{{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-blue-950 tracking-tight reveal-words">{{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}</h2>
                 <p class="text-blue-900/70 max-w-2xl mx-auto text-xs md:text-sm leading-relaxed">{{ $settings['partnership_subtitle'] ?? 'Menjadi mitra syiar baitullah berkesempatan mendapatkan komisi hingga puluhan juta rupiah bahkan berkesempatan untuk umroh.' }}</p>
             </div>
 
@@ -2281,7 +2391,7 @@
                             </div>
                             <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_1_badge'] ?? 'Freelance' }}</span>
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_1_title'] ?? 'Mitra Freelance' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-1">{{ $settings['partnership_tier_1_title'] ?? 'Mitra Freelance' }}</h3>
                         <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
                         <p class="text-3xl font-black text-blue-600 mb-6">{{ $settings['partnership_tier_1_price'] ?? 'FREE' }}</p>
                         <div class="h-px bg-stone-100 mb-6"></div>
@@ -2315,7 +2425,7 @@
                             </div>
                             <span class="bg-amber-100/70 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_2_badge'] ?? 'Agen Resmi' }}</span>
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_2_title'] ?? 'Mitra Agen' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg md:text-xl mb-1">{{ $settings['partnership_tier_2_title'] ?? 'Mitra Agen' }}</h3>
                         <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
                         <p class="text-3xl font-black text-amber-500 mb-6">{{ $settings['partnership_tier_2_price'] ?? 'Rp 1.000.000' }}</p>
                         <div class="h-px bg-stone-100 mb-6"></div>
@@ -2391,8 +2501,6 @@
     </section>
     <!-- END: Kemitraan -->
 
-
-
     <!-- BEGIN: FAQ -->
     <section class="py-16 md:py-24 relative overflow-hidden bg-stone-100/40" data-purpose="faq-section">
         <!-- Background Image overlay -->
@@ -2406,7 +2514,7 @@
                     <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     Tanya Jawab
                 </span>
-                <h2 class="text-3xl font-extrabold text-center text-stone-900 tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-center text-stone-900 tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
                 @include('partials.ornament')
             </div>
             <div class="space-y-4 reveal">
@@ -2441,7 +2549,7 @@
         <div class="absolute inset-0 bg-stone-100/10 pointer-events-none z-10"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">
             <div class="bg-gradient-to-br from-white/95 to-blue-600/[0.06] backdrop-blur-xl border border-blue-600/10 p-6 sm:p-12 md:p-16 rounded-[2rem] shadow-2xl shadow-blue-600/[0.03] reveal">
-                <h2 class="text-3xl md:text-5xl font-black text-stone-900 mb-6 tracking-tight">
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 mb-6 tracking-tight">
                     {{ $settings['cta_title'] ?? 'Siap Memulai Perjalanan Suci Anda?' }}
                 </h2>
                 <p class="text-lg text-stone-600 mb-10 max-w-2xl mx-auto leading-relaxed">
