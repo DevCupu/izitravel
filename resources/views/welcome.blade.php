@@ -459,6 +459,11 @@
         }
         #testimonial-track {
             display: flex;
+            /* flex-start, not the stretch default: all 12 slides sit in one unbroken flex row
+               (it's a slider, not a wrapping grid), so stretch was forcing every card to match
+               the height of the single tallest slide anywhere in the track (usually a video
+               card), leaving short text-only cards with a huge dead gap at the bottom. */
+            align-items: flex-start;
             /* No transition here: dragging sets style.transform directly every frame (needs to
                stay instant), and the "commit to nearest slide" snap is driven by Motion.animate()
                in the script below — a competing CSS transition on the same property caused the
@@ -1745,7 +1750,7 @@
                                                             </div>
                                                         @endif
                                                         <div class="min-w-0">
-                                                            <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
+                                                            <h3 class="font-extrabold text-stone-900 text-sm md:text-base line-clamp-2 group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
                                                             <p class="text-xs text-stone-400 truncate">{{ $testimonial->location }}</p>
                                                         </div>
                                                     </div>
@@ -1784,9 +1789,16 @@
 
                                                 <div class="relative mt-2">
                                                     <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                    <p class="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
+                                                    <p class="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3 line-clamp-3 sm:line-clamp-4">
                                                         {{ $testimonial->message }}
                                                     </p>
+                                                    @if(mb_strlen($testimonial->message) > 150)
+                                                        <button type="button"
+                                                                onclick="window.openTestimonialTextModal(@js($testimonial->name), @js($testimonial->location), @js($testimonial->message), {{ (int) $testimonial->rating }}, @js($parsedEmbedUrl))"
+                                                                class="relative z-10 pl-3 -mt-3 mb-4 sm:mb-6 text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline">
+                                                            Baca selengkapnya
+                                                        </button>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -4235,6 +4247,25 @@
         </div>
     </div>
 
+    <!-- Testimonial Full Text Modal -->
+    <div id="testimonial-text-modal" class="fixed inset-0 z-[100] bg-stone-950/80 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 cursor-pointer" onclick="window.closeTestimonialTextModal()"></div>
+        <div class="relative w-full max-w-lg bg-white rounded-3xl overflow-hidden shadow-2xl scale-95 border border-stone-100 max-h-[85vh] flex flex-col" id="testimonial-text-modal-content">
+            <button onclick="window.closeTestimonialTextModal()" class="absolute top-4 right-4 z-[110] bg-stone-100 hover:bg-stone-200 text-stone-600 p-2 rounded-full transition active:scale-95" aria-label="Tutup">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+            <div class="p-6 sm:p-8 overflow-y-auto">
+                <div id="testimonial-text-modal-video" class="relative w-full aspect-video rounded-2xl overflow-hidden mb-5 hidden">
+                    <div id="testimonial-text-modal-video-container" class="w-full h-full"></div>
+                </div>
+                <h3 id="testimonial-text-modal-name" class="font-extrabold text-stone-900 text-base sm:text-lg pr-8"></h3>
+                <p id="testimonial-text-modal-location" class="text-xs text-stone-400 mb-2"></p>
+                <div id="testimonial-text-modal-rating" class="flex text-amber-500 gap-0.5 mb-4"></div>
+                <p id="testimonial-text-modal-message" class="text-stone-600 text-sm leading-relaxed italic whitespace-pre-line"></p>
+            </div>
+        </div>
+    </div>
+
     <!-- Drawer Script -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -4333,6 +4364,68 @@
             const modal = document.getElementById('video-testimonial-modal');
             if (modal && !modal.classList.contains('hidden') && e.key === 'Escape') {
                 window.closeVideoTestimonialModal();
+            }
+        });
+
+        // Global Modal Logic for Full Testimonial Text
+        window.closeTestimonialTextModal = async () => {
+            const modal = document.getElementById('testimonial-text-modal');
+            const modalContent = document.getElementById('testimonial-text-modal-content');
+
+            await Promise.all([
+                panelOut(modal, { opacity: [1, 0] }),
+                panelOut(modalContent, { scale: [1, 0.95] }),
+            ]);
+
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+            document.getElementById('testimonial-text-modal-video-container').innerHTML = '';
+
+            if (typeof window.resumeTestimonialAutoplay === 'function') {
+                window.resumeTestimonialAutoplay();
+            }
+        };
+
+        window.openTestimonialTextModal = (name, location, message, rating, embedUrl) => {
+            const modal = document.getElementById('testimonial-text-modal');
+            const modalContent = document.getElementById('testimonial-text-modal-content');
+
+            document.getElementById('testimonial-text-modal-name').textContent = name;
+            document.getElementById('testimonial-text-modal-location').textContent = location;
+            document.getElementById('testimonial-text-modal-message').textContent = message;
+
+            const ratingEl = document.getElementById('testimonial-text-modal-rating');
+            ratingEl.innerHTML = '<i data-lucide="star" class="w-3.5 h-3.5 fill-current"></i>'.repeat(Math.max(0, Math.min(5, rating)));
+
+            const videoWrap = document.getElementById('testimonial-text-modal-video');
+            const videoContainer = document.getElementById('testimonial-text-modal-video-container');
+            if (embedUrl) {
+                videoContainer.innerHTML = `<iframe class="w-full h-full" title="Video testimoni" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                videoWrap.classList.remove('hidden');
+            } else {
+                videoContainer.innerHTML = '';
+                videoWrap.classList.add('hidden');
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+
+            panelIn(modal, { opacity: [0, 1] });
+            panelIn(modalContent, { scale: [0.95, 1] });
+
+            if (typeof window.pauseTestimonialAutoplay === 'function') {
+                window.pauseTestimonialAutoplay();
+            }
+
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        };
+
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('testimonial-text-modal');
+            if (modal && !modal.classList.contains('hidden') && e.key === 'Escape') {
+                window.closeTestimonialTextModal();
             }
         });
     </script>
