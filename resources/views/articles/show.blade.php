@@ -387,21 +387,6 @@
                     @endif
                 @endif
 
-                <!-- Author Bio Card -->
-                <div class="bg-slate-50/50 border border-slate-100/80 rounded-3xl p-6 md:p-8 flex items-start gap-4 md:gap-6">
-                    <div class="w-14 h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-500 text-white font-black text-lg flex items-center justify-center border-2 border-white shadow-lg flex-shrink-0">
-                        {{ collect(explode(' ', $article->author))->map(fn($w) => substr($w, 0, 1))->take(2)->join('') }}
-                    </div>
-                    <div>
-                        <p class="text-slate-400 text-[9px] font-black uppercase tracking-wider mb-1">Ditulis Oleh</p>
-                        <h4 class="font-extrabold text-slate-900 text-base mb-1">{{ $article->author }}</h4>
-                        <p class="text-blue-600 text-xs font-bold uppercase tracking-wider mb-3">{{ $article->author_role }}</p>
-                        <p class="text-slate-500 text-xs leading-relaxed font-light">
-                            Penulis berpengalaman dan ahli di bidangnya, berdedikasi menyajikan informasi seputar perjalanan ibadah haji, umrah, dan info haramain secara kredibel dan sesuai tuntunan syariah.
-                        </p>
-                    </div>
-                </div>
-
             </article>
 
             <!-- Right: Sidebar (Col 4) -->

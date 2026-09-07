@@ -12,7 +12,7 @@
         $stepsJson = $settings['registration_steps'] ?? null;
         if (!$stepsJson) {
             $stepsList = [];
-            for ($i = 1; $i <= 6; $i++) {
+            for ($i = 1; $i <= 7; $i++) {
                 $title = $settings['registration_step_' . $i . '_title'] ?? null;
                 $desc = $settings['registration_step_' . $i . '_description'] ?? null;
                 $icon = $settings['registration_step_' . $i . '_icon'] ?? null;
@@ -26,11 +26,12 @@
             }
             if (empty($stepsList)) {
                 $stepsList = [
-                    ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'message-square'],
-                    ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'compass'],
-                    ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen paspor, foto, dan syarat administrasi.', 'icon' => 'credit-card'],
-                    ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan Anda.', 'icon' => 'file-text'],
-                    ['title' => 'Manasik', 'description' => 'Ikuti bimbingan manasik teori & praktek sesuai sunnah.', 'icon' => 'book-open'],
+                    ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'package'],
+                    ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'message-circle'],
+                    ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen yaitu KK, KTP, paspor, dan vaksin meningitis juga polio.', 'icon' => 'id-card'],
+                    ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan kamu.', 'icon' => 'wallet'],
+                    ['title' => 'Pelunasan', 'description' => 'Lakukan transaksi pelunasan paket yang dipilih maksimal H-30 jadwal keberangkatan.', 'icon' => 'badge-check'],
+                    ['title' => 'Manasik', 'description' => 'Bimbingan terkait panduan ibadah umrah sesuai Al-Qur\'an dan Sunnah.', 'icon' => 'book-open'],
                     ['title' => 'Berangkat', 'description' => 'Pelepasan di bandara dan mulai perjalanan ibadah Anda.', 'icon' => 'plane-takeoff'],
                 ];
             }
@@ -1116,7 +1117,7 @@
                         </div>
                         <div class="form-group">
                             <label for="registration_subtitle">Subjudul Section</label>
-                            <input type="text" id="registration_subtitle" name="registration_subtitle" value="{{ old('registration_subtitle', $settings['registration_subtitle'] ?? 'Hanya beberapa langkah menuju Tanah Suci...') }}" placeholder="Hanya beberapa langkah menuju Tanah Suci..." maxlength="255">
+                            <input type="text" id="registration_subtitle" name="registration_subtitle" value="{{ old('registration_subtitle', $settings['registration_subtitle'] ?? '7 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel') }}" placeholder="7 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel" maxlength="255">
                             @error('registration_subtitle') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                         </div>
                     </div>

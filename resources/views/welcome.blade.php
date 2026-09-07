@@ -627,10 +627,6 @@
             <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/55 via-[#0a1628]/88 to-[#0a1628]"></div>
         </div>
 
-        <!-- Aurora Wave Effects (Stretched & Wavy Ambient Lights styled in gold/blue) -->
-        <div class="absolute -right-[10%] -top-[10%] w-[900px] h-[350px] bg-blue-500/5 lg:bg-blue-500/10 rounded-[100%] blur-[100px] pointer-events-none animate-aurora-1"></div>
-        <div class="absolute -left-[10%] top-[10%] w-[800px] h-[300px] bg-[#c89e2b]/8 rounded-[100%] blur-[90px] pointer-events-none animate-aurora-2"></div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 lg:pt-12 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
             <div class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
@@ -642,7 +638,7 @@
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
-                    <div class="inline-flex items-center gap-2 bg-white/[0.06] backdrop-blur-sm border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 border-gold-glow animate-fade-in-up delay-100">
+                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 animate-fade-in-up delay-100">
                         <i data-lucide="shield-check" class="w-4 h-4 text-[#c89e2b]"></i>
                         <span class="font-semibold tracking-wide">{{ $heroBadgeText }}</span>
                     </div>
@@ -717,11 +713,11 @@
 
                 <!-- Actions CTA Buttons -->
                 <div class="flex flex-col sm:flex-row justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
-                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-lg shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2">
+                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
                     </a>
-                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="magnetic-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2 backdrop-blur-sm">
+                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="magnetic-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2">
                         <i data-lucide="message-square" class="w-4 h-4"></i>
                         {{ $settings['cta_consultation_label'] ?? 'Konsultasi Gratis' }}
                     </a>
@@ -736,7 +732,7 @@
                         ['icon' => 'heart', 'value' => '100%', 'label' => 'AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
                     ];
                 @endphp
-                <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl px-5 py-4 mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
+                <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
                     @foreach ($heroStats as $stat)
                         <div class="flex items-center gap-3">
                             <div class="shrink-0 w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
@@ -755,24 +751,19 @@
 
             <!-- Right Column: Info Widget (Glassmorphism card) -->
             <div id="hero-right-col" class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div id="hero-image-card" class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/30 rounded-[2.5rem] p-7 shadow-2xl relative overflow-hidden text-white w-full backdrop-blur-xl group hover:border-[#c89e2b]/50 transition-all duration-500">
+                <div id="hero-image-card" class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/25 rounded-[2rem] p-7 shadow-xl shadow-blue-950/25 relative overflow-hidden text-white w-full">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
-
-                    <!-- Glowing Accents -->
-                    <div class="absolute -right-16 -top-16 w-52 h-52 bg-[#c89e2b]/20 rounded-full blur-[60px] pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
-                    <div class="absolute -left-16 -bottom-16 w-52 h-52 bg-blue-500/10 rounded-full blur-[60px] pointer-events-none group-hover:scale-110 transition-transform duration-700"></div>
 
                     @if ($nearestPackage)
                         <!-- Title Section -->
                         <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4 relative z-10">
                             <div class="flex items-center gap-3">
-                                <span class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#c89e2b]/30 to-[#c89e2b]/10 text-[#c89e2b] flex items-center justify-center border border-[#c89e2b]/30 shadow-md">
+                                <span class="w-10 h-10 rounded-xl bg-[#c89e2b]/10 text-[#c89e2b] flex items-center justify-center border border-[#c89e2b]/25">
                                     <i data-lucide="plane-takeoff" class="w-5 h-5"></i>
                                 </span>
                                 <div class="text-left">
-                                    <span class="inline-flex items-center gap-1 bg-[#c89e2b]/10 border border-[#c89e2b]/30 text-[#c89e2b] text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full mb-1 shadow-sm">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <span class="inline-flex items-center gap-1 bg-[#c89e2b]/10 border border-[#c89e2b]/30 text-[#c89e2b] text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full mb-1">
                                         Keberangkatan Terdekat
                                     </span>
                                     <h2 class="text-xs text-white/95 font-bold truncate max-w-[180px] sm:max-w-[210px] mt-0.5">{{ $nearestPackage->name }}</h2>
@@ -783,28 +774,28 @@
                         <!-- Countdown Timer (Split-flap Style) -->
                         <div id="hero-countdown" class="grid grid-cols-4 gap-3 mb-6 relative z-10" data-date="{{ \Carbon\Carbon::parse($nearestPackage->departure_date)->format('Y-m-d') }}">
                             <!-- Days -->
-                            <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
+                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-days">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Hari</span>
+                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-days">--</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Hari</span>
                             </div>
                             <!-- Hours -->
-                            <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
+                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-hours">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Jam</span>
+                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-hours">--</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Jam</span>
                             </div>
                             <!-- Minutes -->
-                            <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
+                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-mins">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Menit</span>
+                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-mins">--</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Menit</span>
                             </div>
                             <!-- Seconds -->
-                            <div class="bg-gradient-to-b from-[#18395e] via-[#0d223d] to-[#08172c] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden shadow-lg select-none group/unit hover:border-[#c89e2b]/30 transition-colors duration-300">
+                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none z-0 relative drop-shadow-[0_2px_3px_rgba(0,0,0,0.4)]" id="countdown-secs">--</span>
-                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10 group-hover/unit:text-amber-400 transition-colors duration-300">Detik</span>
+                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-secs">--</span>
+                                <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Detik</span>
                             </div>
                         </div>
                     @else
@@ -817,18 +808,17 @@
                     <!-- Total Departed & Upcoming Schedule -->
                     <div class="space-y-6 relative z-10">
                         <!-- Departed Stat Badge (Trust Seal Banner) -->
-                        <div class="bg-gradient-to-r from-emerald-500/10 via-emerald-600/5 to-[#0b2038]/50 border border-emerald-500/30 rounded-2xl p-4 flex items-center justify-between shadow-inner relative overflow-hidden group/seal">
-                            <div class="absolute -right-8 -top-8 w-20 h-20 bg-emerald-500/10 rounded-full blur-xl pointer-events-none group-hover/seal:scale-125 transition-transform duration-500"></div>
+                        <div class="bg-gradient-to-r from-[#c89e2b]/10 via-[#c89e2b]/5 to-[#0b2038]/50 border border-[#c89e2b]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden">
                             <div class="flex items-center gap-3">
-                                <span class="p-2.5 rounded-xl bg-gradient-to-tr from-emerald-500/20 to-emerald-400/5 text-emerald-400 border border-emerald-500/30 flex items-center justify-center shadow-md">
+                                <span class="p-2.5 rounded-xl bg-[#c89e2b]/10 text-[#c89e2b] border border-[#c89e2b]/25 flex items-center justify-center">
                                     <i data-lucide="users" class="w-5 h-5"></i>
                                 </span>
                                 <div class="text-left">
-                                    <p class="text-xs text-emerald-300 font-extrabold uppercase tracking-wider leading-none">{{ $settings['hero_stat_title'] ?? 'Total Keberangkatan' }}</p>
+                                    <p class="text-xs text-amber-200 font-extrabold uppercase tracking-wider leading-none">{{ $settings['hero_stat_title'] ?? 'Total Keberangkatan' }}</p>
                                     <p class="text-[10px] text-white/60 mt-1 font-medium">{{ $settings['hero_stat_subtitle'] ?? 'Jamaah terberangkatkan' }}</p>
                                 </div>
                             </div>
-                            <span class="text-lg font-black text-emerald-300 bg-emerald-500/10 border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-sm tracking-wider font-mono">
+                            <span class="text-lg font-black text-amber-200 border border-[#c89e2b]/25 px-3.5 py-1.5 rounded-xl tracking-wider font-mono">
                                 {{ $settings['hero_stat_value'] ?? (($settings['about_departed_count'] ?? '10') . 'K+') }}
                             </span>
                         </div>
@@ -851,16 +841,16 @@
                                             $monthStr = $deptDate->translatedFormat('M');
                                             $yearStr = $deptDate->format('Y');
                                         @endphp
-                                        <div class="bg-gradient-to-r from-white/[0.02] to-white/[0.04] hover:from-[#c89e2b]/5 hover:to-white/[0.08] border border-white/5 hover:border-[#c89e2b]/30 rounded-2xl p-3 flex items-center justify-between transition-all duration-300 group/ticket">
+                                        <div class="bg-white/[0.03] hover:bg-[#c89e2b]/[0.05] border border-white/5 hover:border-[#c89e2b]/30 rounded-2xl p-3 flex items-center justify-between transition-colors duration-300 group/ticket">
                                             <!-- Date Page Block -->
-                                            <div class="bg-gradient-to-b from-[#18395e] to-[#0d223d] border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center shadow-md min-w-[52px] group-hover/ticket:border-[#c89e2b]/30 transition-all duration-300">
+                                            <div class="bg-[#12294a] border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center min-w-[52px]">
                                                 <span class="text-sm font-black text-amber-200 leading-none">{{ $dayStr }}</span>
                                                 <span class="text-[8px] font-bold text-white/70 uppercase tracking-widest mt-0.5 leading-none">{{ $monthStr }}</span>
                                             </div>
                                             
                                             <!-- Ticket Content -->
                                             <div class="min-w-0 flex-1 pl-3.5 pr-2 text-left">
-                                                <p class="text-xs font-bold text-white group-hover/ticket:text-amber-200 transition-colors duration-300 truncate">{{ $p->name }}</p>
+                                                <p class="text-xs font-bold text-white truncate">{{ $p->name }}</p>
                                                 <p class="text-[10px] text-white/50 flex items-center gap-1 mt-1 font-medium">
                                                     <i data-lucide="tag" class="w-3.5 h-3.5 text-[#c89e2b]"></i>
                                                     {{ $p->category ?? 'Premium' }} • {{ $yearStr }}
@@ -868,7 +858,7 @@
                                             </div>
                                             
                                             <!-- Detail Action Button -->
-                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[#c89e2b] text-white hover:text-[#0b223f] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-all duration-300 shadow-md active:scale-95 flex items-center gap-1">
+                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[#c89e2b] text-white hover:text-[#0b223f] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm active:scale-95 flex items-center gap-1">
                                                 <span>Detail</span>
                                                 <i data-lucide="chevron-right" class="w-3 h-3 group-hover/ticket:translate-x-0.5 transition-transform duration-300"></i>
                                             </a>
@@ -900,18 +890,12 @@
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
         </div>
 
-        <!-- Ambient Glow Blobs -->
-        <div class="absolute -left-[10%] top-[20%] w-[500px] h-[300px] bg-blue-400/8 rounded-full blur-[90px] pointer-events-none -z-10"></div>
-        <div class="absolute -right-[5%] bottom-[10%] w-[400px] h-[300px] bg-amber-400/6 rounded-full blur-[80px] pointer-events-none -z-10"></div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Top Layout: Description, Stats, and 3D Photo Stack Collage -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-10">
                 <!-- Left: Short description & stats -->
                 <div class="lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="info" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['about_badge'] ?? 'Tentang Kami' }}
                     </span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
@@ -921,13 +905,13 @@
                         {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4 w-full">
-                        <div class="inline-flex items-center gap-2.5 bg-white/95 backdrop-blur-md pl-3 pr-4 py-2.5 rounded-full border border-blue-600/15 shadow-sm">
+                        <div class="inline-flex items-center gap-2.5 bg-white pl-3 pr-4 py-2.5 rounded-full border border-stone-200">
                             <span class="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
                             <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
                             <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
                         </div>
-                        <div class="inline-flex items-center gap-2.5 bg-white/95 backdrop-blur-md pl-3 pr-4 py-2.5 rounded-full border border-blue-600/15 shadow-sm">
-                            <span class="shrink-0 w-8 h-8 rounded-full bg-amber-50 text-amber-600 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
+                        <div class="inline-flex items-center gap-2.5 bg-white pl-3 pr-4 py-2.5 rounded-full border border-stone-200">
+                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
                             <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
                             <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
                         </div>
@@ -936,16 +920,14 @@
 
                 <!-- Right: Overlapping 3D Image Collage -->
                 <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
-                    <!-- Base Backdrop Card (Departure Image) -->
-                    <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-900/10 border-4 border-white transform -rotate-2 hover:rotate-0 transition duration-500 select-none">
+<!-- Base Backdrop Card (Departure Image) -->
+                    <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform -rotate-1 hover:rotate-0 transition duration-500 select-none">
                         <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
-                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/40 to-transparent"></div>
                     </div>
-                    
+
                     <!-- Overlay Foreground Card (Manasik Preparation Image) -->
-                    <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl shadow-stone-900/15 border-4 border-white transform rotate-3 hover:rotate-0 transition duration-500 z-10 select-none">
+                    <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/10 border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-10 select-none">
                         <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
-                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/40 to-transparent"></div>
                     </div>
                 </div>
             </div>
@@ -963,8 +945,8 @@
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-stone-500 dark:text-stone-400">
-                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600 shrink-0"></i>
+                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-400">
+                                    <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
                                     Legalitas Perusahaan
                                 </span>
                             </div>
@@ -1017,8 +999,8 @@
                                     <div class="mt-7 pt-5 border-t border-white/10">
                                         <p class="text-[11px] font-medium text-stone-400">Diterbitkan &amp; diawasi oleh Kementerian Haji dan Umrah RI</p>
                                         <div class="mt-5 flex items-center justify-center gap-2">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                                            <span class="text-[11px] font-bold uppercase tracking-widest text-emerald-400">Resmi Terdaftar</span>
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+                                            <span class="text-[11px] font-bold uppercase tracking-widest text-blue-400">Resmi Terdaftar</span>
                                         </div>
                                     </div>
                                     <a href="https://haji.go.id/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-1.5 text-[10px] font-semibold text-stone-400 hover:text-white transition duration-200">
@@ -1035,24 +1017,22 @@
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 text-white rounded-[2rem] p-8 md:p-10 border border-blue-500/20 shadow-xl overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px] group hover:scale-[1.01] transition duration-300 reveal-left">
-                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
+                <div class="relative bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 text-white rounded-[1.75rem] p-8 md:p-10 border border-blue-500/20 shadow-lg shadow-blue-950/20 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
                     <div>
-                        <div class="bg-white/15 border border-white/20 p-3.5 rounded-2xl text-white w-fit mb-6 shadow-inner">
+                        <div class="bg-white/10 border border-white/15 p-3.5 rounded-xl text-white w-fit mb-6">
                             <i data-lucide="eye" class="w-6 h-6"></i>
                         </div>
                         <h3 class="font-extrabold text-white text-xl mb-4 tracking-tight">{{ $settings['about_vision_label'] ?? 'Visi Kami' }}</h3>
-                        <p class="text-stone-300 text-xs md:text-sm leading-relaxed font-light">
+                        <p class="text-blue-100/80 text-xs md:text-sm leading-relaxed font-light">
                             {{ $settings['about_vision'] ?? 'Menjadi penyelenggara perjalanan ibadah Umrah dan Haji tepercaya yang mengedepankan kemurnian ibadah sesuai sunnah serta pelayanan VIP demi kenyamanan jemaah.' }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Misi Card (Asymmetric 7-Span) -->
-                <div class="relative bg-white rounded-[2rem] p-8 md:p-10 border border-stone-100/80 shadow-xl shadow-stone-900/[0.02] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between group hover:scale-[1.01] transition duration-300 reveal-right">
-                    <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/5 rounded-full blur-3xl"></div>
+                <div class="relative bg-white rounded-[1.75rem] p-8 md:p-10 border border-stone-200/70 shadow-sm shadow-stone-900/[0.04] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between">
                     <div>
-                        <div class="bg-amber-50 border border-amber-100 p-3.5 rounded-2xl text-amber-500 w-fit mb-6 shadow-sm">
+                        <div class="bg-blue-50 border border-blue-100 text-blue-600 p-3.5 rounded-xl w-fit mb-6">
                             <i data-lucide="target" class="w-6 h-6"></i>
                         </div>
                         <h3 class="font-extrabold text-stone-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
@@ -1079,12 +1059,11 @@
             <!-- Founders Grid (Prominent) -->
             <div class="grid grid-cols-1 {{ $founders->count() === 1 ? 'max-w-md' : ($founders->count() === 2 ? 'md:grid-cols-2 max-w-3xl' : 'md:grid-cols-3 max-w-5xl') }} gap-8 mx-auto mb-12 reveal-stagger">
                 @foreach ($founders as $t)
-                    <div class="bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] p-8 rounded-[2rem] border border-stone-100/70 hover:border-blue-600/15 shadow-md shadow-stone-900/[0.03] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 text-center relative overflow-hidden group reveal-card">
-                        <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-blue-600 to-blue-400 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+                    <div class="bg-white p-8 rounded-[1.75rem] border border-stone-200/60 hover:border-blue-600/15 shadow-sm shadow-stone-900/[0.04] transition duration-300 text-center relative overflow-hidden reveal-card">
                         @if($t->image_url)
-                            <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]" width="96" height="96" loading="lazy" decoding="async">
+                            <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-md shadow-blue-500/10 mb-6 mx-auto border-4 border-white" width="96" height="96" loading="lazy" decoding="async">
                         @else
-                            <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-3xl font-extrabold shadow-lg shadow-blue-500/10 mb-6 mx-auto border-4 border-white transition-all duration-300 group-hover:scale-[1.04]">{{ $t->initial ?? '...' }}</div>
+                            <div class="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center text-white text-3xl font-extrabold shadow-md shadow-blue-500/10 mb-6 mx-auto border-4 border-white">{{ $t->initial ?? '...' }}</div>
                         @endif
                         <h4 class="font-extrabold text-stone-900 text-lg mb-1">{{ $t->name }}</h4>
                         <p class="text-blue-600 text-xs font-bold uppercase tracking-wider mb-4">{{ $t->role }}</p>
@@ -1109,11 +1088,11 @@
                     
                     <div class="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 reveal-stagger">
                         @foreach ($otherTeams as $t)
-                            <div class="bg-white/80 hover:bg-white backdrop-blur-sm p-4 md:p-5 rounded-2xl border border-stone-100 hover:border-blue-600/10 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
+                            <div class="bg-white p-4 md:p-5 rounded-2xl border border-stone-200/60 hover:border-blue-600/10 shadow-sm transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
                                 @if($t->image_url)
-                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
+                                    <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm border-2 border-white flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
                                 @else
-                                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-gradient-to-tr from-blue-600 to-amber-400 flex items-center justify-center text-white text-base sm:text-lg font-extrabold shadow-sm border-2 border-white transition-all duration-300 group-hover:scale-105 flex-shrink-0">{{ $t->initial ?? '...' }}</div>
+                                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-blue-600 flex items-center justify-center text-white text-base sm:text-lg font-extrabold shadow-sm border-2 border-white flex-shrink-0">{{ $t->initial ?? '...' }}</div>
                                 @endif
                                 <div class="min-w-0 flex-1">
                                     <h5 class="font-extrabold text-stone-900 text-xs sm:text-sm mb-0.5 group-hover:text-blue-600 transition duration-200">{{ $t->name }}</h5>
@@ -1144,9 +1123,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
                 <div class="space-y-3 flex flex-col items-center lg:items-start">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="award" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight text-center lg:text-left">
@@ -1163,24 +1140,22 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Feature 1: Wide Dark Bento Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-amber-500/20 p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col justify-between group relative overflow-hidden">
-                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
-                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-blue-600/15 rounded-full blur-3xl"></div>
+                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-blue-500/30 p-8 md:p-10 rounded-[1.75rem] shadow-lg shadow-blue-950/20 flex flex-col justify-between relative overflow-hidden">
                     <div>
-                        <div class="mb-6 bg-amber-500/10 text-amber-400 p-4 rounded-2xl w-fit border border-amber-500/20 shadow-inner">
+                        <div class="mb-6 bg-blue-400/10 text-blue-200 p-4 rounded-xl w-fit border border-blue-400/20">
                             @if (!empty($settings['feature_1_image']))
                                 <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-white text-xl mb-3 group-hover:text-amber-400 transition duration-300">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
+                        <h3 class="font-extrabold text-white text-xl mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
                         <p class="text-blue-100/70 text-xs md:text-sm leading-relaxed max-w-xl font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 2: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_2_image']))
@@ -1189,28 +1164,28 @@
                                 <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
                         <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 3: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
                     <div>
-                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_3_image']))
                                 <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
                         <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 4: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
                     <div>
                         <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_4_image']))
@@ -1219,32 +1194,29 @@
                                 <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
                         <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 5: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:bg-gradient-to-br hover:from-white hover:to-blue-600/[0.03] border border-stone-100/70 hover:border-blue-600/15 p-8 rounded-[2rem] shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04] hover:-translate-y-1 transition duration-300 flex flex-col justify-between group">
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
                     <div>
-                        <div class="mb-6 bg-amber-50 text-amber-600 p-4 rounded-2xl w-fit border border-amber-100/50">
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_5_image']))
                                 <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3 group-hover:text-blue-600 transition">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
                         <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 6: Wide Horizontal Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[2rem] shadow-xl hover:-translate-y-1 transition duration-300 flex flex-col sm:flex-row items-start sm:items-center gap-5 group relative overflow-hidden text-left">
-                    <div class="absolute -right-10 -top-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-                    <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl"></div>
-                    
-                    <div class="bg-white/10 text-white p-4 rounded-2xl border border-white/20 shadow-inner flex-shrink-0 w-fit">
+                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[1.75rem] shadow-lg shadow-blue-950/20 flex flex-col sm:flex-row items-start sm:items-center gap-5 relative overflow-hidden text-left">
+                    <div class="bg-white/10 text-white p-4 rounded-xl border border-white/20 flex-shrink-0 w-fit">
                         @if (!empty($settings['feature_6_image']))
                             <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                         @else
@@ -1269,16 +1241,17 @@
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="space-y-3 flex flex-col items-center mb-12">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
                     Cara Daftar
                 </span>
                 <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['registration_title'] ?? 'Alur Pendaftaran Mudah' }}</h2>
                 @include('partials.ornament')
-                <p class="text-stone-500 font-light text-xs md:text-sm max-w-md mx-auto leading-relaxed">{{ $settings['registration_subtitle'] ?? '6 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel' }}</p>
+                <p class="text-stone-500 font-light text-xs md:text-sm max-w-md mx-auto leading-relaxed">{{ $settings['registration_subtitle'] ?? '7 langkah mudah mempersiapkan perjalanan suci Anda bersama IZI Travel' }}</p>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:flex md:flex-nowrap gap-y-8 gap-x-4 md:gap-0 items-start max-w-5xl mx-auto reveal">
+            <div class="relative max-w-5xl mx-auto px-3 sm:px-0 reveal-stagger">
+                <!-- Vertical Spine -->
+                <div class="absolute left-1/2 -translate-x-1/2 top-8 bottom-14 md:bottom-16 w-px bg-blue-600/30" aria-hidden="true"></div>
+
                 @php
                     $stepsJson = $settings['registration_steps'] ?? null;
                     $steps = [];
@@ -1286,7 +1259,7 @@
                         $steps = json_decode($stepsJson, true);
                     }
                     if (empty($steps)) {
-                        for ($i = 1; $i <= 6; $i++) {
+                        for ($i = 1; $i <= 7; $i++) {
                             $title = $settings['registration_step_' . $i . '_title'] ?? null;
                             $desc = $settings['registration_step_' . $i . '_description'] ?? null;
                             $icon = $settings['registration_step_' . $i . '_icon'] ?? null;
@@ -1301,32 +1274,58 @@
                     }
                     if (empty($steps)) {
                         $steps = [
-                            ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'message-square'],
-                            ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'compass'],
-                            ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen paspor, foto, dan syarat administrasi.', 'icon' => 'credit-card'],
-                            ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan Anda.', 'icon' => 'file-text'],
-                            ['title' => 'Manasik', 'description' => 'Ikuti bimbingan manasik teori & praktek sesuai sunnah.', 'icon' => 'book-open'],
+                            ['title' => 'Pilih Paket', 'description' => 'Pilih paket yang sesuai dengan tanggal dan keinginan Anda.', 'icon' => 'package'],
+                            ['title' => 'Konsultasi', 'description' => 'Hubungi customer service kami untuk detail keberangkatan.', 'icon' => 'message-circle'],
+                            ['title' => 'Kirim Berkas', 'description' => 'Lengkapi dokumen yaitu KK, KTP, paspor, dan vaksin meningitis juga polio.', 'icon' => 'id-card'],
+                            ['title' => 'Uang Muka (DP)', 'description' => 'Lakukan deposit untuk mengamankan kursi penerbangan kamu.', 'icon' => 'wallet'],
+                            ['title' => 'Pelunasan', 'description' => 'Lakukan transaksi pelunasan paket yang dipilih maksimal H-30 jadwal keberangkatan.', 'icon' => 'badge-check'],
+                            ['title' => 'Manasik', 'description' => 'Bimbingan terkait panduan ibadah umrah sesuai Al-Qur\'an dan Sunnah.', 'icon' => 'book-open'],
                             ['title' => 'Berangkat', 'description' => 'Pelepasan di bandara dan mulai perjalanan ibadah Anda.', 'icon' => 'plane-takeoff'],
                         ];
                     }
                 @endphp
-                @foreach ($steps as $index => $step)
-                    @if ($index > 0)
-                        <!-- Arrow Connector -->
-                        <div class="hidden md:flex items-center h-16 px-2 text-stone-200/80">
-                            <svg class="w-8 h-4 stroke-current animate-pulse" fill="none" viewBox="0 0 24 24" stroke-width="2.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
+
+                <div class="space-y-10 md:space-y-14">
+                    @foreach ($steps as $step)
+                        @php $isLeft = $loop->iteration % 2 !== 0; @endphp
+                        <div class="relative grid grid-cols-[1fr_auto_1fr] gap-x-4 md:gap-x-5 items-start">
+                            <!-- Node: flat circle, gold number, navy icon -->
+                            <div class="col-start-2 row-start-1 z-20 flex justify-center pt-1 md:pt-2">
+                                <div class="relative">
+                                    <div class="reveal-card w-12 h-12 md:w-16 md:h-16 rounded-full bg-white border border-blue-200 flex flex-col items-center justify-center gap-[2px] shadow-[0_1px_3px_rgba(7,30,61,0.05)]">
+                                        <span class="text-blue-600 font-bold text-[9px] md:text-[10px] tracking-[0.18em] leading-none" style="font-variant-numeric: tabular-nums;">{{ str_pad($loop->iteration, 2, '0', STR_PAD_LEFT) }}</span>
+                                        <i data-lucide="{{ $step['icon'] ?? 'compass' }}" class="w-4 h-4 md:w-5 md:h-5 text-blue-600"></i>
+                                    </div>
+                                    <!-- Connector Tail (spans the gap to the text, all breakpoints) -->
+                                    <div class="absolute top-1/2 -translate-y-1/2 h-px w-4 md:w-5 bg-blue-600/40 {{ $isLeft ? 'right-full' : 'left-full' }}" aria-hidden="true"></div>
+                                </div>
+                            </div>
+
+                            <!-- Step Text: symmetric measure, anchored toward the spine -->
+                            <div class="row-start-1 min-w-0 pt-3 md:pt-6 {{ $isLeft ? 'col-start-1' : 'col-start-3' }}">
+                                <div class="{{ $isLeft ? 'text-left md:ml-auto md:text-right' : 'text-right md:mr-auto md:text-left' }} md:max-w-[360px]">
+                                    <h3 class="font-heading text-lg md:text-[21px] leading-snug font-bold text-stone-900 tracking-tight">{{ $step['title'] ?? '' }}</h3>
+                                    <p class="text-sm md:text-[15px] leading-[1.75] text-stone-600 mt-1.5">{{ $step['description'] ?? '' }}</p>
+                                </div>
+                            </div>
                         </div>
-                    @endif
-                    <div class="flex flex-col items-center group flex-1">
-                        <div class="w-16 h-16 bg-gradient-to-tr from-blue-600 to-blue-400 rounded-2xl flex items-center justify-center text-white mb-4 shadow-lg shadow-blue-500/25 transform transition duration-300 group-hover:scale-105 group-hover:shadow-blue-500/35">
-                            <i data-lucide="{{ $step['icon'] ?? 'compass' }}" class="w-7 h-7"></i>
-                        </div>
-                        <p class="font-extrabold text-stone-900 text-sm md:text-base">{{ $step['title'] ?? '' }}</p>
-                        <p class="text-xs text-stone-400 mt-1 max-w-[150px] mx-auto leading-relaxed hidden md:block">{{ $step['description'] ?? '' }}</p>
+                    @endforeach
+                </div>
+
+                <!-- Destination Mark -->
+                <div class="relative flex items-center justify-center gap-4 mt-12 md:mt-16">
+                    <span class="h-px w-12 bg-blue-600/25" aria-hidden="true"></span>
+                    <div class="reveal-card flex items-center gap-2.5">
+                        <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                            <rect x="5" y="6" width="22" height="18" rx="2" stroke="#0a1628" stroke-width="1.9"/>
+                            <rect x="5" y="11" width="22" height="2.6" fill="#c89e2b"/>
+                            <rect x="14" y="15.5" width="4" height="8.5" stroke="#0a1628" stroke-width="1.4"/>
+                            <circle cx="23.5" cy="8.5" r="1.7" fill="#c89e2b"/>
+                        </svg>
+                        <span class="font-heading text-sm font-bold text-blue-700 tracking-wide">Ke Baitullah</span>
                     </div>
-                @endforeach
+                    <span class="h-px w-12 bg-blue-600/25" aria-hidden="true"></span>
+                </div>
             </div>
         </div>
     </section>
@@ -1341,17 +1340,10 @@
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
         </div>
 
-        <!-- Premium Ambient Glow Blobs -->
-        <div class="absolute left-1/2 -translate-x-1/2 top-1/4 w-[500px] h-[250px] bg-emerald-400/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
-        <div class="absolute left-1/3 top-1/2 w-[350px] h-[250px] bg-blue-400/8 rounded-full blur-[90px] pointer-events-none -z-10 animate-aurora-2"></div>
-        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[300px] bg-amber-400/6 rounded-full blur-[110px] pointer-events-none -z-10 animate-aurora-3"></div>
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mb-12 text-center reveal">
                 <div class="space-y-3 flex flex-col items-center">
-                    <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="compass" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
@@ -1413,13 +1405,13 @@
                         };
                         $isFeatured = !empty($package->badge_label);
                         $cardBorderClass = $isFeatured && $package->badge_color === 'amber'
-                            ? 'border-amber-500/25 hover:border-amber-500/50 shadow-md shadow-amber-500/[0.02] hover:shadow-lg hover:shadow-amber-500/[0.06]'
-                            : 'border-stone-100/80 hover:border-blue-600/20 shadow-md shadow-stone-900/[0.02] hover:shadow-lg hover:shadow-blue-500/[0.04]';
+                            ? 'border-amber-500/25 hover:border-amber-500/50'
+                            : 'border-stone-200/70 hover:border-blue-600/20 shadow-sm shadow-stone-900/[0.03]';
                         $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
                     @endphp
-                    <div class="package-item reveal-card bg-white rounded-3xl transition-all duration-300 flex flex-col justify-between border {{ $cardBorderClass }} hover:-translate-y-1.5 group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
+                    <div class="package-item reveal-card bg-white rounded-2xl transition-colors duration-300 flex flex-col justify-between border {{ $cardBorderClass }} group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
                         <div class="w-full">
-                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-3xl">
+                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-2xl">
                                 <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" />
                                 @if ($package->badge_label)
                                     <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
