@@ -3,9 +3,32 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Promo extends Model
 {
+    protected static function booted(): void
+    {
+        static::creating(function (Promo $promo) {
+            if (empty($promo->slug)) {
+                $promo->slug = static::generateUniqueSlug($promo->title);
+            }
+        });
+    }
+
+    protected static function generateUniqueSlug(string $title): string
+    {
+        $slug = Str::slug($title) ?: 'promo';
+        $original = $slug;
+        $counter = 1;
+
+        while (static::query()->where('slug', $slug)->exists()) {
+            $slug = $original.'-'.$counter++;
+        }
+
+        return $slug;
+    }
+
     protected $fillable = [
         'label',
         'title',
