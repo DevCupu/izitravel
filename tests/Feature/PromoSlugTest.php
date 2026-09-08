@@ -18,4 +18,19 @@ class PromoSlugTest extends TestCase
         $this->assertSame('promo-umrah-ramadhan', $a->slug);
         $this->assertSame('promo-umrah-ramadhan-1', $b->slug);
     }
+
+    public function test_carousel_is_hidden_without_promos_and_shows_admin_data(): void
+    {
+        $this->get('/')->assertOk()->assertDontSee('data-purpose="promo-carousel"', false);
+
+        Promo::create([
+            'title' => 'Promo Umrah Ramadhan',
+            'description' => 'Keberangkatan Ramadhan 1448H',
+            'is_active' => true,
+        ]);
+
+        $this->get('/')
+            ->assertSee('data-purpose="promo-carousel"', false)
+            ->assertSee('Promo Umrah Ramadhan');
+    }
 }

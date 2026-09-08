@@ -1,6 +1,6 @@
 @php
     // Promo carousel — auto-sliding promotion banner.
-    // Slides come from admin (App\Models\Promo via $promos); fall back to defaults when empty.
+    // Slides come from admin (App\Models\Promo via $promos) only; tanpa promo aktif, section ini tidak dirender.
     $promoSlides = ($promos ?? collect())
         ->map(
             fn($p) => [
@@ -15,40 +15,10 @@
         ->values()
         ->all();
 
-    if (empty($promoSlides)) {
-        $promoSlides = [
-            [
-                'image' => asset('images/package_kaaba.webp'),
-                'label' => 'Promo Umrah',
-                'title' => 'Paket Umrah Reguler 2026',
-                'description' =>
-                    'Keberangkatan rutin dengan harga terjangkau, hotel bintang lima di Ring 1 Masjidil Haram & Nabawi, serta pendampingan mutawwif berpengalaman.',
-                'cta_text' => 'Lihat Paket',
-                'cta_href' => '#paket-umrah',
-            ],
-            [
-                'image' => asset('images/package_nabawi.webp'),
-                'label' => 'Promo Spesial',
-                'title' => 'Umrah Ramadhan & Idul Fitri',
-                'description' =>
-                    'Maksimalkan ibadah di bulan penuh berkah bersama keluarga. Visa, tiket, hotel, dan perlengkapan ibadah sudah termasuk.',
-                'cta_text' => 'Konsultasi Gratis',
-                'cta_href' => '#kontak',
-            ],
-            [
-                'image' => asset('images/section_makkah_wide.webp'),
-                'label' => 'Kuota Terbatas',
-                'title' => 'Promo Rombongan & Keluarga',
-                'description' =>
-                    'Diskon spesial untuk keberangkatan rombongan serta kebutuhan masa tunggu tercepat untuk jamaah. Mulai rencanakan perjalanan ibadah Anda.',
-                'cta_text' => 'Hubungi Kami',
-                'cta_href' => '#kontak',
-            ],
-        ];
-    }
     $promoInterval = $promoInterval ?? 5000;
 @endphp
 
+@if (! empty($promoSlides))
 <section x-data="{
     active: 0,
     count: {{ count($promoSlides) }},
@@ -165,3 +135,4 @@
         </div>
     </div>
 </section>
+@endif
