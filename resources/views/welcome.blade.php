@@ -527,8 +527,8 @@
 
         /* Redesigned Hero Background */
         #beranda {
-            background-color: #0a1628 !important;
-            background-image: linear-gradient(to right, #0a1628 0%, #0c1e38 30%, rgba(10, 22, 40, 0.88) 44%, rgba(10, 22, 40, 0.55) 58%, rgba(10, 22, 40, 0.2) 72%, rgba(10, 22, 40, 0.05) 85%, transparent 100%), url('{{ $heroImageUrl }}') !important;
+            background-color: #026ea9 !important;
+            background-image: linear-gradient(to right, rgba(1, 87, 134, 0.92) 0%, rgba(2, 110, 169, 0.82) 32%, rgba(2, 110, 169, 0.6) 50%, rgba(64, 163, 227, 0.35) 68%, rgba(64, 163, 227, 0.12) 84%, transparent 100%), url('{{ $heroImageUrl }}') !important;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -550,7 +550,7 @@
                    This is just the plain navy fallback/fade for the rest of the section. */
                 background-size: cover;
                 background-position: center center;
-                background-image: linear-gradient(to bottom, rgba(10, 22, 40, 0.75) 0%, rgba(10, 22, 40, 0.97) 78%, #0a1628 100%) !important;
+                background-image: linear-gradient(to bottom, rgba(2, 110, 169, 0.75) 0%, rgba(2, 110, 169, 0.97) 78%, #026ea9 100%) !important;
             }
 
             /* Declared only inside this mobile media query so desktop browsers never fetch
@@ -624,7 +624,7 @@
              leaves a big empty gap. Bounding the real photo to a shorter top band lets it fill
              that band with a much milder crop, then fades into the plain navy gradient below. -->
         <div id="hero-photo-band" class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none animate-fade-in-up">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/55 via-[#0a1628]/88 to-[#0a1628]"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-blue-600/55 via-blue-600/88 to-blue-600"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 lg:pt-12 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
@@ -751,7 +751,7 @@
 
             <!-- Right Column: Info Widget (Glassmorphism card) -->
             <div id="hero-right-col" class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div id="hero-image-card" class="bg-gradient-to-br from-[#0c2540]/90 via-[#071930]/95 to-[#030d1a]/95 border border-[#c89e2b]/25 rounded-[2rem] p-7 shadow-xl shadow-blue-950/25 relative overflow-hidden text-white w-full">
+                <div id="hero-image-card" class="bg-gradient-to-br from-blue-700/45 via-blue-800/50 to-blue-900/60 backdrop-blur-xl border border-[#c89e2b]/25 rounded-[2rem] p-7 shadow-xl shadow-blue-900/25 relative overflow-hidden text-white w-full">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
 
@@ -774,26 +774,22 @@
                         <!-- Countdown Timer (Split-flap Style) -->
                         <div id="hero-countdown" class="grid grid-cols-4 gap-3 mb-6 relative z-10" data-date="{{ \Carbon\Carbon::parse($nearestPackage->departure_date)->format('Y-m-d') }}">
                             <!-- Days -->
-                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
+                            <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-days">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Hari</span>
                             </div>
                             <!-- Hours -->
-                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
+                            <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-hours">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Jam</span>
                             </div>
                             <!-- Minutes -->
-                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
+                            <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-mins">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Menit</span>
                             </div>
                             <!-- Seconds -->
-                            <div class="bg-[#12294a] border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <div class="absolute left-0 right-0 top-1/2 h-[1px] bg-stone-950/40 z-10 pointer-events-none"></div>
+                            <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
                                 <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-secs">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Detik</span>
                             </div>
@@ -808,7 +804,7 @@
                     <!-- Total Departed & Upcoming Schedule -->
                     <div class="space-y-6 relative z-10">
                         <!-- Departed Stat Badge (Trust Seal Banner) -->
-                        <div class="bg-gradient-to-r from-[#c89e2b]/10 via-[#c89e2b]/5 to-[#0b2038]/50 border border-[#c89e2b]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden">
+                        <div class="bg-gradient-to-r from-[#c89e2b]/10 via-[#c89e2b]/5 to-blue-700/50 border border-[#c89e2b]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden">
                             <div class="flex items-center gap-3">
                                 <span class="p-2.5 rounded-xl bg-[#c89e2b]/10 text-[#c89e2b] border border-[#c89e2b]/25 flex items-center justify-center">
                                     <i data-lucide="users" class="w-5 h-5"></i>
@@ -843,7 +839,7 @@
                                         @endphp
                                         <div class="bg-white/[0.03] hover:bg-[#c89e2b]/[0.05] border border-white/5 hover:border-[#c89e2b]/30 rounded-2xl p-3 flex items-center justify-between transition-colors duration-300 group/ticket">
                                             <!-- Date Page Block -->
-                                            <div class="bg-[#12294a] border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center min-w-[52px]">
+                                            <div class="bg-blue-700 border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center min-w-[52px]">
                                                 <span class="text-sm font-black text-amber-200 leading-none">{{ $dayStr }}</span>
                                                 <span class="text-[8px] font-bold text-white/70 uppercase tracking-widest mt-0.5 leading-none">{{ $monthStr }}</span>
                                             </div>
@@ -1017,7 +1013,7 @@
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-700 via-blue-800 to-blue-950 text-white rounded-[1.75rem] p-8 md:p-10 border border-blue-500/20 shadow-lg shadow-blue-950/20 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
+                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white rounded-[1.75rem] p-8 md:p-10 border border-blue-500/20 shadow-lg shadow-blue-800/20 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
                     <div>
                         <div class="bg-white/10 border border-white/15 p-3.5 rounded-xl text-white w-fit mb-6">
                             <i data-lucide="eye" class="w-6 h-6"></i>
@@ -1111,26 +1107,28 @@
     <!-- END: Tentang Kami -->
 
     <!-- BEGIN: Why Choose Us -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600/12 via-blue-600/3 to-stone-50 islamic-pattern-blue-soft relative overflow-hidden" data-purpose="features-grid">
-        <!-- Blurred Kaaba Background Image (Split Right with Left Gradient Fade) -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid">
+        <!-- Blurred Kaaba Background Image (Split Right with Blue Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 1) 40%, rgba(250, 250, 249, 0.95) 55%, rgba(250, 250, 249, 0.65) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
+            <!-- Stars/Pattern overlay -->
+            <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         </div>
 
         <!-- Section Header (Premium Split Layout) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
                 <div class="space-y-3 flex flex-col items-center lg:items-start">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight text-center lg:text-left">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight text-center lg:text-left">
                         {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
                     </h2>
                 </div>
-                <p class="text-stone-500 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                <p class="text-white/60 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
                     {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
                 </p>
             </div>
@@ -1139,18 +1137,18 @@
         <!-- Bento Grid Layout -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
-                <!-- Feature 1: Wide Dark Bento Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-2 bg-gradient-to-br from-blue-950 via-stone-900 to-blue-900 border border-blue-800/30 hover:border-blue-500/30 p-8 md:p-10 rounded-[1.75rem] shadow-lg shadow-blue-950/20 flex flex-col justify-between relative overflow-hidden">
+                <!-- Feature 1 -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
                     <div>
-                        <div class="mb-6 bg-blue-400/10 text-blue-200 p-4 rounded-xl w-fit border border-blue-400/20">
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
                             @if (!empty($settings['feature_1_image']))
                                 <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-white text-xl mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
-                        <p class="text-blue-100/70 text-xs md:text-sm leading-relaxed max-w-xl font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
                     </div>
                 </div>
 
@@ -1214,18 +1212,18 @@
                     </div>
                 </div>
 
-                <!-- Feature 6: Wide Horizontal Card -->
-                <div class="reveal-card md:col-span-2 lg:col-span-3 bg-gradient-to-br from-blue-600 via-blue-800 to-blue-900 text-white p-8 md:p-10 rounded-[1.75rem] shadow-lg shadow-blue-950/20 flex flex-col sm:flex-row items-start sm:items-center gap-5 relative overflow-hidden text-left">
-                    <div class="bg-white/10 text-white p-4 rounded-xl border border-white/20 flex-shrink-0 w-fit">
-                        @if (!empty($settings['feature_6_image']))
-                            <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
-                        @else
-                            <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
-                        @endif
-                    </div>
-                    <div class="space-y-2 w-full">
-                        <h3 class="font-extrabold text-white text-lg md:text-xl tracking-tight leading-tight">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
-                        <p class="text-blue-100/90 text-xs md:text-sm leading-relaxed max-w-3xl font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
+                <!-- Feature 6 -->
+                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                    <div>
+                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
+                            @if (!empty($settings['feature_6_image']))
+                                <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
+                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
                     </div>
                 </div>
             </div>
@@ -1317,9 +1315,9 @@
                     <span class="h-px w-12 bg-blue-600/25" aria-hidden="true"></span>
                     <div class="reveal-card flex items-center gap-2.5">
                         <svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                            <rect x="5" y="6" width="22" height="18" rx="2" stroke="#0a1628" stroke-width="1.9"/>
+                            <rect x="5" y="6" width="22" height="18" rx="2" stroke="#0a2540" stroke-width="1.9"/>
                             <rect x="5" y="11" width="22" height="2.6" fill="#c89e2b"/>
-                            <rect x="14" y="15.5" width="4" height="8.5" stroke="#0a1628" stroke-width="1.4"/>
+                            <rect x="14" y="15.5" width="4" height="8.5" stroke="#0a2540" stroke-width="1.4"/>
                             <circle cx="23.5" cy="8.5" r="1.7" fill="#c89e2b"/>
                         </svg>
                         <span class="font-heading text-sm font-bold text-blue-700 tracking-wide">Ke Baitullah</span>
@@ -1332,25 +1330,27 @@
     <!-- END: RegistrationFlow -->
 
     <!-- BEGIN: FeaturedPackages -->
-    <section class="relative py-16 md:py-24 mt-8 overflow-hidden" id="paket-umrah" data-purpose="packages-grid">
-        <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Right Gradient Fade) -->
+    <section class="relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid">
+        <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Blue Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
+            <!-- Stars/Pattern overlay -->
+            <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mb-12 text-center reveal">
                 <div class="space-y-3 flex flex-col items-center">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
+                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
                         {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
                     </h2>
                     @include('partials.ornament')
-                    <p class="text-stone-500 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
+                    <p class="text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
                         {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
                     </p>
                 </div>
@@ -1384,11 +1384,11 @@
 
             <!-- Category Filter Tabs -->
             <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
-                <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
+                <div class="relative flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 z-10 whitespace-nowrap flex-nowrap mx-auto">
                     <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
                     <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
                     @foreach ($sortedGroups as $categoryName => $categoryPackages)
-                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
+                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-white/60 hover:text-white relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
                     @endforeach
                 </div>
             </div>
@@ -1412,7 +1412,7 @@
                     <div class="package-item reveal-card bg-white rounded-2xl transition-colors duration-300 flex flex-col justify-between border {{ $cardBorderClass }} group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
                         <div class="w-full">
                             <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-2xl">
-                                <img src="{{ $package->image_url }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" />
+                                <img src="{{ $package->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
                                 @if ($package->badge_label)
                                     <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
                                 @endif
@@ -1492,17 +1492,18 @@
     <!-- END: Partners -->
 
     <!-- BEGIN: Gallery -->
-    <section class="py-16 md:py-24 bg-stone-50" id="galeri" data-purpose="gallery-section">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" id="galeri" data-purpose="gallery-section">
+        <!-- Stars/Pattern overlay -->
+        <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center space-y-4 mb-12 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="images" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    <i data-lucide="images" class="w-3.5 h-3.5"></i>
                     {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
-                @include('partials.ornament')
-                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
+                <h2 class="text-3xl font-extrabold text-white tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
+                <p class="text-white/60 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
                 
             @php
                 $albums = $galleries->groupBy(function($item) {
@@ -1546,7 +1547,7 @@
                         <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
                             @if ($album->cover_url)
-                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" />
+                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
                             @else
                                 <div class="flex flex-col items-center gap-2 text-stone-300">
                                     <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
@@ -1649,7 +1650,6 @@
                     {{ $settings['testimonials_label'] ?? 'Testimoni' }}
                 </span>
                 <h2 class="text-3xl font-extrabold text-stone-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
-                @include('partials.ornament')
                 <p class="text-stone-500 font-medium text-sm md:text-base">{{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}</p>
             </div>
             <!-- Testimonial Slider Viewport with Left/Right Arrows -->
@@ -1687,10 +1687,12 @@
                                         }
                                     }
                                     
-                                    // Generate initials
+                                    // Generate initials (skip Indonesian honorifics like H./Hj./Ustadz so
+                                    // avatars don't all end up showing the same "H" letter)
                                     $initial = 'U';
                                     if (!empty($testimonial->name)) {
-                                        $initial = strtoupper(substr(trim($testimonial->name), 0, 1));
+                                        $cleanName = preg_replace('/^((h|hj|dr|drs|prof|ustadz|ust)\.?\s+)+/i', '', trim($testimonial->name));
+                                        $initial = strtoupper(substr($cleanName ?: trim($testimonial->name), 0, 1));
                                     }
                                     
                                     // Custom gradient colors based on initial character
@@ -1756,7 +1758,7 @@
                                                 @if(!empty($parsedEmbedUrl))
                                                     <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-stone-100 shadow-inner z-20 group/video cursor-pointer"
                                                          onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
-                                                        <div class="absolute inset-0 bg-gradient-to-br from-stone-900 to-blue-950 flex flex-col items-center justify-center p-4 text-center">
+                                                        <div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-800 flex flex-col items-center justify-center p-4 text-center">
                                                             <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="Instagram Reel Fallback">
                                                             <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                                                                 <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
@@ -1939,7 +1941,6 @@
                     {{ $settings['articles_label'] ?? 'Artikel &amp; Inspirasi' }}
                 </span>
                 <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
-                @include('partials.ornament')
                 <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}</p>
                 
                 <!-- Category Filter Tabs -->
@@ -1963,7 +1964,7 @@
                         <div>
                             <!-- Cover Image -->
                             <div class="relative h-52 overflow-hidden bg-stone-100">
-                                <img src="{{ $article->image_url }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" />
+                                <img src="{{ $article->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
                                 <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-stone-100/50 shadow-sm">{{ $article->category }}</span>
                             </div>
                             
@@ -2032,7 +2033,7 @@
     <!-- END: Articles -->
 
     <!-- BEGIN: Kabar Haramain & Waktu Tanah Suci -->
-    <section class="py-16 md:py-24 bg-[#071930] text-white relative overflow-hidden" id="haramain-info">
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white relative overflow-hidden" id="haramain-info">
         <!-- Ambient Light Blobs -->
         <div class="absolute -left-[10%] top-[10%] w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute -right-[10%] bottom-[10%] w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
@@ -2066,7 +2067,7 @@
 
                     <!-- City Toggle Tabs -->
                     <div class="flex bg-white/5 border border-white/10 rounded-full p-1 mb-5 gap-1 overflow-x-auto scrollbar-none">
-                        <button onclick="setHaramainTab('makkah')" id="tab-btn-makkah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-[#071930] shadow-md shadow-[#c89e2b]/10">
+                        <button onclick="setHaramainTab('makkah')" id="tab-btn-makkah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-blue-900 shadow-md shadow-[#c89e2b]/10">
                             Makkah
                         </button>
                         <button onclick="setHaramainTab('madinah')" id="tab-btn-madinah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5">
@@ -2259,7 +2260,7 @@
                     <i data-lucide="handshake" class="w-3.5 h-3.5 text-blue-600/80"></i>
                     {{ $settings['partnership_badge'] ?? 'Program Kemitraan' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-blue-950 tracking-tight reveal-words">{{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}</h2>
+                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}</h2>
                 <p class="text-blue-900/70 max-w-2xl mx-auto text-xs md:text-sm leading-relaxed">{{ $settings['partnership_subtitle'] ?? 'Menjadi mitra syiar baitullah berkesempatan mendapatkan komisi hingga puluhan juta rupiah bahkan berkesempatan untuk umroh.' }}</p>
             </div>
 
@@ -2333,7 +2334,7 @@
                 </div>
 
                 <!-- Tier 3: Benefit & Reward -->
-                <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-stone-900 via-blue-950 to-stone-900 text-white glow-card p-8 rounded-3xl border border-blue-900/30 shadow-xl shadow-blue-950/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
+                <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white glow-card p-8 rounded-3xl border border-blue-500/20 shadow-xl shadow-blue-900/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
                     
@@ -2386,20 +2387,17 @@
 
 
     <!-- BEGIN: FAQ -->
-    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-100/40" data-purpose="faq-section">
-        <!-- Background Image overlay -->
-        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>
-        </div>
+    <section class="py-16 md:py-24 relative overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" data-purpose="faq-section">
+        <!-- Stars/Pattern overlay -->
+        <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="space-y-3 flex flex-col items-center mb-12">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
+                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="help-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
+                    <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
                     Tanya Jawab
                 </span>
-                <h2 class="text-3xl font-extrabold text-center text-stone-900 tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
-                @include('partials.ornament')
+                <h2 class="text-3xl font-extrabold text-center text-white tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
             </div>
             <div class="space-y-4 reveal">
                 @foreach ($faqs as $faq)
@@ -2452,7 +2450,7 @@
     </main>
 
     <!-- BEGIN: Footer -->
-    <footer class="bg-stone-950 text-white py-16 md:py-24 relative overflow-hidden islamic-pattern-blue-soft animate-fade-in" id="kontak" data-purpose="main-footer">
+    <footer class="bg-gradient-to-b from-blue-700 to-blue-800 text-white py-16 md:py-24 relative overflow-hidden animate-fade-in" id="kontak" data-purpose="main-footer">
         <!-- Thin glowing gradient border at the top -->
         <div class="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
         
@@ -3563,10 +3561,10 @@
                 btn.addEventListener('click', () => {
                     packageTabBtns.forEach(b => {
                         b.classList.remove('active', 'text-blue-600');
-                        b.classList.add('text-stone-500');
+                        b.classList.add('text-white/60');
                     });
                     btn.classList.add('active', 'text-blue-600');
-                    btn.classList.remove('text-stone-500');
+                    btn.classList.remove('text-white/60');
                     updatePackageTabPill(btn);
 
                     const wrapper = btn.closest('.overflow-x-auto');
@@ -3791,7 +3789,7 @@
                     const btn = document.getElementById(`tab-btn-${t}`);
                     if (btn) {
                         if (t === tab) {
-                            btn.className = "flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-[#071930] shadow-md shadow-[#c89e2b]/10";
+                            btn.className = "flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-blue-900 shadow-md shadow-[#c89e2b]/10";
                         } else {
                             btn.className = "flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5";
                         }
