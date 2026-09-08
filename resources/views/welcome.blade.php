@@ -632,9 +632,6 @@
             <div class="absolute inset-0 bg-gradient-to-b from-blue-600/55 via-blue-600/88 to-blue-600"></div>
         </div>
 
-        <!-- Promo carousel (auto-slide) — top of hero, below the floating header -->
-        @include('partials.promo-carousel')
-
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
             <div class="w-full lg:w-7/12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left">
@@ -884,6 +881,9 @@
         </div>
     </section>
     <!-- END: HeroSection -->
+
+    <!-- Promo carousel (auto-slide) — below hero, above Tentang Kami -->
+    @include('partials.promo-carousel')
 
     <!-- BEGIN: Tentang Kami -->
     <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
