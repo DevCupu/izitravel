@@ -155,9 +155,9 @@
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google Fonts: Outfit, Inter, El Messiri & Amiri (Islamic Calligraphic Style) — loaded non-blocking -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&display=swap"></noscript>
+    <!-- Google Fonts: Outfit, Inter, El Messiri, Amiri & Poppins (Islamic Calligraphic Style) — loaded non-blocking -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=Poppins:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@700&family=Outfit:wght@500;700&family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"></noscript>
     <style>
         html {
             scroll-behavior: smooth;
@@ -194,6 +194,11 @@
             font-weight: 400 !important;
             line-height: 1.8;
             direction: rtl;
+        }
+
+        /* Poppins for hero text */
+        .font-poppins {
+            font-family: 'Poppins', sans-serif !important;
         }
 
         /* Mihrab (pointed/ogee arch) frame for hero & feature imagery */
@@ -627,20 +632,23 @@
             <div class="absolute inset-0 bg-gradient-to-b from-blue-600/55 via-blue-600/88 to-blue-600"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-10 lg:pt-12 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
+        <!-- Promo carousel (auto-slide) — top of hero, below the floating header -->
+        @include('partials.promo-carousel')
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
-            <div class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
+            <div class="w-full lg:w-7/12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left">
                 @php $heroCalligraphy = array_key_exists('hero_calligraphy', $settings) ? $settings['hero_calligraphy'] : 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'; @endphp
                 @if (!empty($heroCalligraphy))
-                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-left" dir="rtl">{{ $heroCalligraphy }}</p>
+                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
                 @endif
                 
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
-                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mb-6 animate-fade-in-up delay-100">
+                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mx-auto lg:mx-0 mb-6 animate-fade-in-up delay-100">
                         <i data-lucide="shield-check" class="w-4 h-4 text-[#c89e2b]"></i>
-                        <span class="font-semibold tracking-wide">{{ $heroBadgeText }}</span>
+                        <span class="font-semibold tracking-wide font-poppins">{{ $heroBadgeText }}</span>
                     </div>
                 @endif
 
@@ -674,7 +682,7 @@
                     $site_desc = $settings['site_description'] ?? 'Perjalanan Umrah yang nyaman, aman, dan terpercaya — dari keberangkatan hingga kembali ke tanah air.';
                 @endphp
 
-                <h1 class="text-5xl md:text-6xl lg:text-[72px] font-calligraphy text-white leading-[1.08] mb-5 tracking-tight reveal-words">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-poppins font-bold text-white leading-[1.1] mb-5 tracking-tight reveal-words">
                     <span class="block text-white">{{ $line1 }}</span>
                     @if(!empty($line2))
                         <span class="block text-[#c89e2b]">{{ $line2 }}</span>
@@ -684,7 +692,7 @@
                     @endif
                 </h1>
 
-                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg animate-fade-in-up delay-300">
+                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg mx-auto lg:mx-0 animate-fade-in-up delay-300 font-poppins">
                     {{ $site_desc }}
                 </p>
 
@@ -704,20 +712,20 @@
                                 <i data-lucide="{{ $feat['icon'] }}" class="w-4 h-4 text-[#c89e2b]"></i>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-xs font-bold text-white leading-tight whitespace-nowrap sm:whitespace-normal sm:truncate">{{ $feat['title'] }}</p>
-                                <p class="text-[10px] text-white/55 font-medium leading-tight whitespace-nowrap sm:whitespace-normal">{{ $feat['sub'] }}</p>
+                                <p class="text-xs font-bold text-white leading-tight whitespace-nowrap sm:whitespace-normal sm:truncate font-poppins">{{ $feat['title'] }}</p>
+                                <p class="text-[10px] text-white/55 font-medium leading-tight whitespace-nowrap sm:whitespace-normal font-poppins">{{ $feat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
                 </div>
 
                 <!-- Actions CTA Buttons -->
-                <div class="flex flex-col sm:flex-row justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
-                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2">
+                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
+                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2 font-poppins">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
                     </a>
-                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="magnetic-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2">
+                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="magnetic-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2 font-poppins">
                         <i data-lucide="message-square" class="w-4 h-4"></i>
                         {{ $settings['cta_consultation_label'] ?? 'Konsultasi Gratis' }}
                     </a>
@@ -739,10 +747,10 @@
                                 <i data-lucide="{{ $stat['icon'] }}" class="w-4.5 h-4.5 text-[#c89e2b]" style="width:18px;height:18px"></i>
                             </div>
                             <div class="min-w-0">
-                                <p class="text-xs font-black text-white tracking-wider leading-none">
+                                <p class="text-xs font-black text-white tracking-wider leading-none font-poppins">
                                     <span class="text-sm">{{ $stat['value'] }}</span>{{ $stat['label'] }}
                                 </p>
-                                <p class="text-[10px] text-white/50 font-medium mt-0.5 leading-none">{{ $stat['sub'] }}</p>
+                                <p class="text-[10px] text-white/50 font-medium mt-0.5 leading-none font-poppins">{{ $stat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -879,11 +887,15 @@
 
     <!-- BEGIN: Tentang Kami -->
     <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
-        <!-- Blurred Nabawi Mosque Background Image (Split Left with Right Gradient Fade) -->
+        <!-- Blurred Nabawi Mosque Background (tinted so frosted glass panels have depth) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.65) 0%, rgba(250, 250, 249, 0.95) 45%, rgba(250, 250, 249, 1) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.74) 0%, rgba(250, 250, 249, 0.8) 45%, rgba(250, 250, 249, 0.86) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
+            <!-- Color orbs that give the frosted glass something to gleam -->
+            <div class="absolute -left-24 top-24 w-80 h-80 rounded-full bg-blue-400/30 blur-3xl"></div>
+            <div class="absolute -right-20 bottom-40 w-96 h-96 rounded-full bg-emerald-300/25 blur-3xl"></div>
+            <div class="absolute left-1/3 top-0 w-72 h-72 rounded-full bg-amber-200/30 blur-3xl"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -891,7 +903,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-10">
                 <!-- Left: Short description & stats -->
                 <div class="lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-blue-600/[0.07] border border-blue-600/20 text-blue-700 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 text-blue-700 dark:text-blue-300 text-xs font-bold tracking-[0.14em] uppercase shadow-sm shadow-stone-900/5">
                         {{ $settings['about_badge'] ?? 'Tentang Kami' }}
                     </span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
@@ -901,15 +913,15 @@
                         {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
                     </p>
                     <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4 w-full">
-                        <div class="inline-flex items-center gap-2.5 bg-white pl-3 pr-4 py-2.5 rounded-full border border-stone-200">
-                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
-                            <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
-                            <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
+                        <div class="inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
+                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
+                            <p class="text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
+                            <p class="text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
                         </div>
-                        <div class="inline-flex items-center gap-2.5 bg-white pl-3 pr-4 py-2.5 rounded-full border border-stone-200">
-                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
-                            <p class="text-lg font-black text-blue-600 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
-                            <p class="text-[10px] text-stone-500 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
+                        <div class="inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
+                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
+                            <p class="text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
+                            <p class="text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
                         </div>
                     </div>
                 </div>
@@ -930,14 +942,15 @@
 
             <!-- Izin Resmi PPIU -->
             <div class="my-16 md:my-24 reveal-up">
-                <div class="bg-white dark:bg-stone-800 rounded-2xl border border-stone-200 dark:border-stone-700 shadow-sm shadow-stone-900/[0.03]">
+                <div class="relative overflow-hidden bg-white/55 dark:bg-slate-900/40 backdrop-blur-2xl rounded-3xl border border-white/60 dark:border-white/10 ring-1 ring-white/40 shadow-xl shadow-stone-900/5">
+                    <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center p-7 sm:p-10 lg:p-12">
 
                         <!-- Konten utama -->
                         <div class="lg:col-span-7 space-y-5">
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                                 @if(!empty($settings['about_ppiu_logo']))
-                                    <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
+                                    <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white/70 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
@@ -958,22 +971,22 @@
                                 {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
                             </p>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-stone-200 dark:border-stone-700">
-                                <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">01</span>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-white/40 dark:border-white/10">
+                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">01</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Izin PPIU Terdaftar</p>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">02</span>
+                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">02</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Pengawasan Kementerian Haji dan Umrah</p>
                                 </div>
-                                <div class="flex items-center gap-3">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-stone-100 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-[11px] font-bold text-stone-500 dark:text-stone-400">03</span>
+                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">03</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Nomor Izin Dapat Diverifikasi</p>
                                 </div>
                             </div>
 
-                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-stone-400 dark:text-stone-500 max-w-2xl">
+                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
                                 <i data-lucide="scale" class="w-3.5 h-3.5 shrink-0 mt-px text-stone-300"></i>
                                 Penyelenggaraan tunduk pada Undang-Undang No. 8 Tahun 2019 tentang Penyelenggaraan Ibadah Haji dan Umrah.
                             </p>
@@ -981,7 +994,7 @@
 
                         <!-- Plat nomor izin -->
                         <div class="lg:col-span-5">
-                            <div class="relative overflow-hidden bg-stone-900 dark:bg-stone-950 rounded-xl px-8 py-10 sm:py-12 text-center">
+                            <div class="relative overflow-hidden bg-blue-950/70 dark:bg-slate-950/50 backdrop-blur-xl rounded-xl px-8 py-10 sm:py-12 text-center border border-white/15 ring-1 ring-white/20 shadow-xl shadow-blue-950/20">
                                 <!-- Faint islamic pattern watermark -->
                                 <div class="absolute inset-0 islamic-pattern opacity-[0.4] pointer-events-none"></div>
                                 <div class="relative">
@@ -1013,9 +1026,10 @@
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white rounded-[1.75rem] p-8 md:p-10 border border-blue-500/20 shadow-lg shadow-blue-800/20 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
+                <div class="relative bg-gradient-to-br from-blue-600/80 via-blue-700/75 to-blue-800/80 backdrop-blur-2xl text-white rounded-[1.75rem] p-8 md:p-10 border border-white/25 ring-1 ring-white/20 shadow-xl shadow-blue-800/25 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
+                    <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                     <div>
-                        <div class="bg-white/10 border border-white/15 p-3.5 rounded-xl text-white w-fit mb-6">
+                        <div class="bg-white/10 border border-white/20 backdrop-blur-md p-3.5 rounded-xl text-white w-fit mb-6">
                             <i data-lucide="eye" class="w-6 h-6"></i>
                         </div>
                         <h3 class="font-extrabold text-white text-xl mb-4 tracking-tight">{{ $settings['about_vision_label'] ?? 'Visi Kami' }}</h3>
@@ -1026,9 +1040,10 @@
                 </div>
 
                 <!-- Misi Card (Asymmetric 7-Span) -->
-                <div class="relative bg-white rounded-[1.75rem] p-8 md:p-10 border border-stone-200/70 shadow-sm shadow-stone-900/[0.04] overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between">
+                <div class="relative bg-white/60 dark:bg-white/10 backdrop-blur-2xl rounded-[1.75rem] p-8 md:p-10 border border-white/60 dark:border-white/20 ring-1 ring-white/40 shadow-xl shadow-stone-900/5 overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"></div>
                     <div>
-                        <div class="bg-blue-50 border border-blue-100 text-blue-600 p-3.5 rounded-xl w-fit mb-6">
+                        <div class="bg-blue-50 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 text-blue-600 dark:text-blue-300 p-3.5 rounded-xl w-fit mb-6">
                             <i data-lucide="target" class="w-6 h-6"></i>
                         </div>
                         <h3 class="font-extrabold text-stone-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
@@ -1055,7 +1070,8 @@
             <!-- Founders Grid (Prominent) -->
             <div class="grid grid-cols-1 {{ $founders->count() === 1 ? 'max-w-md' : ($founders->count() === 2 ? 'md:grid-cols-2 max-w-3xl' : 'md:grid-cols-3 max-w-5xl') }} gap-8 mx-auto mb-12 reveal-stagger">
                 @foreach ($founders as $t)
-                    <div class="bg-white p-8 rounded-[1.75rem] border border-stone-200/60 hover:border-blue-600/15 shadow-sm shadow-stone-900/[0.04] transition duration-300 text-center relative overflow-hidden reveal-card">
+                    <div class="bg-white/60 dark:bg-white/10 backdrop-blur-xl p-8 rounded-[1.75rem] border border-white/60 dark:border-white/15 hover:border-blue-600/15 ring-1 ring-white/40 shadow-lg shadow-stone-900/5 transition duration-300 text-center relative overflow-hidden reveal-card">
+                        <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"></div>
                         @if($t->image_url)
                             <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-24 h-24 rounded-full object-cover shadow-md shadow-blue-500/10 mb-6 mx-auto border-4 border-white" width="96" height="96" loading="lazy" decoding="async">
                         @else
@@ -1077,14 +1093,15 @@
                         <div class="absolute inset-0 flex items-center" aria-hidden="true">
                             <div class="w-full border-t border-stone-200/60"></div>
                         </div>
-                        <div class="relative bg-stone-50 px-4">
-                            <span class="text-xs font-black text-stone-400 uppercase tracking-widest">{{ $settings['team_other_section_label'] ?? 'Tim Pendukung & Pembimbing' }}</span>
+                        <div class="relative bg-white/60 dark:bg-stone-800/50 backdrop-blur-md px-4 border border-white/40 dark:border-white/10 rounded-full py-1.5">
+                            <span class="text-xs font-black text-stone-500 uppercase tracking-widest">{{ $settings['team_other_section_label'] ?? 'Tim Pendukung & Pembimbing' }}</span>
                         </div>
                     </div>
                     
                     <div class="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 reveal-stagger">
                         @foreach ($otherTeams as $t)
-                            <div class="bg-white p-4 md:p-5 rounded-2xl border border-stone-200/60 hover:border-blue-600/10 shadow-sm transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
+                            <div class="relative overflow-hidden bg-white/60 dark:bg-white/10 backdrop-blur-xl p-4 md:p-5 rounded-2xl border border-white/60 dark:border-white/15 hover:border-blue-600/10 ring-1 ring-white/30 shadow-md shadow-stone-900/5 transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
+                                <div class="pointer-events-none absolute inset-x-4 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                                 @if($t->image_url)
                                     <img src="{{ $t->image_url }}" alt="{{ $t->name }}" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover shadow-sm border-2 border-white flex-shrink-0" width="56" height="56" loading="lazy" decoding="async">
                                 @else
@@ -1115,13 +1132,16 @@
             <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
             <!-- Stars/Pattern overlay -->
             <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+            <!-- Color orbs that give the frosted glass panels depth -->
+            <div class="absolute -right-24 top-32 w-96 h-96 rounded-full bg-amber-400/20 blur-3xl"></div>
+            <div class="absolute -left-20 bottom-24 w-80 h-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
         </div>
 
         <!-- Section Header (Premium Split Layout) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
                 <div class="space-y-3 flex flex-col items-center lg:items-start">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
                     <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight text-center lg:text-left">
@@ -1138,92 +1158,98 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Feature 1 -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
                             @if (!empty($settings['feature_1_image']))
                                 <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 2: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
                             @if (!empty($settings['feature_2_image']))
                                 <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 3: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
                             @if (!empty($settings['feature_3_image']))
                                 <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 4: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-2xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
                             @if (!empty($settings['feature_4_image']))
                                 <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 5: Standard Card -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
                             @if (!empty($settings['feature_5_image']))
                                 <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
                     </div>
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="reveal-card lg:col-span-1 bg-white hover:border-blue-600/15 border border-stone-200/60 p-8 rounded-[1.75rem] shadow-sm shadow-stone-900/[0.03] flex flex-col justify-between">
+                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
-                        <div class="mb-6 bg-blue-50 text-blue-600 p-4 rounded-xl w-fit border border-blue-100/50">
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
                             @if (!empty($settings['feature_6_image']))
                                 <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
                             @else
                                 <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
                             @endif
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-lg mb-3">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
-                        <p class="text-stone-500 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
+                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
                     </div>
                 </div>
             </div>
@@ -1424,21 +1450,21 @@
                                     <div class="col-span-2 flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50">
                                         <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></span>
                                         <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
+                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
                                             <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
                                         <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
                                         <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
+                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
                                             <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->airline }}</p>
                                         </div>
                                     </div>
                                     <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
                                         <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-4 h-4"></i></span>
                                         <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-400 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
+                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
                                             <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->hotel }}</p>
                                         </div>
                                     </div>
@@ -1452,7 +1478,7 @@
                             <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
 
                             <div>
-                                <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
+                                <p class="text-[9px] text-stone-500 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
                                 <p class="font-extrabold text-base text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
                             </div>
                             <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
@@ -1576,7 +1602,7 @@
                         <!-- Album Description Info -->
                         <div class="flex flex-col">
                             <h3 class="font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
-                            <p class="text-[10px] sm:text-xs text-stone-400 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
+                            <p class="text-[10px] sm:text-xs text-stone-500 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
                                 <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
                             </p>
@@ -1745,7 +1771,7 @@
                                                         @endif
                                                         <div class="min-w-0">
                                                             <h3 class="font-extrabold text-stone-900 text-sm md:text-base line-clamp-2 group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
-                                                            <p class="text-xs text-stone-400 truncate">{{ $testimonial->location }}</p>
+                                                            <p class="text-xs text-stone-500 truncate">{{ $testimonial->location }}</p>
                                                         </div>
                                                     </div>
                                                     <div class="flex text-amber-500 gap-0.5">
@@ -1813,7 +1839,7 @@
                                                     </div>
                                                     <div class="min-w-0">
                                                         <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h3>
-                                                        <p class="text-xs text-stone-400 truncate">Jakarta</p>
+                                                        <p class="text-xs text-stone-500 truncate">Jakarta</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1844,7 +1870,7 @@
                                                     </div>
                                                     <div class="min-w-0">
                                                         <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h3>
-                                                        <p class="text-xs text-stone-400 truncate">Bandung</p>
+                                                        <p class="text-xs text-stone-500 truncate">Bandung</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1875,7 +1901,7 @@
                                                     </div>
                                                     <div class="min-w-0">
                                                         <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h3>
-                                                        <p class="text-xs text-stone-400 truncate">Surabaya</p>
+                                                        <p class="text-xs text-stone-500 truncate">Surabaya</p>
                                                     </div>
                                                 </div>
                                                 <div class="flex text-amber-500 gap-0.5">
@@ -1970,7 +1996,7 @@
                             
                             <!-- Card Body -->
                             <div class="p-6 md:p-8">
-                                <div class="flex items-center gap-3 text-[10px] text-stone-400 font-bold mb-3.5">
+                                <div class="flex items-center gap-3 text-[10px] text-stone-500 font-bold mb-3.5">
                                     <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> {{ $article->published_at }}</span>
                                     <span class="w-1 h-1 rounded-full bg-stone-300"></span>
                                     <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> {{ $article->read_time }} {{ $settings['articles_read_suffix'] ?? 'Baca' }}</span>
@@ -2006,7 +2032,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs font-extrabold text-stone-800">{{ $article->author }}</p>
-                                    <p class="text-[9px] text-stone-400 font-bold uppercase tracking-wider mt-0.5">{{ $article->author_role }}</p>
+                                    <p class="text-[9px] text-stone-500 font-bold uppercase tracking-wider mt-0.5">{{ $article->author_role }}</p>
                                 </div>
                             </div>
                             <a class="group flex items-center gap-1 text-xs font-extrabold text-blue-600 hover:text-blue-700 transition" 
@@ -2275,7 +2301,7 @@
                             <span class="bg-blue-50 text-blue-600 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_1_badge'] ?? 'Freelance' }}</span>
                         </div>
                         <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_1_title'] ?? 'Mitra Freelance' }}</h3>
-                        <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
                         <p class="text-3xl font-black text-blue-600 mb-6">{{ $settings['partnership_tier_1_price'] ?? 'FREE' }}</p>
                         <div class="h-px bg-stone-100 mb-6"></div>
                         <ul class="space-y-3.5 text-xs text-stone-600">
@@ -2309,8 +2335,8 @@
                             <span class="bg-amber-100/70 text-amber-700 text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider">{{ $settings['partnership_tier_2_badge'] ?? 'Agen Resmi' }}</span>
                         </div>
                         <h3 class="font-extrabold text-stone-900 text-lg mb-1">{{ $settings['partnership_tier_2_title'] ?? 'Mitra Agen' }}</h3>
-                        <p class="text-[10px] text-stone-400 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
-                        <p class="text-3xl font-black text-amber-500 mb-6">{{ $settings['partnership_tier_2_price'] ?? 'Rp 1.000.000' }}</p>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-wider mb-3">{{ $settings['partnership_reg_label'] ?? 'Biaya Pendaftaran' }}</p>
+                        <p class="text-3xl font-black text-amber-700 mb-6">{{ $settings['partnership_tier_2_price'] ?? 'Rp 1.000.000' }}</p>
                         <div class="h-px bg-stone-100 mb-6"></div>
                         <ul class="space-y-3.5 text-xs text-stone-600">
                             <li class="flex items-center gap-3">
@@ -2371,7 +2397,7 @@
                 <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-500/5 rounded-full blur-2xl"></div>
                 <div class="text-left space-y-2 relative z-10">
                     <h4 class="font-extrabold text-stone-900 text-lg md:text-xl">{{ $settings['partnership_cta_title'] ?? 'Tertarik Menjadi Mitra IZI Travel?' }}</h4>
-                    <p class="text-stone-400 text-xs md:text-sm font-light">{{ $settings['partnership_cta_desc'] ?? 'Dapatkan proposal penawaran kemitraan resmi dan diskusikan peluang kerja sama bersama tim kami.' }}</p>
+                    <p class="text-stone-500 text-xs md:text-sm font-light">{{ $settings['partnership_cta_desc'] ?? 'Dapatkan proposal penawaran kemitraan resmi dan diskusikan peluang kerja sama bersama tim kami.' }}</p>
                 </div>
                 <a class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3.5 rounded-full font-bold shadow-lg shadow-blue-500/15 transform active:scale-95 transition-all duration-300 flex items-center gap-2.5 text-xs flex-shrink-0 relative z-10" href="https://wa.me/{{ $wa_phone }}?text=Halo%20Admin%20IZI%20Travel,%20saya%20tertarik%20untuk%20bergabung%2520menjadi%2520mitra%2520syiar%2520Baitullah." target="_blank">
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -2404,7 +2430,7 @@
                     <details class="faq-details group border border-stone-100/85 group-open:border-blue-600/20 rounded-2xl overflow-hidden transition-all duration-300 bg-white group-open:bg-blue-600/[0.02] soft-shadow">
                         <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-blue-600/[0.03] group-open:bg-blue-600/[0.05] list-none font-bold text-stone-800 transition">
                             {{ $faq->question }}
-                            <svg class="w-5 h-5 text-stone-400 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-stone-500 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </summary>
@@ -4249,7 +4275,7 @@
                     <div id="testimonial-text-modal-video-container" class="w-full h-full"></div>
                 </div>
                 <h3 id="testimonial-text-modal-name" class="font-extrabold text-stone-900 text-base sm:text-lg pr-8"></h3>
-                <p id="testimonial-text-modal-location" class="text-xs text-stone-400 mb-2"></p>
+                <p id="testimonial-text-modal-location" class="text-xs text-stone-500 mb-2"></p>
                 <div id="testimonial-text-modal-rating" class="flex text-amber-500 gap-0.5 mb-4"></div>
                 <p id="testimonial-text-modal-message" class="text-stone-600 text-sm leading-relaxed italic whitespace-pre-line"></p>
             </div>

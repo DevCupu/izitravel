@@ -605,6 +605,14 @@
                     <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Partner::count() }}</span>
                 </a>
 
+                <a href="{{ route('admin.promos.index') }}"
+                   :title="sidebarCollapsed ? 'Promo Carousel' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.promos.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="megaphone" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Promo Carousel</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Promo::count() }}</span>
+                </a>
+
                 <a href="{{ route('admin.faqs.index') }}"
                    :title="sidebarCollapsed ? 'FAQ' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.faqs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">

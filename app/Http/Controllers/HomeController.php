@@ -10,6 +10,7 @@ use App\Models\Setting;
 use App\Models\Article;
 use App\Models\Team;
 use App\Models\Partner;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -64,7 +65,14 @@ class HomeController extends Controller
             ->orderBy('id')
             ->get();
 
-        return view('welcome', compact('packages', 'testimonials', 'allTestimonialsCount', 'galleries', 'faqs', 'articles', 'teams', 'partners', 'settings'));
+        $promos = Promo::query()
+            ->where('is_active', true)
+            ->orderBy('order')
+            ->orderBy('id')
+            ->limit(6)
+            ->get();
+
+        return view('welcome', compact('packages', 'testimonials', 'allTestimonialsCount', 'galleries', 'faqs', 'articles', 'teams', 'partners', 'promos', 'settings'));
     }
 
     public function gallery(Request $request)

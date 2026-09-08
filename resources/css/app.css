@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Responsive Hero Banner — dark theme tokens & entrance animations.
+   (Tailwind 3 equivalents of the component's Tailwind 4 @theme block.) */
+:root {
+    --bg-0: #09090b;
+    --bg-100: #18181b;
+    --bg-200: #27272a;
+    --bg-300: #3f3f46;
+    --text-100: #fafafa;
+    --text-200: #e4e4e7;
+    --text-300: #a1a1aa;
+    --text-400: #71717a;
+    --radius: 0.5rem;
+}
+
+/* Instrument Serif (display) + Inter (system sans) used by the hero banner */
+.font-serif {
+    font-family: 'Instrument Serif', Georgia, serif;
+}
+
+/* Soft readable shadow for light text over photo backgrounds */
+.text-shadow-hero {
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Promo carousel autoplay progress bar */
+@keyframes promoBar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-slide-in {
+    animation: fadeSlideIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Prevent Alpine-managed elements (mobile hero menu) from flashing before JS loads */
+[x-cloak] {
+    display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-fade-slide-in {
+        animation: none;
+    }
+}

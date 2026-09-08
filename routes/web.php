@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\PackageController as AdminPackageController;
 use App\Http\Controllers\Admin\PackageJemaahController as AdminPackageJemaahController;
 use App\Http\Controllers\Admin\PackageJemaahImportController as AdminPackageJemaahImportController;
 use App\Http\Controllers\Admin\PartnerController;
+use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\RegistrationChecklistController as AdminRegistrationChecklistController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TeamController;
@@ -82,6 +83,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::resource('articles', ArticleController::class)->except('show');
     Route::resource('teams', TeamController::class)->except('show');
     Route::resource('partners', PartnerController::class)->except('show');
+    Route::resource('promos', PromoController::class)->except('show');
 });
 
 require __DIR__.'/auth.php';
