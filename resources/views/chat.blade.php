@@ -209,12 +209,12 @@
                 if (count <= 0) {
                     go();
                 }
-            }, 1000ered);
+            }, 1000);
 
             setTimeout(function () {
                 if (count > 0) clearInterval(timer);
                 go();
-            }, 1500);
+            }, 500);
         })();
     </script>
     @endif
