@@ -8,6 +8,7 @@ use App\Models\Setting;
 use App\Models\WhatsAppCs;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 
 class ChatRouterService
 {
@@ -39,6 +40,8 @@ class ChatRouterService
 
         $cs = $this->pickCs();
 
+        $token = (string) Str::uuid();
+
         ChatLog::create([
             'campaign_id' => $campaign?->id,
             'cs_id' => $cs['id'],
@@ -47,18 +50,41 @@ class ChatRouterService
             'utm_campaign' => $utmCampaign,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
+            'token' => $token,
         ]);
 
         $messageName = $campaign?->name ?? $utmCampaign;
 
         return [
             'wa_url' => $this->buildWaUrl($cs['phone'], $this->buildMessage($messageName)),
+            'token' => $token,
             'cs' => $cs,
             'campaign' => $campaign,
             'utm_source' => $utmSource,
             'utm_medium' => $utmMedium,
             'utm_campaign' => $utmCampaign,
         ];
+    }
+
+    /**
+     * Mark a chat log as "clicked through" (user actually tapped the WhatsApp
+     * button / auto-redirect fired). Looks the log up by its unique token so the
+     * beacon cannot guess arbitrary ids.
+     *
+     * @return bool true when a log was found and updated
+     */
+    public function markClicked(?string $token): bool
+    {
+        if ($token === null || $token === '') {
+            return false;
+        }
+
+        $updated = ChatLog::query()
+            ->where('token', $token)
+            ->whereNull('clicked_at')
+            ->update(['clicked_at' => now()]);
+
+        return $updated > 0;
     }
 
     /**

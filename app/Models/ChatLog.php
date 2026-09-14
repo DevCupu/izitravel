@@ -9,6 +9,10 @@ class ChatLog extends Model
 {
     const UPDATED_AT = null;
 
+    protected $casts = [
+        'clicked_at' => 'datetime',
+    ];
+
     protected $fillable = [
         'campaign_id',
         'cs_id',
@@ -17,6 +21,8 @@ class ChatLog extends Model
         'utm_campaign',
         'ip_address',
         'user_agent',
+        'token',
+        'clicked_at',
     ];
 
     public function campaign(): BelongsTo

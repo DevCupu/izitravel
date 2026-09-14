@@ -47,6 +47,22 @@ Route::get('/chat', [ChatRouterController::class, 'redirect'])
     ->middleware('throttle:20,1')
     ->name('public.chat');
 
+// Fire-and-forget click beacon: the /chat page POSTs here (keepalive beacon,
+// 204 response, never waited on) the moment the visitor taps "Lanjut ke
+// WhatsApp" or the auto-redirect fires — so admin can tell "who really opened
+// WhatsApp" from "who just saw the landing page" (see ChatRouterService::markClicked).
+Route::post('/chat/click', [ChatRouterController::class, 'trackClick'])
+    ->middleware('throttle:40,1')
+    ->name('public.chat.click');
+
+    // Fire-and-forget click beacon. The /chat page POSTs its log token the moment
+    // the visitor clicks "Lanjut ke WhatsApp" (or the auto-redirect fires), so the
+    // admins can tell which leads actually opened WhatsApp vs those that bounced.
+    // Narrow throttle (90/5min) is plenty for one beacon per visitor.
+    Route::post('/chat/click', [ChatRouterController::class, 'trackClick'])
+        ->middleware('throttle:90,5')
+        ->name('public.chat.click');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

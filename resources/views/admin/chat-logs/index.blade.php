@@ -100,6 +100,7 @@
                             <th class="px-6 py-4">{{ __('Campaign') }}</th>
                             <th class="px-6 py-4">{{ __('UTM') }}</th>
                             <th class="px-6 py-4">{{ __('CS') }}</th>
+                            <th class="px-6 py-4">{{ __('Status') }}</th>
                             <th class="px-6 py-4">{{ __('IP') }}</th>
                         </tr>
                     </thead>
@@ -140,6 +141,20 @@
                                     @else
                                         <span class="inline-flex items-center gap-1 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
                                             CS Utama
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-6 py-4">
+                                    @if ($log->clicked_at)
+                                        <span class="inline-flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
+                                            <span class="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">Dibuka</span>
+                                        </span>
+                                        <div class="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">{{ $log->clicked_at->format('H:i:s') }}</div>
+                                    @else
+                                        <span class="inline-flex items-center gap-1.5">
+                                            <span class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600"></span>
+                                            <span class="font-semibold text-slate-400 dark:text-slate-500 text-[11px]">Belum</span>
                                         </span>
                                     @endif
                                 </td>

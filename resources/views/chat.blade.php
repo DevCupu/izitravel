@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Menghubungkan Anda - {{ config('app.name', 'IZI Travel') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <style>
@@ -176,17 +177,43 @@
             var target = @json($wa_url);
             var count = 1;
             var el = document.querySelector('.countdown b');
+            var beaconSent = false;
+            var tokenMeta = document.querySelector('meta[name="csrf-token"]');
+
+            function sendClickBeacon() {
+                if (beaconSent || !tokenMeta) return;
+                beaconSent = true;
+                var token = @json($token);
+                if (!token) return;
+                var csrf = tokenMeta.getAttribute('content');
+                var form = new FormData();
+                form.append('token', token);
+                try {
+                    navigator.sendBeacon(@json(route('public.chat.click')), form);
+                } catch (e) {}
+            }
+
+            document.querySelector('.btn').addEventListener('click', function () {
+                sendClickBeacon();
+            });
+
+            var go = function () {
+                clearInterval(timer);
+                sendClickBeacon();
+                window.location.replace(target);
+            };
+
             var timer = setInterval(function () {
                 count--;
                 if (el) el.textContent = count;
                 if (count <= 0) {
-                    clearInterval(timer);
-                    window.location.replace(target);
+                    go();
                 }
-            }, 1000);
+            }, 1000ered);
+
             setTimeout(function () {
                 if (count > 0) clearInterval(timer);
-                window.location.replace(target);
+                go();
             }, 1500);
         })();
     </script>
