@@ -136,6 +136,102 @@
             </div>
         </div>
 
+        <!-- ═══════ Meta Ads → WhatsApp Leads ═══════ -->
+        <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5 sm:p-6 animate-fade-in-up stagger-2 shadow-sm">
+            <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white">Meta Ads → WhatsApp</h3>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ringkasan lead dari izitravel.id/chat</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="{{ route('admin.chat-logs.index') }}" class="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition">
+                        <i data-lucide="radar" class="w-3.5 h-3.5"></i>
+                        Lihat Semua Lead
+                    </a>
+                    <span class="inline-flex items-center gap-1 bg-slate-50 dark:bg-slate-700/30 text-slate-500 dark:text-slate-400 text-xs font-bold px-3 py-1.5 rounded-lg">
+                        <i data-lucide="database" class="w-3.5 h-3.5"></i>
+                        {{ number_format($leadTotalAllTime, 0, ',', '.') }} total
+                    </span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <!-- Lead hari ini -->
+                <div class="rounded-xl bg-emerald-50/70 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800/40 p-5">
+                    <div class="flex items-center justify-between">
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-emerald-600/80 dark:text-emerald-500">Lead Hari Ini</p>
+                        <i data-lucide="activity" class="w-4 h-4 text-emerald-500"></i>
+                    </div>
+                    <p class="mt-2 text-3xl font-extrabold text-emerald-700 dark:text-emerald-400 tabular-nums" x-data x-init="animateValue($el, {{ $leadToday }})">{{ $leadToday }}</p>
+                    <div class="mt-4 space-y-2">
+                        @forelse ($leadPerCampaignToday as $camp)
+                            <div class="flex items-center justify-between gap-2">
+                                <span class="text-xs font-semibold text-emerald-700/80 dark:text-emerald-300/80 truncate">{{ $camp->name }}</span>
+                                <span class="text-xs font-extrabold text-emerald-700 dark:text-emerald-300 tabular-nums">{{ $camp->chat_logs_count }}</span>
+                            </div>
+                        @empty
+                            <p class="text-xs text-emerald-700/60 dark:text-emerald-400/50 italic">Belum ada lead hari ini.</p>
+                        @endforelse
+                    </div>
+                </div>
+
+                <!-- Distribusi CS -->
+                <div class="rounded-xl bg-blue-50/70 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/40 p-5">
+                    <div class="flex items-center justify-between">
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-blue-600/80 dark:text-blue-400">Distribusi CS</p>
+                        <i data-lucide="users" class="w-4 h-4 text-blue-500"></i>
+                    </div>
+                    <div class="mt-4 space-y-2.5">
+                        @if ($leadPerCs->isEmpty())
+                            <p class="text-xs text-blue-700/60 dark:text-blue-400/50 italic">Belum ada lead dialihkan ke CS.</p>
+                        @else
+                            @foreach ($leadPerCs as $cs)
+                                @php
+                                    $csTotal = $leadPerCs->sum('chat_logs_count');
+                                    $pct = $csTotal > 0 ? round(($cs->chat_logs_count / $csTotal) * 100) : 0;
+                                @endphp
+                                <div>
+                                    <div class="flex items-center justify-between gap-2 mb-1">
+                                        <span class="text-xs font-semibold text-blue-700/90 dark:text-blue-300/90">{{ $cs->name }}</span>
+                                        <span class="text-xs font-extrabold text-blue-700 dark:text-blue-300 tabular-nums">{{ $cs->chat_logs_count }} <span class="font-semibold text-blue-400 dark:text-blue-400/70">({{ $pct }}%)</span></span>
+                                    </div>
+                                    <div class="h-1.5 rounded-full bg-blue-100 dark:bg-blue-800/40 overflow-hidden">
+                                        <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" style="width: {{ max(3, $pct) }}%"></div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
+                </div>
+
+                <!-- CS aktif + bobot -->
+                <div class="rounded-xl bg-indigo-50/70 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-800/40 p-5">
+                    <div class="flex items-center justify-between">
+                        <p class="text-[10px] font-bold uppercase tracking-widest text-indigo-600/80 dark:text-indigo-400">CS Aktif</p>
+                        <i data-lucide="message-circle" class="w-4 h-4 text-indigo-500"></i>
+                    </div>
+                    <div class="mt-4 space-y-2.5">
+                        @forelse ($csActive as $cs)
+                            <div class="flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+                                <span class="text-xs font-semibold text-indigo-700/90 dark:text-indigo-300/90 truncate">{{ $cs->name }}</span>
+                                <span class="ml-auto text-xs font-extrabold text-indigo-600 dark:text-indigo-300 tabular-nums">{{ round(($cs->weight / $csWeightTotal) * 100) }}%</span>
+                            </div>
+                        @empty
+                            <p class="text-xs text-indigo-700/60 dark:text-indigo-400/50 italic">Tidak ada CS aktif. Lead akan otomatis mengarah ke nomor utama.</p>
+                            <a href="{{ route('admin.whatsapp-cs.create') }}" class="inline-flex items-center gap-1 text-xs text-indigo-600 dark:text-indigo-400 font-bold hover:underline mt-1">
+                                Tambah CS
+                                <i data-lucide="arrow-right" class="w-3 h-3"></i>
+                            </a>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- ═══════ Charts Row ═══════ -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
             <!-- Departure Schedule Trend Chart -->

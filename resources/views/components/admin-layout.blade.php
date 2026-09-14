@@ -629,6 +629,36 @@
                 </a>
 
                 <div class="pt-5 pb-1">
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Meta Ads</p>
+                </div>
+
+                <a href="{{ route('admin.whatsapp-cs.index') }}"
+                   :title="sidebarCollapsed ? 'WhatsApp CS' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.whatsapp-cs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="message-circle" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">WhatsApp CS</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\WhatsAppCs::where('is_active', true)->count() }}</span>
+                </a>
+
+                <a href="{{ route('admin.campaigns.index') }}"
+                   :title="sidebarCollapsed ? 'Campaign' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.campaigns.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="megaphone" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Campaign</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Campaign::count() }}</span>
+                </a>
+
+                <a href="{{ route('admin.chat-logs.index') }}"
+                   :title="sidebarCollapsed ? 'Lead Tracking' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.chat-logs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="radar" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Lead Tracking</span>
+                    @if (\App\Models\ChatLog::whereDate('created_at', now()->today())->count() > 0)
+                        <span class="nav-badge ml-auto text-[11px] font-bold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md">{{ \App\Models\ChatLog::whereDate('created_at', now()->today())->count() }}</span>
+                    @endif
+                </a>
+
+                <div class="pt-5 pb-1">
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Lainnya</p>
                 </div>
 

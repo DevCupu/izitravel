@@ -3,22 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
+use App\Models\Campaign;
+use App\Models\ChatLog;
 use App\Models\Faq;
 use App\Models\Gallery;
 use App\Models\Package;
-use App\Models\Testimonial;
-use App\Models\User;
-use App\Models\Article;
-use App\Models\Team;
 use App\Models\Partner;
 use App\Models\Setting;
-use Carbon\Carbon;
+use App\Models\Team;
+use App\Models\Testimonial;
+use App\Models\WhatsAppCs;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-
 
         // Content counts
         $totalPackages = Package::count();
@@ -38,8 +38,6 @@ class DashboardController extends Controller
         $activeArticles = Article::where('is_active', true)->count();
         $activeTeams = Team::where('is_active', true)->count();
         $activePartners = Partner::where('is_active', true)->count();
-
-
 
         // Content distribution for doughnut chart
         $contentDistribution = [
@@ -94,7 +92,7 @@ class DashboardController extends Controller
 
         // --- SEO & Site Integrity Health Assessment ---
         $seoChecklist = [];
-        
+
         $basicScore = 0;
         $eeatScore = 0;
         $advancedScore = 0;
@@ -120,7 +118,7 @@ class DashboardController extends Controller
                 $basicScore += 4;
                 $seoChecklist[] = ['category' => 'basic', 'label' => 'Deskripsi Meta Website optimal (120-160 karakter)', 'status' => 'pass'];
             } else {
-                $seoChecklist[] = ['category' => 'basic', 'label' => 'Deskripsi Meta Website ada, namun panjangnya (' . $descLength . ' karakter) kurang optimal. Idealnya 120-160 karakter.', 'status' => 'warning', 'fix' => route('admin.settings.index')];
+                $seoChecklist[] = ['category' => 'basic', 'label' => 'Deskripsi Meta Website ada, namun panjangnya ('.$descLength.' karakter) kurang optimal. Idealnya 120-160 karakter.', 'status' => 'warning', 'fix' => route('admin.settings.index')];
             }
         } else {
             $seoChecklist[] = ['category' => 'basic', 'label' => 'Deskripsi Meta Website kosong (Buruk untuk SEO)', 'status' => 'fail', 'fix' => route('admin.settings.index')];
@@ -128,7 +126,7 @@ class DashboardController extends Controller
 
         if ($gaId) {
             $basicScore += 5;
-            $seoChecklist[] = ['category' => 'basic', 'label' => 'Google Analytics ID terpasang (' . $gaId . ')', 'status' => 'pass'];
+            $seoChecklist[] = ['category' => 'basic', 'label' => 'Google Analytics ID terpasang ('.$gaId.')', 'status' => 'pass'];
         } else {
             $seoChecklist[] = ['category' => 'basic', 'label' => 'Google Analytics ID belum dipasang', 'status' => 'warning', 'fix' => route('admin.settings.index')];
         }
@@ -188,7 +186,7 @@ class DashboardController extends Controller
         }
 
         $advancedScore += 2; // Default robots.txt is always valid & present
-        if (!empty(trim($robotsTxt))) {
+        if (! empty(trim($robotsTxt))) {
             $seoChecklist[] = ['category' => 'advanced', 'label' => 'Berkas Robots.txt telah dikustomisasi', 'status' => 'pass'];
         } else {
             $seoChecklist[] = ['category' => 'advanced', 'label' => 'Berkas Robots.txt menggunakan konfigurasi bawaan (Default)', 'status' => 'pass'];
@@ -209,25 +207,25 @@ class DashboardController extends Controller
 
             if ($activePackagesCount > 0) {
                 // Check images
-                $packagesWithoutImage = Package::where('is_active', true)->where(function($query) {
+                $packagesWithoutImage = Package::where('is_active', true)->where(function ($query) {
                     $query->whereNull('image')->orWhere('image', '');
                 })->count();
                 $packageImageScore = max(0, 8 - (($packagesWithoutImage / $activePackagesCount) * 8));
                 $packagesScore += $packageImageScore;
                 if ($packagesWithoutImage > 0) {
-                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutImage . ' paket aktif tidak memiliki gambar cover', 'status' => 'warning', 'fix' => route('admin.packages.index')];
+                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutImage.' paket aktif tidak memiliki gambar cover', 'status' => 'warning', 'fix' => route('admin.packages.index')];
                 } else {
                     $seoChecklist[] = ['category' => 'packages', 'label' => 'Semua paket aktif memiliki gambar cover', 'status' => 'pass'];
                 }
 
                 // Check pricing
-                $packagesWithoutPrice = Package::where('is_active', true)->where(function($query) {
+                $packagesWithoutPrice = Package::where('is_active', true)->where(function ($query) {
                     $query->whereNull('price')->orWhere('price', '<=', 0);
                 })->count();
                 $packagePriceScore = max(0, 4 - (($packagesWithoutPrice / $activePackagesCount) * 4));
                 $packagesScore += $packagePriceScore;
                 if ($packagesWithoutPrice > 0) {
-                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutPrice . ' paket aktif tidak memiliki harga valid', 'status' => 'fail', 'fix' => route('admin.packages.index')];
+                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutPrice.' paket aktif tidak memiliki harga valid', 'status' => 'fail', 'fix' => route('admin.packages.index')];
                 } else {
                     $seoChecklist[] = ['category' => 'packages', 'label' => 'Semua paket aktif memiliki harga valid', 'status' => 'pass'];
                 }
@@ -237,7 +235,7 @@ class DashboardController extends Controller
                 $packageDateScore = max(0, 8 - (($packagesWithoutDate / $activePackagesCount) * 8));
                 $packagesScore += $packageDateScore;
                 if ($packagesWithoutDate > 0) {
-                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutDate . ' paket aktif tidak memiliki tanggal keberangkatan', 'status' => 'warning', 'fix' => route('admin.packages.index')];
+                    $seoChecklist[] = ['category' => 'packages', 'label' => $packagesWithoutDate.' paket aktif tidak memiliki tanggal keberangkatan', 'status' => 'warning', 'fix' => route('admin.packages.index')];
                 } else {
                     $seoChecklist[] = ['category' => 'packages', 'label' => 'Semua paket aktif memiliki tanggal keberangkatan', 'status' => 'pass'];
                 }
@@ -258,25 +256,25 @@ class DashboardController extends Controller
 
             if ($activeArticlesCount > 0) {
                 // Check images
-                $articlesWithoutImage = Article::where('is_active', true)->where(function($query) {
+                $articlesWithoutImage = Article::where('is_active', true)->where(function ($query) {
                     $query->whereNull('image')->orWhere('image', '');
                 })->count();
                 $articleImageScore = max(0, 8 - (($articlesWithoutImage / $activeArticlesCount) * 8));
                 $articlesScore += $articleImageScore;
                 if ($articlesWithoutImage > 0) {
-                    $seoChecklist[] = ['category' => 'articles', 'label' => $articlesWithoutImage . ' artikel aktif tidak memiliki gambar cover', 'status' => 'warning', 'fix' => route('admin.articles.index')];
+                    $seoChecklist[] = ['category' => 'articles', 'label' => $articlesWithoutImage.' artikel aktif tidak memiliki gambar cover', 'status' => 'warning', 'fix' => route('admin.articles.index')];
                 } else {
                     $seoChecklist[] = ['category' => 'articles', 'label' => 'Semua artikel aktif memiliki gambar cover', 'status' => 'pass'];
                 }
 
                 // Check excerpt
-                $articlesWithoutExcerpt = Article::where('is_active', true)->where(function($query) {
+                $articlesWithoutExcerpt = Article::where('is_active', true)->where(function ($query) {
                     $query->whereNull('excerpt')->orWhere('excerpt', '');
                 })->count();
                 $articleExcerptScore = max(0, 12 - (($articlesWithoutExcerpt / $activeArticlesCount) * 12));
                 $articlesScore += $articleExcerptScore;
                 if ($articlesWithoutExcerpt > 0) {
-                    $seoChecklist[] = ['category' => 'articles', 'label' => $articlesWithoutExcerpt . ' artikel aktif tidak memiliki kutipan/meta deskripsi', 'status' => 'fail', 'fix' => route('admin.articles.index')];
+                    $seoChecklist[] = ['category' => 'articles', 'label' => $articlesWithoutExcerpt.' artikel aktif tidak memiliki kutipan/meta deskripsi', 'status' => 'fail', 'fix' => route('admin.articles.index')];
                 } else {
                     $seoChecklist[] = ['category' => 'articles', 'label' => 'Semua artikel aktif memiliki kutipan/meta deskripsi', 'status' => 'pass'];
                 }
@@ -290,7 +288,7 @@ class DashboardController extends Controller
         }
 
         $seoScore = round(min(100, max(0, $basicScore + $eeatScore + $advancedScore + $packagesScore + $articlesScore)));
-        
+
         $seoBreakdown = [
             'basic' => ['label' => 'Informasi Dasar', 'score' => round($basicScore), 'max' => 25, 'color' => 'bg-blue-500'],
             'eeat' => ['label' => 'Kredibilitas E-E-A-T', 'score' => round($eeatScore), 'max' => 20, 'color' => 'bg-emerald-500'],
@@ -298,6 +296,26 @@ class DashboardController extends Controller
             'packages' => ['label' => 'Integritas Paket', 'score' => round($packagesScore), 'max' => 20, 'color' => 'bg-amber-500'],
             'articles' => ['label' => 'Kualitas Artikel', 'score' => round($articlesScore), 'max' => 20, 'color' => 'bg-pink-500'],
         ];
+
+        // --- Meta Ads → WhatsApp Lead Overview ---
+        $leadToday = ChatLog::whereDate('created_at', today())->count();
+        $leadTotalAllTime = ChatLog::count();
+
+        $leadPerCampaignToday = Campaign::query()
+            ->withCount(['chatLogs' => fn ($q) => $q->whereDate('chat_logs.created_at', today())])
+            ->whereHas('chatLogs', fn ($q) => $q->whereDate('created_at', today()))
+            ->orderByDesc('chat_logs_count')
+            ->limit(5)
+            ->get();
+
+        $leadPerCs = WhatsAppCs::query()
+            ->withCount('chatLogs')
+            ->whereHas('chatLogs')
+            ->orderByDesc('chat_logs_count')
+            ->get();
+
+        $csActive = WhatsAppCs::where('is_active', true)->orderByDesc('weight')->get();
+        $csWeightTotal = max(1, $csActive->sum('weight'));
 
         return view('admin.dashboard', compact(
 
@@ -324,6 +342,12 @@ class DashboardController extends Controller
             'seoScore',
             'seoChecklist',
             'seoBreakdown',
+            'leadToday',
+            'leadTotalAllTime',
+            'leadPerCampaignToday',
+            'leadPerCs',
+            'csActive',
+            'csWeightTotal',
         ));
     }
 }

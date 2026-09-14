@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\ChatLogController as AdminChatLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\FaqController as AdminFaqController;
 use App\Http\Controllers\Admin\GalleryController as AdminGalleryController;
@@ -17,6 +19,8 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\WhatsAppCsController as AdminWhatsAppCsController;
+use App\Http\Controllers\ChatRouterController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JemaahTrackingController;
 use App\Http\Controllers\ProfileController;
@@ -39,6 +43,9 @@ Route::get('/syarat-ketentuan', [HomeController::class, 'terms'])->name('public.
 Route::get('/kebijakan-privasi', [HomeController::class, 'privacy'])->name('public.privacy');
 Route::get('/robots.txt', [HomeController::class, 'robots'])->name('public.robots');
 Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('public.sitemap');
+Route::get('/chat', [ChatRouterController::class, 'redirect'])
+    ->middleware('throttle:20,1')
+    ->name('public.chat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -84,6 +91,12 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::resource('teams', TeamController::class)->except('show');
     Route::resource('partners', PartnerController::class)->except('show');
     Route::resource('promos', PromoController::class)->except('show');
+
+    Route::resource('whatsapp-cs', AdminWhatsAppCsController::class)
+        ->parameters(['whatsapp-cs' => 'cs'])
+        ->except('show');
+    Route::resource('campaigns', AdminCampaignController::class)->except('show');
+    Route::get('chat-logs', [AdminChatLogController::class, 'index'])->name('chat-logs.index');
 });
 
 require __DIR__.'/auth.php';

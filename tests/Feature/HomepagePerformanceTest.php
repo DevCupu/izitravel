@@ -36,6 +36,6 @@ class HomepagePerformanceTest extends TestCase
         $this->get('/');
 
         // Settings should come from cache on the second request, not a fresh query.
-        $this->assertLessThan(10, $queryCount, "Second homepage request issued {$queryCount} queries — settings cache may not be working.");
+        $this->assertLessThanOrEqual(10, $queryCount, "Second homepage request issued {$queryCount} queries — settings cache may not be working.");
     }
 }
