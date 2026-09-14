@@ -76,7 +76,7 @@
                                         <form x-data method="POST" action="{{ route('admin.whatsapp-cs.destroy', $cs->id) }}" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Apakah Anda yakin ingin menghapus CS ' + @json($cs->name) + '? Lead lama tetap tersimpan.' })"
+                                            <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Apakah Anda yakin ingin menghapus CS &quot;{{ $cs->name }}&quot;? Lead lama tetap tersimpan.' })"
                                                     class="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-900/10 transition" title="Hapus">
                                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                                             </button>
