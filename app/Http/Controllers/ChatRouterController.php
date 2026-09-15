@@ -16,7 +16,11 @@ class ChatRouterController extends Controller
     {
         $result = $router->route($request);
 
-        return view('chat', $result);
+        return response()
+            ->view('chat', $result)
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+            ->header('Pragma', 'no-cache')
+            ->header('Expires', '0');
     }
 
     /**

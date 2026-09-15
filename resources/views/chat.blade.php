@@ -209,6 +209,10 @@
                 openWhatsApp();
             });
 
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) window.location.reload();
+            });
+
             // Ad in-app browsers often block automatic handoff to WhatsApp.
             if (isAdsInAppBrowser) {
                 if (countdown) countdown.textContent = 'Tekan tombol untuk membuka WhatsApp.';

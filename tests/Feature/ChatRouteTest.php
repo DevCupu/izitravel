@@ -22,6 +22,7 @@ class ChatRouteTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Menghubungkan Anda');
         $response->assertSee('https://wa.me/');
+        $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
 
         $this->assertDatabaseHas('chat_logs', [
             'utm_source' => 'meta',
