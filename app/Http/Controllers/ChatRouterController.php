@@ -24,6 +24,27 @@ class ChatRouterController extends Controller
     }
 
     /**
+     * Resolve a fresh CS at the moment a visitor taps WhatsApp from an ad
+     * in-app browser, which may otherwise restore a cached /chat page.
+     */
+    public function open(Request $request, ChatRouterService $router)
+    {
+        $result = $router->route($request);
+
+        if ($result['wa_url'] === null) {
+            return response()
+                ->view('chat', $result, 503)
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        }
+
+        $router->markClicked($result['token']);
+
+        return redirect()
+            ->away($result['wa_url'])
+            ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+    }
+
+    /**
      * Fire-and-forget click beacon. The /chat page calls this (POST) with its
      * unique token whenever the visitor taps "Lanjut ke WhatsApp" OR the
      * auto-redirect fires — so admins can tell "who really opened WhatsApp"
