@@ -46,9 +46,6 @@ Route::get('/sitemap.xml', [HomeController::class, 'sitemap'])->name('public.sit
 Route::get('/chat', [ChatRouterController::class, 'redirect'])
     ->middleware('throttle:20,1')
     ->name('public.chat');
-Route::get('/chat/open', [ChatRouterController::class, 'open'])
-    ->middleware('throttle:20,1')
-    ->name('public.chat.open');
 
 // Fire-and-forget click beacon: the /chat page POSTs here (keepalive beacon,
 // 204 response, never waited on) the moment the visitor taps "Lanjut ke

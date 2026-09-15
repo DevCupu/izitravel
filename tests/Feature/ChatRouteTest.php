@@ -21,7 +21,7 @@ class ChatRouteTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('Menghubungkan Anda');
-        $response->assertSee('chat/open');
+        $response->assertSee('https://wa.me/');
         $response->assertSee('FB_IAB');
         $response->assertSee('pageshow');
         $response->assertSee('visibilitychange');
@@ -58,7 +58,7 @@ class ChatRouteTest extends TestCase
         $response = $this->get('/chat?utm_campaign=iklan_baru_tanpa_daftar');
 
         $response->assertStatus(200);
-        $response->assertSee('chat/open');
+        $response->assertSee('https://wa.me/');
 
         $this->assertDatabaseHas('chat_logs', [
             'utm_campaign' => 'iklan_baru_tanpa_daftar',
@@ -73,23 +73,8 @@ class ChatRouteTest extends TestCase
         $response = $this->get('/chat');
 
         $response->assertStatus(200);
-        $response->assertSee('chat/open');
+        $response->assertSee('https://wa.me/');
         $this->assertDatabaseCount('chat_logs', 1);
-    }
-
-    public function test_chat_open_selects_a_fresh_cs_and_redirects_to_whatsapp(): void
-    {
-        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
-
-        $response = $this->get('/chat/open?utm_source=meta&utm_campaign=iklan_umroh');
-
-        $response->assertRedirect();
-        $this->assertStringStartsWith('https://wa.me/6281300000001?text=', $response->getTargetUrl());
-        $log = ChatLog::first();
-        $this->assertNotNull($log);
-        $this->assertSame('meta', $log->utm_source);
-        $this->assertSame('iklan_umroh', $log->utm_campaign);
-        $this->assertNotNull($log->clicked_at);
     }
 
     public function test_chat_falls_back_to_wa_link_to_main_number(): void
@@ -99,7 +84,7 @@ class ChatRouteTest extends TestCase
         $response = $this->get('/chat');
 
         $response->assertStatus(200);
-        $response->assertSee('chat/open');
+        $response->assertSee('https://wa.me/6281199999999');
         $log = ChatLog::first();
         $this->assertNotNull($log);
         $this->assertNull($log->cs_id);

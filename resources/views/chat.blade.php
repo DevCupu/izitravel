@@ -160,7 +160,7 @@
                 <div class="coat">Paket: <strong>{{ $utm_campaign }}</strong></div>
             @endif
             <div class="countdown">Membuka WhatsApp dalam <b>1</b> detik...</div>
-            <a class="btn" href="{{ route('public.chat.open', request()->only(['utm_source', 'utm_medium', 'utm_campaign'])) }}" rel="noopener">Lanjut ke WhatsApp</a>
+            <a class="btn" href="{{ $wa_url }}" target="_blank" rel="noopener">Lanjut ke WhatsApp</a>
         @else
             <h1>CS Sedang Tidak Tersedia</h1>
             <p class="sub">Mohon maaf, tim kami sedang tidak dapat dihubungi saat ini.</p>
@@ -175,8 +175,6 @@
     <script>
         (function () {
             var target = @json($wa_url);
-            var freshTarget = @json(route('public.chat.open'));
-            var routingQuery = @json(request()->only(['utm_source', 'utm_medium', 'utm_campaign']));
             var count = 1;
             var el = document.querySelector('.countdown b');
             var countdown = document.querySelector('.countdown');
@@ -203,14 +201,6 @@
             function openWhatsApp() {
                 if (hasOpened) return;
                 hasOpened = true;
-
-                if (isAdsInAppBrowser) {
-                    var params = new URLSearchParams(routingQuery);
-                    params.set('_', Date.now().toString());
-                    window.location.assign(freshTarget + '?' + params.toString());
-                    return;
-                }
-
                 sendClickBeacon();
                 window.location.replace(target);
             }
