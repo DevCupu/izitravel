@@ -177,9 +177,11 @@
             var target = @json($wa_url);
             var count = 1;
             var el = document.querySelector('.countdown b');
+            var countdown = document.querySelector('.countdown');
             var beaconSent = false;
             var tokenMeta = document.querySelector('meta[name="csrf-token"]');
             var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+            var isAdsInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview/i.test(navigator.userAgent);
             var hasOpened = false;
 
             function sendClickBeacon() {
@@ -206,6 +208,12 @@
                 event.preventDefault();
                 openWhatsApp();
             });
+
+            // Ad in-app browsers often block automatic handoff to WhatsApp.
+            if (isAdsInAppBrowser) {
+                if (countdown) countdown.textContent = 'Tekan tombol untuk membuka WhatsApp.';
+                return;
+            }
 
             var go = function () {
                 clearInterval(timer);
