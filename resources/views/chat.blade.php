@@ -181,7 +181,7 @@
             var beaconSent = false;
             var tokenMeta = document.querySelector('meta[name="csrf-token"]');
             var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            var isAdsInAppBrowser = /FBAN|FBAV|Instagram|TikTok|BytedanceWebview/i.test(navigator.userAgent);
+            var isAdsInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|TikTok|BytedanceWebview|Twitter|Line|Snapchat|Pinterest/i.test(navigator.userAgent);
             var hasOpened = false;
 
             function sendClickBeacon() {
