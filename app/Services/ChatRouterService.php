@@ -28,7 +28,7 @@ class ChatRouterService
      * Window (in seconds) during which a repeated visit from the same visitor +
      * campaign reuses the existing chat log instead of creating a new one.
      */
-    public const DEDUPE_WINDOW_SECONDS = 60;
+    public const DEDUPE_WINDOW_SECONDS = 2;
 
     /**
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
