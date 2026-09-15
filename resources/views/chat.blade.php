@@ -183,6 +183,7 @@
             var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
             var isAdsInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|TikTok|BytedanceWebview|Twitter|Line|Snapchat|Pinterest/i.test(navigator.userAgent);
             var hasOpened = false;
+            var wasHiddenAfterOpen = false;
 
             function sendClickBeacon() {
                 if (beaconSent || !tokenMeta) return;
@@ -211,6 +212,17 @@
 
             window.addEventListener('pageshow', function (event) {
                 if (event.persisted) window.location.reload();
+            });
+
+            document.addEventListener('visibilitychange', function () {
+                if (!isAdsInAppBrowser || !hasOpened) return;
+
+                if (document.hidden) {
+                    wasHiddenAfterOpen = true;
+                    return;
+                }
+
+                if (wasHiddenAfterOpen) window.location.reload();
             });
 
             // Ad in-app browsers often block automatic handoff to WhatsApp.

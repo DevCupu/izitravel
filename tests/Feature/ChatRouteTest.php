@@ -24,6 +24,7 @@ class ChatRouteTest extends TestCase
         $response->assertSee('https://wa.me/');
         $response->assertSee('FB_IAB');
         $response->assertSee('pageshow');
+        $response->assertSee('visibilitychange');
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
 
         $this->assertDatabaseHas('chat_logs', [
