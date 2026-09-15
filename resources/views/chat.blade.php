@@ -182,6 +182,7 @@
             var tokenMeta = document.querySelector('meta[name="csrf-token"]');
             var leftPage = false;
             var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
+            var hasOpened = false;
 
             function sendClickBeacon() {
                 if (beaconSent || !tokenMeta) return;
@@ -205,6 +206,8 @@
             });
 
             function openWhatsApp() {
+                if (hasOpened) return;
+                hasOpened = true;
                 sendClickBeacon();
                 if (isMobile && appTarget) {
                     window.location.href = appTarget;
@@ -238,7 +241,7 @@
             setTimeout(function () {
                 if (count > 0) clearInterval(timer);
                 go();
-            }, 500);
+            }, isMobile ? 50 : 500);
         })();
     </script>
     @endif
