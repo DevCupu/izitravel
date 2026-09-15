@@ -182,16 +182,40 @@ class ChatRouterServiceTest extends TestCase
             'utm_campaign' => 'visa_umrah',
         ];
 
-        $first = $this->service->route(Request::create('/chat', 'GET', $params));
+        $first = $this->service->route($this->chatRequest($params, 'visitor-a'));
+        $second = $this->service->route($this->chatRequest($params, 'visitor-a'));
 
-        $this->assertSame(1, ChatLog::count());
-
-        // Same IP + UA + campaign re-access (reload loop / returning visitor).
-        $second = $this->service->route(Request::create('/chat', 'GET', $params));
-
-        $this->assertSame(1, ChatLog::count(), 'repeated access must not create a duplicate log');
+        $this->assertSame(1, ChatLog::count(), 'repeated access from the same visitor must not create a duplicate log');
         $this->assertSame($first['token'], $second['token'], 'repeated access must reuse the same token');
         $this->assertSame($first['cs']['id'], $second['cs']['id'], 'repeated access must reuse the same CS');
+    }
+
+    public function test_route_rotates_cs_for_distinct_visitors_sharing_the_same_ip(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+        WhatsAppCs::create(['name' => 'Budi', 'phone' => '6281300000002', 'weight' => 1]);
+
+        $params = ['utm_campaign' => 'visa_umrah'];
+
+        $picked = [];
+        for ($i = 0; $i < 20; $i++) {
+            $uid = 'visitor-'.$i;
+            $csId = $this->service->route($this->chatRequest($params, $uid))['cs']['id'];
+
+            // Same visitor revisiting within the window reuses the same CS.
+            $repeatCsId = $this->service->route($this->chatRequest($params, $uid))['cs']['id'];
+            $this->assertSame($csId, $repeatCsId);
+
+            $picked[] = $csId;
+        }
+
+        // 20 distinct visitors (sharing one proxy IP) => must be spread across CS.
+        $this->assertSame(20, ChatLog::count());
+        $this->assertGreaterThan(
+            1,
+            count(array_unique($picked)),
+            'visitors behind the same proxy IP must still be distributed across CS'
+        );
     }
 
     public function test_route_creates_new_log_when_dedupe_window_passed(): void
@@ -200,18 +224,27 @@ class ChatRouterServiceTest extends TestCase
 
         $params = ['utm_campaign' => 'visa_umrah'];
 
-        ChatLog::query()
-            ->where('utm_campaign', 'visa_umrah')
-            ->delete();
+        ChatLog::query()->where('utm_campaign', 'visa_umrah')->delete();
 
-        $this->service->route(Request::create('/chat', 'GET', $params));
+        $this->service->route($this->chatRequest($params, 'visitor-a'));
 
         ChatLog::query()->first()?->forceFill([
             'created_at' => now()->subSeconds(ChatRouterService::DEDUPE_WINDOW_SECONDS + 1),
         ])->save();
 
-        $this->service->route(Request::create('/chat', 'GET', $params));
+        $this->service->route($this->chatRequest($params, 'visitor-a'));
 
         $this->assertSame(2, ChatLog::count(), 'a new log is created once the dedupe window passes');
+    }
+
+    private function chatRequest(array $params, ?string $visitorUid = null): Request
+    {
+        $request = Request::create('/chat', 'GET', $params);
+
+        if ($visitorUid !== null) {
+            $request->cookies->set(ChatRouterService::VISITOR_COOKIE, $visitorUid);
+        }
+
+        return $request;
     }
 }

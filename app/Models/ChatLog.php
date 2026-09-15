@@ -22,6 +22,7 @@ class ChatLog extends Model
         'ip_address',
         'user_agent',
         'token',
+        'visitor_uid',
         'clicked_at',
     ];
 

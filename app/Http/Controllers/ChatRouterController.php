@@ -18,6 +18,7 @@ class ChatRouterController extends Controller
 
         return response()
             ->view('chat', $result)
+            ->cookie(ChatRouterService::VISITOR_COOKIE, $result['visitor_uid'], 60 * 24 * 365)
             ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
             ->header('Pragma', 'no-cache')
             ->header('Expires', '0');

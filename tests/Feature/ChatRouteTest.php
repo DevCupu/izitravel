@@ -101,4 +101,44 @@ class ChatRouteTest extends TestCase
 
         $this->get('/chat')->assertStatus(429);
     }
+
+    public function test_chat_sets_visitor_cookie_for_repeat_access_dedup(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $response = $this->get('/chat?utm_campaign=visa_umrah');
+
+        $response->assertStatus(200);
+        $response->assertCookieNotExpired(\App\Services\ChatRouterService::VISITOR_COOKIE);
+    }
+
+    public function test_chat_reuses_log_for_same_visitor_cookie(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $uid = (string) \Illuminate\Support\Str::uuid();
+
+        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, $uid)
+            ->get('/chat?utm_campaign=visa_umrah')
+            ->assertStatus(200);
+        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, $uid)
+            ->get('/chat?utm_campaign=visa_umrah')
+            ->assertStatus(200);
+
+        $this->assertDatabaseCount('chat_logs', 1);
+    }
+
+    public function test_chat_creates_separate_log_for_distinct_visitor_cookies(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, (string) \Illuminate\Support\Str::uuid())
+            ->get('/chat?utm_campaign=visa_umrah')
+            ->assertStatus(200);
+        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, (string) \Illuminate\Support\Str::uuid())
+            ->get('/chat?utm_campaign=visa_umrah')
+            ->assertStatus(200);
+
+        $this->assertDatabaseCount('chat_logs', 2);
+    }
 }

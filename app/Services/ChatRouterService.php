@@ -19,8 +19,14 @@ class ChatRouterService
     public const DEFAULT_MESSAGE_TEMPLATE = "Assalamu'alaikum, saya tertarik dengan paket {campaign} dari iklan";
 
     /**
-     * Window (in seconds) during which a repeated visit from the same IP + user
-     * agent + campaign reuses the existing chat log instead of creating a new one.
+     * Name of the cookie that fingerprints a returning device/visitor so leads
+     * are allocated by device rather than by (proxy) IP.
+     */
+    public const VISITOR_COOKIE = 'izi_chat_uid';
+
+    /**
+     * Window (in seconds) during which a repeated visit from the same visitor +
+     * campaign reuses the existing chat log instead of creating a new one.
      */
     public const DEDUPE_WINDOW_SECONDS = 60;
 
@@ -28,13 +34,15 @@ class ChatRouterService
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
      * weighted random, persist a chat log, and build the target wa.me URL.
      *
-     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string}
+     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, visitor_uid: string}
      */
     public function route(Request $request): array
     {
         $utmSource = $this->clean($request->query('utm_source'));
         $utmMedium = $this->clean($request->query('utm_medium'));
         $utmCampaign = $this->clean($request->query('utm_campaign'));
+
+        $visitorUid = $this->resolveVisitorUid($request);
 
         $campaign = null;
         if ($utmCampaign !== null) {
@@ -52,7 +60,8 @@ class ChatRouterService
             $request,
             $utmSource,
             $utmMedium,
-            $utmCampaign
+            $utmCampaign,
+            $visitorUid
         );
 
         $messageName = $campaign?->name ?? $utmCampaign;
@@ -68,14 +77,28 @@ class ChatRouterService
             'utm_source' => $utmSource,
             'utm_medium' => $utmMedium,
             'utm_campaign' => $utmCampaign,
+            'visitor_uid' => $visitorUid,
         ];
     }
 
     /**
-     * Resolve the chat log to use for this request. When the same IP, user agent
-     * and UTM campaign already produced a log within the dedupe window (e.g. a
-     * user re-visiting an ad / a reload loop), the existing log + token + CS are
-     * reused so repeated accesses don't inflate lead counts with duplicates.
+     * Resolve (or mint) the persistent visitor fingerprint cookie value used to
+     * dedupe repeated accesses of the same device on the same campaign.
+     */
+    private function resolveVisitorUid(Request $request): string
+    {
+        $uid = $this->clean($request->cookie(self::VISITOR_COOKIE));
+
+        return $uid ?? (string) Str::uuid();
+    }
+
+    /**
+     * Resolve the chat log to use for this request. When the same visitor (cookie
+     * fingerprint) and UTM campaign already produced a log within the dedupe
+     * window (e.g. a user re-visiting an ad / a reload loop), the existing log +
+     * token + CS are reused so repeated accesses don't inflate lead counts with
+     * duplicates. Keying on the visitor cookie (not IP) keeps weighted-rotation
+     * fair even when many visitors share a proxy IP on shared hosting.
      *
      * @return array{0: string, 1: array{id: ?int, name: ?string, phone: ?string, fallback: bool}}
      */
@@ -85,12 +108,12 @@ class ChatRouterService
         Request $request,
         ?string $utmSource,
         ?string $utmMedium,
-        ?string $utmCampaign
+        ?string $utmCampaign,
+        string $visitorUid
     ): array {
         $recent = ChatLog::query()
+            ->where('visitor_uid', $visitorUid)
             ->where('utm_campaign', $utmCampaign)
-            ->where('ip_address', $request->ip())
-            ->where('user_agent', $request->userAgent())
             ->where('created_at', '>=', now()->subSeconds(self::DEDUPE_WINDOW_SECONDS))
             ->latest('id')
             ->first();
@@ -110,6 +133,7 @@ class ChatRouterService
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
             'token' => $token,
+            'visitor_uid' => $visitorUid,
         ]);
 
         return [$token, $cs];
