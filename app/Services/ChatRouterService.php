@@ -19,6 +19,12 @@ class ChatRouterService
     public const DEFAULT_MESSAGE_TEMPLATE = "Assalamu'alaikum, saya tertarik dengan paket {campaign} dari iklan";
 
     /**
+     * Window (in seconds) during which a repeated visit from the same IP + user
+     * agent + campaign reuses the existing chat log instead of creating a new one.
+     */
+    public const DEDUPE_WINDOW_SECONDS = 60;
+
+    /**
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
      * weighted random, persist a chat log, and build the target wa.me URL.
      *
@@ -40,18 +46,14 @@ class ChatRouterService
 
         $cs = $this->pickCs();
 
-        $token = (string) Str::uuid();
-
-        ChatLog::create([
-            'campaign_id' => $campaign?->id,
-            'cs_id' => $cs['id'],
-            'utm_source' => $utmSource,
-            'utm_medium' => $utmMedium,
-            'utm_campaign' => $utmCampaign,
-            'ip_address' => $request->ip(),
-            'user_agent' => $request->userAgent(),
-            'token' => $token,
-        ]);
+        [$token, $cs] = $this->resolveOrPersistLog(
+            $cs,
+            $campaign,
+            $request,
+            $utmSource,
+            $utmMedium,
+            $utmCampaign
+        );
 
         $messageName = $campaign?->name ?? $utmCampaign;
         $messageTemplate = $campaign?->wa_message_template;
@@ -66,6 +68,83 @@ class ChatRouterService
             'utm_source' => $utmSource,
             'utm_medium' => $utmMedium,
             'utm_campaign' => $utmCampaign,
+        ];
+    }
+
+    /**
+     * Resolve the chat log to use for this request. When the same IP, user agent
+     * and UTM campaign already produced a log within the dedupe window (e.g. a
+     * user re-visiting an ad / a reload loop), the existing log + token + CS are
+     * reused so repeated accesses don't inflate lead counts with duplicates.
+     *
+     * @return array{0: string, 1: array{id: ?int, name: ?string, phone: ?string, fallback: bool}}
+     */
+    private function resolveOrPersistLog(
+        array $cs,
+        ?Campaign $campaign,
+        Request $request,
+        ?string $utmSource,
+        ?string $utmMedium,
+        ?string $utmCampaign
+    ): array {
+        $recent = ChatLog::query()
+            ->where('utm_campaign', $utmCampaign)
+            ->where('ip_address', $request->ip())
+            ->where('user_agent', $request->userAgent())
+            ->where('created_at', '>=', now()->subSeconds(self::DEDUPE_WINDOW_SECONDS))
+            ->latest('id')
+            ->first();
+
+        if ($recent !== null) {
+            return [$recent->token, $this->csFromLog($recent)];
+        }
+
+        $token = (string) Str::uuid();
+
+        ChatLog::create([
+            'campaign_id' => $campaign?->id,
+            'cs_id' => $cs['id'],
+            'utm_source' => $utmSource,
+            'utm_medium' => $utmMedium,
+            'utm_campaign' => $utmCampaign,
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'token' => $token,
+        ]);
+
+        return [$token, $cs];
+    }
+
+    /**
+     * Rebuild the CS array from an existing log so a repeated access routes to
+     * the same CS (and fallback flag) instead of re-rolling the weighted pick.
+     *
+     * @return array{id: ?int, name: ?string, phone: ?string, fallback: bool}
+     */
+    private function csFromLog(ChatLog $log): array
+    {
+        if ($log->cs_id === null) {
+            $phone = $this->clean(Setting::getValue(self::FALLBACK_PHONE_SETTING));
+
+            return [
+                'id' => null,
+                'name' => $phone ? 'CS Utama' : null,
+                'phone' => $phone,
+                'fallback' => true,
+            ];
+        }
+
+        $cs = WhatsAppCs::find($log->cs_id);
+
+        if ($cs === null || !$cs->is_active) {
+            return $this->pickCs();
+        }
+
+        return [
+            'id' => $cs->id,
+            'name' => $cs->name,
+            'phone' => $this->normalizePhone($cs->phone),
+            'fallback' => false,
         ];
     }
 

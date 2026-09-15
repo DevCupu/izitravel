@@ -171,4 +171,47 @@ class ChatRouterServiceTest extends TestCase
             $result['wa_url']
         );
     }
+
+    public function test_route_reuses_log_for_same_visitor_within_dedupe_window(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+
+        $params = [
+            'utm_source' => 'meta',
+            'utm_medium' => 'paid_social',
+            'utm_campaign' => 'visa_umrah',
+        ];
+
+        $first = $this->service->route(Request::create('/chat', 'GET', $params));
+
+        $this->assertSame(1, ChatLog::count());
+
+        // Same IP + UA + campaign re-access (reload loop / returning visitor).
+        $second = $this->service->route(Request::create('/chat', 'GET', $params));
+
+        $this->assertSame(1, ChatLog::count(), 'repeated access must not create a duplicate log');
+        $this->assertSame($first['token'], $second['token'], 'repeated access must reuse the same token');
+        $this->assertSame($first['cs']['id'], $second['cs']['id'], 'repeated access must reuse the same CS');
+    }
+
+    public function test_route_creates_new_log_when_dedupe_window_passed(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+
+        $params = ['utm_campaign' => 'visa_umrah'];
+
+        ChatLog::query()
+            ->where('utm_campaign', 'visa_umrah')
+            ->delete();
+
+        $this->service->route(Request::create('/chat', 'GET', $params));
+
+        ChatLog::query()->first()?->forceFill([
+            'created_at' => now()->subSeconds(ChatRouterService::DEDUPE_WINDOW_SECONDS + 1),
+        ])->save();
+
+        $this->service->route(Request::create('/chat', 'GET', $params));
+
+        $this->assertSame(2, ChatLog::count(), 'a new log is created once the dedupe window passes');
+    }
 }

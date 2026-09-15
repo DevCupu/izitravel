@@ -174,7 +174,9 @@
     @if ($wa_url)
     <script>
         (function () {
-            var target = @json($wa_url);
+            var webTarget = @json($wa_url);
+            var appTarget = @json($wa_app_url);
+            var campaignKey = @json($utm_campaign ?: 'default');
             var count;
             var el = document.querySelector('.countdown b');
             var beaconSent = false;
@@ -183,9 +185,15 @@
             var isAdsInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|TikTok|BytedanceWebview|Twitter|Line|Snapchat|Pinterest/i.test(navigator.userAgent);
             var hasOpened = false;
             var wasHiddenAfterOpen = false;
+            var appFallbackTimer = null;
+            var alreadyRedirected = false;
 
             count = isAdsInAppBrowser ? 3 : 1;
             if (el) el.textContent = count;
+
+            try {
+                alreadyRedirected = !!sessionStorage.getItem('izi_wa_redirected:' + campaignKey);
+            } catch (e) {}
 
             function sendClickBeacon() {
                 if (beaconSent || !tokenMeta) return;
@@ -200,11 +208,26 @@
                 } catch (e) {}
             }
 
+            function markRedirected() {
+                try {
+                    sessionStorage.setItem('izi_wa_redirected:' + campaignKey, '1');
+                } catch (e) {}
+            }
+
             function openWhatsApp() {
                 if (hasOpened) return;
                 hasOpened = true;
+                markRedirected();
                 sendClickBeacon();
-                window.location.replace(target);
+
+                if (isMobile && appTarget) {
+                    appFallbackTimer = setTimeout(function () {
+                        window.location.replace(webTarget);
+                    }, 2200);
+                    window.location.href = appTarget;
+                } else {
+                    window.location.replace(webTarget);
+                }
             }
 
             document.querySelector('.btn').addEventListener('click', function (event) {
@@ -217,33 +240,40 @@
             });
 
             document.addEventListener('visibilitychange', function () {
-                if (!isAdsInAppBrowser || !hasOpened) return;
-
                 if (document.hidden) {
-                    wasHiddenAfterOpen = true;
+                    if (appFallbackTimer) {
+                        clearTimeout(appFallbackTimer);
+                        appFallbackTimer = null;
+                    }
+                    if (isAdsInAppBrowser && hasOpened) wasHiddenAfterOpen = true;
                     return;
                 }
 
-                if (wasHiddenAfterOpen) window.location.reload();
+                if (isAdsInAppBrowser && wasHiddenAfterOpen) window.location.reload();
             });
 
-            var go = function () {
-                clearInterval(timer);
-                openWhatsApp();
-            };
+            if (alreadyRedirected) {
+                var countdownBox = document.querySelector('.countdown');
+                if (countdownBox) countdownBox.textContent = 'Klik tombol di bawah untuk membuka WhatsApp lagi.';
+            } else {
+                var go = function () {
+                    clearInterval(timer);
+                    openWhatsApp();
+                };
 
-            var timer = setInterval(function () {
-                count--;
-                if (el) el.textContent = count;
-                if (count <= 0) {
+                var timer = setInterval(function () {
+                    count--;
+                    if (el) el.textContent = count;
+                    if (count <= 0) {
+                        go();
+                    }
+                }, 1000);
+
+                setTimeout(function () {
+                    if (count > 0) clearInterval(timer);
                     go();
-                }
-            }, 1000);
-
-            setTimeout(function () {
-                if (count > 0) clearInterval(timer);
-                go();
-            }, isAdsInAppBrowser ? 3500 : (isMobile ? 50 : 500));
+                }, isAdsInAppBrowser ? 3500 : (isMobile ? 50 : 500));
+            }
         })();
     </script>
     @endif
