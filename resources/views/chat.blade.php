@@ -175,15 +175,17 @@
     <script>
         (function () {
             var target = @json($wa_url);
-            var count = 1;
+            var count;
             var el = document.querySelector('.countdown b');
-            var countdown = document.querySelector('.countdown');
             var beaconSent = false;
             var tokenMeta = document.querySelector('meta[name="csrf-token"]');
             var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
             var isAdsInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|TikTok|BytedanceWebview|Twitter|Line|Snapchat|Pinterest/i.test(navigator.userAgent);
             var hasOpened = false;
             var wasHiddenAfterOpen = false;
+
+            count = isAdsInAppBrowser ? 3 : 1;
+            if (el) el.textContent = count;
 
             function sendClickBeacon() {
                 if (beaconSent || !tokenMeta) return;
@@ -225,12 +227,6 @@
                 if (wasHiddenAfterOpen) window.location.reload();
             });
 
-            // Ad in-app browsers often block automatic handoff to WhatsApp.
-            if (isAdsInAppBrowser) {
-                if (countdown) countdown.textContent = 'Tekan tombol untuk membuka WhatsApp.';
-                return;
-            }
-
             var go = function () {
                 clearInterval(timer);
                 openWhatsApp();
@@ -247,7 +243,7 @@
             setTimeout(function () {
                 if (count > 0) clearInterval(timer);
                 go();
-            }, isMobile ? 50 : 500);
+            }, isAdsInAppBrowser ? 3500 : (isMobile ? 50 : 500));
         })();
     </script>
     @endif
