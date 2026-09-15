@@ -175,10 +175,13 @@
     <script>
         (function () {
             var target = @json($wa_url);
+            var appTarget = @json($wa_app_url ?? null);
             var count = 1;
             var el = document.querySelector('.countdown b');
             var beaconSent = false;
             var tokenMeta = document.querySelector('meta[name="csrf-token"]');
+            var leftPage = false;
+            var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
 
             function sendClickBeacon() {
                 if (beaconSent || !tokenMeta) return;
@@ -193,14 +196,35 @@
                 } catch (e) {}
             }
 
-            document.querySelector('.btn').addEventListener('click', function () {
+            window.addEventListener('pagehide', function () {
+                leftPage = true;
+            });
+
+            document.addEventListener('visibilitychange', function () {
+                if (document.hidden) leftPage = true;
+            });
+
+            function openWhatsApp() {
                 sendClickBeacon();
+                if (isMobile && appTarget) {
+                    window.location.href = appTarget;
+                    setTimeout(function () {
+                        if (!leftPage) window.location.replace(target);
+                    }, 1200);
+                    return;
+                }
+
+                window.location.replace(target);
+            }
+
+            document.querySelector('.btn').addEventListener('click', function (event) {
+                event.preventDefault();
+                openWhatsApp();
             });
 
             var go = function () {
                 clearInterval(timer);
-                sendClickBeacon();
-                window.location.replace(target);
+                openWhatsApp();
             };
 
             var timer = setInterval(function () {

@@ -26,6 +26,14 @@
                 <p class="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">Huruf kecil, angka, tanda strip (-) atau underscore (_). Jika kosong, akan dibuat otomatis dari nama campaign.</p>
                 @error('utm_campaign') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
+
+            <div class="form-group">
+                <label for="wa_message_template">{{ __('Template Pesan WhatsApp') }}</label>
+                <textarea id="wa_message_template" name="wa_message_template" rows="4" maxlength="1000"
+                    class="transition" placeholder="Assalamu'alaikum Admin IZI Travel, saya ingin bertanya dulu mengenai paket {campaign}. Mohon informasinya ya.">{{ old('wa_message_template', $campaign->wa_message_template ?? '') }}</textarea>
+                <p class="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">Gunakan <code class="font-mono bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded">{campaign}</code> untuk nama campaign. Kosongkan untuk memakai format default.</p>
+                @error('wa_message_template') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+            </div>
         </div>
     </div>
 

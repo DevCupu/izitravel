@@ -10,6 +10,7 @@ class Campaign extends Model
     protected $fillable = [
         'name',
         'utm_campaign',
+        'wa_message_template',
         'is_active',
     ];
 

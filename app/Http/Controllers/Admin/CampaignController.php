@@ -88,6 +88,7 @@ class CampaignController extends Controller
                 'regex:/^[a-z0-9\-_]+$/',
                 Rule::unique('campaigns', 'utm_campaign')->ignore($campaign?->id),
             ],
+            'wa_message_template' => ['nullable', 'string', 'max:1000'],
             'is_active' => ['nullable', 'boolean'],
         ]);
     }

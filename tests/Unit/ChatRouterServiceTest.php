@@ -131,6 +131,7 @@ class ChatRouterServiceTest extends TestCase
 
         $this->assertSame($campaign->id, $result['campaign']->id);
         $this->assertStringStartsWith('https://wa.me/6281300000001?text=', $result['wa_url']);
+        $this->assertStringStartsWith('whatsapp://send?phone=6281300000001&text=', $result['wa_app_url']);
 
         $log = ChatLog::where('utm_campaign', 'visa_umrah')->first();
         $this->assertNotNull($log);
@@ -149,5 +150,25 @@ class ChatRouterServiceTest extends TestCase
         $result = $this->service->route($request);
 
         $this->assertStringContainsString(rawurlencode('Paket Umrah Oktober'), $result['wa_url']);
+    }
+
+    public function test_route_uses_campaign_whatsapp_message_template_when_available(): void
+    {
+        Campaign::create([
+            'name' => 'IKLAN UMROH 10 FREE 1',
+            'utm_campaign' => 'umroh_10_free_1',
+            'wa_message_template' => "Assalamu'alaikum Admin IZI Travel, saya mau tanya dulu program {campaign}.",
+            'is_active' => true,
+        ]);
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+
+        $request = Request::create('/chat', 'GET', ['utm_campaign' => 'umroh_10_free_1']);
+
+        $result = $this->service->route($request);
+
+        $this->assertStringContainsString(
+            rawurlencode("Assalamu'alaikum Admin IZI Travel, saya mau tanya dulu program IKLAN UMROH 10 FREE 1."),
+            $result['wa_url']
+        );
     }
 }

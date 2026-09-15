@@ -96,11 +96,13 @@ class AdminChatRouterTest extends TestCase
         $this->actingAs($this->admin)->post(route('admin.campaigns.store'), [
             'name' => 'Visa Umrah September',
             'utm_campaign' => '',
+            'wa_message_template' => "Assalamu'alaikum, saya mau tanya paket {campaign}.",
             'is_active' => 1,
         ])->assertRedirect(route('admin.campaigns.index'));
         $this->assertDatabaseHas('campaigns', [
             'name' => 'Visa Umrah September',
             'utm_campaign' => 'visa_umrah_september',
+            'wa_message_template' => "Assalamu'alaikum, saya mau tanya paket {campaign}.",
             'is_active' => 1,
         ]);
 
@@ -109,9 +111,14 @@ class AdminChatRouterTest extends TestCase
         $this->actingAs($this->admin)->put(route('admin.campaigns.update', $campaign->id), [
             'name' => 'Visa Umrah Oktober',
             'utm_campaign' => 'visa_umrah_oktober',
+            'wa_message_template' => "Halo Admin, mohon info {campaign}.",
             'is_active' => 1,
         ])->assertRedirect(route('admin.campaigns.index'));
-        $this->assertDatabaseHas('campaigns', ['id' => $campaign->id, 'utm_campaign' => 'visa_umrah_oktober']);
+        $this->assertDatabaseHas('campaigns', [
+            'id' => $campaign->id,
+            'utm_campaign' => 'visa_umrah_oktober',
+            'wa_message_template' => "Halo Admin, mohon info {campaign}.",
+        ]);
 
         // Delete
         $this->actingAs($this->admin)->delete(route('admin.campaigns.destroy', $campaign->id))

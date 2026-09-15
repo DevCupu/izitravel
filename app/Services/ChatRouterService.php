@@ -22,7 +22,7 @@ class ChatRouterService
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
      * weighted random, persist a chat log, and build the target wa.me URL.
      *
-     * @return array{wa_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string}
+     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string}
      */
     public function route(Request $request): array
     {
@@ -54,9 +54,12 @@ class ChatRouterService
         ]);
 
         $messageName = $campaign?->name ?? $utmCampaign;
+        $messageTemplate = $campaign?->wa_message_template;
+        $message = $this->buildMessage($messageName, $messageTemplate);
 
         return [
-            'wa_url' => $this->buildWaUrl($cs['phone'], $this->buildMessage($messageName)),
+            'wa_url' => $this->buildWaUrl($cs['phone'], $message),
+            'wa_app_url' => $this->buildWaAppUrl($cs['phone'], $message),
             'token' => $token,
             'cs' => $cs,
             'campaign' => $campaign,
@@ -153,9 +156,12 @@ class ChatRouterService
         return $csList->last();
     }
 
-    private function buildMessage(?string $campaignName): string
+    private function buildMessage(?string $campaignName, ?string $campaignTemplate = null): string
     {
-        $template = Setting::getValue(self::MESSAGE_TEMPLATE_SETTING) ?: self::DEFAULT_MESSAGE_TEMPLATE;
+        $template = trim((string) $campaignTemplate);
+        if ($template === '') {
+            $template = Setting::getValue(self::MESSAGE_TEMPLATE_SETTING) ?: self::DEFAULT_MESSAGE_TEMPLATE;
+        }
 
         return str_replace('{campaign}', $campaignName ?: 'umrah', $template);
     }
@@ -172,6 +178,23 @@ class ChatRouterService
 
         if ($message !== null && $message !== '') {
             $url .= '?text='.rawurlencode($message);
+        }
+
+        return $url;
+    }
+
+    private function buildWaAppUrl(?string $phone, ?string $message): ?string
+    {
+        $phone = $this->normalizePhone($phone ?? '');
+
+        if ($phone === '') {
+            return null;
+        }
+
+        $url = "whatsapp://send?phone={$phone}";
+
+        if ($message !== null && $message !== '') {
+            $url .= '&text='.rawurlencode($message);
         }
 
         return $url;
