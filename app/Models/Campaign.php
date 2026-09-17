@@ -22,4 +22,9 @@ class Campaign extends Model
     {
         return $this->hasMany(ChatLog::class, 'campaign_id');
     }
+
+    public function ads(): HasMany
+    {
+        return $this->hasMany(CampaignAd::class)->orderByDesc('is_active')->orderBy('id');
+    }
 }

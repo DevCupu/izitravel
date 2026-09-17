@@ -176,7 +176,7 @@
         (function () {
             var webTarget = @json($wa_url);
             var appTarget = @json($wa_app_url);
-            var campaignKey = @json($utm_campaign ?: 'default');
+            var campaignKey = @json(($utm_campaign ?: 'default').'|'.($utm_content ?: 'legacy'));
             var count;
             var el = document.querySelector('.countdown b');
             var beaconSent = false;

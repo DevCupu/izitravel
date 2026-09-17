@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
+use App\Http\Controllers\Admin\CampaignAdController as AdminCampaignAdController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\ChatLogController as AdminChatLogController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -104,6 +105,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         ->parameters(['whatsapp-cs' => 'cs'])
         ->except('show');
     Route::resource('campaigns', AdminCampaignController::class)->except('show');
+    Route::resource('campaigns.ads', AdminCampaignAdController::class)
+        ->except(['index', 'show'])
+        ->scoped();
     Route::get('chat-logs', [AdminChatLogController::class, 'index'])->name('chat-logs.index');
 });
 

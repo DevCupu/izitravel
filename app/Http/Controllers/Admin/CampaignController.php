@@ -17,10 +17,15 @@ class CampaignController extends Controller
 
         $campaigns = Campaign::query()
             ->withCount('chatLogs')
+            ->with(['ads' => fn ($query) => $query->withCount('chatLogs')])
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
-                        ->orWhere('utm_campaign', 'like', "%{$search}%");
+                        ->orWhere('utm_campaign', 'like', "%{$search}%")
+                        ->orWhereHas('ads', function ($query) use ($search) {
+                            $query->where('name', 'like', "%{$search}%")
+                                ->orWhere('utm_content', 'like', "%{$search}%");
+                        });
                 });
             })
             ->orderBy('is_active', 'desc')
@@ -46,14 +51,15 @@ class CampaignController extends Controller
         $data['utm_campaign'] = $this->resolveSlug($request, $data);
         $data['is_active'] = $request->boolean('is_active');
 
-        Campaign::create($data);
+        $campaign = Campaign::create($data);
 
-        return redirect()->route('admin.campaigns.index')->with('status', 'Campaign berhasil ditambahkan.');
+        return redirect()->route('admin.campaigns.edit', $campaign)
+            ->with('status', 'Campaign berhasil ditambahkan. Lengkapi atau tambahkan ads di bawah.');
     }
 
     public function edit(string $id)
     {
-        $campaign = Campaign::findOrFail($id);
+        $campaign = Campaign::with(['ads' => fn ($query) => $query->withCount('chatLogs')])->findOrFail($id);
 
         return view('admin.campaigns.edit', compact('campaign'));
     }

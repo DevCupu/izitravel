@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\Campaign;
+use App\Models\CampaignAd;
 use App\Models\ChatLog;
 use App\Models\Setting;
 use App\Models\WhatsAppCs;
@@ -170,6 +171,50 @@ class ChatRouterServiceTest extends TestCase
             rawurlencode("Assalamu'alaikum Admin IZI Travel, saya mau tanya dulu program IKLAN UMROH 10 FREE 1."),
             $result['wa_url']
         );
+    }
+
+    public function test_route_uses_ad_template_and_logs_ad_attribution(): void
+    {
+        $campaign = Campaign::create([
+            'name' => 'Umrah Oktober',
+            'utm_campaign' => 'umrah_oktober',
+            'is_active' => true,
+        ]);
+        $ad = CampaignAd::create([
+            'campaign_id' => $campaign->id,
+            'name' => 'Video Testimoni',
+            'utm_content' => 'video_testimoni',
+            'wa_message_template' => 'Saya tertarik {campaign} dari {ad}.',
+            'is_active' => true,
+        ]);
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+
+        $result = $this->service->route(Request::create('/chat', 'GET', [
+            'utm_source' => 'meta',
+            'utm_campaign' => 'umrah_oktober',
+            'utm_content' => 'video_testimoni',
+        ]));
+
+        $this->assertSame($ad->id, $result['ad']->id);
+        $this->assertStringContainsString(rawurlencode('Saya tertarik Umrah Oktober dari Video Testimoni.'), $result['wa_url']);
+        $this->assertDatabaseHas('chat_logs', [
+            'campaign_id' => $campaign->id,
+            'campaign_ad_id' => $ad->id,
+            'utm_content' => 'video_testimoni',
+        ]);
+    }
+
+    public function test_distinct_ads_do_not_share_dedupe_log(): void
+    {
+        $campaign = Campaign::create(['name' => 'Umrah Oktober', 'utm_campaign' => 'umrah_oktober', 'is_active' => true]);
+        CampaignAd::create(['campaign_id' => $campaign->id, 'name' => 'Video', 'utm_content' => 'video', 'is_active' => true]);
+        CampaignAd::create(['campaign_id' => $campaign->id, 'name' => 'Poster', 'utm_content' => 'poster', 'is_active' => true]);
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '6281300000001', 'weight' => 1]);
+
+        $this->service->route($this->chatRequest(['utm_campaign' => 'umrah_oktober', 'utm_content' => 'video'], 'same-visitor'));
+        $this->service->route($this->chatRequest(['utm_campaign' => 'umrah_oktober', 'utm_content' => 'poster'], 'same-visitor'));
+
+        $this->assertSame(2, ChatLog::count());
     }
 
     public function test_route_reuses_log_for_same_visitor_within_dedupe_window(): void

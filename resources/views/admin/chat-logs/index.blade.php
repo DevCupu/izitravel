@@ -51,13 +51,22 @@
         @endif
 
         {{-- Filter form --}}
-        <form method="GET" action="{{ route('admin.chat-logs.index') }}" class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+        <form method="GET" action="{{ route('admin.chat-logs.index') }}" class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 items-end">
             <div class="form-group sm:col-span-1">
                 <label for="campaign_id">{{ __('Campaign') }}</label>
                 <select id="campaign_id" name="campaign_id">
                     <option value="">Semua Campaign</option>
                     @foreach ($campaigns as $campaign)
                         <option value="{{ $campaign->id }}" @selected($campaignId === $campaign->id)>{{ $campaign->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="form-group sm:col-span-1">
+                <label for="campaign_ad_id">{{ __('Ads') }}</label>
+                <select id="campaign_ad_id" name="campaign_ad_id">
+                    <option value="">Semua Ads</option>
+                    @foreach ($ads as $ad)
+                        <option value="{{ $ad->id }}" @selected($adId === $ad->id)>{{ $ad->campaign?->name ? $ad->campaign->name.' - ' : '' }}{{ $ad->name }}</option>
                     @endforeach
                 </select>
             </div>
@@ -113,9 +122,10 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if ($log->campaign)
-                                        <span class="inline-flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-                                            {{ $log->campaign->name }}
-                                        </span>
+                                        <div class="space-y-1">
+                                            <span class="inline-flex items-center gap-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">{{ $log->campaign->name }}</span>
+                                            @if ($log->campaignAd)<p class="text-[10px] font-bold text-slate-500 dark:text-slate-400">Ads: {{ $log->campaignAd->name }}</p>@endif
+                                        </div>
                                     @elseif ($log->utm_campaign)
                                         <span class="inline-flex items-center gap-1 bg-slate-50 dark:bg-slate-700/30 text-slate-500 dark:text-slate-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
                                             {{ $log->utm_campaign }}
@@ -128,6 +138,7 @@
                                     <div class="flex flex-wrap gap-1">
                                         @if ($log->utm_source) <span class="font-mono text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900 px-1.5 py-0.5 rounded">src:{{ $log->utm_source }}</span> @endif
                                         @if ($log->utm_medium) <span class="font-mono text-[10px] font-semibold text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-900 px-1.5 py-0.5 rounded">med:{{ $log->utm_medium }}</span> @endif
+                                        @if ($log->utm_content) <span class="font-mono text-[10px] font-semibold text-indigo-500 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/20 px-1.5 py-0.5 rounded">content:{{ $log->utm_content }}</span> @endif
                                     </div>
                                 </td>
                                 <td class="px-6 py-4">

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Campaign;
+use App\Models\CampaignAd;
 use App\Models\ChatLog;
 use App\Models\Setting;
 use App\Models\WhatsAppCs;
@@ -34,13 +35,14 @@ class ChatRouterService
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
      * weighted random, persist a chat log, and build the target wa.me URL.
      *
-     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, visitor_uid: string}
+     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
      */
     public function route(Request $request): array
     {
         $utmSource = $this->clean($request->query('utm_source'));
         $utmMedium = $this->clean($request->query('utm_medium'));
         $utmCampaign = $this->clean($request->query('utm_campaign'));
+        $utmContent = $this->clean($request->query('utm_content'));
 
         $visitorUid = $this->resolveVisitorUid($request);
 
@@ -52,21 +54,31 @@ class ChatRouterService
                 ->first();
         }
 
+        $ad = null;
+        if ($campaign !== null && $utmContent !== null) {
+            $ad = $campaign->ads()
+                ->where('is_active', true)
+                ->where('utm_content', $utmContent)
+                ->first();
+        }
+
         $cs = $this->pickCs();
 
         [$token, $cs] = $this->resolveOrPersistLog(
             $cs,
             $campaign,
+            $ad,
             $request,
             $utmSource,
             $utmMedium,
             $utmCampaign,
+            $utmContent,
             $visitorUid
         );
 
         $messageName = $campaign?->name ?? $utmCampaign;
-        $messageTemplate = $campaign?->wa_message_template;
-        $message = $this->buildMessage($messageName, $messageTemplate);
+        $messageTemplate = $ad?->wa_message_template ?? $campaign?->wa_message_template;
+        $message = $this->buildMessage($messageName, $messageTemplate, $ad?->name);
 
         return [
             'wa_url' => $this->buildWaUrl($cs['phone'], $message),
@@ -74,9 +86,11 @@ class ChatRouterService
             'token' => $token,
             'cs' => $cs,
             'campaign' => $campaign,
+            'ad' => $ad,
             'utm_source' => $utmSource,
             'utm_medium' => $utmMedium,
             'utm_campaign' => $utmCampaign,
+            'utm_content' => $utmContent,
             'visitor_uid' => $visitorUid,
         ];
     }
@@ -105,15 +119,18 @@ class ChatRouterService
     private function resolveOrPersistLog(
         array $cs,
         ?Campaign $campaign,
+        ?CampaignAd $ad,
         Request $request,
         ?string $utmSource,
         ?string $utmMedium,
         ?string $utmCampaign,
+        ?string $utmContent,
         string $visitorUid
     ): array {
         $recent = ChatLog::query()
             ->where('visitor_uid', $visitorUid)
             ->where('utm_campaign', $utmCampaign)
+            ->where('utm_content', $utmContent)
             ->where('created_at', '>=', now()->subSeconds(self::DEDUPE_WINDOW_SECONDS))
             ->latest('id')
             ->first();
@@ -126,10 +143,12 @@ class ChatRouterService
 
         ChatLog::create([
             'campaign_id' => $campaign?->id,
+            'campaign_ad_id' => $ad?->id,
             'cs_id' => $cs['id'],
             'utm_source' => $utmSource,
             'utm_medium' => $utmMedium,
             'utm_campaign' => $utmCampaign,
+            'utm_content' => $utmContent,
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
             'token' => $token,
@@ -160,7 +179,7 @@ class ChatRouterService
 
         $cs = WhatsAppCs::find($log->cs_id);
 
-        if ($cs === null || !$cs->is_active) {
+        if ($cs === null || ! $cs->is_active) {
             return $this->pickCs();
         }
 
@@ -259,14 +278,18 @@ class ChatRouterService
         return $csList->last();
     }
 
-    private function buildMessage(?string $campaignName, ?string $campaignTemplate = null): string
+    private function buildMessage(?string $campaignName, ?string $messageTemplate = null, ?string $adName = null): string
     {
-        $template = trim((string) $campaignTemplate);
+        $template = trim((string) $messageTemplate);
         if ($template === '') {
             $template = Setting::getValue(self::MESSAGE_TEMPLATE_SETTING) ?: self::DEFAULT_MESSAGE_TEMPLATE;
         }
 
-        return str_replace('{campaign}', $campaignName ?: 'umrah', $template);
+        return str_replace(
+            ['{campaign}', '{ad}'],
+            [$campaignName ?: 'umrah', $adName ?: 'iklan'],
+            $template
+        );
     }
 
     private function buildWaUrl(?string $phone, ?string $message): ?string

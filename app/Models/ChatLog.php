@@ -15,10 +15,12 @@ class ChatLog extends Model
 
     protected $fillable = [
         'campaign_id',
+        'campaign_ad_id',
         'cs_id',
         'utm_source',
         'utm_medium',
         'utm_campaign',
+        'utm_content',
         'ip_address',
         'user_agent',
         'token',
@@ -29,6 +31,11 @@ class ChatLog extends Model
     public function campaign(): BelongsTo
     {
         return $this->belongsTo(Campaign::class);
+    }
+
+    public function campaignAd(): BelongsTo
+    {
+        return $this->belongsTo(CampaignAd::class);
     }
 
     public function cs(): BelongsTo

@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             GallerySeeder::class,
             FaqSeeder::class,
             LandingPageSeeder::class,
+            CampaignSeeder::class,
         ]);
     }
 }

@@ -3,10 +3,13 @@
 namespace Tests\Feature;
 
 use App\Models\Campaign;
+use App\Models\CampaignAd;
 use App\Models\ChatLog;
 use App\Models\Setting;
 use App\Models\WhatsAppCs;
+use App\Services\ChatRouterService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class ChatRouteTest extends TestCase
@@ -50,6 +53,21 @@ class ChatRouteTest extends TestCase
         $log = ChatLog::where('utm_campaign', 'visa_umrah')->first();
         $this->assertNotNull($log);
         $this->assertSame($campaign->id, $log->campaign_id);
+    }
+
+    public function test_chat_matches_registered_ad(): void
+    {
+        $campaign = Campaign::create(['name' => 'Umrah Oktober', 'utm_campaign' => 'umrah_oktober', 'is_active' => true]);
+        $ad = CampaignAd::create(['campaign_id' => $campaign->id, 'name' => 'Poster Harga', 'utm_content' => 'poster_harga', 'is_active' => true]);
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $this->get('/chat?utm_source=meta&utm_campaign=umrah_oktober&utm_content=poster_harga')->assertStatus(200);
+
+        $this->assertDatabaseHas('chat_logs', [
+            'campaign_id' => $campaign->id,
+            'campaign_ad_id' => $ad->id,
+            'utm_content' => 'poster_harga',
+        ]);
     }
 
     public function test_chat_keeps_unregistered_campaign_but_routes_anyway(): void
@@ -109,19 +127,19 @@ class ChatRouteTest extends TestCase
         $response = $this->get('/chat?utm_campaign=visa_umrah');
 
         $response->assertStatus(200);
-        $response->assertCookieNotExpired(\App\Services\ChatRouterService::VISITOR_COOKIE);
+        $response->assertCookieNotExpired(ChatRouterService::VISITOR_COOKIE);
     }
 
     public function test_chat_reuses_log_for_same_visitor_cookie(): void
     {
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
-        $uid = (string) \Illuminate\Support\Str::uuid();
+        $uid = (string) Str::uuid();
 
-        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, $uid)
+        $this->withCookie(ChatRouterService::VISITOR_COOKIE, $uid)
             ->get('/chat?utm_campaign=visa_umrah')
             ->assertStatus(200);
-        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, $uid)
+        $this->withCookie(ChatRouterService::VISITOR_COOKIE, $uid)
             ->get('/chat?utm_campaign=visa_umrah')
             ->assertStatus(200);
 
@@ -132,10 +150,10 @@ class ChatRouteTest extends TestCase
     {
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
-        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, (string) \Illuminate\Support\Str::uuid())
+        $this->withCookie(ChatRouterService::VISITOR_COOKIE, (string) Str::uuid())
             ->get('/chat?utm_campaign=visa_umrah')
             ->assertStatus(200);
-        $this->withCookie(\App\Services\ChatRouterService::VISITOR_COOKIE, (string) \Illuminate\Support\Str::uuid())
+        $this->withCookie(ChatRouterService::VISITOR_COOKIE, (string) Str::uuid())
             ->get('/chat?utm_campaign=visa_umrah')
             ->assertStatus(200);
 
