@@ -52,14 +52,14 @@
                 position: absolute;
                 top: 0; right: 0; bottom: 0;
                 width: 2px;
-                background: linear-gradient(180deg, #3b82f6, #6366f1, #8b5cf6);
-                opacity: 0.6;
+                background: linear-gradient(180deg, var(--primary-blue), var(--primary-yellow));
+                opacity: 0.8;
             }
 
             /* ── Nav item active indicator ── */
             .nav-active {
-                background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(99,102,241,0.1));
-                color: #60a5fa;
+                background: linear-gradient(135deg, rgba(49,102,177,0.14), rgba(252,222,5,0.12));
+                color: var(--primary-blue);
                 position: relative;
             }
             .nav-active::before {
@@ -69,7 +69,7 @@
                 transform: translateY(-50%);
                 width: 3px; height: 60%;
                 border-radius: 0 4px 4px 0;
-                background: linear-gradient(180deg, #3b82f6, #818cf8);
+                background: linear-gradient(180deg, var(--primary-blue), var(--primary-yellow));
                 pointer-events: none;
             }
 
@@ -129,8 +129,8 @@
             select:focus,
             textarea:focus {
                 outline: none;
-                border-color: #2563eb !important; /* Bold royal blue focus */
-                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15) !important;
+                border-color: var(--primary-blue) !important;
+                box-shadow: 0 0 0 3px rgba(49, 102, 177, 0.15) !important;
                 transform: translateY(-0.5px);
             }
             input[type="text"]:hover,
@@ -160,8 +160,8 @@
             .dark input[type="password"]:focus,
             .dark select:focus,
             .dark textarea:focus {
-                border-color: #3b82f6 !important;
-                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25) !important;
+                border-color: var(--primary-blue) !important;
+                box-shadow: 0 0 0 3px rgba(49, 102, 177, 0.25) !important;
             }
             .dark input[type="text"]:hover,
             .dark input[type="number"]:hover,
@@ -186,10 +186,10 @@
                 color: #94a3b8;
             }
             .form-group:focus-within label {
-                color: #3b82f6;
+                color: var(--primary-blue);
             }
             .dark .form-group:focus-within label {
-                color: #60a5fa;
+                color: var(--primary-blue);
             }
 
             /* ── Animations ── */
@@ -254,7 +254,7 @@
                 background: #cbd5e1; border-radius: 9999px;
                 cursor: pointer; transition: background 0.2s;
             }
-            .toggle-switch.active { background: #3b82f6; }
+            .toggle-switch.active { background: var(--primary-blue); }
             .toggle-switch .toggle-dot {
                 position: absolute; left: 2px; top: 2px;
                 width: 20px; height: 20px;
@@ -269,7 +269,7 @@
 
             /* ── Gradient text ── */
             .gradient-text {
-                background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+                background: linear-gradient(135deg, var(--primary-blue), var(--primary-yellow));
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -282,13 +282,13 @@
                 transition: border-color 0.2s, background 0.2s;
             }
             .upload-zone:hover, .upload-zone.dragover {
-                border-color: #3b82f6;
-                background: rgba(59,130,246,0.03);
+                border-color: var(--primary-blue);
+                background: rgba(49, 102, 177, 0.03);
             }
             .dark .upload-zone { border-color: #475569; }
             .dark .upload-zone:hover, .dark .upload-zone.dragover {
-                border-color: #60a5fa;
-                background: rgba(59,130,246,0.08);
+                border-color: var(--primary-blue);
+                background: rgba(49, 102, 177, 0.08);
             }
 
             /* ── Sharp and Professional Admin Tables (Tegas & Jelas) ── */

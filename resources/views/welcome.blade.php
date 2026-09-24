@@ -194,6 +194,7 @@
             font-weight: 400 !important;
             line-height: 1.8;
             direction: rtl;
+            color: var(--primary-yellow) !important;
         }
 
         /* Poppins for hero text */
@@ -525,15 +526,15 @@
         .kemitraan-card:hover::before {
             transform: scaleX(1);
         }
-        .kemitraan-card-blue::before { background: linear-gradient(90deg, #3b82f6, #1d4ed8); }
-        .kemitraan-card-amber::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+        .kemitraan-card-blue::before { background: linear-gradient(90deg, var(--primary-blue), var(--primary-yellow)); }
+        .kemitraan-card-amber::before { background: linear-gradient(90deg, var(--primary-yellow), #c5ad04); }
         .kemitraan-card-emerald::before { background: linear-gradient(90deg, #10b981, #047857); }
 
 
         /* Redesigned Hero Background */
         #beranda {
-            background-color: #026ea9 !important;
-            background-image: linear-gradient(to right, rgba(1, 87, 134, 0.92) 0%, rgba(2, 110, 169, 0.82) 32%, rgba(2, 110, 169, 0.6) 50%, rgba(64, 163, 227, 0.35) 68%, rgba(64, 163, 227, 0.12) 84%, transparent 100%), url('{{ $heroImageUrl }}') !important;
+            background-color: var(--primary-blue) !important;
+            background-image: linear-gradient(to right, rgba(49, 102, 177, 0.94) 0%, rgba(49, 102, 177, 0.86) 32%, rgba(49, 102, 177, 0.72) 50%, rgba(252, 222, 5, 0.18) 68%, rgba(252, 222, 5, 0.08) 84%, transparent 100%), url('{{ $heroImageUrl }}') !important;
             background-size: cover;
             background-position: center center;
             background-repeat: no-repeat;
@@ -555,7 +556,7 @@
                    This is just the plain navy fallback/fade for the rest of the section. */
                 background-size: cover;
                 background-position: center center;
-                background-image: linear-gradient(to bottom, rgba(2, 110, 169, 0.75) 0%, rgba(2, 110, 169, 0.97) 78%, #026ea9 100%) !important;
+                background-image: linear-gradient(to bottom, rgba(49, 102, 177, 0.78) 0%, rgba(49, 102, 177, 0.96) 78%, var(--primary-blue) 100%) !important;
             }
 
             /* Declared only inside this mobile media query so desktop browsers never fetch
@@ -582,7 +583,7 @@
 <body class="bg-stone-50 text-stone-800 overflow-x-hidden antialiased">
     <!-- Scroll Progress Bar (mengisi saat scroll ke bawah) -->
     <div id="scroll-progress-track" class="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none bg-transparent">
-        <div id="scroll-progress-bar" class="h-full w-full origin-left bg-gradient-to-r from-blue-600 via-emerald-500 to-amber-500 shadow-[0_1px_6px_rgba(37,99,235,0.4)] transition-transform duration-100 ease-out" style="transform: scaleX(0);"></div>
+        <div id="scroll-progress-bar" class="h-full w-full origin-left bg-gradient-to-r from-[var(--primary-blue)] via-[var(--primary-yellow)] to-[var(--primary-blue)] shadow-[0_1px_6px_rgba(49,102,177,0.35)] transition-transform duration-100 ease-out" style="transform: scaleX(0);"></div>
     </div>
 
     <!-- BEGIN: Floating Modern Header (Fully Rounded Capsule) -->
@@ -594,22 +595,22 @@
             
             <!-- Desktop Navigation Links -->
             <div class="hidden md:flex items-center">
-                <a class="relative text-[#c89e2b] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full" href="#beranda">Beranda</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#tentang-kami">Tentang Kami</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#paket-umrah">Paket Umrah</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#galeri">Galeri</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#testimoni">Testimoni</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#artikel">Artikel</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kemitraan">Kemitraan</a>
-                <a class="relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kontak">Kontak</a>
+                <a class="relative text-[var(--primary-yellow)] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full" href="#beranda">Beranda</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#tentang-kami">Tentang Kami</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#paket-umrah">Paket Umrah</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#galeri">Galeri</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#testimoni">Testimoni</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#artikel">Artikel</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kemitraan">Kemitraan</a>
+                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kontak">Kontak</a>
             </div>
 
             <div class="flex items-center gap-2">
-                <a class="inline-flex items-center gap-1.5 bg-blue-600 text-white px-3.5 py-2.5 rounded-full font-bold hover:bg-blue-700 transition-all duration-300 text-xs shadow-md shadow-blue-500/10 active:scale-95" href="{{ route('public.jemaah.tracking') }}">
+                <a class="inline-flex items-center gap-1.5 bg-[var(--primary-yellow)] text-[var(--primary-blue)] px-3.5 py-2.5 rounded-full font-bold hover:brightness-95 transition-all duration-300 text-xs shadow-md shadow-[rgba(49,102,177,0.18)] active:scale-95" href="{{ route('public.jemaah.tracking') }}">
                     <i data-lucide="search-check" class="w-4 h-4"></i>
                     <span class="hidden sm:inline">Cek Keberangkatan</span>
                 </a>
-                <a class="magnetic-button bg-blue-600 text-white px-3.5 py-2.5 sm:px-5 sm:py-2.5 rounded-full font-bold hover:bg-blue-700 transition-all duration-300 flex items-center gap-2 text-xs shadow-md shadow-blue-500/10 active:scale-95" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
+                <a class="magnetic-button bg-[var(--primary-blue)] text-white px-3.5 py-2.5 sm:px-5 sm:py-2.5 rounded-full font-bold hover:brightness-110 transition-all duration-300 flex items-center gap-2 text-xs shadow-md shadow-[rgba(49,102,177,0.18)] active:scale-95" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
                     <!-- WhatsApp Icon -->
                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
@@ -637,14 +638,14 @@
             <div class="w-full lg:w-7/12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left">
                 @php $heroCalligraphy = array_key_exists('hero_calligraphy', $settings) ? $settings['hero_calligraphy'] : 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'; @endphp
                 @if (!empty($heroCalligraphy))
-                    <p class="font-arabic text-[#c89e2b]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
+                    <p class="font-arabic text-[var(--primary-yellow)]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
                 @endif
                 
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
-                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[#c89e2b]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mx-auto lg:mx-0 mb-6 animate-fade-in-up delay-100">
-                        <i data-lucide="shield-check" class="w-4 h-4 text-[#c89e2b]"></i>
+                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[var(--primary-yellow)]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mx-auto lg:mx-0 mb-6 animate-fade-in-up delay-100">
+                        <i data-lucide="shield-check" class="w-4 h-4 text-[var(--primary-yellow)]"></i>
                         <span class="font-semibold tracking-wide font-poppins">{{ $heroBadgeText }}</span>
                     </div>
                 @endif
@@ -682,14 +683,14 @@
                 <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-poppins font-bold text-white leading-[1.1] mb-5 tracking-tight reveal-words">
                     <span class="block text-white">{{ $line1 }}</span>
                     @if(!empty($line2))
-                        <span class="block text-[#c89e2b]">{{ $line2 }}</span>
+                        <span class="block text-[var(--primary-yellow)]">{{ $line2 }}</span>
                     @endif
                     @if(!empty($line3))
-                        <span class="block {{ ($line3Gold ?? true) ? 'text-[#c89e2b]' : 'text-white' }}">{{ $line3 }}</span>
+                        <span class="block {{ ($line3Gold ?? true) ? 'text-[var(--primary-yellow)]' : 'text-white' }}">{{ $line3 }}</span>
                     @endif
                 </h1>
 
-                <p class="text-sm md:text-base text-white/75 mb-7 leading-relaxed font-normal max-w-lg mx-auto lg:mx-0 animate-fade-in-up delay-300 font-poppins">
+                <p class="text-sm md:text-base text-white/85 mb-7 leading-relaxed font-normal max-w-lg mx-auto lg:mx-0 animate-fade-in-up delay-300 font-poppins">
                     {{ $site_desc }}
                 </p>
 
@@ -706,11 +707,11 @@
                     @foreach ($heroFeatures as $feat)
                         <div class="flex items-center gap-2.5 shrink-0 snap-start bg-white/5 border border-white/10 rounded-2xl px-3.5 py-2.5 sm:bg-transparent sm:border-0 sm:rounded-none sm:px-0 sm:py-0 sm:shrink">
                             <div class="shrink-0 w-8 h-8 rounded-lg bg-white/10 border border-white/15 flex items-center justify-center">
-                                <i data-lucide="{{ $feat['icon'] }}" class="w-4 h-4 text-[#c89e2b]"></i>
+                                <i data-lucide="{{ $feat['icon'] }}" class="w-4 h-4 text-[var(--primary-yellow)]"></i>
                             </div>
                             <div class="min-w-0">
                                 <p class="text-xs font-bold text-white leading-tight whitespace-nowrap sm:whitespace-normal sm:truncate font-poppins">{{ $feat['title'] }}</p>
-                                <p class="text-[10px] text-white/55 font-medium leading-tight whitespace-nowrap sm:whitespace-normal font-poppins">{{ $feat['sub'] }}</p>
+                                <p class="text-[10px] text-white/80 font-medium leading-tight whitespace-nowrap sm:whitespace-normal font-poppins">{{ $feat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -718,7 +719,7 @@
 
                 <!-- Actions CTA Buttons -->
                 <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
-                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[#c89e2b] hover:bg-[#b88e1b] text-[#113a6b] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[#c89e2b]/15 transform active:scale-95 text-sm text-center justify-center flex items-center gap-2 font-poppins">
+                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[var(--primary-yellow)] hover:brightness-95 text-[var(--primary-blue)] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[rgba(252,222,5,0.22)] transform active:scale-95 text-sm text-center justify-center flex items-center gap-2 font-poppins">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
                     </a>
@@ -741,13 +742,13 @@
                     @foreach ($heroStats as $stat)
                         <div class="flex items-center gap-3">
                             <div class="shrink-0 w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
-                                <i data-lucide="{{ $stat['icon'] }}" class="w-4.5 h-4.5 text-[#c89e2b]" style="width:18px;height:18px"></i>
+                                <i data-lucide="{{ $stat['icon'] }}" class="w-4.5 h-4.5 text-[var(--primary-yellow)]" style="width:18px;height:18px"></i>
                             </div>
                             <div class="min-w-0">
                                 <p class="text-xs font-black text-white tracking-wider leading-none font-poppins">
                                     <span class="text-sm">{{ $stat['value'] }}</span>{{ $stat['label'] }}
                                 </p>
-                                <p class="text-[10px] text-white/50 font-medium mt-0.5 leading-none font-poppins">{{ $stat['sub'] }}</p>
+                                <p class="text-[10px] text-white/75 font-medium mt-0.5 leading-none font-poppins">{{ $stat['sub'] }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -756,7 +757,7 @@
 
             <!-- Right Column: Info Widget (Glassmorphism card) -->
             <div id="hero-right-col" class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div id="hero-image-card" class="bg-gradient-to-br from-blue-700/45 via-blue-800/50 to-blue-900/60 backdrop-blur-xl border border-[#c89e2b]/25 rounded-[2rem] p-7 shadow-xl shadow-blue-900/25 relative overflow-hidden text-white w-full">
+                <div id="hero-image-card" class="backdrop-blur-xl border border-[var(--primary-yellow)]/25 rounded-[2rem] p-7 shadow-xl shadow-[rgba(49,102,177,0.25)] relative overflow-hidden text-white w-full" style="background: linear-gradient(135deg, rgba(49, 102, 177, 0.62), rgba(18, 42, 80, 0.76));">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
 
@@ -764,11 +765,11 @@
                         <!-- Title Section -->
                         <div class="flex items-center justify-between mb-6 border-b border-white/10 pb-4 relative z-10">
                             <div class="flex items-center gap-3">
-                                <span class="w-10 h-10 rounded-xl bg-[#c89e2b]/10 text-[#c89e2b] flex items-center justify-center border border-[#c89e2b]/25">
+                                <span class="w-10 h-10 rounded-xl bg-[rgba(252,222,5,0.12)] text-[var(--primary-yellow)] flex items-center justify-center border border-[var(--primary-yellow)]/25">
                                     <i data-lucide="plane-takeoff" class="w-5 h-5"></i>
                                 </span>
                                 <div class="text-left">
-                                    <span class="inline-flex items-center gap-1 bg-[#c89e2b]/10 border border-[#c89e2b]/30 text-[#c89e2b] text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full mb-1">
+                                    <span class="inline-flex items-center gap-1 bg-[rgba(252,222,5,0.12)] border border-[var(--primary-yellow)]/30 text-[var(--primary-yellow)] text-[9px] font-black uppercase tracking-widest px-2.5 py-0.5 rounded-full mb-1">
                                         Keberangkatan Terdekat
                                     </span>
                                     <h2 class="text-xs text-white/95 font-bold truncate max-w-[180px] sm:max-w-[210px] mt-0.5">{{ $nearestPackage->name }}</h2>
@@ -780,22 +781,22 @@
                         <div id="hero-countdown" class="grid grid-cols-4 gap-3 mb-6 relative z-10" data-date="{{ \Carbon\Carbon::parse($nearestPackage->departure_date)->format('Y-m-d') }}">
                             <!-- Days -->
                             <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-days">--</span>
+                                <span class="block text-3xl font-black text-[var(--primary-yellow)] tracking-tight font-mono leading-none relative z-0" id="countdown-days">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Hari</span>
                             </div>
                             <!-- Hours -->
                             <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-hours">--</span>
+                                <span class="block text-3xl font-black text-[var(--primary-yellow)] tracking-tight font-mono leading-none relative z-0" id="countdown-hours">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Jam</span>
                             </div>
                             <!-- Minutes -->
                             <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-mins">--</span>
+                                <span class="block text-3xl font-black text-[var(--primary-yellow)] tracking-tight font-mono leading-none relative z-0" id="countdown-mins">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Menit</span>
                             </div>
                             <!-- Seconds -->
                             <div class="bg-blue-700 border border-white/10 rounded-2xl p-3 text-center relative overflow-hidden select-none">
-                                <span class="block text-3xl font-black text-amber-200 tracking-tight font-mono leading-none relative z-0" id="countdown-secs">--</span>
+                                <span class="block text-3xl font-black text-[var(--primary-yellow)] tracking-tight font-mono leading-none relative z-0" id="countdown-secs">--</span>
                                 <span class="text-[9px] uppercase tracking-widest text-stone-300 font-bold mt-1.5 block relative z-10">Detik</span>
                             </div>
                         </div>
@@ -809,17 +810,17 @@
                     <!-- Total Departed & Upcoming Schedule -->
                     <div class="space-y-6 relative z-10">
                         <!-- Departed Stat Badge (Trust Seal Banner) -->
-                        <div class="bg-gradient-to-r from-[#c89e2b]/10 via-[#c89e2b]/5 to-blue-700/50 border border-[#c89e2b]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden">
+                        <div class="border border-[var(--primary-yellow)]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden" style="background: linear-gradient(90deg, rgba(252, 222, 5, 0.12), rgba(49, 102, 177, 0.26));">
                             <div class="flex items-center gap-3">
-                                <span class="p-2.5 rounded-xl bg-[#c89e2b]/10 text-[#c89e2b] border border-[#c89e2b]/25 flex items-center justify-center">
+                                <span class="p-2.5 rounded-xl bg-[rgba(252,222,5,0.12)] text-[var(--primary-yellow)] border border-[var(--primary-yellow)]/25 flex items-center justify-center">
                                     <i data-lucide="users" class="w-5 h-5"></i>
                                 </span>
                                 <div class="text-left">
-                                    <p class="text-xs text-amber-200 font-extrabold uppercase tracking-wider leading-none">{{ $settings['hero_stat_title'] ?? 'Total Keberangkatan' }}</p>
-                                    <p class="text-[10px] text-white/60 mt-1 font-medium">{{ $settings['hero_stat_subtitle'] ?? 'Jamaah terberangkatkan' }}</p>
+                                    <p class="text-xs text-[var(--primary-yellow)] font-extrabold uppercase tracking-wider leading-none">{{ $settings['hero_stat_title'] ?? 'Total Keberangkatan' }}</p>
+                                    <p class="text-[10px] text-white/80 mt-1 font-medium">{{ $settings['hero_stat_subtitle'] ?? 'Jamaah terberangkatkan' }}</p>
                                 </div>
                             </div>
-                            <span class="text-lg font-black text-amber-200 border border-[#c89e2b]/25 px-3.5 py-1.5 rounded-xl tracking-wider font-mono">
+                            <span class="text-lg font-black text-[var(--primary-yellow)] border border-[var(--primary-yellow)]/25 px-3.5 py-1.5 rounded-xl tracking-wider font-mono">
                                 {{ $settings['hero_stat_value'] ?? (($settings['about_departed_count'] ?? '10') . 'K+') }}
                             </span>
                         </div>
@@ -828,11 +829,11 @@
                         @if (isset($upcomingPackages) && $upcomingPackages->count() > 0)
                             <div>
                                 <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
-                                    <h4 class="text-xs font-black uppercase tracking-widest text-[#c89e2b] flex items-center gap-2">
-                                        <i data-lucide="calendar-days" class="w-4 h-4 text-[#c89e2b]"></i>
+                                    <h4 class="text-xs font-black uppercase tracking-widest text-[var(--primary-yellow)] flex items-center gap-2">
+                                        <i data-lucide="calendar-days" class="w-4 h-4 text-[var(--primary-yellow)]"></i>
                                         Jadwal Paket Terdekat
                                     </h4>
-                                    <span class="text-[9px] text-white/40 font-bold uppercase tracking-wider">Tiket Terbatas</span>
+                                    <span class="text-[9px] text-white/70 font-bold uppercase tracking-wider">Tiket Terbatas</span>
                                 </div>
                                 <div class="space-y-3">
                                     @foreach ($upcomingPackages as $p)
@@ -842,10 +843,10 @@
                                             $monthStr = $deptDate->translatedFormat('M');
                                             $yearStr = $deptDate->format('Y');
                                         @endphp
-                                        <div class="bg-white/[0.03] hover:bg-[#c89e2b]/[0.05] border border-white/5 hover:border-[#c89e2b]/30 rounded-2xl p-3 flex items-center justify-between transition-colors duration-300 group/ticket">
+                                        <div class="bg-white/[0.03] hover:bg-[rgba(252,222,5,0.05)] border border-white/5 hover:border-[var(--primary-yellow)]/30 rounded-2xl p-3 flex items-center justify-between transition-colors duration-300 group/ticket">
                                             <!-- Date Page Block -->
-                                            <div class="bg-blue-700 border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center min-w-[52px]">
-                                                <span class="text-sm font-black text-amber-200 leading-none">{{ $dayStr }}</span>
+                                            <div class="border border-white/10 rounded-xl px-2.5 py-1.5 text-center flex flex-col justify-center items-center min-w-[52px]" style="background: rgba(49, 102, 177, 0.75);">
+                                                <span class="text-sm font-black text-[var(--primary-yellow)] leading-none">{{ $dayStr }}</span>
                                                 <span class="text-[8px] font-bold text-white/70 uppercase tracking-widest mt-0.5 leading-none">{{ $monthStr }}</span>
                                             </div>
                                             
@@ -853,13 +854,13 @@
                                             <div class="min-w-0 flex-1 pl-3.5 pr-2 text-left">
                                                 <p class="text-xs font-bold text-white truncate">{{ $p->name }}</p>
                                                 <p class="text-[10px] text-white/50 flex items-center gap-1 mt-1 font-medium">
-                                                    <i data-lucide="tag" class="w-3.5 h-3.5 text-[#c89e2b]"></i>
+                                                    <i data-lucide="tag" class="w-3.5 h-3.5 text-[var(--primary-yellow)]"></i>
                                                     {{ $p->category ?? 'Premium' }} • {{ $yearStr }}
                                                 </p>
                                             </div>
                                             
                                             <!-- Detail Action Button -->
-                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[#c89e2b] text-white hover:text-[#0b223f] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm active:scale-95 flex items-center gap-1">
+                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[var(--primary-yellow)] text-white hover:text-[var(--primary-blue)] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm active:scale-95 flex items-center gap-1">
                                                 <span>Detail</span>
                                                 <i data-lucide="chevron-right" class="w-3 h-3 group-hover/ticket:translate-x-0.5 transition-transform duration-300"></i>
                                             </a>
@@ -1148,7 +1149,7 @@
                         {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
                     </h2>
                 </div>
-                <p class="text-white/60 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                <p class="text-white/80 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
                     {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
                 </p>
             </div>
@@ -1169,7 +1170,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
                     </div>
                 </div>
 
@@ -1185,7 +1186,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
                     </div>
                 </div>
 
@@ -1201,7 +1202,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
                     </div>
                 </div>
 
@@ -1217,7 +1218,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
                     </div>
                 </div>
 
@@ -1233,7 +1234,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
                     </div>
                 </div>
 
@@ -1249,7 +1250,7 @@
                             @endif
                         </div>
                         <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
-                        <p class="text-white/75 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
                     </div>
                 </div>
             </div>
