@@ -109,9 +109,6 @@
                                 </td>
                                 <td class="px-5 py-3.5 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.documents.index', ['package_id' => $package->id]) }}" class="shrink-0 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 hover:border-emerald-200 dark:hover:border-emerald-800 hover:text-emerald-600 dark:hover:text-emerald-400 transition" title="{{ __('Dokumen & Visa') }}">
-                                            <i data-lucide="users" class="w-4 h-4"></i>
-                                        </a>
                                         <a href="{{ route('admin.packages.edit', $package) }}" class="shrink-0 p-2.5 rounded-lg bg-slate-50 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-200 dark:hover:border-blue-800 hover:text-blue-600 dark:hover:text-blue-400 transition" title="{{ __('Ubah') }}">
                                             <i data-lucide="pencil" class="w-4 h-4"></i>
                                         </a>
