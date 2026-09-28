@@ -93,7 +93,7 @@
                                 <i data-lucide="package" class="w-5 h-5"></i>
                             </span>
                             <div>
-                                <a href="{{ route('admin.packages.jemaah.index', $package) }}" class="font-bold text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition">
+                                <a href="{{ route('admin.documents.index', ['package_id' => $package->id]) }}" class="font-bold text-slate-800 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition">
                                     {{ $package->name }}
                                 </a>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('Keberangkatan') }} {{ $package->departure_date->translatedFormat('d F Y') }}</p>
@@ -122,29 +122,16 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2 mt-4">
-                        @foreach ($registration->checklist as $item)
-                            <div class="flex flex-col gap-1" @if ($item['model']?->note) title="{{ $item['model']->note }}" @endif>
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ $item['label'] }}</span>
-                                <form method="POST" action="{{ route('admin.registrations.items.update', [$registration, $item['key']]) }}">
-                                    @csrf
-                                    @method('PATCH')
-                                    <select name="status" onchange="this.form.submit()"
-                                            class="!w-full !py-1.5 !px-2 text-[11px] font-bold rounded-md !border-0 cursor-pointer focus:!ring-1
-                                                @switch($item['status'])
-                                                    @case('completed') bg-emerald-50 text-emerald-600 dark:!bg-emerald-900/30 dark:!text-emerald-400 @break
-                                                    @case('in_progress') bg-blue-50 text-blue-600 dark:!bg-blue-900/30 dark:!text-blue-400 @break
-                                                    @case('problem') bg-red-50 text-red-600 dark:!bg-red-900/30 dark:!text-red-400 @break
-                                                    @default bg-slate-100 text-slate-500 dark:!bg-slate-700 dark:!text-slate-400
-                                                @endswitch
-                                            ">
-                                        @foreach (\App\Models\Registration::STATUSES as $statusKey => $statusLabel)
-                                            <option value="{{ $statusKey }}" @selected($item['status'] === $statusKey)>{{ $statusLabel }}</option>
-                                        @endforeach
-                                    </select>
-                                </form>
-                            </div>
-                        @endforeach
+                    <div class="flex flex-wrap items-center justify-between gap-3 mt-4">
+                        @php $completedItems = collect($registration->checklist)->where('status', 'completed')->count(); @endphp
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold text-slate-500 dark:text-slate-400">
+                            <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                            {{ __('Kelengkapan') }} {{ $completedItems }}/{{ count($registration->checklist) }}
+                        </span>
+                        <a href="{{ route('admin.documents.index', ['package_id' => $package->id]) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                            <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                            {{ __('Kelola Dokumen & Visa') }}
+                        </a>
                     </div>
                 </div>
             @empty

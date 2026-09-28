@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Model;
     'package_id',
     'status',
     'pic_name',
+    'manifest_group',
+    'visa_status',
 ])]
 class Registration extends Model
 {
@@ -26,6 +28,25 @@ class Registration extends Model
         'equipment' => 'Perlengkapan',
         'visa' => 'Visa',
         'ticket' => 'Tiket',
+    ];
+
+    public const DOCUMENT_TYPES = [
+        'passport' => 'Paspor',
+        'vaccine' => 'Vaksin',
+        'ktp' => 'KTP',
+        'kk' => 'KK',
+        'equipment' => 'Perlengkapan',
+        'visa' => 'Visa',
+        'ticket' => 'Tiket',
+        'siskopatuh' => 'SISKOPATUH',
+        'luggage' => 'Koper',
+    ];
+
+    public const VISA_STATUSES = [
+        'not_started' => 'Belum Diproses',
+        'kemenag_process' => 'Proses Kemenag',
+        'mofa_issued' => 'MOFA Terbit',
+        'completed' => 'Visa Tempel/E-Visa Selesai',
     ];
 
     /**
@@ -91,6 +112,11 @@ class Registration extends Model
     public function items()
     {
         return $this->hasMany(RegistrationItem::class);
+    }
+
+    public function roomAssignment()
+    {
+        return $this->hasOne(RoomAssignment::class);
     }
 
     /**

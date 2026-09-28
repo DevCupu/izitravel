@@ -13,6 +13,8 @@ use App\Http\Controllers\Admin\JemaahController as AdminJemaahController;
 use App\Http\Controllers\Admin\PackageController as AdminPackageController;
 use App\Http\Controllers\Admin\PackageJemaahController as AdminPackageJemaahController;
 use App\Http\Controllers\Admin\PackageJemaahImportController as AdminPackageJemaahImportController;
+use App\Http\Controllers\Admin\DocumentVisaController as AdminDocumentVisaController;
+use App\Http\Controllers\Admin\OperationsController as AdminOperationsController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\RegistrationChecklistController as AdminRegistrationChecklistController;
@@ -76,7 +78,25 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::get('jemaah/{jemaah}', [AdminJemaahController::class, 'show'])->name('jemaah.show');
     Route::patch('jemaah/{jemaah}', [AdminJemaahController::class, 'update'])->name('jemaah.update');
 
-    Route::get('packages/{package}/jemaah', [AdminPackageJemaahController::class, 'index'])->name('packages.jemaah.index');
+    Route::get('documents', [AdminDocumentVisaController::class, 'index'])->name('documents.index');
+    Route::post('documents', [AdminDocumentVisaController::class, 'store'])->name('documents.store');
+    Route::patch('documents/registrations/{registration}/checklist/{type}', [AdminDocumentVisaController::class, 'updateChecklist'])->name('documents.checklist.update');
+    Route::patch('documents/checklist/bulk', [AdminDocumentVisaController::class, 'bulkUpdateChecklist'])->name('documents.checklist.bulk-update');
+    Route::patch('documents/registrations/{registration}/visa-status', [AdminDocumentVisaController::class, 'updateVisaStatus'])->name('documents.visa-status.update');
+    Route::patch('documents/jemaah/{jemaah}/passport-expiry', [AdminDocumentVisaController::class, 'updatePassportExpiry'])->name('documents.passport-expiry.update');
+
+    Route::get('operations', [AdminOperationsController::class, 'index'])->name('operations.index');
+    Route::get('operations/manifest', [AdminOperationsController::class, 'manifest'])->name('operations.manifest');
+    Route::patch('operations/registrations/{registration}/group', [AdminOperationsController::class, 'updateGroup'])->name('operations.group.update');
+    Route::patch('operations/registrations/bulk-group', [AdminOperationsController::class, 'bulkUpdateGroup'])->name('operations.group.bulk-update');
+    Route::post('operations/packages/{package}/rooms', [AdminOperationsController::class, 'storeRoom'])->name('operations.rooms.store');
+    Route::patch('operations/registrations/{registration}/room', [AdminOperationsController::class, 'assignRoom'])->name('operations.room.assign');
+    Route::patch('operations/registrations/bulk-room', [AdminOperationsController::class, 'bulkAssignRoom'])->name('operations.room.bulk-assign');
+
+    Route::get('packages/{package}/jemaah', function (\App\Models\Package $package) {
+        request()->merge(['package_id' => $package->id]);
+        return app(AdminDocumentVisaController::class)->index(request());
+    })->name('packages.jemaah.index');
     Route::post('packages/{package}/jemaah', [AdminPackageJemaahController::class, 'store'])->name('packages.jemaah.store');
     Route::post('packages/{package}/jemaah/bulk-pic', [AdminPackageJemaahController::class, 'bulkUpdatePic'])->name('packages.jemaah.bulk-pic');
     Route::post('packages/{package}/jemaah/bulk-status', [AdminPackageJemaahController::class, 'bulkUpdateStatus'])->name('packages.jemaah.bulk-status');

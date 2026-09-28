@@ -10,7 +10,7 @@
 
     <div class="space-y-4" x-data="{
             showAddModal: false, showImportModal: false, addTab: 'existing', showEditModal: false, editingJemaah: null,
-            showBulkPicModal: false, showBulkStatusModal: false,
+            showBulkPicModal: false,
             selectedIds: [],
             allRegistrationIds: @js($registrations->pluck('id')),
             get allSelected() { return this.allRegistrationIds.length > 0 && this.selectedIds.length === this.allRegistrationIds.length; },
@@ -40,16 +40,6 @@
             </div>
         </div>
 
-        <!-- Progress summary -->
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 animate-fade-in-up">
-            @foreach (\App\Models\Registration::STATUSES as $key => $label)
-                <div class="content-card bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 px-4 py-3">
-                    <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ $label }}</p>
-                    <p class="text-xl font-extrabold text-slate-800 dark:text-white mt-1">{{ $summary[$key] ?? 0 }}</p>
-                </div>
-            @endforeach
-        </div>
-
         <div class="flex flex-col sm:flex-row gap-3 animate-fade-in-up">
             <div class="flex-1">
                 @include('admin.partials._search', ['action' => route('admin.packages.jemaah.index', $package), 'value' => $search, 'placeholder' => __('Cari nama/paspor...')])
@@ -77,11 +67,6 @@
                         class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-lg font-bold text-xs text-blue-700 dark:text-blue-300 transition">
                     <i data-lucide="user-check" class="w-3.5 h-3.5"></i>
                     {{ __('Set PIC') }}
-                </button>
-                <button type="button" @click="showBulkStatusModal = true"
-                        class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-blue-200 dark:border-blue-700 hover:bg-blue-100 dark:hover:bg-blue-900/40 rounded-lg font-bold text-xs text-blue-700 dark:text-blue-300 transition">
-                    <i data-lucide="list-checks" class="w-3.5 h-3.5"></i>
-                    {{ __('Ubah Status') }}
                 </button>
                 <button type="button"
                         @click="$dispatch('confirm-delete', { form: $refs.bulkDeleteForm, message: selectedIds.length + ' {{ __('jemaah akan dihapus dari keberangkatan ini. Lanjutkan?') }}' })"
@@ -117,10 +102,6 @@
                             </th>
                             <th class="!px-3 !py-3">{{ __('Jemaah') }}</th>
                             <th class="!px-2 !py-3">{{ __('PIC') }}</th>
-                            <th class="!px-2 !py-3">{{ __('Kelengkapan') }}</th>
-                            @foreach (\App\Models\Registration::ITEM_TYPES as $label)
-                                <th class="!px-1.5 !py-3 text-center">{{ $label }}</th>
-                            @endforeach
                             <th class="!px-2 !py-3 text-right">{{ __('Aksi') }}</th>
                         </tr>
                     </thead>
@@ -146,47 +127,6 @@
                                                class="!w-20 !py-1.5 !px-2 text-xs font-semibold rounded-lg">
                                     </form>
                                 </td>
-                                <td class="!px-2 !py-3">
-                                    @php
-                                        $completenessColor = $registration->problem_items_count > 0
-                                            ? 'bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400'
-                                            : ($registration->completed_items_count === 7
-                                                ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400'
-                                                : ($registration->completed_items_count <= 3
-                                                    ? 'bg-amber-50 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400'
-                                                    : 'bg-slate-100 text-slate-500 dark:bg-slate-700 dark:text-slate-400'));
-                                    @endphp
-                                    <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-md {{ $completenessColor }}">
-                                        @if ($registration->problem_items_count > 0)
-                                            <i data-lucide="alert-triangle" class="w-3 h-3"></i>
-                                        @endif
-                                        {{ $registration->completed_items_count }}/7
-                                    </span>
-                                </td>
-                                @foreach ($registration->checklist as $item)
-                                    <td class="!px-1.5 !py-3 text-center" @if ($item['model']?->note) title="{{ $item['model']->note }}" @endif>
-                                        <form method="POST" action="{{ route('admin.registrations.items.update', [$registration, $item['key']]) }}" class="inline-flex items-center justify-center gap-1">
-                                            @csrf
-                                            @method('PATCH')
-                                            <select name="status" onchange="this.form.submit()"
-                                                    class="!w-auto !py-1 !px-1 text-[11px] font-bold rounded-md !border-0 cursor-pointer focus:!ring-1
-                                                        @switch($item['status'])
-                                                            @case('completed') bg-emerald-50 text-emerald-600 dark:!bg-emerald-900/30 dark:!text-emerald-400 @break
-                                                            @case('in_progress') bg-blue-50 text-blue-600 dark:!bg-blue-900/30 dark:!text-blue-400 @break
-                                                            @case('problem') bg-red-50 text-red-600 dark:!bg-red-900/30 dark:!text-red-400 @break
-                                                            @default bg-slate-100 text-slate-500 dark:!bg-slate-700 dark:!text-slate-400
-                                                        @endswitch
-                                                    ">
-                                                @foreach (\App\Models\Registration::STATUSES as $statusKey => $statusLabel)
-                                                    <option value="{{ $statusKey }}" @selected($item['status'] === $statusKey)>{{ $statusLabel }}</option>
-                                                @endforeach
-                                            </select>
-                                            @if ($item['model']?->note)
-                                                <i data-lucide="message-square-text" class="w-3 h-3 text-slate-400 shrink-0"></i>
-                                            @endif
-                                        </form>
-                                    </td>
-                                @endforeach
                                 <td class="!px-2 !py-3 text-right">
                                     <div class="flex items-center justify-end gap-1">
                                         <a href="{{ route('admin.jemaah.show', $registration->jemaah) }}"
@@ -222,7 +162,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="12" class="px-5 py-16 text-center">
+                                <td colspan="4" class="px-5 py-16 text-center">
                                     <div class="flex flex-col items-center gap-3">
                                         <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
                                             <i data-lucide="users" class="w-7 h-7 text-slate-300 dark:text-slate-500"></i>
@@ -400,52 +340,6 @@
 
                     <div class="flex gap-3 mt-6">
                         <button type="button" @click="showBulkPicModal = false" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">{{ __('Batal') }}</button>
-                        <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition">{{ __('Terapkan') }}</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <!-- ═══════ Bulk Ubah Status Modal ═══════ -->
-        <div x-show="showBulkStatusModal" x-cloak x-transition.opacity class="fixed inset-0 z-[90] bg-slate-900/60 backdrop-blur-sm"></div>
-        <div x-show="showBulkStatusModal" x-cloak
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 scale-95"
-             x-transition:enter-end="opacity-100 scale-100"
-             class="fixed inset-0 z-[91] flex items-center justify-center p-4">
-            <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-2xl max-w-md w-full p-6" @click.outside="showBulkStatusModal = false">
-                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">{{ __('Ubah Status') }}</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mb-4">
-                    {{ __('Terapkan ke') }} <span x-text="selectedIds.length"></span> {{ __('jemaah yang dipilih.') }}
-                </p>
-
-                <form method="POST" action="{{ route('admin.packages.jemaah.bulk-status', $package) }}" class="space-y-3">
-                    @csrf
-                    <input type="hidden" name="search" value="{{ $search }}">
-                    <input type="hidden" name="pic" value="{{ $pic }}">
-                    <template x-for="id in selectedIds" :key="id">
-                        <input type="hidden" name="registration_ids[]" :value="id">
-                    </template>
-
-                    <div class="form-group">
-                        <label>{{ __('Item Checklist') }}</label>
-                        <select name="type" required>
-                            @foreach (\App\Models\Registration::ITEM_TYPES as $key => $label)
-                                <option value="{{ $key }}">{{ $label }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>{{ __('Status Baru') }}</label>
-                        <select name="status" required>
-                            @foreach (\App\Models\Registration::STATUSES as $key => $label)
-                                <option value="{{ $key }}">{{ $label }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="flex gap-3 mt-6">
-                        <button type="button" @click="showBulkStatusModal = false" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">{{ __('Batal') }}</button>
                         <button type="submit" class="flex-1 px-4 py-2.5 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 transition">{{ __('Terapkan') }}</button>
                     </div>
                 </form>

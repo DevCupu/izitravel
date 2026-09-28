@@ -659,6 +659,43 @@
                 </a>
 
                 <div class="pt-5 pb-1">
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Logistik</p>
+                </div>
+
+                <a href="{{ route('admin.documents.index') }}"
+                   :title="sidebarCollapsed ? 'Dokumen & Perlengkapan' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.documents.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="file-check-2" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Dokumen &amp; Perlengkapan</span>
+                    @php
+                        $documentAlertCount = \App\Models\Registration::query()
+                            ->with(['jemaah', 'package'])
+                            ->whereHas('package')
+                            ->get()
+                            ->filter(function ($registration) {
+                                return $registration->jemaah?->passport_expiry_date
+                                    && $registration->package?->departure_date
+                                    && $registration->jemaah->passport_expiry_date->lt($registration->package->departure_date->copy()->subMonths(6));
+                            })
+                            ->count();
+                    @endphp
+                    @if ($documentAlertCount > 0)
+                        <span class="nav-badge ml-auto text-[11px] font-bold bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-md">{{ $documentAlertCount }}</span>
+                    @endif
+                </a>
+
+                <div class="pt-5 pb-1">
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Operasional</p>
+                </div>
+
+                <a href="{{ route('admin.operations.index') }}"
+                   :title="sidebarCollapsed ? 'Operasional & Manifest' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.operations.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="clipboard-list" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Operasional &amp; Manifest</span>
+                </a>
+
+                <div class="pt-5 pb-1">
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Lainnya</p>
                 </div>
 

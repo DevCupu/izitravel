@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
     'name',
     'gender',
     'passport_number',
+    'passport_expiry_date',
     'birth_date',
     'address',
 ])]
@@ -23,6 +24,7 @@ class Jemaah extends Model
     {
         return [
             'birth_date' => 'date',
+            'passport_expiry_date' => 'date',
         ];
     }
 

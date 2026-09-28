@@ -49,6 +49,7 @@ class JemaahController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'gender' => ['nullable', 'string', 'in:'.implode(',', array_keys(Jemaah::GENDERS))],
             'passport_number' => ['nullable', 'string', 'max:50', 'unique:jemaahs,passport_number,'.$jemaah->id],
+            'passport_expiry_date' => ['nullable', 'date'],
             'birth_date' => ['nullable', 'date'],
             'address' => ['nullable', 'string', 'max:1000'],
         ]);
