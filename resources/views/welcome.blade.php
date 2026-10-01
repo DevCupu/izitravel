@@ -577,6 +577,850 @@
         .border-gold-glow {
             box-shadow: 0 0 20px rgba(200, 158, 43, 0.12);
         }
+
+        /* About section: editorial 2026 treatment built on the existing IZI palette. */
+        #tentang-kami.about-modern-section {
+            background:
+                linear-gradient(180deg, rgba(250, 250, 249, 0.96), rgba(245, 247, 250, 0.82)),
+                url('{{ asset('images/section_madinah_nabawi.webp') }}');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #tentang-kami .about-intro-copy {
+            position: relative;
+            padding: clamp(1rem, 3vw, 2rem) 0;
+        }
+
+        #tentang-kami .about-eyebrow {
+            position: relative;
+            gap: 0.65rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            box-shadow: none;
+            color: var(--primary-blue);
+            letter-spacing: 0.18em;
+        }
+
+        #tentang-kami .about-eyebrow::before {
+            content: '';
+            width: 2.25rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--primary-yellow);
+        }
+
+        #tentang-kami .about-title {
+            max-width: 12ch;
+            margin: 0;
+            font-size: clamp(2.5rem, 4.7vw, 4.5rem);
+            letter-spacing: -0.065em;
+            line-height: 0.98;
+        }
+
+        #tentang-kami .about-description {
+            max-width: 54ch;
+            color: rgba(41, 50, 65, 0.72);
+            font-size: clamp(0.85rem, 1.25vw, 1rem);
+            line-height: 1.7;
+        }
+
+        #tentang-kami .about-stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+            max-width: 32rem;
+            padding-top: 0.5rem;
+        }
+
+        #tentang-kami .about-stat-card {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            min-height: 5.25rem;
+            padding: 0.95rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.78);
+            border-radius: 1.25rem;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: 0 16px 34px rgba(24, 58, 102, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+            backdrop-filter: blur(14px);
+        }
+
+        #tentang-kami .about-stat-icon {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border: 1px solid rgba(49, 102, 177, 0.15);
+            border-radius: 0.85rem;
+            background: rgba(49, 102, 177, 0.08);
+            color: var(--primary-blue);
+        }
+
+        #tentang-kami .about-stat-value {
+            color: var(--primary-blue);
+            font-size: clamp(1.45rem, 2.5vw, 2rem);
+            font-weight: 900;
+            letter-spacing: -0.06em;
+            line-height: 0.95;
+        }
+
+        #tentang-kami .about-stat-label {
+            margin-top: 0.35rem;
+            color: rgba(41, 50, 65, 0.62);
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            line-height: 1.15;
+            text-transform: uppercase;
+        }
+
+        #tentang-kami .about-collage {
+            position: relative;
+            min-height: clamp(27rem, 42vw, 34rem);
+            isolation: isolate;
+        }
+
+        #tentang-kami .about-collage::before {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            inset: 1.5rem 8% 1.25rem 8%;
+            border-radius: 2.25rem;
+            background: linear-gradient(145deg, rgba(49, 102, 177, 0.22), rgba(49, 102, 177, 0.04));
+            transform: rotate(5deg);
+        }
+
+        #tentang-kami .about-collage-card {
+            border-radius: 1.75rem;
+            box-shadow: 0 28px 60px rgba(16, 48, 91, 0.16);
+        }
+
+        #tentang-kami .about-collage-back {
+            left: 3%;
+            top: 0;
+            width: 76%;
+            height: 82%;
+            aspect-ratio: auto;
+            transform: rotate(-2.5deg);
+        }
+
+        #tentang-kami .about-collage-front {
+            right: 0;
+            bottom: 0;
+            width: 49%;
+            height: 52%;
+            aspect-ratio: auto;
+            transform: rotate(3.5deg);
+        }
+
+        #tentang-kami .about-legal-section {
+            margin-block: clamp(4rem, 8vw, 7rem);
+        }
+
+        #tentang-kami .about-legal-card {
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.58);
+            box-shadow: 0 24px 70px rgba(24, 58, 102, 0.1);
+        }
+
+        #tentang-kami .about-legal-copy {
+            min-width: 0;
+        }
+
+        #tentang-kami .about-legal-kicker {
+            color: var(--primary-blue);
+            letter-spacing: 0.18em;
+        }
+
+        #tentang-kami .about-legal-title {
+            max-width: 16ch;
+            font-size: clamp(2rem, 3.5vw, 3.2rem);
+            letter-spacing: -0.055em;
+            line-height: 1;
+        }
+
+        #tentang-kami .about-legal-description {
+            max-width: 55ch;
+            font-size: clamp(0.85rem, 1.2vw, 0.98rem);
+            line-height: 1.7;
+        }
+
+        #tentang-kami .about-legal-points {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.7rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid rgba(49, 102, 177, 0.12);
+        }
+
+        #tentang-kami .about-legal-point {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+            min-height: 5.3rem;
+            padding: 0.85rem;
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.58);
+        }
+
+        #tentang-kami .about-legal-number {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.7rem;
+            background: var(--primary-blue);
+            color: var(--primary-yellow);
+            font-size: 0.65rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+        }
+
+        #tentang-kami .about-legal-note {
+            padding-left: 0.85rem;
+            border-left: 2px solid var(--primary-yellow);
+            font-size: 0.72rem;
+            line-height: 1.6;
+        }
+
+        #tentang-kami .about-license-card {
+            min-height: 100%;
+            border-radius: 1.5rem;
+            background: linear-gradient(145deg, var(--primary-blue), #183e70);
+            box-shadow: 0 24px 55px rgba(16, 48, 91, 0.2);
+        }
+
+        #tentang-kami .about-license-number {
+            font-size: clamp(1.35rem, 2.4vw, 2rem);
+            letter-spacing: 0.02em;
+        }
+
+        #tentang-kami .about-license-status {
+            color: var(--primary-yellow);
+        }
+
+        #tentang-kami .about-principles-grid {
+            gap: 1rem;
+        }
+
+        #tentang-kami .about-principle-card {
+            min-height: 18rem;
+            border-radius: 1.75rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+        }
+
+        #tentang-kami .about-vision-card {
+            background: linear-gradient(145deg, var(--primary-blue), #183e70);
+            box-shadow: 0 24px 55px rgba(16, 48, 91, 0.18);
+        }
+
+        #tentang-kami .about-mission-card {
+            background: rgba(255, 255, 255, 0.68);
+            box-shadow: 0 20px 50px rgba(24, 58, 102, 0.08);
+        }
+
+        #tentang-kami .about-principle-title {
+            font-size: clamp(1.25rem, 2vw, 1.55rem);
+            letter-spacing: -0.04em;
+        }
+
+        #tentang-kami .about-principle-copy {
+            max-width: 52ch;
+            font-size: 0.82rem;
+            line-height: 1.75;
+        }
+
+        /* Why us: a calmer bento grid with a deeper branded canvas. */
+        [data-purpose="features-grid"].features-modern-section {
+            background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 52%, #1a477d 100%);
+        }
+
+        [data-purpose="features-grid"] .features-global-bg {
+            opacity: 1;
+        }
+
+        [data-purpose="features-grid"] .features-photo-bg {
+            opacity: 0.22;
+            filter: saturate(0.75) contrast(0.95);
+        }
+
+        [data-purpose="features-grid"] .features-fade-bg {
+            background: linear-gradient(180deg, rgba(14, 49, 95, 0.72) 0%, rgba(14, 49, 95, 0.9) 65%, rgba(14, 49, 95, 0.98) 100%);
+        }
+
+        [data-purpose="features-grid"] .features-pattern {
+            opacity: 0.025;
+        }
+
+        [data-purpose="features-grid"] .features-header {
+            margin-bottom: clamp(2.75rem, 6vw, 4.5rem);
+        }
+
+        [data-purpose="features-grid"] .features-eyebrow {
+            gap: 0.65rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--primary-yellow);
+            letter-spacing: 0.18em;
+        }
+
+        [data-purpose="features-grid"] .features-eyebrow::before {
+            content: '';
+            width: 2.25rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--primary-yellow);
+        }
+
+        [data-purpose="features-grid"] .features-title {
+            max-width: 12ch;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.065em;
+            line-height: 0.96;
+        }
+
+        [data-purpose="features-grid"] .features-subtitle {
+            max-width: 38ch;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: clamp(0.85rem, 1.25vw, 1rem);
+            line-height: 1.7;
+        }
+
+        [data-purpose="features-grid"] .features-grid-modern {
+            gap: 1rem;
+            grid-auto-rows: 1fr;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card {
+            min-height: 15rem;
+            padding: clamp(1.35rem, 2.4vw, 2rem);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            background: rgba(19, 68, 128, 0.86) !important;
+            background-image: none !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 18px 42px rgba(3, 18, 43, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transition: transform 300ms ease, border-color 300ms ease, background 300ms ease;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card::before {
+            content: '';
+            position: absolute;
+            inset: 0.75rem 1rem auto;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary-yellow), transparent 72%);
+            opacity: 0.65;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(252, 222, 5, 0.42);
+            background: rgba(24, 78, 143, 0.92) !important;
+            background-image: none !important;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-icon,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 2rem;
+            margin-left: 0;
+            margin-right: auto;
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 3rem;
+            border: 1px solid rgba(252, 222, 5, 0.28);
+            border-radius: 1rem;
+            background: rgba(252, 222, 5, 0.12);
+            color: var(--primary-yellow);
+            transform: none;
+        }
+
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child svg,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child img {
+            display: block;
+            flex: 0 0 auto;
+            transform: none;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-title,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card h3 {
+            margin-bottom: 0.65rem;
+            color: #fff;
+            font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+            letter-spacing: -0.025em;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-copy,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card p {
+            max-width: 34ch;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.78rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 640px) {
+            [data-purpose="features-grid"] .features-title {
+                max-width: 13ch;
+                font-size: clamp(2.35rem, 11vw, 3.25rem);
+            }
+
+            [data-purpose="features-grid"] .feature-modern-card {
+                min-height: 13.5rem;
+            }
+
+            [data-purpose="features-grid"] .feature-modern-icon {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        /* Packages, partners, and gallery share one polished travel-catalog system. */
+        #paket-umrah.packages-modern-section {
+            background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 54%, #1a477d 100%);
+        }
+
+        #paket-umrah .packages-photo-bg {
+            opacity: 0.2;
+            filter: saturate(0.7) contrast(0.95);
+        }
+
+        #paket-umrah .packages-fade-bg {
+            background: linear-gradient(180deg, rgba(14, 49, 95, 0.72) 0%, rgba(14, 49, 95, 0.9) 70%, rgba(14, 49, 95, 0.98) 100%);
+        }
+
+        #paket-umrah .packages-eyebrow,
+        #galeri .gallery-eyebrow {
+            gap: 0.65rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--primary-yellow);
+            letter-spacing: 0.18em;
+        }
+
+        #paket-umrah .packages-eyebrow::before,
+        #galeri .gallery-eyebrow::before {
+            content: '';
+            width: 2.25rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--primary-yellow);
+        }
+
+        #paket-umrah .packages-title,
+        #galeri .gallery-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.065em;
+            line-height: 0.96;
+        }
+
+        #paket-umrah .packages-subtitle,
+        #galeri .gallery-subtitle {
+            max-width: 42ch;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(0.85rem, 1.2vw, 1rem);
+            line-height: 1.7;
+        }
+
+        #paket-umrah .package-filter-shell {
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.07);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+        }
+
+        #paket-umrah #package-tab-pill {
+            background: var(--primary-yellow) !important;
+            border-color: rgba(252, 222, 5, 0.35);
+            box-shadow: 0 8px 20px rgba(3, 18, 43, 0.18);
+        }
+
+        #paket-umrah .package-modern-card {
+            border-color: rgba(49, 102, 177, 0.14) !important;
+            border-radius: 1.75rem;
+            background: #ffffff !important;
+            box-shadow: 0 18px 45px rgba(3, 18, 43, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+            transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+        }
+
+        #paket-umrah .package-modern-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(252, 222, 5, 0.78) !important;
+            box-shadow: 0 28px 60px rgba(3, 18, 43, 0.22);
+        }
+
+        #paket-umrah .package-modern-image {
+            aspect-ratio: 16 / 10 !important;
+            border-radius: 1.75rem 1.75rem 0 0;
+            background: #eaf2fb;
+        }
+
+        #paket-umrah .package-modern-image::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(3, 18, 43, 0.02) 35%, rgba(3, 18, 43, 0.5) 100%);
+            pointer-events: none;
+        }
+
+        #paket-umrah .package-modern-image > img {
+            display: block;
+        }
+
+        #paket-umrah .package-modern-card > div:first-child > .p-4 {
+            padding: 1.25rem 1.25rem 1.1rem;
+        }
+
+        #paket-umrah .package-modern-card h3 {
+            min-height: 2.7rem;
+            margin-bottom: 1rem;
+            color: #102f59;
+            font-size: 1rem;
+            letter-spacing: -0.025em;
+        }
+
+        #paket-umrah .package-modern-card .grid {
+            gap: 0.55rem;
+            margin-bottom: 0;
+        }
+
+        #paket-umrah .package-modern-card .grid > div {
+            min-height: 3.35rem;
+            padding: 0.7rem;
+            border-color: rgba(49, 102, 177, 0.1) !important;
+            border-radius: 0.9rem;
+            background: #f7faff !important;
+        }
+
+        #paket-umrah .package-modern-card .grid > div > span {
+            width: 2rem;
+            height: 2rem;
+            padding: 0;
+            border-color: rgba(49, 102, 177, 0.12) !important;
+            border-radius: 0.65rem;
+            background: #eaf2fb !important;
+            color: var(--primary-blue);
+        }
+
+        #paket-umrah .package-modern-card .grid > div p:first-child {
+            color: #68809d;
+            letter-spacing: 0.12em;
+        }
+
+        #paket-umrah .package-modern-card .grid > div p:last-child {
+            color: #183a67;
+            line-height: 1.25;
+        }
+
+        #paket-umrah .package-modern-footer {
+            padding: 1.1rem 1.25rem 1.25rem;
+            border-top: 1px solid rgba(49, 102, 177, 0.12) !important;
+            border-top-style: solid !important;
+            background: linear-gradient(180deg, #ffffff, #f8fbff) !important;
+            border-radius: 0 0 1.75rem 1.75rem;
+        }
+
+        #paket-umrah .package-modern-footer > div:first-of-type,
+        #paket-umrah .package-modern-footer > div:nth-of-type(2) {
+            display: none;
+        }
+
+        #paket-umrah .package-modern-footer p:first-child {
+            color: #7187a2;
+            letter-spacing: 0.14em;
+        }
+
+        #paket-umrah .package-modern-footer p:last-child {
+            color: var(--primary-blue);
+            font-size: 1.1rem;
+            letter-spacing: -0.025em;
+        }
+
+        #paket-umrah .package-modern-footer > div:last-child {
+            flex: 0 0 auto;
+        }
+
+        #paket-umrah .package-modern-footer a {
+            border-radius: 0.9rem;
+            background: var(--primary-blue) !important;
+            box-shadow: 0 10px 20px rgba(49, 102, 177, 0.18);
+        }
+
+        #paket-umrah .package-modern-footer a:hover {
+            background: #244e87 !important;
+        }
+
+        #partners-logo-cloud.partners-modern-section {
+            background: rgba(250, 250, 249, 0.9);
+        }
+
+        #partners-logo-cloud .partners-title {
+            color: var(--primary-blue);
+            font-size: clamp(1.45rem, 3vw, 2.2rem);
+            letter-spacing: -0.045em;
+        }
+
+        #partners-logo-cloud .partners-logo-row {
+            padding: 1.25rem 0;
+            border-block: 1px solid rgba(49, 102, 177, 0.1);
+        }
+
+        #partners-logo-cloud .partners-extra {
+            color: var(--primary-blue);
+            font-size: 1rem;
+            font-style: normal;
+            letter-spacing: -0.02em;
+        }
+
+        #galeri.gallery-modern-section {
+            background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 54%, #1a477d 100%);
+        }
+
+        #galeri .gallery-pattern {
+            opacity: 0.025;
+        }
+
+        #galeri .gallery-grid-modern {
+            gap: 1rem;
+        }
+
+        #galeri .gallery-album-card {
+            padding: 0.6rem;
+            border-color: rgba(255, 255, 255, 0.18) !important;
+            border-radius: 1.5rem;
+            background: rgba(7, 34, 69, 0.74) !important;
+            box-shadow: 0 20px 50px rgba(3, 18, 43, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
+        }
+
+        #galeri .gallery-album-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(252, 222, 5, 0.62) !important;
+            background: rgba(12, 55, 105, 0.86) !important;
+            box-shadow: 0 28px 60px rgba(3, 18, 43, 0.2);
+        }
+
+        #galeri .gallery-album-media {
+            aspect-ratio: 16 / 10 !important;
+            border-radius: 1.1rem;
+            border-color: rgba(255, 255, 255, 0.14) !important;
+            background: rgba(255, 255, 255, 0.06) !important;
+        }
+
+        #galeri .gallery-album-info {
+            padding: 0.4rem 0.45rem 0.55rem;
+        }
+
+        #galeri .gallery-album-title {
+            color: #ffffff !important;
+            letter-spacing: -0.025em;
+        }
+
+        #galeri .gallery-album-info p {
+            color: rgba(255, 255, 255, 0.68) !important;
+        }
+
+        #galeri .gallery-album-info p svg {
+            color: var(--primary-yellow);
+        }
+
+        #galeri .text-center > a {
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            background: rgba(7, 34, 69, 0.72) !important;
+            color: #ffffff !important;
+            box-shadow: 0 14px 30px rgba(3, 18, 43, 0.16);
+        }
+
+        #galeri .text-center > a:hover {
+            border-color: rgba(252, 222, 5, 0.55) !important;
+            background: var(--primary-yellow) !important;
+            color: #183a67 !important;
+        }
+
+        @media (max-width: 640px) {
+            #paket-umrah .packages-title,
+            #galeri .gallery-title {
+                max-width: 13ch;
+                margin-inline: auto;
+                font-size: clamp(2.35rem, 11vw, 3.25rem);
+            }
+
+            #paket-umrah .package-filter-shell {
+                border-radius: 1.25rem;
+            }
+
+            #galeri .gallery-album-card {
+                padding: 0.45rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            #tentang-kami .about-title {
+                max-width: 13ch;
+                font-size: clamp(2.35rem, 11vw, 3.25rem);
+            }
+
+            #tentang-kami .about-stat-card {
+                gap: 0.55rem;
+                padding: 0.8rem;
+            }
+
+            #tentang-kami .about-stat-icon {
+                width: 2.15rem;
+                height: 2.15rem;
+            }
+
+            #tentang-kami .about-collage {
+                min-height: 24rem;
+            }
+
+            #tentang-kami .about-collage-back {
+                left: 0;
+                width: 80%;
+                height: 78%;
+            }
+
+            #tentang-kami .about-collage-front {
+                width: 54%;
+                height: 50%;
+            }
+
+            #tentang-kami .about-legal-points {
+                grid-template-columns: 1fr;
+            }
+
+            #tentang-kami .about-principle-card {
+                min-height: 15rem;
+            }
+        }
+
+        /* Focused photo-led hero: a calm composition with one clear message. */
+        #beranda {
+            --hero-accent: var(--primary-yellow);
+            min-height: clamp(560px, 78vh, 760px);
+            padding-top: 8.5rem;
+            padding-bottom: 7rem;
+            background-color: var(--primary-blue) !important;
+            background-image:
+                linear-gradient(90deg, rgba(49, 102, 177, 0.98) 0%, rgba(49, 102, 177, 0.92) 34%, rgba(49, 102, 177, 0.78) 62%, rgba(49, 102, 177, 0.58) 100%),
+                linear-gradient(180deg, rgba(49, 102, 177, 0.24) 0%, rgba(49, 102, 177, 0.78) 100%),
+                url('{{ $heroImageUrl }}') !important;
+            background-position: center center;
+            background-size: cover;
+        }
+
+        #beranda > .max-w-7xl {
+            min-height: clamp(420px, 59vh, 560px);
+            align-items: flex-end;
+        }
+
+        #beranda .w-full.lg\\:w-7\\/12 {
+            align-items: flex-start;
+            text-align: left;
+            max-width: 680px;
+        }
+
+        #beranda .hero-copy-block {
+            width: min(100%, 660px);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+
+        #hero-photo-band {
+            display: none;
+        }
+
+        #beranda h1 {
+            max-width: 11ch;
+            margin: 0;
+            color: #fff;
+            font-size: clamp(3.5rem, 6.5vw, 6rem);
+            font-weight: 800;
+            letter-spacing: -0.07em;
+            line-height: 0.9;
+            text-wrap: balance;
+        }
+
+        #beranda h1 .hero-accent-dot {
+            color: var(--hero-accent);
+        }
+
+        #beranda .hero-supporting-copy {
+            position: relative;
+            max-width: 52ch;
+            margin: 0;
+            padding-left: 0.85rem;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: clamp(0.75rem, 1vw, 0.9rem);
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+        }
+
+        #beranda .hero-supporting-copy::before {
+            content: '';
+            position: absolute;
+            top: 0.2em;
+            left: 0;
+            width: 3px;
+            height: 2.25em;
+            border-radius: 999px;
+            background: var(--hero-accent);
+            box-shadow: 0 0 18px rgba(252, 222, 5, 0.3);
+        }
+
+        @media (max-width: 1023px) {
+            #beranda {
+                min-height: 640px;
+                padding-top: 8rem;
+                background-image:
+                    linear-gradient(180deg, rgba(49, 102, 177, 0.72) 0%, rgba(49, 102, 177, 0.94) 68%, rgba(49, 102, 177, 1) 100%),
+                    url('{{ $heroImageUrl }}') !important;
+                background-position: 58% center;
+            }
+
+            #beranda > .max-w-7xl {
+                min-height: 470px;
+                align-items: flex-end;
+            }
+
+            #beranda h1 {
+                margin-bottom: 0;
+                font-size: clamp(3.25rem, 14vw, 5.3rem);
+            }
+
+            #beranda .hero-supporting-copy {
+                max-width: 48ch;
+                font-size: clamp(0.75rem, 3.2vw, 0.85rem);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            #beranda .animate-fade-in-up,
+            #beranda .reveal-words {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 
@@ -635,12 +1479,7 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
-            <div class="w-full lg:w-7/12 flex flex-col justify-center items-center text-center lg:items-start lg:text-left">
-                @php $heroCalligraphy = array_key_exists('hero_calligraphy', $settings) ? $settings['hero_calligraphy'] : 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'; @endphp
-                @if (!empty($heroCalligraphy))
-                    <p class="font-arabic text-[var(--primary-yellow)]/80 text-2xl md:text-3xl mb-4 animate-fade-in-up text-center lg:text-left" dir="rtl">{{ $heroCalligraphy }}</p>
-                @endif
-                
+            <div class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
@@ -680,7 +1519,8 @@
                     $site_desc = $settings['site_description'] ?? 'Perjalanan Umrah yang nyaman, aman, dan terpercaya — dari keberangkatan hingga kembali ke tanah air.';
                 @endphp
 
-                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[72px] font-poppins font-bold text-white leading-[1.1] mb-5 tracking-tight reveal-words">
+                <div class="hero-copy-block">
+                <h1 class="font-poppins text-white reveal-words" aria-label="{{ $hero_tagline }}">
                     <span class="block text-white">{{ $line1 }}</span>
                     @if(!empty($line2))
                         <span class="block text-[var(--primary-yellow)]">{{ $line2 }}</span>
@@ -690,9 +1530,10 @@
                     @endif
                 </h1>
 
-                <p class="text-sm md:text-base text-white/85 mb-7 leading-relaxed font-normal max-w-lg mx-auto lg:mx-0 animate-fade-in-up delay-300 font-poppins">
+                <p class="hero-supporting-copy animate-fade-in-up delay-300 font-poppins">
                     {{ $site_desc }}
                 </p>
+                </div>
 
                 <!-- Hero Feature Icons Row: horizontal chip scroller on mobile, plain grid from sm+ -->
                 <div class="w-full flex sm:grid sm:grid-cols-4 gap-3 sm:gap-x-5 sm:gap-y-4 mb-6 lg:mb-8 overflow-x-auto sm:overflow-visible scrollbar-none snap-x snap-mandatory animate-fade-in-up delay-350">
@@ -887,7 +1728,7 @@
     @include('partials.promo-carousel')
 
     <!-- BEGIN: Tentang Kami -->
-    <section class="py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
+    <section class="about-modern-section py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
         <!-- Blurred Nabawi Mosque Background (tinted so frosted glass panels have depth) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.74) 0%, rgba(250, 250, 249, 0.8) 45%, rgba(250, 250, 249, 0.86) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
@@ -903,59 +1744,63 @@
             <!-- Top Layout: Description, Stats, and 3D Photo Stack Collage -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center mb-10">
                 <!-- Left: Short description & stats -->
-                <div class="lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 text-blue-700 dark:text-blue-300 text-xs font-bold tracking-[0.14em] uppercase shadow-sm shadow-stone-900/5">
+                <div class="about-intro-copy lg:col-span-6 space-y-6 reveal flex flex-col items-center lg:items-start text-center lg:text-left">
+                    <span class="about-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/60 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 text-blue-700 dark:text-blue-300 text-xs font-bold tracking-[0.14em] uppercase shadow-sm shadow-stone-900/5">
                         {{ $settings['about_badge'] ?? 'Tentang Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
+                    <h2 class="about-title text-3xl md:text-4xl lg:text-5xl font-black text-stone-900 tracking-tight leading-tight reveal-words text-center lg:text-left">
                         {{ $settings['about_title'] ?? 'Melayani Perjalanan Suci Anda dengan Sepenuh Hati' }}
                     </h2>
-                    <p class="text-stone-600 text-sm md:text-base leading-relaxed font-normal text-center lg:text-left">
-                        {{ $settings['about_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}
+                    <p class="about-description text-stone-600 text-xs sm:text-sm leading-[1.75] font-normal text-center lg:text-left max-w-xl">
+                        {{ $settings['about_description'] ?? 'Sebuah perusahaan yang bergerak di bidang biro perjalanan umroh dengan pelayanan dan kualitas nyaman yang menyasar para generasi muda juga kalangan menengah kebawah. Paket Umroh izitravel: Paket Hemat: menawarkan pengalaman ibadah umroh yang lebih nyaman dan terstruktur. Paket Hemat Banget: berfokus pada efisiensi biaya dengan menyediakan fasilitas standar yang esensial bagi jamaah yang ingin umroh dengan anggaran seminimal mungkin.' }}
                     </p>
-                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 pt-4 w-full">
-                        <div class="inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
-                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
-                            <p class="text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
-                            <p class="text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
+                    <div class="about-stat-grid flex flex-wrap justify-center lg:justify-start gap-3 pt-4 w-full">
+                        <div class="about-stat-card inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
+                            <span class="about-stat-icon shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="smile" class="w-4 h-4"></i></span>
+                            <div>
+                                <p class="about-stat-value text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_satisfaction_rate'] ?? '99' }}">0</span>%</p>
+                                <p class="about-stat-label text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_1_label'] ?? 'Kepuasan Jamaah' }}</p>
+                            </div>
                         </div>
-                        <div class="inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
-                            <span class="shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
-                            <p class="text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
-                            <p class="text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
+                        <div class="about-stat-card inline-flex items-center gap-2.5 bg-white/60 dark:bg-white/10 pl-3 pr-4 py-2.5 rounded-full backdrop-blur-xl border border-white/60 dark:border-white/20 shadow-lg shadow-stone-900/5">
+                            <span class="about-stat-icon shrink-0 w-8 h-8 rounded-full bg-blue-600/10 dark:bg-blue-400/20 border border-white/40 text-blue-600 dark:text-blue-300 flex items-center justify-center"><i data-lucide="users" class="w-4 h-4"></i></span>
+                            <div>
+                                <p class="about-stat-value text-lg font-black text-blue-600 dark:text-blue-300 leading-none"><span class="stat-counter" data-target="{{ $settings['about_departed_count'] ?? '10' }}" data-suffix="k">0</span>+</p>
+                                <p class="about-stat-label text-[10px] text-stone-500 dark:text-stone-300 uppercase font-extrabold tracking-wider leading-tight">{{ $settings['about_stat_2_label'] ?? 'Jamaah Berangkat' }}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Overlapping 3D Image Collage -->
-                <div class="lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
+                <div class="about-collage lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
 <!-- Base Backdrop Card (Departure Image) -->
-                    <div class="absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform -rotate-1 hover:rotate-0 transition duration-500 select-none">
+                    <div class="about-collage-card about-collage-back absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform -rotate-1 hover:rotate-0 transition duration-500 select-none">
                         <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                     </div>
 
                     <!-- Overlay Foreground Card (Manasik Preparation Image) -->
-                    <div class="absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/10 border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-10 select-none">
+                    <div class="about-collage-card about-collage-front absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/10 border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-10 select-none">
                         <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                     </div>
                 </div>
             </div>
 
             <!-- Izin Resmi PPIU -->
-            <div class="my-16 md:my-24 reveal-up">
-                <div class="relative overflow-hidden bg-white/55 dark:bg-slate-900/40 backdrop-blur-2xl rounded-3xl border border-white/60 dark:border-white/10 ring-1 ring-white/40 shadow-xl shadow-stone-900/5">
+            <div class="about-legal-section my-16 md:my-24 reveal-up">
+                <div class="about-legal-card relative overflow-hidden bg-white/55 dark:bg-slate-900/40 backdrop-blur-2xl rounded-3xl border border-white/60 dark:border-white/10 ring-1 ring-white/40 shadow-xl shadow-stone-900/5">
                     <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center p-7 sm:p-10 lg:p-12">
 
                         <!-- Konten utama -->
-                        <div class="lg:col-span-7 space-y-5">
+                        <div class="about-legal-copy lg:col-span-7 space-y-5">
                             <div class="flex flex-wrap items-center gap-x-4 gap-y-3">
                                 @if(!empty($settings['about_ppiu_logo']))
                                     <div class="inline-flex items-center justify-center h-11 px-3 rounded-lg bg-white/70 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20">
                                         <img src="{{ str_starts_with($settings['about_ppiu_logo'], 'images/') ? asset($settings['about_ppiu_logo']) : asset('storage/' . $settings['about_ppiu_logo']) }}" alt="Logo Kemenag" class="h-8 w-auto object-contain">
                                     </div>
                                 @endif
-                                <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-400">
+                                <span class="about-legal-kicker inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.18em] text-blue-700 dark:text-blue-400">
                                     <i data-lucide="check-circle-2" class="w-4 h-4 text-blue-600 shrink-0"></i>
                                     Legalitas Perusahaan
                                 </span>
@@ -965,29 +1810,29 @@
                                 $ppiuLabelText = $settings['about_ppiu_label'] ?? 'Izin Penyelenggara Resmi Perjalanan Ibadah Umrah (PPIU)';
                             @endphp
 
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
+                            <h3 class="about-legal-title text-2xl md:text-3xl font-extrabold text-stone-900 dark:text-white tracking-tight leading-tight">
                                 {{ $ppiuLabelText }}
                             </h3>
-                            <p class="text-sm md:text-[15px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
+                            <p class="about-legal-description text-sm md:text-[15px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
                                 {{ $settings['about_ppiu_desc'] ?? 'IZI Travel berkomitmen penuh dalam menyelenggarakan ibadah Umrah dan Haji sesuai syariat Islam, dengan kepastian program keberangkatan dan bimbingan ibadah yang sah & diakui secara hukum.' }}
                             </p>
 
-                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-white/40 dark:border-white/10">
-                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">01</span>
+                            <div class="about-legal-points grid grid-cols-1 sm:grid-cols-3 gap-3 mt-7 pt-6 border-t border-white/40 dark:border-white/10">
+                                <div class="about-legal-point flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="about-legal-number shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">01</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Izin PPIU Terdaftar</p>
                                 </div>
-                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">02</span>
+                                <div class="about-legal-point flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="about-legal-number shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">02</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Pengawasan Kementerian Haji dan Umrah</p>
                                 </div>
-                                <div class="flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
-                                    <span class="shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">03</span>
+                                <div class="about-legal-point flex items-center gap-3 bg-white/60 dark:bg-white/5 backdrop-blur-md rounded-xl border border-white/60 dark:border-white/10 px-3 py-2.5">
+                                    <span class="about-legal-number shrink-0 flex items-center justify-center w-8 h-8 rounded-lg bg-white/80 dark:bg-white/10 border border-white/60 dark:border-white/20 text-[11px] font-bold text-stone-500 dark:text-stone-300">03</span>
                                     <p class="text-xs font-semibold text-stone-700 dark:text-stone-300 leading-snug">Nomor Izin Dapat Diverifikasi</p>
                                 </div>
                             </div>
 
-                            <p class="flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
+                            <p class="about-legal-note flex items-start gap-2 pt-1 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400 max-w-2xl">
                                 <i data-lucide="scale" class="w-3.5 h-3.5 shrink-0 mt-px text-stone-300"></i>
                                 Penyelenggaraan tunduk pada Undang-Undang No. 8 Tahun 2019 tentang Penyelenggaraan Ibadah Haji dan Umrah.
                             </p>
@@ -995,7 +1840,7 @@
 
                         <!-- Plat nomor izin -->
                         <div class="lg:col-span-5">
-                            <div class="relative overflow-hidden bg-blue-950/70 dark:bg-slate-950/50 backdrop-blur-xl rounded-xl px-8 py-10 sm:py-12 text-center border border-white/15 ring-1 ring-white/20 shadow-xl shadow-blue-950/20">
+                            <div class="about-license-card relative overflow-hidden bg-blue-950/70 dark:bg-slate-950/50 backdrop-blur-xl rounded-xl px-8 py-10 sm:py-12 text-center border border-white/15 ring-1 ring-white/20 shadow-xl shadow-blue-950/20">
                                 <!-- Faint islamic pattern watermark -->
                                 <div class="absolute inset-0 islamic-pattern opacity-[0.4] pointer-events-none"></div>
                                 <div class="relative">
@@ -1003,14 +1848,14 @@
                                         <i data-lucide="file-text" class="w-3.5 h-3.5 text-stone-400"></i>
                                         <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-stone-400">Nomor Izin</p>
                                     </div>
-                                    <p class="mt-5 text-[1.5rem] sm:text-[1.9rem] leading-tight tracking-tight font-semibold text-white select-all font-mono">
+                                    <p class="about-license-number mt-5 text-[1.5rem] sm:text-[1.9rem] leading-tight tracking-tight font-semibold text-white select-all font-mono">
                                         {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
                                     </p>
                                     <div class="mt-7 pt-5 border-t border-white/10">
                                         <p class="text-[11px] font-medium text-stone-400">Diterbitkan &amp; diawasi oleh Kementerian Haji dan Umrah RI</p>
                                         <div class="mt-5 flex items-center justify-center gap-2">
                                             <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-                                            <span class="text-[11px] font-bold uppercase tracking-widest text-blue-400">Resmi Terdaftar</span>
+                                            <span class="about-license-status text-[11px] font-bold uppercase tracking-widest text-blue-400">Resmi Terdaftar</span>
                                         </div>
                                     </div>
                                     <a href="https://haji.go.id/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-1.5 text-[10px] font-semibold text-stone-400 hover:text-white transition duration-200">
@@ -1025,30 +1870,30 @@
             </div>
 
             <!-- Middle Layout: Bento Grid of Vision & Mission -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
+            <div class="about-principles-grid grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12 md:mb-16">
                 <!-- Visi Card (Asymmetric 5-Span) -->
-                <div class="relative bg-gradient-to-br from-blue-600/80 via-blue-700/75 to-blue-800/80 backdrop-blur-2xl text-white rounded-[1.75rem] p-8 md:p-10 border border-white/25 ring-1 ring-white/20 shadow-xl shadow-blue-800/25 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
+                <div class="about-principle-card about-vision-card relative bg-gradient-to-br from-blue-600/80 via-blue-700/75 to-blue-800/80 backdrop-blur-2xl text-white rounded-[1.75rem] p-8 md:p-10 border border-white/25 ring-1 ring-white/20 shadow-xl shadow-blue-800/25 overflow-hidden flex flex-col justify-between lg:col-span-5 min-h-[260px]">
                     <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/50 to-transparent"></div>
                     <div>
                         <div class="bg-white/10 border border-white/20 backdrop-blur-md p-3.5 rounded-xl text-white w-fit mb-6">
                             <i data-lucide="eye" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-extrabold text-white text-xl mb-4 tracking-tight">{{ $settings['about_vision_label'] ?? 'Visi Kami' }}</h3>
-                        <p class="text-blue-100/80 text-xs md:text-sm leading-relaxed font-light">
+                        <h3 class="about-principle-title font-extrabold text-white text-xl mb-4 tracking-tight">{{ $settings['about_vision_label'] ?? 'Visi Kami' }}</h3>
+                        <p class="about-principle-copy text-blue-100/80 text-xs md:text-sm leading-relaxed font-light">
                             {{ $settings['about_vision'] ?? 'Menjadi penyelenggara perjalanan ibadah Umrah dan Haji tepercaya yang mengedepankan kemurnian ibadah sesuai sunnah serta pelayanan VIP demi kenyamanan jemaah.' }}
                         </p>
                     </div>
                 </div>
 
                 <!-- Misi Card (Asymmetric 7-Span) -->
-                <div class="relative bg-white/60 dark:bg-white/10 backdrop-blur-2xl rounded-[1.75rem] p-8 md:p-10 border border-white/60 dark:border-white/20 ring-1 ring-white/40 shadow-xl shadow-stone-900/5 overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between">
+                <div class="about-principle-card about-mission-card relative bg-white/60 dark:bg-white/10 backdrop-blur-2xl rounded-[1.75rem] p-8 md:p-10 border border-white/60 dark:border-white/20 ring-1 ring-white/40 shadow-xl shadow-stone-900/5 overflow-hidden lg:col-span-7 min-h-[260px] flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-white/60 to-transparent"></div>
                     <div>
                         <div class="bg-blue-50 dark:bg-white/10 backdrop-blur-md border border-white/60 dark:border-white/20 text-blue-600 dark:text-blue-300 p-3.5 rounded-xl w-fit mb-6">
                             <i data-lucide="target" class="w-6 h-6"></i>
                         </div>
-                        <h3 class="font-extrabold text-stone-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
-                        <p class="text-stone-500 text-xs md:text-sm leading-relaxed font-light">
+                        <h3 class="about-principle-title font-extrabold text-stone-900 text-xl mb-4 tracking-tight">{{ $settings['about_mission_label'] ?? 'Misi Kami' }}</h3>
+                        <p class="about-principle-copy text-stone-500 text-xs md:text-sm leading-relaxed font-light">
                             {{ $settings['about_mission'] ?? 'Memberikan pelayanan akomodasi hotel bintang 5 di pelataran Masjidil Haram & Nabawi, memfasilitasi bimbingan manasik komprehensif, serta melayani jemaah dengan ramah dan profesional layaknya keluarga sendiri.' }}
                         </p>
                     </div>
@@ -1125,31 +1970,31 @@
     <!-- END: Tentang Kami -->
 
     <!-- BEGIN: Why Choose Us -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid">
+    <section class="features-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid">
         <!-- Blurred Kaaba Background Image (Split Right with Blue Gradient Fade) -->
-        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
+        <div class="features-global-bg absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <div class="features-photo-bg absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
+            <div class="features-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
             <!-- Stars/Pattern overlay -->
-            <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+            <div class="features-pattern absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
             <!-- Color orbs that give the frosted glass panels depth -->
             <div class="absolute -right-24 top-32 w-96 h-96 rounded-full bg-amber-400/20 blur-3xl"></div>
             <div class="absolute -left-20 bottom-24 w-80 h-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
         </div>
 
         <!-- Section Header (Premium Split Layout) -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
+        <div class="features-header max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
                 <div class="space-y-3 flex flex-col items-center lg:items-start">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="features-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
                     </span>
-                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight text-center lg:text-left">
+                    <h2 class="features-title text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight text-center lg:text-left">
                         {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
                     </h2>
                 </div>
-                <p class="text-white/80 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                <p class="features-subtitle text-white/80 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
                     {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
                 </p>
             </div>
@@ -1157,9 +2002,9 @@
 
         <!-- Bento Grid Layout -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
+            <div class="features-grid-modern grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
                 <!-- Feature 1 -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
@@ -1175,7 +2020,7 @@
                 </div>
 
                 <!-- Feature 2: Standard Card -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
@@ -1191,7 +2036,7 @@
                 </div>
 
                 <!-- Feature 3: Standard Card -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
@@ -1207,7 +2052,7 @@
                 </div>
 
                 <!-- Feature 4: Standard Card -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
@@ -1223,7 +2068,7 @@
                 </div>
 
                 <!-- Feature 5: Standard Card -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
@@ -1239,7 +2084,7 @@
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
                     <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
                     <div>
                         <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
@@ -1357,12 +2202,12 @@
     <!-- END: RegistrationFlow -->
 
     <!-- BEGIN: FeaturedPackages -->
-    <section class="relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid">
+    <section class="packages-modern-section relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid">
         <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Blue Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
+            <div class="packages-photo-bg absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
+            <div class="packages-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
             <!-- Stars/Pattern overlay -->
             <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         </div>
@@ -1370,14 +2215,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="mb-12 text-center reveal">
                 <div class="space-y-3 flex flex-col items-center">
-                    <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                    <span class="packages-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
                         {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
                     </span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
+                    <h2 class="packages-title text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
                         {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
                     </h2>
                     @include('partials.ornament')
-                    <p class="text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
+                    <p class="packages-subtitle text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
                         {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
                     </p>
                 </div>
@@ -1411,7 +2256,7 @@
 
             <!-- Category Filter Tabs -->
             <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
-                <div class="relative flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 z-10 whitespace-nowrap flex-nowrap mx-auto">
+                <div class="package-filter-shell relative flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 z-10 whitespace-nowrap flex-nowrap mx-auto">
                     <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
                     <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
                     @foreach ($sortedGroups as $categoryName => $categoryPackages)
@@ -1420,7 +2265,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
+            <div class="packages-grid-modern grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
                 @foreach ($packages as $package)
                     @php
                         $badgeClasses = match ($package->badge_color) {
@@ -1436,9 +2281,9 @@
                             : 'border-stone-200/70 hover:border-blue-600/20 shadow-sm shadow-stone-900/[0.03]';
                         $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
                     @endphp
-                    <div class="package-item reveal-card bg-white rounded-2xl transition-colors duration-300 flex flex-col justify-between border {{ $cardBorderClass }} group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
+                    <div class="package-modern-card package-item reveal-card bg-white rounded-2xl transition-colors duration-300 flex flex-col justify-between border {{ $cardBorderClass }} group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
                         <div class="w-full">
-                            <div class="relative aspect-[4/3] overflow-hidden select-none rounded-t-2xl">
+                            <div class="package-modern-image relative aspect-[4/3] overflow-hidden select-none rounded-t-2xl">
                                 <img src="{{ $package->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
                                 @if ($package->badge_label)
                                     <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
@@ -1473,7 +2318,7 @@
                             </div>
                         </div>
 
-                        <div class="px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
+                        <div class="package-modern-footer px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
                             <!-- Ticket notches overlaying the dashed line -->
                             <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
                             <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
@@ -1494,10 +2339,10 @@
     <!-- END: FeaturedPackages -->
 
     <!-- BEGIN: Partners -->
-    <section class="py-8 md:py-10 bg-stone-50/20" data-purpose="partners-logo-cloud">
+    <section class="partners-modern-section py-8 md:py-10 bg-stone-50/20" id="partners-logo-cloud" data-purpose="partners-logo-cloud">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl font-extrabold text-center text-stone-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
-            <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
+            <h2 class="partners-title text-2xl md:text-3xl font-extrabold text-center text-stone-900 mb-6 tracking-tight reveal">{{ $settings['partners_section_title'] ?? 'Mitra Maskapai Penerbangan' }}</h2>
+            <div class="partners-logo-row flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-16 opacity-85 reveal">
                 @foreach ($partners as $partner)
                     <div class="flex items-center justify-center grayscale hover:grayscale-0 transition duration-300">
                         @if ($partner->logo_type === 'svg')
@@ -1510,7 +2355,7 @@
                     </div>
                 @endforeach
                 <!-- Premium Hotel Link -->
-                <div class="text-amber-500 font-extrabold text-lg md:text-2xl italic hover:text-amber-600 transition duration-300">
+                <div class="partners-extra text-amber-500 font-extrabold text-lg md:text-2xl italic hover:text-amber-600 transition duration-300">
                     {{ $settings['partners_extra'] ?? '+ Akomodasi Bintang 5' }}
                 </div>
             </div>
@@ -1519,18 +2364,18 @@
     <!-- END: Partners -->
 
     <!-- BEGIN: Gallery -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" id="galeri" data-purpose="gallery-section">
+    <section class="gallery-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" id="galeri" data-purpose="gallery-section">
         <!-- Stars/Pattern overlay -->
-        <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+        <div class="gallery-pattern absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center space-y-4 mb-12 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
+            <div class="gallery-header text-center space-y-4 mb-12 reveal">
+                <span class="gallery-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
                     <i data-lucide="images" class="w-3.5 h-3.5"></i>
                     {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
                 </span>
-                <h2 class="text-3xl font-extrabold text-white tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
-                <p class="text-white/60 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
+                <h2 class="gallery-title text-3xl font-extrabold text-white tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
+                <p class="gallery-subtitle text-white/60 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
                 
             @php
                 $albums = $galleries->groupBy(function($item) {
@@ -1563,15 +2408,15 @@
             @endphp
             
             <!-- Gallery Grid (Albums Folder View) -->
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
+            <div class="gallery-grid-modern grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
                 @foreach ($displayAlbums as $album)
                     <!-- Album Folder Card -->
-                    <div class="album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer" 
+                    <div class="gallery-album-card album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer"
                          data-album-name="{{ $album->name }}"
                          data-items="{{ json_encode($album->items) }}">
                         
                         <!-- Folder Tab Shape Design -->
-                        <div class="relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
+                        <div class="gallery-album-media relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
                             @if ($album->cover_url)
                                 <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
@@ -1601,8 +2446,8 @@
                         </div>
 
                         <!-- Album Description Info -->
-                        <div class="flex flex-col">
-                            <h3 class="font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
+                        <div class="gallery-album-info flex flex-col">
+                            <h3 class="gallery-album-title font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
                             <p class="text-[10px] sm:text-xs text-stone-500 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
                                 <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
                                 <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
