@@ -630,7 +630,7 @@
              leaves a big empty gap. Bounding the real photo to a shorter top band lets it fill
              that band with a much milder crop, then fades into the plain navy gradient below. -->
         <div id="hero-photo-band" class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none animate-fade-in-up">
-            <div class="absolute inset-0 bg-gradient-to-b from-blue-600/55 via-blue-600/88 to-blue-600"></div>
+            <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(49, 102, 177, 0.90) 0%, rgba(49, 102, 177, 0.96) 68%, #3166b1 100%);"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
