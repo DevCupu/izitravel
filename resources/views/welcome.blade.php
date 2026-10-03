@@ -684,36 +684,40 @@
             isolation: isolate;
         }
 
-        #tentang-kami .about-collage::before {
-            content: '';
-            position: absolute;
-            z-index: -1;
-            inset: 1.5rem 8% 1.25rem 8%;
-            border-radius: 2.25rem;
-            background: linear-gradient(145deg, rgba(49, 102, 177, 0.22), rgba(49, 102, 177, 0.04));
-            transform: rotate(5deg);
-        }
-
         #tentang-kami .about-collage-card {
             border-radius: 1.75rem;
             box-shadow: 0 28px 60px rgba(16, 48, 91, 0.16);
         }
 
-        #tentang-kami .about-collage-back {
-            left: 3%;
+        /* Size hierarchy: back = hero, base = mid, front = accent (smallest) */
+        #tentang-kami .about-collage-base {
+            right: 0;
             top: 0;
-            width: 76%;
-            height: 82%;
+            width: 48%;
+            height: 60%;
             aspect-ratio: auto;
+            z-index: 0;
+            transform: rotate(4deg);
+            box-shadow: 0 18px 40px rgba(16, 48, 91, 0.12);
+        }
+
+        #tentang-kami .about-collage-back {
+            left: 0;
+            top: 0;
+            width: 72%;
+            height: 88%;
+            aspect-ratio: auto;
+            z-index: 10;
             transform: rotate(-2.5deg);
         }
 
         #tentang-kami .about-collage-front {
             right: 0;
             bottom: 0;
-            width: 49%;
-            height: 52%;
+            width: 40%;
+            height: 42%;
             aspect-ratio: auto;
+            z-index: 20;
             transform: rotate(3.5deg);
         }
 
@@ -999,38 +1003,82 @@
             background: linear-gradient(180deg, rgba(14, 49, 95, 0.72) 0%, rgba(14, 49, 95, 0.9) 70%, rgba(14, 49, 95, 0.98) 100%);
         }
 
-        #paket-umrah .packages-eyebrow,
-        #galeri .gallery-eyebrow {
+        [data-purpose="faq-section"] .faq-eyebrow {
             gap: 0.65rem;
             padding: 0;
             border: 0;
             background: transparent;
-            color: var(--primary-yellow);
             letter-spacing: 0.18em;
+            color: var(--primary-yellow);
         }
 
-        #paket-umrah .packages-eyebrow::before,
-        #galeri .gallery-eyebrow::before {
+        [data-purpose="faq-section"] .faq-eyebrow::before {
             content: '';
             width: 2.25rem;
             height: 2px;
             border-radius: 999px;
-            background: var(--primary-yellow);
+            background: currentColor;
+        }
+
+        #paket-umrah .packages-eyebrow,
+        #galeri .gallery-eyebrow,
+        #testimoni .testimonials-eyebrow,
+        #artikel .articles-eyebrow,
+        #kemitraan .partnership-eyebrow {
+            gap: 0.65rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            letter-spacing: 0.18em;
+        }
+
+        #paket-umrah .packages-eyebrow,
+        #galeri .gallery-eyebrow {
+            color: var(--primary-yellow);
+        }
+
+        #testimoni .testimonials-eyebrow,
+        #artikel .articles-eyebrow,
+        #kemitraan .partnership-eyebrow {
+            color: var(--primary-blue);
+        }
+
+        #paket-umrah .packages-eyebrow::before,
+        #galeri .gallery-eyebrow::before,
+        #testimoni .testimonials-eyebrow::before,
+        #artikel .articles-eyebrow::before,
+        #kemitraan .partnership-eyebrow::before {
+            content: '';
+            width: 2.25rem;
+            height: 2px;
+            border-radius: 999px;
+            background: currentColor;
         }
 
         #paket-umrah .packages-title,
-        #galeri .gallery-title {
+        #galeri .gallery-title,
+        #testimoni .testimonials-title,
+        #artikel .articles-title,
+        #kemitraan .partnership-title,
+        [data-purpose="faq-section"] .faq-title {
             font-size: clamp(2.5rem, 5vw, 4.5rem);
             letter-spacing: -0.065em;
             line-height: 0.96;
         }
 
         #paket-umrah .packages-subtitle,
-        #galeri .gallery-subtitle {
+        #galeri .gallery-subtitle,
+        #testimoni .testimonials-subtitle,
+        #artikel .articles-subtitle,
+        #kemitraan .partnership-subtitle {
             max-width: 42ch;
-            color: rgba(255, 255, 255, 0.7);
             font-size: clamp(0.85rem, 1.2vw, 1rem);
             line-height: 1.7;
+        }
+
+        #paket-umrah .packages-subtitle,
+        #galeri .gallery-subtitle {
+            color: rgba(255, 255, 255, 0.7);
         }
 
         #paket-umrah .package-filter-shell {
@@ -1253,7 +1301,11 @@
 
         @media (max-width: 640px) {
             #paket-umrah .packages-title,
-            #galeri .gallery-title {
+            #galeri .gallery-title,
+            #testimoni .testimonials-title,
+            #artikel .articles-title,
+            #kemitraan .partnership-title,
+            [data-purpose="faq-section"] .faq-title {
                 max-width: 13ch;
                 margin-inline: auto;
                 font-size: clamp(2.35rem, 11vw, 3.25rem);
@@ -1265,6 +1317,24 @@
 
             #galeri .gallery-album-card {
                 padding: 0.45rem;
+            }
+        }
+
+        @media (min-width: 641px) and (max-width: 1023px) {
+            /* Full-width but short canvas: keep the cards from flattening out */
+            #tentang-kami .about-collage-base {
+                width: 46%;
+                height: 66%;
+            }
+
+            #tentang-kami .about-collage-back {
+                width: 56%;
+                height: 100%;
+            }
+
+            #tentang-kami .about-collage-front {
+                width: 38%;
+                height: 48%;
             }
         }
 
@@ -1288,15 +1358,25 @@
                 min-height: 24rem;
             }
 
+            #tentang-kami .about-collage-base {
+                right: 0;
+                top: 0;
+                width: 52%;
+                height: 60%;
+            }
+
             #tentang-kami .about-collage-back {
                 left: 0;
-                width: 80%;
-                height: 78%;
+                top: 0;
+                width: 70%;
+                height: 82%;
             }
 
             #tentang-kami .about-collage-front {
-                width: 54%;
-                height: 50%;
+                right: 0;
+                bottom: 0;
+                width: 42%;
+                height: 44%;
             }
 
             #tentang-kami .about-legal-points {
@@ -1774,13 +1854,18 @@
 
                 <!-- Right: Overlapping 3D Image Collage -->
                 <div class="about-collage lg:col-span-6 relative w-full h-[360px] sm:h-[440px] flex items-center justify-center reveal-right">
+<!-- Base Card (rearmost photo in the stack) -->
+                    <div class="about-collage-card about-collage-base absolute right-6 top-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-0 select-none">
+                        <img src="{{ !empty($settings['about_image_3']) ? (str_starts_with($settings['about_image_3'], 'images/') ? asset($settings['about_image_3']) : asset('storage/' . $settings['about_image_3'])) : asset('images/gallery_makkah1.webp') }}" alt="Suasana Perjalanan Ibadah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
+                    </div>
+
 <!-- Base Backdrop Card (Departure Image) -->
-                    <div class="about-collage-card about-collage-back absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform -rotate-1 hover:rotate-0 transition duration-500 select-none">
+                    <div class="about-collage-card about-collage-back absolute left-6 top-6 w-[80%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/[0.07] border-4 border-white transform -rotate-1 hover:rotate-0 transition duration-500 z-10 select-none">
                         <img src="{{ !empty($settings['about_image_1']) ? (str_starts_with($settings['about_image_1'], 'images/') ? asset($settings['about_image_1']) : asset('storage/' . $settings['about_image_1'])) : asset('images/gallery_departure.webp') }}" alt="Keberangkatan Jemaah" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                     </div>
 
                     <!-- Overlay Foreground Card (Manasik Preparation Image) -->
-                    <div class="about-collage-card about-collage-front absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/10 border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-10 select-none">
+                    <div class="about-collage-card about-collage-front absolute right-6 bottom-6 w-[60%] aspect-[4/3] rounded-2xl overflow-hidden shadow-xl shadow-stone-900/10 border-4 border-white transform rotate-1 hover:rotate-0 transition duration-500 z-20 select-none">
                         <img src="{{ !empty($settings['about_image_2']) ? (str_starts_with($settings['about_image_2'], 'images/') ? asset($settings['about_image_2']) : asset('storage/' . $settings['about_image_2'])) : asset('images/gallery_manasik.webp') }}" alt="Bimbingan Manasik" class="w-full h-full object-cover" width="600" height="450" loading="lazy" decoding="async">
                     </div>
                 </div>
@@ -2368,15 +2453,23 @@
         <!-- Stars/Pattern overlay -->
         <div class="gallery-pattern absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="gallery-header text-center space-y-4 mb-12 reveal">
-                <span class="gallery-eyebrow inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="images" class="w-3.5 h-3.5"></i>
-                    {{ $settings['gallery_label'] ?? 'Galeri &amp; Dokumentasi' }}
-                </span>
-                <h2 class="gallery-title text-3xl font-extrabold text-white tracking-tight reveal-words">{{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan &amp; Testimoni' }}</h2>
-                <p class="gallery-subtitle text-white/60 max-w-md mx-auto text-xs md:text-sm">{{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}</p>
-                
+            <div class="gallery-header mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="gallery-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="images" class="w-3.5 h-3.5"></i>
+                        {{ $settings['gallery_label'] ?? 'Galeri & Dokumentasi' }}
+                    </span>
+                    <h2 class="gallery-title text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
+                        {{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan & Testimoni' }}
+                    </h2>
+                    @include('partials.ornament')
+                    <p class="gallery-subtitle text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
+                        {{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}
+                    </p>
+                </div>
+            </div>
+
             @php
                 $albums = $galleries->groupBy(function($item) {
                     return trim($item->category_label) ?: 'Umum';
@@ -2515,14 +2608,21 @@
         <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal flex flex-col items-center gap-3">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="message-circle" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                    {{ $settings['testimonials_label'] ?? 'Testimoni' }}
-                </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 mb-4 tracking-tight reveal-words">{{ $settings['testimonials_section_title'] ?? 'Testimonials' }}</h2>
-                <p class="text-stone-500 font-medium text-sm md:text-base">{{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}</p>
+            <div class="testimonials-header mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="testimonials-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-bold tracking-[0.14em] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+                        {{ $settings['testimonials_label'] ?? 'Testimoni' }}
+                    </span>
+                    <h2 class="testimonials-title text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
+                        {{ $settings['testimonials_section_title'] ?? 'Testimonials' }}
+                    </h2>
+                    @include('partials.ornament')
+                    <p class="testimonials-subtitle text-stone-500 font-light text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed pt-2 mx-auto">
+                        {{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}
+                    </p>
+                </div>
             </div>
             <!-- Testimonial Slider Viewport with Left/Right Arrows -->
             <div class="relative px-0 md:px-8" id="testimonial-slider-container">
@@ -2806,15 +2906,22 @@
         <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center space-y-4 mb-12 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="book-open" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                    {{ $settings['articles_label'] ?? 'Artikel &amp; Inspirasi' }}
-                </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['articles_section_title'] ?? 'Kabar &amp; Tips Umrah Terbaru' }}</h2>
-                <p class="text-stone-500 max-w-md mx-auto text-xs md:text-sm">{{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}</p>
-                
+            <div class="articles-header mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="articles-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-bold tracking-[0.14em] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+                        {{ $settings['articles_label'] ?? 'Artikel & Inspirasi' }}
+                    </span>
+                    <h2 class="articles-title text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
+                        {{ $settings['articles_section_title'] ?? 'Kabar & Tips Umrah Terbaru' }}
+                    </h2>
+                    @include('partials.ornament')
+                    <p class="articles-subtitle text-stone-500 font-light text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed pt-2 mx-auto">
+                        {{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}
+                    </p>
+                </div>
+
                 <!-- Category Filter Tabs -->
                 <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mt-6">
                     <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
@@ -3126,14 +3233,21 @@
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center space-y-4 mb-16 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="handshake" class="w-3.5 h-3.5 text-blue-600/80"></i>
-                    {{ $settings['partnership_badge'] ?? 'Program Kemitraan' }}
-                </span>
-                <h2 class="text-3xl font-extrabold text-stone-900 tracking-tight reveal-words">{{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}</h2>
-                <p class="text-blue-900/70 max-w-2xl mx-auto text-xs md:text-sm leading-relaxed">{{ $settings['partnership_subtitle'] ?? 'Menjadi mitra syiar baitullah berkesempatan mendapatkan komisi hingga puluhan juta rupiah bahkan berkesempatan untuk umroh.' }}</p>
+            <div class="partnership-header mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="partnership-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-bold tracking-[0.14em] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="handshake" class="w-3.5 h-3.5"></i>
+                        {{ $settings['partnership_badge'] ?? 'Program Kemitraan' }}
+                    </span>
+                    <h2 class="partnership-title text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
+                        {{ $settings['partnership_title'] ?? 'Mari Bergabung Menjadi Mitra Syiar Baitullah' }}
+                    </h2>
+                    @include('partials.ornament')
+                    <p class="partnership-subtitle text-blue-900/70 font-light text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed pt-2 mx-auto">
+                        {{ $settings['partnership_subtitle'] ?? 'Menjadi mitra syiar baitullah berkesempatan mendapatkan komisi hingga puluhan juta rupiah bahkan berkesempatan untuk umroh.' }}
+                    </p>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
@@ -3263,26 +3377,31 @@
         <!-- Stars/Pattern overlay -->
         <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="space-y-3 flex flex-col items-center mb-12">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
-                    Tanya Jawab
-                </span>
-                <h2 class="text-3xl font-extrabold text-center text-white tracking-tight reveal-words">{{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}</h2>
+            <div class="faq-header mb-12 text-center reveal">
+                <div class="space-y-3 flex flex-col items-center">
+                    <span class="faq-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        <i data-lucide="help-circle" class="w-3.5 h-3.5"></i>
+                        Tanya Jawab
+                    </span>
+                    <h2 class="faq-title text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
+                        {{ $settings['faq_section_title'] ?? 'Tanya Jawab (FAQ)' }}
+                    </h2>
+                    @include('partials.ornament')
+                </div>
             </div>
             <div class="space-y-4 reveal">
                 @foreach ($faqs as $faq)
-                    <details class="faq-details group border border-stone-100/85 group-open:border-blue-600/20 rounded-2xl overflow-hidden transition-all duration-300 bg-white group-open:bg-blue-600/[0.02] soft-shadow">
-                        <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-blue-600/[0.03] group-open:bg-blue-600/[0.05] list-none font-bold text-stone-800 transition">
+                    <details class="faq-details group border border-white/[0.12] group-open:border-amber-400/35 rounded-2xl overflow-hidden transition-all duration-300 bg-white/[0.06] group-open:bg-white/[0.11] hover:bg-white/[0.09] backdrop-blur-md">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none font-bold text-white transition">
                             {{ $faq->question }}
-                            <svg class="w-5 h-5 text-stone-500 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-5 h-5 text-amber-400/80 shrink-0 transition-transform duration-300 group-open:-rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                             </svg>
                         </summary>
                         <div class="faq-content-wrapper">
                             <div class="overflow-hidden">
-                                <div class="p-5 text-stone-500 leading-relaxed text-sm font-light border-t border-stone-100/60">
+                                <div class="p-5 text-white/70 leading-relaxed text-sm font-light border-t border-white/10">
                                     {!! nl2br(e($faq->answer)) !!}
                                 </div>
                             </div>
@@ -3867,7 +3986,7 @@
                     }
                     if (navCta) {
                         navCta.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'shadow-blue-500/10');
-                        navCta.classList.remove('bg-[#c89e2b]', 'text-[#113a6b]', 'hover:bg-[#b88e1b]', 'shadow-[#c89e2b]/15');
+                        navCta.classList.remove('bg-[var(--primary-yellow)]', 'text-[var(--primary-blue)]', 'hover:brightness-95', 'shadow-[rgba(49,102,177,0.18)]');
                     }
                 } else {
                     navHeader.classList.remove('bg-white/90', 'backdrop-blur-md', 'border-white/60', 'shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)]', '!py-2');
@@ -3877,7 +3996,7 @@
                     }
                     if (navCta) {
                         navCta.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'shadow-blue-500/10');
-                        navCta.classList.add('bg-[#c89e2b]', 'text-[#113a6b]', 'hover:bg-[#b88e1b]', 'shadow-[#c89e2b]/15');
+                        navCta.classList.add('bg-[var(--primary-yellow)]', 'text-[var(--primary-blue)]', 'hover:brightness-95', 'shadow-[rgba(49,102,177,0.18)]');
                     }
                 }
 
@@ -3898,11 +4017,11 @@
                         const href = link.getAttribute('href');
                         if (href === `#${currentId}`) {
                             link.className = useTopStyles
-                                ? "relative text-[#c89e2b] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full"
+                                ? "relative text-[var(--primary-yellow)] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full"
                                 : activeClasses;
                         } else {
                             link.className = useTopStyles
-                                ? "relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[#c89e2b] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
+                                ? "relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
                                 : inactiveClasses;
                         }
                     });

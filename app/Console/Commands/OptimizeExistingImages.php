@@ -22,6 +22,7 @@ class OptimizeExistingImages extends Command
         'hero_image' => 1920,
         'about_image_1' => 1000,
         'about_image_2' => 1000,
+        'about_image_3' => 1000,
         'hero_badge_1_image' => 1000,
         'hero_badge_2_image' => 1000,
         'hero_badge_3_image' => 1000,

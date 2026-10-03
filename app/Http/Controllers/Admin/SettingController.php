@@ -313,6 +313,7 @@ class SettingController extends Controller
             'hero_image'             => ['nullable', 'image', 'max:4096'],
             'about_image_1'          => ['nullable', 'image', 'max:4096'],
             'about_image_2'          => ['nullable', 'image', 'max:4096'],
+            'about_image_3'          => ['nullable', 'image', 'max:4096'],
             'hero_badge_1_image'     => ['nullable', 'image', 'max:1024'],
             'hero_badge_2_image'     => ['nullable', 'image', 'max:1024'],
             'hero_badge_3_image'     => ['nullable', 'image', 'max:1024'],
@@ -366,7 +367,7 @@ class SettingController extends Controller
         }
 
         // About collage images + hero floating badge images + Open Graph image + PPIU license logo
-        foreach (['about_image_1', 'about_image_2', 'hero_badge_1_image', 'hero_badge_2_image', 'hero_badge_3_image', 'seo_og_image', 'about_ppiu_logo'] as $field) {
+        foreach (['about_image_1', 'about_image_2', 'about_image_3', 'hero_badge_1_image', 'hero_badge_2_image', 'hero_badge_3_image', 'seo_og_image', 'about_ppiu_logo'] as $field) {
             if ($request->boolean($field . '_remove')) {
                 $old = Setting::getValue($field);
                 if ($old && ! str_starts_with($old, 'images/')) {

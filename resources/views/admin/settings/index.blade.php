@@ -863,7 +863,7 @@
                         </div>
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white">Gambar Kolase (di samping teks)</h3>
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 -mt-2">Dua gambar yang tampil bertumpuk di samping bagian Tentang Kami. Kosongkan untuk memakai gambar bawaan.</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 -mt-2">Tiga gambar yang tampil bertumpuk di samping bagian Tentang Kami. Kosongkan untuk memakai gambar bawaan.</p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pb-6">
                         <div class="form-group">
@@ -933,9 +933,10 @@
                         $aboutImages = [
                             'about_image_1' => ['Gambar Belakang (besar)', 'images/gallery_departure.webp', 'Gambar latar belakang berukuran besar pada kolase foto Tentang Kami.'],
                             'about_image_2' => ['Gambar Depan (kecil)', 'images/gallery_manasik.webp', 'Gambar overlay di depan/atas bertumpuk pada kolase foto Tentang Kami.'],
+                            'about_image_3' => ['Gambar Latar Kolase', 'images/gallery_makkah1.webp', 'Gambar paling belakang pada kolase foto Tentang Kami, di belakang Gambar Belakang & Depan.'],
                         ];
                     @endphp
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
                         @foreach ($aboutImages as $imgKey => [$imgLabel, $imgDefault, $imgDesc])
                             @php $imgVal = $settings[$imgKey] ?? null; @endphp
                             <div class="space-y-2">
