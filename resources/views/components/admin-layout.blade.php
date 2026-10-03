@@ -628,6 +628,14 @@
                     <span class="nav-label">Pengaturan Web</span>
                 </a>
 
+                <a href="{{ route('admin.system.index') }}"
+                   :title="sidebarCollapsed ? 'Pengaturan Sistem' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.system.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="server" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Pengaturan Sistem</span>
+                    <span class="nav-label nav-badge ml-auto text-[11px] font-bold bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-md">Core</span>
+                </a>
+
                 <div class="pt-5 pb-1">
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Meta Ads</p>
                 </div>

@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\PromoController;
 use App\Http\Controllers\Admin\RegistrationChecklistController as AdminRegistrationChecklistController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SystemSettingController;
 use App\Http\Controllers\Admin\TeamController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
@@ -71,6 +72,16 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+
+    // Pengaturan Sistem (System Layer)
+    Route::get('/system', [SystemSettingController::class, 'index'])->name('system.index');
+    Route::post('/system', [SystemSettingController::class, 'update'])->name('system.update');
+    Route::post('/system/clear-cache', [SystemSettingController::class, 'clearCache'])->name('system.clear-cache');
+    Route::get('/system/logs', [SystemSettingController::class, 'getLogs'])->name('system.logs');
+    Route::post('/system/clear-logs', [SystemSettingController::class, 'clearLogs'])->name('system.clear-logs');
+    Route::get('/system/backup-db', [SystemSettingController::class, 'backupDatabase'])->name('system.backup-db');
+    Route::get('/system/preview-maintenance', [SystemSettingController::class, 'previewMaintenance'])->name('system.preview-maintenance');
+    Route::post('/system/optimize-db', [SystemSettingController::class, 'optimizeDatabase'])->name('system.optimize-db');
 
     Route::resource('packages', AdminPackageController::class)->except('show');
 
