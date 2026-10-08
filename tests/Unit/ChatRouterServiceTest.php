@@ -282,6 +282,29 @@ class ChatRouterServiceTest extends TestCase
         $this->assertSame(2, ChatLog::count(), 'a new log is created once the dedupe window passes');
     }
 
+    public function test_dedupe_window_is_long_enough_to_absorb_refreshes(): void
+    {
+        $this->assertSame(30 * 60, ChatRouterService::DEDUPE_WINDOW_SECONDS);
+    }
+
+    public function test_automated_user_agents_are_detected_without_blocking_meta_in_app_browser(): void
+    {
+        $this->assertTrue(ChatLog::isAutomatedUserAgent('facebookexternalhit/1.1'));
+        $this->assertTrue(ChatLog::isAutomatedUserAgent('curl/8.10.1'));
+        $this->assertTrue(ChatLog::isAutomatedUserAgent('Mozilla/5.0 Googlebot/2.1'));
+        $this->assertFalse(ChatLog::isAutomatedUserAgent('Mozilla/5.0 [FBAN/EMA;FBAV/420.0.0.0]'));
+        $this->assertFalse(ChatLog::isAutomatedUserAgent('Mozilla/5.0 Instagram 350.0.0 Android'));
+    }
+
+    public function test_human_traffic_scope_hides_historical_automated_requests(): void
+    {
+        ChatLog::create(['user_agent' => 'curl/8.10.1']);
+        ChatLog::create(['user_agent' => 'Mozilla/5.0 [FBAN/EMA;FBAV/420.0.0.0]']);
+
+        $this->assertSame(2, ChatLog::count());
+        $this->assertSame(1, ChatLog::humanTraffic()->count());
+    }
+
     private function chatRequest(array $params, ?string $visitorUid = null): Request
     {
         $request = Request::create('/chat', 'GET', $params);

@@ -16,8 +16,14 @@ class CampaignController extends Controller
         $search = $request->string('search')->toString();
 
         $campaigns = Campaign::query()
-            ->withCount('chatLogs')
-            ->with(['ads' => fn ($query) => $query->withCount('chatLogs')])
+            ->withCount([
+                'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
+                'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+            ])
+            ->with(['ads' => fn ($query) => $query->withCount([
+                'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
+                'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+            ])])
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
@@ -34,10 +40,11 @@ class CampaignController extends Controller
             ->withQueryString();
 
         $totalCampaigns = Campaign::count();
-        $totalLeads = ChatLog::count();
-        $leadsToday = ChatLog::whereDate('created_at', today())->count();
+        $totalVisits = ChatLog::humanTraffic()->count();
+        $visitsToday = ChatLog::humanTraffic()->whereDate('created_at', today())->count();
+        $opensToday = ChatLog::humanTraffic()->opened()->whereDate('created_at', today())->count();
 
-        return view('admin.campaigns.index', compact('campaigns', 'search', 'totalCampaigns', 'totalLeads', 'leadsToday'));
+        return view('admin.campaigns.index', compact('campaigns', 'search', 'totalCampaigns', 'totalVisits', 'visitsToday', 'opensToday'));
     }
 
     public function create()
@@ -59,7 +66,10 @@ class CampaignController extends Controller
 
     public function edit(string $id)
     {
-        $campaign = Campaign::with(['ads' => fn ($query) => $query->withCount('chatLogs')])->findOrFail($id);
+        $campaign = Campaign::with(['ads' => fn ($query) => $query->withCount([
+            'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
+            'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+        ])])->findOrFail($id);
 
         return view('admin.campaigns.edit', compact('campaign'));
     }

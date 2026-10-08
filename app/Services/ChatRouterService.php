@@ -29,13 +29,14 @@ class ChatRouterService
      * Window (in seconds) during which a repeated visit from the same visitor +
      * campaign reuses the existing chat log instead of creating a new one.
      */
-    public const DEDUPE_WINDOW_SECONDS = 2;
+    public const DEDUPE_WINDOW_SECONDS = 30 * 60;
 
     /**
      * Full routing pipeline: read UTM params, match campaign, pick an active CS by
-     * weighted random, persist a chat log, and build the target wa.me URL.
+     * weighted random, persist a human visit, and build the target wa.me URL.
+     * Known previews and crawlers are routed normally but are not persisted.
      *
-     * @return array{wa_url: ?string, wa_app_url: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
+     * @return array{wa_url: ?string, wa_app_url: ?string, token: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
      */
     public function route(Request $request): array
     {
@@ -64,17 +65,20 @@ class ChatRouterService
 
         $cs = $this->pickCs();
 
-        [$token, $cs] = $this->resolveOrPersistLog(
-            $cs,
-            $campaign,
-            $ad,
-            $request,
-            $utmSource,
-            $utmMedium,
-            $utmCampaign,
-            $utmContent,
-            $visitorUid
-        );
+        $token = null;
+        if (! ChatLog::isAutomatedUserAgent($request->userAgent())) {
+            [$token, $cs] = $this->resolveOrPersistLog(
+                $cs,
+                $campaign,
+                $ad,
+                $request,
+                $utmSource,
+                $utmMedium,
+                $utmCampaign,
+                $utmContent,
+                $visitorUid
+            );
+        }
 
         $messageName = $campaign?->name ?? $utmCampaign;
         $messageTemplate = $ad?->wa_message_template ?? $campaign?->wa_message_template;
@@ -110,9 +114,10 @@ class ChatRouterService
      * Resolve the chat log to use for this request. When the same visitor (cookie
      * fingerprint) and UTM campaign already produced a log within the dedupe
      * window (e.g. a user re-visiting an ad / a reload loop), the existing log +
-     * token + CS are reused so repeated accesses don't inflate lead counts with
+     * token + CS are reused so repeated accesses don't inflate visit counts with
      * duplicates. Keying on the visitor cookie (not IP) keeps weighted-rotation
-     * fair even when many visitors share a proxy IP on shared hosting.
+     * fair even when many visitors share a proxy IP on shared hosting. Thirty
+     * minutes keeps refreshes and back-navigation from inflating visit totals.
      *
      * @return array{0: string, 1: array{id: ?int, name: ?string, phone: ?string, fallback: bool}}
      */
@@ -213,7 +218,7 @@ class ChatRouterService
     }
 
     /**
-     * Pick the CS that should receive the next lead. Only active CS are eligible.
+     * Pick the CS that should receive the next visit. Only active CS are eligible.
      * Returns a fallback (main WhatsApp number) when no CS is active.
      *
      * @return array{id: ?int, name: ?string, phone: ?string, fallback: bool}

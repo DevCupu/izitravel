@@ -1,11 +1,11 @@
-<x-admin-layout :title="__('Lead Tracking')">
+<x-admin-layout :title="__('Tracking WhatsApp')">
     <x-slot name="header">
         <div>
             <h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                {{ __('Lead Tracking') }}
+                {{ __('Tracking WhatsApp') }}
             </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                {{ __('Pantau semua kunjungan izitravel.id/chat dari Media Ads.') }}
+                {{ __('Bedakan kunjungan link dari pembukaan WhatsApp. Pesan terkirim tetap perlu dikonfirmasi di WhatsApp.') }}
             </p>
         </div>
     </x-slot>
@@ -14,16 +14,16 @@
         {{-- Statistik hari ini --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Lead Hari Ini</p>
-                <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $statsToday['total'] }}</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Kunjungan Hari Ini</p>
+                <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $statsToday['visits'] }}</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Campaign Terdeteksi</p>
-                <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $statsToday['per_campaign']->count() }}</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">WhatsApp Dibuka</p>
+                <p class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 tabular-nums">{{ $statsToday['opened'] }}</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">CS Menerima Lead</p>
-                <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $statsToday['per_cs']->sum('chat_logs_count') }}</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Rasio Buka</p>
+                <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mt-1 tabular-nums">{{ number_format($statsToday['open_rate'], 1, ',', '.') }}%</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Diarahkan ke CS Utama</p>
@@ -32,18 +32,20 @@
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Hasil Filter</p>
                 <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $totalFiltered }}</p>
+                <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{{ $openedFiltered }} buka WA</p>
             </div>
         </div>
 
         {{-- Distribusi per campaign hari ini --}}
         @if ($statsToday['per_campaign']->isNotEmpty())
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">Distribusi Lead Hari Ini per Campaign</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500 mb-3">Distribusi Kunjungan Hari Ini per Campaign</p>
                 <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
                     @foreach ($statsToday['per_campaign'] as $camp)
                         <div class="rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-600 p-3">
                             <p class="text-xs font-bold text-slate-700 dark:text-slate-200 truncate" title="{{ $camp->name }}">{{ $camp->name }}</p>
-                            <p class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400 tabular-nums">{{ $camp->chat_logs_count }}</p>
+                            <p class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400 tabular-nums">{{ $camp->visits_count }}</p>
+                            <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">{{ $camp->opens_count }} buka WA</p>
                         </div>
                     @endforeach
                 </div>
@@ -99,7 +101,7 @@
             </div>
         </form>
 
-        {{-- Tabel lead --}}
+        {{-- Tabel kunjungan --}}
         <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left">
@@ -159,13 +161,13 @@
                                     @if ($log->clicked_at)
                                         <span class="inline-flex items-center gap-1.5">
                                             <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
-                                            <span class="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">Dibuka</span>
+                                            <span class="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">WhatsApp dibuka</span>
                                         </span>
                                         <div class="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">{{ $log->clicked_at->format('H:i:s') }}</div>
                                     @else
                                         <span class="inline-flex items-center gap-1.5">
                                             <span class="w-2 h-2 rounded-full bg-slate-300 dark:bg-slate-600"></span>
-                                            <span class="font-semibold text-slate-400 dark:text-slate-500 text-[11px]">Belum</span>
+                                            <span class="font-semibold text-slate-400 dark:text-slate-500 text-[11px]">Belum terverifikasi</span>
                                         </span>
                                     @endif
                                 </td>
@@ -173,11 +175,11 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5" class="px-6 py-12 text-center">
+                                <td colspan="6" class="px-6 py-12 text-center">
                                     <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center mx-auto mb-3 text-slate-400">
                                         <i data-lucide="inbox" class="w-6 h-6"></i>
                                     </div>
-                                    <p class="text-sm font-bold text-slate-500 dark:text-slate-400">{{ __('Belum ada lead pada filter ini.') }}</p>
+                                    <p class="text-sm font-bold text-slate-500 dark:text-slate-400">{{ __('Belum ada kunjungan pada filter ini.') }}</p>
                                 </td>
                             </tr>
                         @endforelse

@@ -7,7 +7,7 @@
             </div>
             <div>
                 <h3 class="text-sm font-bold text-slate-900 dark:text-white">Detail CS WhatsApp</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Informasi utama customer service yang menerima lead</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Informasi utama customer service yang menerima kunjungan</p>
             </div>
         </div>
 
@@ -46,8 +46,8 @@
                 <i data-lucide="activity" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Status Penerima Lead</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Nonaktifkan saat CS libur agar tidak menerima lead</p>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Status Penerima Kunjungan</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Nonaktifkan saat CS libur agar tidak menerima kunjungan</p>
             </div>
         </div>
 
@@ -55,8 +55,8 @@
             <div class="flex items-center gap-3">
                 <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
                 <div>
-                    <p class="text-sm font-bold text-slate-800 dark:text-white">Menerima lead</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">CS aktif akan diikutsertakan dalam pembagian lead</p>
+                    <p class="text-sm font-bold text-slate-800 dark:text-white">Menerima kunjungan</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">CS aktif akan diikutsertakan dalam pembagian kunjungan</p>
                 </div>
             </div>
             <label class="relative inline-flex items-center cursor-pointer" x-data="{ checked: {{ old('is_active', $cs->is_active ?? true) ? 'true' : 'false' }} }">

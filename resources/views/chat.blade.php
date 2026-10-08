@@ -201,7 +201,9 @@
                 var token = @json($token);
                 if (!token) return;
                 var csrf = tokenMeta.getAttribute('content');
+                if (!csrf) return;
                 var form = new FormData();
+                form.append('_token', csrf);
                 form.append('token', token);
                 try {
                     navigator.sendBeacon(@json(route('public.chat.click')), form);

@@ -188,7 +188,10 @@ class AdminChatRouterTest extends TestCase
         ChatLog::create(['campaign_id' => $campaign->id, 'cs_id' => $andi->id, 'utm_source' => 'meta']);
         ChatLog::create(['campaign_id' => null, 'cs_id' => $budi->id, 'utm_source' => 'meta']);
 
-        $this->actingAs($this->admin)->get(route('admin.chat-logs.index'))->assertStatus(200);
+        $this->actingAs($this->admin)->get(route('admin.chat-logs.index'))
+            ->assertStatus(200)
+            ->assertSee('Kunjungan Hari Ini')
+            ->assertSee('WhatsApp Dibuka');
         $this->actingAs($this->admin)->get(route('admin.chat-logs.index', ['campaign_id' => $campaign->id]))->assertStatus(200);
         $ad = $campaign->ads()->create(['name' => 'Video', 'utm_content' => 'video', 'is_active' => true]);
         $this->actingAs($this->admin)->get(route('admin.chat-logs.index', ['campaign_ad_id' => $ad->id]))->assertStatus(200);

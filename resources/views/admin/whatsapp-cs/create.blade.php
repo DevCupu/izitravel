@@ -9,7 +9,7 @@
                     {{ __('Tambah CS WhatsApp') }}
                 </h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                    {{ __('Tambahkan customer service baru penerima lead.') }}
+                    {{ __('Tambahkan customer service baru penerima kunjungan WhatsApp.') }}
                 </p>
             </div>
         </div>

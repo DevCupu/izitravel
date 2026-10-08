@@ -8,6 +8,7 @@ use App\Models\ChatLog;
 use App\Models\Setting;
 use App\Models\WhatsAppCs;
 use App\Services\ChatRouterService;
+use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -29,6 +30,7 @@ class ChatRouteTest extends TestCase
         $response->assertSee('pageshow');
         $response->assertSee('visibilitychange');
         $response->assertSee('isAdsInAppBrowser ? 3 : 1');
+        $response->assertSee("form.append('_token', csrf)", false);
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
 
         $this->assertDatabaseHas('chat_logs', [
@@ -158,5 +160,46 @@ class ChatRouteTest extends TestCase
             ->assertStatus(200);
 
         $this->assertDatabaseCount('chat_logs', 2);
+    }
+
+    public function test_chat_does_not_log_known_automated_traffic(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $response = $this->withHeader('User-Agent', 'facebookexternalhit/1.1')
+            ->get('/chat?utm_source=meta&utm_campaign=visa_umrah');
+
+        $response->assertOk();
+        $response->assertSee('https://wa.me/');
+        $this->assertDatabaseCount('chat_logs', 0);
+    }
+
+    public function test_meta_in_app_browser_is_still_logged_as_human_traffic(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $this->withHeader('User-Agent', 'Mozilla/5.0 [FBAN/EMA;FBAV/420.0.0.0]')
+            ->get('/chat?utm_source=meta&utm_campaign=visa_umrah')
+            ->assertOk();
+
+        $this->assertDatabaseCount('chat_logs', 1);
+    }
+
+    public function test_click_endpoint_marks_whatsapp_as_opened(): void
+    {
+        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
+
+        $this->get('/chat?utm_source=meta&utm_campaign=visa_umrah')->assertOk();
+        $log = ChatLog::firstOrFail();
+        $csrf = 'csrf-test-token';
+
+        $this->withMiddleware(ValidateCsrfToken::class)
+            ->withSession(['_token' => $csrf])
+            ->post('/chat/click', [
+                '_token' => $csrf,
+                'token' => $log->token,
+            ])->assertNoContent();
+
+        $this->assertNotNull($log->fresh()->clicked_at);
     }
 }

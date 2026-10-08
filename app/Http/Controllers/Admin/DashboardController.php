@@ -297,21 +297,28 @@ class DashboardController extends Controller
             'articles' => ['label' => 'Kualitas Artikel', 'score' => round($articlesScore), 'max' => 20, 'color' => 'bg-pink-500'],
         ];
 
-        // --- Meta Ads → WhatsApp Lead Overview ---
-        $leadToday = ChatLog::whereDate('created_at', today())->count();
-        $leadTotalAllTime = ChatLog::count();
+        // --- Meta Ads → WhatsApp visit and open overview ---
+        $visitToday = ChatLog::humanTraffic()->whereDate('created_at', today())->count();
+        $openToday = ChatLog::humanTraffic()->opened()->whereDate('created_at', today())->count();
+        $visitTotalAllTime = ChatLog::humanTraffic()->count();
 
-        $leadPerCampaignToday = Campaign::query()
-            ->withCount(['chatLogs' => fn ($q) => $q->whereDate('chat_logs.created_at', today())])
-            ->whereHas('chatLogs', fn ($q) => $q->whereDate('created_at', today()))
-            ->orderByDesc('chat_logs_count')
+        $visitPerCampaignToday = Campaign::query()
+            ->withCount([
+                'chatLogs as visits_count' => fn ($q) => $q->humanTraffic()->whereDate('chat_logs.created_at', today()),
+                'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened()->whereDate('chat_logs.created_at', today()),
+            ])
+            ->whereHas('chatLogs', fn ($q) => $q->humanTraffic()->whereDate('created_at', today()))
+            ->orderByDesc('visits_count')
             ->limit(5)
             ->get();
 
-        $leadPerCs = WhatsAppCs::query()
-            ->withCount('chatLogs')
-            ->whereHas('chatLogs')
-            ->orderByDesc('chat_logs_count')
+        $visitPerCs = WhatsAppCs::query()
+            ->withCount([
+                'chatLogs as visits_count' => fn ($q) => $q->humanTraffic(),
+                'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened(),
+            ])
+            ->whereHas('chatLogs', fn ($q) => $q->humanTraffic())
+            ->orderByDesc('visits_count')
             ->get();
 
         $csActive = WhatsAppCs::where('is_active', true)->orderByDesc('weight')->get();
@@ -342,10 +349,11 @@ class DashboardController extends Controller
             'seoScore',
             'seoChecklist',
             'seoBreakdown',
-            'leadToday',
-            'leadTotalAllTime',
-            'leadPerCampaignToday',
-            'leadPerCs',
+            'visitToday',
+            'openToday',
+            'visitTotalAllTime',
+            'visitPerCampaignToday',
+            'visitPerCs',
             'csActive',
             'csWeightTotal',
         ));

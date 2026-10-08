@@ -6,7 +6,7 @@
                     {{ __('Daftar CS WhatsApp') }}
                 </h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                    {{ __('Kelola customer service penerima lead dari Meta Ads.') }}
+                    {{ __('Kelola customer service penerima kunjungan dari Meta Ads.') }}
                 </p>
             </div>
             <a href="{{ route('admin.whatsapp-cs.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:scale-[0.97] rounded-xl font-bold text-xs text-white transition-all duration-150 shadow-lg shadow-blue-500/20">
@@ -76,7 +76,7 @@
                                         <form x-data method="POST" action="{{ route('admin.whatsapp-cs.destroy', $cs->id) }}" class="inline">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Apakah Anda yakin ingin menghapus CS &quot;{{ $cs->name }}&quot;? Lead lama tetap tersimpan.' })"
+                                            <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Apakah Anda yakin ingin menghapus CS &quot;{{ $cs->name }}&quot;? Data kunjungan lama tetap tersimpan.' })"
                                                     class="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-900/10 transition" title="Hapus">
                                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                                             </button>
@@ -114,9 +114,9 @@
                     <i data-lucide="info" class="w-4 h-4"></i>
                 </div>
                 <div>
-                    <p class="text-sm font-bold text-slate-800 dark:text-white">Cara kerja pembagian lead</p>
+                    <p class="text-sm font-bold text-slate-800 dark:text-white">Cara kerja pembagian kunjungan</p>
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                        Setiap pengunjung <code class="font-mono bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded">izitravel.id/chat</code> dipilihkan satu CS aktif secara <strong>weighted random</strong> berdasarkan bobot. Contoh bobot 50 : 30 : 20 berarti dalam jangka panjang masing-masing menerima ±50%, ±30%, dan ±20% lead. Nonaktifkan CS yang libur agar otomatis tidak dipilih.
+                        Setiap pengunjung <code class="font-mono bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded">izitravel.id/chat</code> dipilihkan satu CS aktif secara <strong>weighted random</strong> berdasarkan bobot. Contoh bobot 50 : 30 : 20 berarti dalam jangka panjang masing-masing menerima ±50%, ±30%, dan ±20% kunjungan. Nonaktifkan CS yang libur agar otomatis tidak dipilih.
                     </p>
                 </div>
             </div>

@@ -40,7 +40,7 @@
             </div>
             <div>
                 <h3 class="text-sm font-bold text-slate-900 dark:text-white">Status Campaign</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Campaign nonaktif tetap dicatat namun tidak dicocokkan ke lead</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Campaign nonaktif tetap dicatat sebagai kunjungan, tetapi tidak dicocokkan ke campaign</p>
             </div>
         </div>
 
@@ -49,7 +49,7 @@
                 <i data-lucide="flag" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
                 <div>
                     <p class="text-sm font-bold text-slate-800 dark:text-white">Campaign aktif</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">Lead dengan utm_campaign ini akan dipetakan ke campaign</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Kunjungan dengan utm_campaign ini akan dipetakan ke campaign</p>
                 </div>
             </div>
             <label class="relative inline-flex items-center cursor-pointer" x-data="{ checked: {{ old('is_active', $campaign->is_active ?? true) ? 'true' : 'false' }} }">

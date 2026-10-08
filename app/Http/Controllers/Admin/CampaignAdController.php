@@ -48,7 +48,7 @@ class CampaignAdController extends Controller
         $ad->delete();
 
         return redirect()->route('admin.campaigns.edit', $campaign)
-            ->with('status', 'Ads berhasil dihapus. Lead lama tetap tersimpan.');
+            ->with('status', 'Ads berhasil dihapus. Data kunjungan lama tetap tersimpan.');
     }
 
     private function validateData(Request $request, Campaign $campaign, ?CampaignAd $ad = null): array

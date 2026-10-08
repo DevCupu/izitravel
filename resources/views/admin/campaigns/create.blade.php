@@ -9,7 +9,7 @@
                     {{ __('Tambah Campaign') }}
                 </h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                    {{ __('Buat kampanye iklan baru untuk tracking lead.') }}
+                    {{ __('Buat kampanye iklan baru untuk tracking kunjungan dan pembukaan WhatsApp.') }}
                 </p>
             </div>
         </div>

@@ -68,7 +68,7 @@
                                     <span class="text-[9px] font-bold px-2 py-0.5 rounded-md uppercase {{ $ad->is_active ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-400' }}">
                                         {{ $ad->is_active ? 'Aktif' : 'Nonaktif' }}
                                     </span>
-                                    <a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">{{ $ad->chat_logs_count }} lead</a>
+                                    <a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">{{ $ad->visits_count }} kunjungan · {{ $ad->opens_count }} buka WA</a>
                                 </div>
                                 <p class="font-mono text-[11px] text-indigo-500 dark:text-indigo-400 mt-1">utm_content={{ $ad->utm_content }}</p>
                                 <code class="block font-mono text-[10px] text-slate-400 mt-2 truncate" title="{{ $trackingUrl }}">{{ $trackingUrl }}</code>
@@ -87,7 +87,7 @@
                                 <form method="POST" action="{{ route('admin.campaigns.ads.destroy', [$campaign, $ad]) }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus ads &quot;{{ $ad->name }}&quot;? Lead lama tetap tersimpan.' })" class="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition" title="Hapus ads">
+                                    <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus ads &quot;{{ $ad->name }}&quot;? Data kunjungan lama tetap tersimpan.' })" class="p-2 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition" title="Hapus ads">
                                         <i data-lucide="trash-2" class="w-4 h-4"></i>
                                     </button>
                                 </form>

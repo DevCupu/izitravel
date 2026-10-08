@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class ChatRouterController extends Controller
 {
     /**
-     * Route the inbound /chat lead: reads UTM params, matches an active
-     * campaign, picks a CS by weighted-random, logs the lead, and builds the
+     * Route the inbound /chat visit: reads UTM params, matches an active
+     * campaign, picks a CS by weighted-random, logs the human visit, and builds the
      * wa.me URL. Renders the interstitial that describes what's about to happen.
      */
     public function redirect(Request $request, ChatRouterService $router)
