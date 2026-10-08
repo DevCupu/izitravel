@@ -144,7 +144,7 @@
                         <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                         <h3 class="text-base font-bold text-slate-900 dark:text-white">Meta Ads → WhatsApp</h3>
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ringkasan kunjungan link dan pembukaan WhatsApp</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Ringkasan kunjungan dan pengalihan langsung ke WhatsApp</p>
                 </div>
                 <div class="flex items-center gap-2">
                     <a href="{{ route('admin.chat-logs.index') }}" class="inline-flex items-center gap-1.5 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-xs font-bold px-3 py-1.5 rounded-lg hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition">
@@ -166,12 +166,12 @@
                         <i data-lucide="activity" class="w-4 h-4 text-emerald-500"></i>
                     </div>
                     <p class="mt-2 text-3xl font-extrabold text-emerald-700 dark:text-emerald-400 tabular-nums" x-data x-init="animateValue($el, {{ $visitToday }})">{{ $visitToday }}</p>
-                    <p class="text-[10px] font-bold text-emerald-600/80 dark:text-emerald-400 mt-1">{{ $openToday }} membuka WhatsApp</p>
+                    <p class="text-[10px] font-bold text-emerald-600/80 dark:text-emerald-400 mt-1">{{ $redirectToday }} diarahkan ke WhatsApp</p>
                     <div class="mt-4 space-y-2">
                         @forelse ($visitPerCampaignToday as $camp)
                             <div class="flex items-center justify-between gap-2">
                                 <span class="text-xs font-semibold text-emerald-700/80 dark:text-emerald-300/80 truncate">{{ $camp->name }}</span>
-                                <span class="text-xs font-extrabold text-emerald-700 dark:text-emerald-300 tabular-nums">{{ $camp->visits_count }} / {{ $camp->opens_count }} WA</span>
+                                <span class="text-xs font-extrabold text-emerald-700 dark:text-emerald-300 tabular-nums">{{ $camp->visits_count }} / {{ $camp->redirects_count }} WA</span>
                             </div>
                         @empty
                             <p class="text-xs text-emerald-700/60 dark:text-emerald-400/50 italic">Belum ada kunjungan hari ini.</p>
@@ -197,7 +197,7 @@
                                 <div>
                                     <div class="flex items-center justify-between gap-2 mb-1">
                                         <span class="text-xs font-semibold text-blue-700/90 dark:text-blue-300/90">{{ $cs->name }}</span>
-                                        <span class="text-xs font-extrabold text-blue-700 dark:text-blue-300 tabular-nums">{{ $cs->visits_count }} / {{ $cs->opens_count }} WA <span class="font-semibold text-blue-400 dark:text-blue-400/70">({{ $pct }}%)</span></span>
+                                        <span class="text-xs font-extrabold text-blue-700 dark:text-blue-300 tabular-nums">{{ $cs->visits_count }} / {{ $cs->redirects_count }} WA <span class="font-semibold text-blue-400 dark:text-blue-400/70">({{ $pct }}%)</span></span>
                                     </div>
                                     <div class="h-1.5 rounded-full bg-blue-100 dark:bg-blue-800/40 overflow-hidden">
                                         <div class="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500" style="width: {{ max(3, $pct) }}%"></div>

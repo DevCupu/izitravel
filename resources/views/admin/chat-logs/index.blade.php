@@ -5,7 +5,7 @@
                 {{ __('Tracking WhatsApp') }}
             </h2>
             <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                {{ __('Bedakan kunjungan link dari pembukaan WhatsApp. Pesan terkirim tetap perlu dikonfirmasi di WhatsApp.') }}
+                {{ __('Pantau kunjungan dan pengalihan langsung ke WhatsApp. Pesan terkirim tetap perlu dikonfirmasi di WhatsApp.') }}
             </p>
         </div>
     </x-slot>
@@ -18,12 +18,12 @@
                 <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $statsToday['visits'] }}</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">WhatsApp Dibuka</p>
-                <p class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 tabular-nums">{{ $statsToday['opened'] }}</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Diarahkan ke WhatsApp</p>
+                <p class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 mt-1 tabular-nums">{{ $statsToday['redirected'] }}</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Rasio Buka</p>
-                <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mt-1 tabular-nums">{{ number_format($statsToday['open_rate'], 1, ',', '.') }}%</p>
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Rasio Pengalihan</p>
+                <p class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 mt-1 tabular-nums">{{ number_format($statsToday['redirect_rate'], 1, ',', '.') }}%</p>
             </div>
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Diarahkan ke CS Utama</p>
@@ -32,7 +32,7 @@
             <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
                 <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Hasil Filter</p>
                 <p class="text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tabular-nums">{{ $totalFiltered }}</p>
-                <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{{ $openedFiltered }} buka WA</p>
+                <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400 mt-1">{{ $redirectedFiltered }} diarahkan ke WA</p>
             </div>
         </div>
 
@@ -45,7 +45,7 @@
                         <div class="rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-100 dark:border-slate-600 p-3">
                             <p class="text-xs font-bold text-slate-700 dark:text-slate-200 truncate" title="{{ $camp->name }}">{{ $camp->name }}</p>
                             <p class="text-xl font-extrabold text-indigo-600 dark:text-indigo-400 tabular-nums">{{ $camp->visits_count }}</p>
-                            <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">{{ $camp->opens_count }} buka WA</p>
+                            <p class="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">{{ $camp->redirects_count }} diarahkan ke WA</p>
                         </div>
                     @endforeach
                 </div>
@@ -161,7 +161,7 @@
                                     @if ($log->clicked_at)
                                         <span class="inline-flex items-center gap-1.5">
                                             <span class="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 animate-pulse"></span>
-                                            <span class="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">WhatsApp dibuka</span>
+                                            <span class="font-bold text-emerald-600 dark:text-emerald-400 text-[11px]">Diarahkan ke WhatsApp</span>
                                         </span>
                                         <div class="text-[10px] text-slate-400 dark:text-slate-500 font-mono mt-0.5">{{ $log->clicked_at->format('H:i:s') }}</div>
                                     @else

@@ -85,9 +85,17 @@ class ChatLog extends Model
         });
     }
 
-    public function scopeOpened(Builder $query): Builder
+    public function scopeRedirected(Builder $query): Builder
     {
         return $query->whereNotNull('clicked_at');
+    }
+
+    /**
+     * Backward-compatible alias for existing callers.
+     */
+    public function scopeOpened(Builder $query): Builder
+    {
+        return $query->redirected();
     }
 
     public function campaign(): BelongsTo

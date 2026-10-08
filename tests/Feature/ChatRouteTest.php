@@ -11,26 +11,20 @@ use App\Services\ChatRouterService;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use Illuminate\Testing\TestResponse;
 use Tests\TestCase;
 
 class ChatRouteTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_chat_logs_utm_and_renders_interstitial(): void
+    public function test_chat_logs_utm_and_redirects_directly_to_whatsapp(): void
     {
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
         $response = $this->get('/chat?utm_source=meta&utm_medium=paid_social&utm_campaign=visa_umrah');
 
-        $response->assertStatus(200);
-        $response->assertSee('Menghubungkan Anda');
-        $response->assertSee('https://wa.me/');
-        $response->assertSee('FB_IAB');
-        $response->assertSee('pageshow');
-        $response->assertSee('visibilitychange');
-        $response->assertSee('isAdsInAppBrowser ? 3 : 1');
-        $response->assertSee("form.append('_token', csrf)", false);
+        $this->assertWhatsAppRedirect($response, '6281300000001');
         $this->assertStringContainsString('no-store', (string) $response->headers->get('Cache-Control'));
 
         $this->assertDatabaseHas('chat_logs', [
@@ -39,6 +33,7 @@ class ChatRouteTest extends TestCase
             'utm_campaign' => 'visa_umrah',
             'campaign_id' => null,
         ]);
+        $this->assertNotNull(ChatLog::firstOrFail()->clicked_at);
     }
 
     public function test_chat_matches_registered_campaign(): void
@@ -50,7 +45,7 @@ class ChatRouteTest extends TestCase
         ]);
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
-        $this->get('/chat?utm_source=meta&utm_campaign=visa_umrah')->assertStatus(200);
+        $this->get('/chat?utm_source=meta&utm_campaign=visa_umrah')->assertRedirect();
 
         $log = ChatLog::where('utm_campaign', 'visa_umrah')->first();
         $this->assertNotNull($log);
@@ -63,7 +58,7 @@ class ChatRouteTest extends TestCase
         $ad = CampaignAd::create(['campaign_id' => $campaign->id, 'name' => 'Poster Harga', 'utm_content' => 'poster_harga', 'is_active' => true]);
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
-        $this->get('/chat?utm_source=meta&utm_campaign=umrah_oktober&utm_content=poster_harga')->assertStatus(200);
+        $this->get('/chat?utm_source=meta&utm_campaign=umrah_oktober&utm_content=poster_harga')->assertRedirect();
 
         $this->assertDatabaseHas('chat_logs', [
             'campaign_id' => $campaign->id,
@@ -78,8 +73,7 @@ class ChatRouteTest extends TestCase
 
         $response = $this->get('/chat?utm_campaign=iklan_baru_tanpa_daftar');
 
-        $response->assertStatus(200);
-        $response->assertSee('https://wa.me/');
+        $this->assertWhatsAppRedirect($response);
 
         $this->assertDatabaseHas('chat_logs', [
             'utm_campaign' => 'iklan_baru_tanpa_daftar',
@@ -93,8 +87,7 @@ class ChatRouteTest extends TestCase
 
         $response = $this->get('/chat');
 
-        $response->assertStatus(200);
-        $response->assertSee('https://wa.me/');
+        $this->assertWhatsAppRedirect($response, '6281300000001');
         $this->assertDatabaseCount('chat_logs', 1);
     }
 
@@ -104,11 +97,19 @@ class ChatRouteTest extends TestCase
 
         $response = $this->get('/chat');
 
-        $response->assertStatus(200);
-        $response->assertSee('https://wa.me/6281199999999');
+        $this->assertWhatsAppRedirect($response, '6281199999999');
         $log = ChatLog::first();
         $this->assertNotNull($log);
         $this->assertNull($log->cs_id);
+    }
+
+    public function test_chat_renders_error_page_when_no_destination_number_exists(): void
+    {
+        Setting::setValue('contact_whatsapp', '');
+
+        $this->get('/chat')
+            ->assertOk()
+            ->assertSee('CS Sedang Tidak Tersedia');
     }
 
     public function test_chat_route_is_throttled(): void
@@ -116,7 +117,7 @@ class ChatRouteTest extends TestCase
         WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
 
         for ($i = 0; $i < 20; $i++) {
-            $this->get('/chat')->assertStatus(200);
+            $this->get('/chat')->assertRedirect();
         }
 
         $this->get('/chat')->assertStatus(429);
@@ -128,7 +129,7 @@ class ChatRouteTest extends TestCase
 
         $response = $this->get('/chat?utm_campaign=visa_umrah');
 
-        $response->assertStatus(200);
+        $response->assertRedirect();
         $response->assertCookieNotExpired(ChatRouterService::VISITOR_COOKIE);
     }
 
@@ -140,10 +141,10 @@ class ChatRouteTest extends TestCase
 
         $this->withCookie(ChatRouterService::VISITOR_COOKIE, $uid)
             ->get('/chat?utm_campaign=visa_umrah')
-            ->assertStatus(200);
+            ->assertRedirect();
         $this->withCookie(ChatRouterService::VISITOR_COOKIE, $uid)
             ->get('/chat?utm_campaign=visa_umrah')
-            ->assertStatus(200);
+            ->assertRedirect();
 
         $this->assertDatabaseCount('chat_logs', 1);
     }
@@ -154,10 +155,10 @@ class ChatRouteTest extends TestCase
 
         $this->withCookie(ChatRouterService::VISITOR_COOKIE, (string) Str::uuid())
             ->get('/chat?utm_campaign=visa_umrah')
-            ->assertStatus(200);
+            ->assertRedirect();
         $this->withCookie(ChatRouterService::VISITOR_COOKIE, (string) Str::uuid())
             ->get('/chat?utm_campaign=visa_umrah')
-            ->assertStatus(200);
+            ->assertRedirect();
 
         $this->assertDatabaseCount('chat_logs', 2);
     }
@@ -169,8 +170,7 @@ class ChatRouteTest extends TestCase
         $response = $this->withHeader('User-Agent', 'facebookexternalhit/1.1')
             ->get('/chat?utm_source=meta&utm_campaign=visa_umrah');
 
-        $response->assertOk();
-        $response->assertSee('https://wa.me/');
+        $this->assertWhatsAppRedirect($response);
         $this->assertDatabaseCount('chat_logs', 0);
     }
 
@@ -180,17 +180,15 @@ class ChatRouteTest extends TestCase
 
         $this->withHeader('User-Agent', 'Mozilla/5.0 [FBAN/EMA;FBAV/420.0.0.0]')
             ->get('/chat?utm_source=meta&utm_campaign=visa_umrah')
-            ->assertOk();
+            ->assertRedirect();
 
         $this->assertDatabaseCount('chat_logs', 1);
+        $this->assertNotNull(ChatLog::firstOrFail()->clicked_at);
     }
 
-    public function test_click_endpoint_marks_whatsapp_as_opened(): void
+    public function test_legacy_click_endpoint_still_marks_redirect(): void
     {
-        WhatsAppCs::create(['name' => 'Andi', 'phone' => '081300000001', 'weight' => 1]);
-
-        $this->get('/chat?utm_source=meta&utm_campaign=visa_umrah')->assertOk();
-        $log = ChatLog::firstOrFail();
+        $log = ChatLog::create(['token' => (string) Str::uuid()]);
         $csrf = 'csrf-test-token';
 
         $this->withMiddleware(ValidateCsrfToken::class)
@@ -201,5 +199,13 @@ class ChatRouteTest extends TestCase
             ])->assertNoContent();
 
         $this->assertNotNull($log->fresh()->clicked_at);
+    }
+
+    private function assertWhatsAppRedirect(TestResponse $response, ?string $phone = null): void
+    {
+        $response->assertRedirect();
+        $expectedPrefix = 'https://wa.me/'.($phone ?? '');
+
+        $this->assertStringStartsWith($expectedPrefix, (string) $response->headers->get('Location'));
     }
 }

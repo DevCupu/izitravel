@@ -299,13 +299,13 @@ class DashboardController extends Controller
 
         // --- Meta Ads → WhatsApp visit and open overview ---
         $visitToday = ChatLog::humanTraffic()->whereDate('created_at', today())->count();
-        $openToday = ChatLog::humanTraffic()->opened()->whereDate('created_at', today())->count();
+        $redirectToday = ChatLog::humanTraffic()->redirected()->whereDate('created_at', today())->count();
         $visitTotalAllTime = ChatLog::humanTraffic()->count();
 
         $visitPerCampaignToday = Campaign::query()
             ->withCount([
                 'chatLogs as visits_count' => fn ($q) => $q->humanTraffic()->whereDate('chat_logs.created_at', today()),
-                'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened()->whereDate('chat_logs.created_at', today()),
+                'chatLogs as redirects_count' => fn ($q) => $q->humanTraffic()->redirected()->whereDate('chat_logs.created_at', today()),
             ])
             ->whereHas('chatLogs', fn ($q) => $q->humanTraffic()->whereDate('created_at', today()))
             ->orderByDesc('visits_count')
@@ -315,7 +315,7 @@ class DashboardController extends Controller
         $visitPerCs = WhatsAppCs::query()
             ->withCount([
                 'chatLogs as visits_count' => fn ($q) => $q->humanTraffic(),
-                'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened(),
+                'chatLogs as redirects_count' => fn ($q) => $q->humanTraffic()->redirected(),
             ])
             ->whereHas('chatLogs', fn ($q) => $q->humanTraffic())
             ->orderByDesc('visits_count')
@@ -350,7 +350,7 @@ class DashboardController extends Controller
             'seoChecklist',
             'seoBreakdown',
             'visitToday',
-            'openToday',
+            'redirectToday',
             'visitTotalAllTime',
             'visitPerCampaignToday',
             'visitPerCs',

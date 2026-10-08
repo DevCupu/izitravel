@@ -132,7 +132,6 @@ class ChatRouterServiceTest extends TestCase
 
         $this->assertSame($campaign->id, $result['campaign']->id);
         $this->assertStringStartsWith('https://wa.me/6281300000001?text=', $result['wa_url']);
-        $this->assertStringStartsWith('whatsapp://send?phone=6281300000001&text=', $result['wa_app_url']);
 
         $log = ChatLog::where('utm_campaign', 'visa_umrah')->first();
         $this->assertNotNull($log);

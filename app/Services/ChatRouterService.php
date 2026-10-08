@@ -36,7 +36,7 @@ class ChatRouterService
      * weighted random, persist a human visit, and build the target wa.me URL.
      * Known previews and crawlers are routed normally but are not persisted.
      *
-     * @return array{wa_url: ?string, wa_app_url: ?string, token: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
+     * @return array{wa_url: ?string, token: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
      */
     public function route(Request $request): array
     {
@@ -86,7 +86,6 @@ class ChatRouterService
 
         return [
             'wa_url' => $this->buildWaUrl($cs['phone'], $message),
-            'wa_app_url' => $this->buildWaAppUrl($cs['phone'], $message),
             'token' => $token,
             'cs' => $cs,
             'campaign' => $campaign,
@@ -197,13 +196,12 @@ class ChatRouterService
     }
 
     /**
-     * Mark a chat log as "clicked through" (user actually tapped the WhatsApp
-     * button / auto-redirect fired). Looks the log up by its unique token so the
-     * beacon cannot guess arbitrary ids.
+     * Mark that the server issued a redirect toward WhatsApp. Looks the log up
+     * by its unique token so callers cannot guess arbitrary ids.
      *
      * @return bool true when a log was found and updated
      */
-    public function markClicked(?string $token): bool
+    public function markRedirected(?string $token): bool
     {
         if ($token === null || $token === '') {
             return false;
@@ -215,6 +213,14 @@ class ChatRouterService
             ->update(['clicked_at' => now()]);
 
         return $updated > 0;
+    }
+
+    /**
+     * Preserve compatibility with the beacon used by older cached pages.
+     */
+    public function markClicked(?string $token): bool
+    {
+        return $this->markRedirected($token);
     }
 
     /**
@@ -309,23 +315,6 @@ class ChatRouterService
 
         if ($message !== null && $message !== '') {
             $url .= '?text='.rawurlencode($message);
-        }
-
-        return $url;
-    }
-
-    private function buildWaAppUrl(?string $phone, ?string $message): ?string
-    {
-        $phone = $this->normalizePhone($phone ?? '');
-
-        if ($phone === '') {
-            return null;
-        }
-
-        $url = "whatsapp://send?phone={$phone}";
-
-        if ($message !== null && $message !== '') {
-            $url .= '&text='.rawurlencode($message);
         }
 
         return $url;

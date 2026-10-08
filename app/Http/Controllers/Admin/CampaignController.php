@@ -18,11 +18,11 @@ class CampaignController extends Controller
         $campaigns = Campaign::query()
             ->withCount([
                 'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
-                'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+                'chatLogs as redirects_count' => fn ($query) => $query->humanTraffic()->redirected(),
             ])
             ->with(['ads' => fn ($query) => $query->withCount([
                 'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
-                'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+                'chatLogs as redirects_count' => fn ($query) => $query->humanTraffic()->redirected(),
             ])])
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
@@ -42,9 +42,9 @@ class CampaignController extends Controller
         $totalCampaigns = Campaign::count();
         $totalVisits = ChatLog::humanTraffic()->count();
         $visitsToday = ChatLog::humanTraffic()->whereDate('created_at', today())->count();
-        $opensToday = ChatLog::humanTraffic()->opened()->whereDate('created_at', today())->count();
+        $redirectsToday = ChatLog::humanTraffic()->redirected()->whereDate('created_at', today())->count();
 
-        return view('admin.campaigns.index', compact('campaigns', 'search', 'totalCampaigns', 'totalVisits', 'visitsToday', 'opensToday'));
+        return view('admin.campaigns.index', compact('campaigns', 'search', 'totalCampaigns', 'totalVisits', 'visitsToday', 'redirectsToday'));
     }
 
     public function create()
@@ -68,7 +68,7 @@ class CampaignController extends Controller
     {
         $campaign = Campaign::with(['ads' => fn ($query) => $query->withCount([
             'chatLogs as visits_count' => fn ($query) => $query->humanTraffic(),
-            'chatLogs as opens_count' => fn ($query) => $query->humanTraffic()->opened(),
+            'chatLogs as redirects_count' => fn ($query) => $query->humanTraffic()->redirected(),
         ])])->findOrFail($id);
 
         return view('admin.campaigns.edit', compact('campaign'));

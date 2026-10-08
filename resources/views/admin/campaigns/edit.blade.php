@@ -68,7 +68,7 @@
                                     <span class="text-[9px] font-bold px-2 py-0.5 rounded-md uppercase {{ $ad->is_active ? 'bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-400' }}">
                                         {{ $ad->is_active ? 'Aktif' : 'Nonaktif' }}
                                     </span>
-                                    <a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">{{ $ad->visits_count }} kunjungan · {{ $ad->opens_count }} buka WA</a>
+                                    <a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="text-[10px] font-bold text-blue-600 dark:text-blue-400 hover:underline">{{ $ad->visits_count }} kunjungan · {{ $ad->redirects_count }} arah WA</a>
                                 </div>
                                 <p class="font-mono text-[11px] text-indigo-500 dark:text-indigo-400 mt-1">utm_content={{ $ad->utm_content }}</p>
                                 <code class="block font-mono text-[10px] text-slate-400 mt-2 truncate" title="{{ $trackingUrl }}">{{ $trackingUrl }}</code>

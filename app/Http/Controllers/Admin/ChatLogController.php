@@ -28,7 +28,7 @@ class ChatLogController extends Controller
             ->when($dateTo !== '', fn ($query) => $query->whereDate('created_at', '<=', $dateTo));
 
         $totalFiltered = (clone $query)->count();
-        $openedFiltered = (clone $query)->opened()->count();
+        $redirectedFiltered = (clone $query)->redirected()->count();
 
         $logs = $query->with(['campaign', 'campaignAd', 'cs'])
             ->orderByDesc('created_at')
@@ -43,11 +43,11 @@ class ChatLogController extends Controller
 
         $statsToday = [
             'visits' => ChatLog::humanTraffic()->whereDate('created_at', today())->count(),
-            'opened' => ChatLog::humanTraffic()->opened()->whereDate('created_at', today())->count(),
+            'redirected' => ChatLog::humanTraffic()->redirected()->whereDate('created_at', today())->count(),
             'per_campaign' => Campaign::query()
                 ->withCount([
                     'chatLogs as visits_count' => fn ($q) => $q->humanTraffic()->whereDate('chat_logs.created_at', today()),
-                    'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened()->whereDate('chat_logs.created_at', today()),
+                    'chatLogs as redirects_count' => fn ($q) => $q->humanTraffic()->redirected()->whereDate('chat_logs.created_at', today()),
                 ])
                 ->whereHas('chatLogs', fn ($q) => $q->humanTraffic()->whereDate('created_at', today()))
                 ->orderByDesc('visits_count')
@@ -56,7 +56,7 @@ class ChatLogController extends Controller
             'per_cs' => WhatsAppCs::query()
                 ->withCount([
                     'chatLogs as visits_count' => fn ($q) => $q->humanTraffic()->whereDate('chat_logs.created_at', today()),
-                    'chatLogs as opens_count' => fn ($q) => $q->humanTraffic()->opened()->whereDate('chat_logs.created_at', today()),
+                    'chatLogs as redirects_count' => fn ($q) => $q->humanTraffic()->redirected()->whereDate('chat_logs.created_at', today()),
                 ])
                 ->whereHas('chatLogs', fn ($q) => $q->humanTraffic()->whereDate('created_at', today()))
                 ->orderByDesc('visits_count')
@@ -65,8 +65,8 @@ class ChatLogController extends Controller
                 ->whereNull('cs_id')
                 ->count(),
         ];
-        $statsToday['open_rate'] = $statsToday['visits'] > 0
-            ? round(($statsToday['opened'] / $statsToday['visits']) * 100, 1)
+        $statsToday['redirect_rate'] = $statsToday['visits'] > 0
+            ? round(($statsToday['redirected'] / $statsToday['visits']) * 100, 1)
             : 0;
 
         return view('admin.chat-logs.index', compact(
@@ -81,7 +81,7 @@ class ChatLogController extends Controller
             'dateTo',
             'statsToday',
             'totalFiltered',
-            'openedFiltered'
+            'redirectedFiltered'
         ));
     }
 }

@@ -16,6 +16,17 @@ class ChatRouterController extends Controller
     {
         $result = $router->route($request);
 
+        if ($result['wa_url'] !== null) {
+            $router->markRedirected($result['token']);
+
+            return redirect()
+                ->away($result['wa_url'])
+                ->cookie(ChatRouterService::VISITOR_COOKIE, $result['visitor_uid'], 60 * 24 * 365)
+                ->header('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0')
+                ->header('Pragma', 'no-cache')
+                ->header('Expires', '0');
+        }
+
         return response()
             ->view('chat', $result)
             ->cookie(ChatRouterService::VISITOR_COOKIE, $result['visitor_uid'], 60 * 24 * 365)
@@ -25,10 +36,11 @@ class ChatRouterController extends Controller
     }
 
     /**
-     * Fire-and-forget click beacon. The /chat page calls this (POST) with its
-     * unique token whenever the visitor taps "Lanjut ke WhatsApp" OR the
-     * auto-redirect fires — so admins can tell "who really opened WhatsApp"
-     * apart from "who just saw the landing page".
+     * Backward-compatible click beacon for previously cached /chat pages. The
+     * current flow records the redirect server-side before issuing the 302.
+     * Cached pages may still call this endpoint (POST) with their
+     * unique token whenever its old auto-redirect fires. The status represents
+     * a redirect attempt, not proof that WhatsApp opened or a message was sent.
      *
      * Returns 204 (no body) to keep the beacon light; the page never waits on
      * it because the WhatsApp redirect already happened.

@@ -4,8 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Menghubungkan Anda - {{ config('app.name', 'IZI Travel') }}</title>
+    <title>CS Tidak Tersedia - {{ config('app.name', 'IZI Travel') }}</title>
     <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
     <style>
         :root {
@@ -143,141 +142,12 @@
             <img src="{{ asset('images/Izi LOGO WHITE.webp') }}" alt="IZI Travel" width="116" height="76">
         </div>
 
-        @if ($wa_url)
-            <h1>Menghubungkan Anda...</h1>
-            <p class="sub">
-                @if ($cs['name'])
-                    Dalam sekejap, percakapan Anda akan dilanjutkan oleh <strong>{{ $cs['name'] }}</strong> dari tim
-                    {{ config('app.name', 'IZI Travel') }}.
-                @else
-                    Anda akan segera terhubung dengan tim kami.
-                @endif
-            </p>
-            @if ($cs['fallback'])
-                <div class="coat">Tim kami sedang sedikit ramai, Anda akan dihubungkan ke nomor utama kami.</div>
-            @endif
-            @if ($utm_campaign)
-                <div class="coat">Paket: <strong>{{ $utm_campaign }}</strong></div>
-            @endif
-            <div class="countdown">Membuka WhatsApp dalam <b>1</b> detik...</div>
-            <a class="btn" href="{{ $wa_url }}" target="_blank" rel="noopener">Lanjut ke WhatsApp</a>
-        @else
-            <h1>CS Sedang Tidak Tersedia</h1>
-            <p class="sub">Mohon maaf, tim kami sedang tidak dapat dihubungi saat ini.</p>
-            <div class="error-box">Silakan coba lagi nanti, atau kembali ke website utama kami.</div>
-            <a class="btn" href="{{ url('/') }}" style="background:#0f172a;">Kembali ke Website</a>
-        @endif
+        <h1>CS Sedang Tidak Tersedia</h1>
+        <p class="sub">Mohon maaf, tim kami sedang tidak dapat dihubungi saat ini.</p>
+        <div class="error-box">Silakan coba lagi nanti, atau kembali ke website utama kami.</div>
+        <a class="btn" href="{{ url('/') }}" style="background:#0f172a;">Kembali ke Website</a>
 
         <p class="footer">&copy; {{ date('Y') }} {{ config('app.name', 'IZI Travel') }}</p>
     </div>
-
-    @if ($wa_url)
-    <script>
-        (function () {
-            var webTarget = @json($wa_url);
-            var appTarget = @json($wa_app_url);
-            var campaignKey = @json(($utm_campaign ?: 'default').'|'.($utm_content ?: 'legacy'));
-            var count;
-            var el = document.querySelector('.countdown b');
-            var beaconSent = false;
-            var tokenMeta = document.querySelector('meta[name="csrf-token"]');
-            var isMobile = /Android|iPhone|iPad|iPod|Windows Phone/i.test(navigator.userAgent);
-            var isAdsInAppBrowser = /FBAN|FBAV|FB_IAB|Instagram|Messenger|TikTok|BytedanceWebview|Twitter|Line|Snapchat|Pinterest/i.test(navigator.userAgent);
-            var hasOpened = false;
-            var wasHiddenAfterOpen = false;
-            var appFallbackTimer = null;
-            var alreadyRedirected = false;
-
-            count = isAdsInAppBrowser ? 3 : 1;
-            if (el) el.textContent = count;
-
-            try {
-                alreadyRedirected = !!sessionStorage.getItem('izi_wa_redirected:' + campaignKey);
-            } catch (e) {}
-
-            function sendClickBeacon() {
-                if (beaconSent || !tokenMeta) return;
-                beaconSent = true;
-                var token = @json($token);
-                if (!token) return;
-                var csrf = tokenMeta.getAttribute('content');
-                if (!csrf) return;
-                var form = new FormData();
-                form.append('_token', csrf);
-                form.append('token', token);
-                try {
-                    navigator.sendBeacon(@json(route('public.chat.click')), form);
-                } catch (e) {}
-            }
-
-            function markRedirected() {
-                try {
-                    sessionStorage.setItem('izi_wa_redirected:' + campaignKey, '1');
-                } catch (e) {}
-            }
-
-            function openWhatsApp() {
-                if (hasOpened) return;
-                hasOpened = true;
-                markRedirected();
-                sendClickBeacon();
-
-                if (isMobile && appTarget) {
-                    appFallbackTimer = setTimeout(function () {
-                        window.location.replace(webTarget);
-                    }, 2200);
-                    window.location.href = appTarget;
-                } else {
-                    window.location.replace(webTarget);
-                }
-            }
-
-            document.querySelector('.btn').addEventListener('click', function (event) {
-                event.preventDefault();
-                openWhatsApp();
-            });
-
-            window.addEventListener('pageshow', function (event) {
-                if (event.persisted) window.location.reload();
-            });
-
-            document.addEventListener('visibilitychange', function () {
-                if (document.hidden) {
-                    if (appFallbackTimer) {
-                        clearTimeout(appFallbackTimer);
-                        appFallbackTimer = null;
-                    }
-                    if (isAdsInAppBrowser && hasOpened) wasHiddenAfterOpen = true;
-                    return;
-                }
-
-                if (isAdsInAppBrowser && wasHiddenAfterOpen) window.location.reload();
-            });
-
-            if (alreadyRedirected) {
-                var countdownBox = document.querySelector('.countdown');
-                if (countdownBox) countdownBox.textContent = 'Klik tombol di bawah untuk membuka WhatsApp lagi.';
-            } else {
-                var go = function () {
-                    clearInterval(timer);
-                    openWhatsApp();
-                };
-
-                var timer = setInterval(function () {
-                    count--;
-                    if (el) el.textContent = count;
-                    if (count <= 0) {
-                        go();
-                    }
-                }, 1000);
-
-                setTimeout(function () {
-                    if (count > 0) clearInterval(timer);
-                    go();
-                }, isAdsInAppBrowser ? 3500 : (isMobile ? 50 : 500));
-            }
-        })();
-    </script>
-    @endif
 </body>
 </html>

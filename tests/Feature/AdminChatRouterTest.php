@@ -191,7 +191,7 @@ class AdminChatRouterTest extends TestCase
         $this->actingAs($this->admin)->get(route('admin.chat-logs.index'))
             ->assertStatus(200)
             ->assertSee('Kunjungan Hari Ini')
-            ->assertSee('WhatsApp Dibuka');
+            ->assertSee('Diarahkan ke WhatsApp');
         $this->actingAs($this->admin)->get(route('admin.chat-logs.index', ['campaign_id' => $campaign->id]))->assertStatus(200);
         $ad = $campaign->ads()->create(['name' => 'Video', 'utm_content' => 'video', 'is_active' => true]);
         $this->actingAs($this->admin)->get(route('admin.chat-logs.index', ['campaign_ad_id' => $ad->id]))->assertStatus(200);
