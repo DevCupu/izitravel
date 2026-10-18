@@ -45,6 +45,9 @@ class CampaignAdController extends Controller
 
     public function destroy(Campaign $campaign, CampaignAd $ad)
     {
+        if (\App\Models\Lead::where('campaign_ad_id', $ad->id)->exists()) {
+            return redirect()->route('admin.campaigns.edit', $campaign)->with('status', 'Ads yang dipakai lead tidak dapat dihapus. Nonaktifkan saja.');
+        }
         $ad->delete();
 
         return redirect()->route('admin.campaigns.edit', $campaign)

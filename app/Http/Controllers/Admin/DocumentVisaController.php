@@ -16,8 +16,7 @@ class DocumentVisaController extends Controller
         $packageId = $request->integer('package_id');
         $pic = $request->string('pic')->trim()->toString();
 
-        $registrations = Registration::query()
-            ->with(['jemaah', 'package', 'items'])
+        $registrationQuery = Registration::query()
             ->when($search, function ($query) use ($search) {
                 $query->whereHas('jemaah', function ($jemaahQuery) use ($search) {
                     $jemaahQuery->where('name', 'like', "%{$search}%")
@@ -30,7 +29,15 @@ class DocumentVisaController extends Controller
                     ? $query->whereNull('pic_name')
                     : $query->where('pic_name', $pic);
             })
-            ->whereHas('package')
+            ->whereHas('package');
+
+        $visaCounts = (clone $registrationQuery)
+            ->selectRaw('visa_status, count(*) as total')
+            ->groupBy('visa_status')
+            ->pluck('total', 'visa_status');
+
+        $registrations = $registrationQuery
+            ->with(['jemaah', 'package', 'items'])
             ->latest()
             ->paginate(15)
             ->withQueryString();
@@ -63,7 +70,8 @@ class DocumentVisaController extends Controller
             'packageId',
             'pic',
             'alertCount',
-            'packageOptions'
+            'packageOptions',
+            'visaCounts'
         ));
     }
 

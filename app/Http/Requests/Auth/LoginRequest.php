@@ -50,6 +50,11 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (! $this->user()->is_active || ($this->user()->isCs() && ! $this->user()->whatsappCs()->exists())) {
+            Auth::logout();
+            throw ValidationException::withMessages(['email' => 'Akun ini tidak aktif. Hubungi admin.']);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
 

@@ -7,7 +7,7 @@
             </div>
             <div>
                 <h3 class="text-sm font-bold text-slate-900 dark:text-white">Detail CS WhatsApp</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Informasi utama customer service yang menerima kunjungan</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Nama dan nomor tujuan chat pelanggan</p>
             </div>
         </div>
 
@@ -28,10 +28,10 @@
             </div>
 
             <div class="form-group">
-                <label for="weight">{{ __('Bobot (Weight)') }}</label>
+                <label for="weight">{{ __('Porsi pembagian chat') }}</label>
                 <input type="number" id="weight" name="weight" min="1" max="1000" value="{{ old('weight', $cs->weight ?? 1) }}"
                     class="transition" placeholder="Contoh: 50">
-                <p class="mt-1.5 text-[11px] text-slate-400 dark:text-slate-500">Semakin besar angka, semakin sering CS ini terpilih. Contoh 50 : 30 : 20.</p>
+                <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">Semakin besar angka dibanding CS lain, semakin sering nomor ini menerima chat. Misalnya 50 dan 50 berarti pembagian seimbang.</p>
                 @error('weight') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
             </div>
         </div>
@@ -46,8 +46,8 @@
                 <i data-lucide="activity" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Status Penerima Kunjungan</h3>
-                <p class="text-xs text-slate-500 dark:text-slate-400">Nonaktifkan saat CS libur agar tidak menerima kunjungan</p>
+                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Penerimaan chat</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Matikan saat CS libur agar tidak dipilih di halaman /chat</p>
             </div>
         </div>
 
@@ -55,17 +55,14 @@
             <div class="flex items-center gap-3">
                 <i data-lucide="check-circle" class="w-4 h-4 text-slate-500 dark:text-slate-400"></i>
                 <div>
-                    <p class="text-sm font-bold text-slate-800 dark:text-white">Menerima kunjungan</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">CS aktif akan diikutsertakan dalam pembagian kunjungan</p>
+                    <p class="text-sm font-bold text-slate-800 dark:text-white">Terima chat baru</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Saat dicentang, nomor ini dapat dipilih untuk chat baru</p>
                 </div>
             </div>
-            <label class="relative inline-flex items-center cursor-pointer" x-data="{ checked: {{ old('is_active', $cs->is_active ?? true) ? 'true' : 'false' }} }">
+            <label class="relative inline-flex items-center gap-2 cursor-pointer">
                 <input type="hidden" name="is_active" value="0">
-                <input type="checkbox" name="is_active" value="1" x-model="checked" class="sr-only peer">
-                <div @click="checked = !checked"
-                     class="toggle-switch" :class="checked && 'active'">
-                    <div class="toggle-dot"></div>
-                </div>
+                <input type="checkbox" name="is_active" value="1" @checked(old('is_active', $cs->is_active ?? true)) class="h-5 w-5 rounded border-slate-400 text-[#3166b1] focus:ring-[#3166b1]">
+                <span class="sr-only">Terima chat baru</span>
             </label>
         </div>
     </div>

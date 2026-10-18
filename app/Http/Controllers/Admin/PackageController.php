@@ -122,6 +122,9 @@ class PackageController extends Controller
     public function destroy(string $id)
     {
         $package = Package::findOrFail($id);
+        if (\App\Models\Lead::where('package_id', $package->id)->exists()) {
+            return redirect()->route('admin.packages.index')->with('status', 'Paket yang dipakai lead tidak dapat dihapus.');
+        }
 
         if ($package->image && ! str_starts_with($package->image, 'images/')) {
             Storage::disk('public')->delete($package->image);

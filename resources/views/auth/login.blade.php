@@ -1,13 +1,13 @@
 <x-guest-layout>
     <div class="text-center mb-8">
         <span class="bg-blue-50 text-blue-600 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider shadow-sm shadow-blue-500/5">
-            Selamat Datang Kembali
+            Area Tim IZI Travel
         </span>
         <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight mt-4">
-            Masuk ke Akun Anda
+            Masuk ke ruang kerja
         </h1>
         <p class="text-slate-500 text-sm mt-2 font-light">
-            Kelola perjalanan ibadah Umrah &amp; Haji Anda bersama IZI Travel.
+            Untuk admin dan CS yang mengelola layanan jemaah.
         </p>
     </div>
 
@@ -40,7 +40,7 @@
 
 
         <x-primary-button class="w-full">
-            {{ __('Log in') }}
+            Masuk
         </x-primary-button>
     </form>
 </x-guest-layout>

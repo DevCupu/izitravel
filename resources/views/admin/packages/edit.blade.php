@@ -21,6 +21,7 @@
                 @csrf
                 @method('PUT')
 
+                @include('admin.packages._section-nav')
                 @include('admin.packages._form')
 
                 <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">

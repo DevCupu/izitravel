@@ -16,7 +16,8 @@
 
         <div class="flex justify-start sm:justify-end">@include('admin.partials._search', ['action' => route('admin.campaigns.index'), 'value' => $search, 'placeholder' => 'Cari campaign atau ads...'])</div>
 
-        <div class="space-y-3">
+        <div data-record-views data-default-view="card">
+        <div data-record-cards class="space-y-3">
             @forelse ($campaigns as $campaign)
                 <article class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
                     <div class="px-5 sm:px-6 py-4 flex items-center gap-4 flex-wrap">
@@ -54,6 +55,25 @@
             @empty
                 <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 py-12 text-center"><i data-lucide="megaphone" class="w-7 h-7 text-slate-400 mx-auto mb-3"></i><p class="text-sm font-bold text-slate-500 dark:text-slate-400">Belum ada campaign.</p></div>
             @endforelse
+        </div>
+        <div data-record-table hidden class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+            <table class="w-full min-w-[760px] text-left text-sm">
+                <thead class="border-b border-slate-200 bg-slate-50 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"><tr><th scope="col" class="px-4 py-3">Campaign</th><th scope="col" class="px-4 py-3">Status</th><th scope="col" class="px-4 py-3">Kunjungan</th><th scope="col" class="px-4 py-3">Ads</th><th scope="col" class="px-4 py-3">Aksi</th></tr></thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                    @forelse ($campaigns as $campaign)
+                        <tr class="align-top text-slate-700 dark:text-slate-200">
+                            <th scope="row" class="px-4 py-3"><span class="font-bold">{{ $campaign->name }}</span><span class="mt-1 block font-mono text-xs font-normal text-indigo-500">utm_campaign={{ $campaign->utm_campaign }}</span></th>
+                            <td class="px-4 py-3">{{ $campaign->is_active ? 'Aktif' : 'Nonaktif' }}</td>
+                            <td class="whitespace-nowrap px-4 py-3"><a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id]) }}" class="font-bold text-blue-600 hover:underline">{{ $campaign->visits_count }} kunjungan · {{ $campaign->redirects_count }} arah WA</a></td>
+                            <td class="px-4 py-3"><details><summary class="cursor-pointer font-bold text-[#3166b1]">{{ $campaign->ads->count() }} ads</summary><div class="mt-2 space-y-2">@forelse ($campaign->ads as $ad)@php($trackingUrl = url('/chat?' . http_build_query(['utm_source' => 'meta', 'utm_medium' => 'paid_social', 'utm_campaign' => $campaign->utm_campaign, 'utm_content' => $ad->utm_content])))<div class="border-t border-slate-100 pt-2 text-xs dark:border-slate-700"><p class="font-bold">{{ $ad->name }}{{ $ad->is_active ? '' : ' (nonaktif)' }}</p><a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="text-blue-600 hover:underline">{{ $ad->visits_count }} kunjungan</a><div class="mt-1 flex items-center gap-2"><button type="button" x-data @click="copyTrackingUrl($el.dataset.url)" data-url="{{ $trackingUrl }}" class="font-bold text-indigo-600">Salin link</button><a href="{{ $trackingUrl }}" target="_blank" rel="noopener" class="font-bold text-indigo-600">Buka link</a></div></div>@empty<a href="{{ route('admin.campaigns.ads.create', $campaign) }}" class="text-blue-600 hover:underline">Tambah ads</a>@endforelse</div></details></td>
+                            <td class="whitespace-nowrap px-4 py-3"><a href="{{ route('admin.campaigns.edit', $campaign) }}" class="font-bold text-indigo-600 hover:underline">Kelola Ads</a><form method="POST" action="{{ route('admin.campaigns.destroy', $campaign) }}" class="inline">@csrf @method('DELETE')<button type="button" x-data @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus campaign &quot;{{ $campaign->name }}&quot; beserta ads-nya? Data kunjungan lama tetap tersimpan.' })" class="ml-3 font-bold text-red-600 hover:underline">Hapus</button></form></td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Belum ada campaign.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
         </div>
 
         @if ($campaigns->hasPages())<div>{{ $campaigns->links() }}</div>@endif

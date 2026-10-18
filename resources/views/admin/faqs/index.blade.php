@@ -27,7 +27,8 @@
         </div>
 
         <!-- FAQ Accordion List -->
-        <div class="space-y-3 animate-fade-in-up stagger-2">
+        <div data-record-views data-default-view="card">
+        <div data-record-cards class="space-y-3 animate-fade-in-up stagger-2">
             @forelse ($faqs as $faq)
                 <div x-data="{ expanded: false }" class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden card-hover">
                     <div class="flex items-start gap-3 p-5 cursor-pointer" @click="expanded = !expanded">
@@ -91,6 +92,19 @@
                     </div>
                 </div>
             @endforelse
+        </div>
+        <div data-record-table hidden class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+            <table class="w-full min-w-[680px] text-left text-sm">
+                <thead class="border-b border-slate-200 bg-slate-50 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"><tr><th scope="col" class="px-4 py-3">Urutan</th><th scope="col" class="px-4 py-3">Pertanyaan</th><th scope="col" class="px-4 py-3">Jawaban</th><th scope="col" class="px-4 py-3">Status</th><th scope="col" class="px-4 py-3">Aksi</th></tr></thead>
+                <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                    @forelse ($faqs as $faq)
+                        <tr class="align-top text-slate-700 dark:text-slate-200"><td class="px-4 py-3 font-bold">{{ $faq->order }}</td><th scope="row" class="px-4 py-3 font-bold">{{ $faq->question }}</th><td class="max-w-80 px-4 py-3">{{ $faq->answer }}</td><td class="px-4 py-3">{{ $faq->is_active ? 'Aktif' : 'Off' }}</td><td class="whitespace-nowrap px-4 py-3"><a href="{{ route('admin.faqs.edit', $faq) }}" class="font-bold text-blue-600 hover:underline">Ubah</a><form method="POST" action="{{ route('admin.faqs.destroy', $faq) }}" class="inline">@csrf @method('DELETE')<button type="button" x-data @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus FAQ ini?' })" class="ml-3 font-bold text-red-600 hover:underline">Hapus</button></form></td></tr>
+                    @empty
+                        <tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Belum ada FAQ.</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
         </div>
 
         @if ($faqs->hasPages())

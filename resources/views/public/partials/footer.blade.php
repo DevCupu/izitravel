@@ -1,0 +1,18 @@
+@php
+    $footerWa = preg_replace('/[^0-9]/', '', $settings['contact_whatsapp'] ?? '6281112345678');
+    if (str_starts_with($footerWa, '0')) $footerWa = '62'.substr($footerWa, 1);
+    $socials = collect(['Instagram' => $settings['social_instagram'] ?? null, 'Facebook' => $settings['social_facebook'] ?? null, 'YouTube' => $settings['social_youtube'] ?? null, 'TikTok' => $settings['social_tiktok'] ?? null])->filter();
+    $footerCustomLogo = !empty($settings['site_logo']);
+    $footerLogo = $footerCustomLogo
+        ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/'.$settings['site_logo']))
+        : asset('images/Izi LOGO WHITE.webp');
+    $footerSiteName = $settings['site_name'] ?? 'IZI Travel';
+@endphp
+<footer id="kontak" data-purpose="main-footer" class="bg-[#102b52] px-4 pb-32 pt-14 text-white sm:px-6 sm:pb-16 sm:pt-16">
+    <div class="mx-auto grid max-w-7xl gap-10 md:grid-cols-[1.25fr_1fr_1fr]">
+        <div><img src="{{ $footerLogo }}" alt="{{ $footerSiteName }}" class="h-9 w-auto max-w-[160px] object-contain {{ $footerCustomLogo ? 'brightness-0 invert' : '' }}"><p class="mt-4 max-w-sm text-sm leading-relaxed text-blue-100">{{ $settings['site_tagline'] ?? 'Jalan Mudah ke Baitullah Untuk Semua Kalangan' }}</p><a href="https://wa.me/{{ $footerWa }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex min-h-11 items-center gap-2 rounded-xl bg-[#fcde05] px-4 text-sm font-extrabold text-[#102b52]"><i data-lucide="message-circle" class="size-4" aria-hidden="true"></i>Konsultasi WhatsApp</a></div>
+        <div><h2 class="text-base font-bold">Jelajahi</h2><nav aria-label="Tautan footer" class="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-blue-100"><a class="hover:text-white" href="{{ url('/') }}">Beranda</a><a class="hover:text-white" href="{{ url('/#paket-umrah') }}">Paket Umrah</a><a class="hover:text-white" href="{{ route('public.gallery') }}">Galeri</a><a class="hover:text-white" href="{{ route('public.testimonials') }}">Testimoni</a><a class="hover:text-white" href="{{ route('public.articles.index') }}">Artikel</a><a class="hover:text-white" href="{{ route('public.jemaah.tracking') }}">Cek Keberangkatan</a></nav></div>
+        <div><h2 class="text-base font-bold">Hubungi kami</h2><address class="mt-4 space-y-3 text-sm not-italic leading-relaxed text-blue-100">@if (!empty($settings['contact_address']))<p>{{ $settings['contact_address'] }}</p>@endif @if (!empty($settings['contact_phone']))<p><a class="hover:text-white" href="tel:{{ preg_replace('/[^0-9+]/', '', $settings['contact_phone']) }}">{{ $settings['contact_phone'] }}</a></p>@endif @if (!empty($settings['contact_email']))<p><a class="break-all hover:text-white" href="mailto:{{ $settings['contact_email'] }}">{{ $settings['contact_email'] }}</a></p>@endif</address>@if ($socials->isNotEmpty())<div class="mt-4 flex flex-wrap gap-3 text-xs font-bold text-blue-100">@foreach ($socials as $label => $url)<a href="{{ $url }}" target="_blank" rel="noopener noreferrer" class="hover:text-white">{{ $label }}</a>@endforeach</div>@endif</div>
+    </div>
+    <div class="mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-4 border-t border-white/15 pt-5 text-xs text-blue-200"><p>&copy; {{ date('Y') }} {{ $footerSiteName }}. Semua hak dilindungi.</p><div class="flex flex-wrap gap-4"><a href="{{ route('public.terms') }}" class="hover:text-white">Syarat &amp; Ketentuan</a><a href="{{ route('public.privacy') }}" class="hover:text-white">Kebijakan Privasi</a></div></div>
+</footer>

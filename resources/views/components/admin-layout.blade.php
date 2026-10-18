@@ -422,7 +422,9 @@
               }
           }"
           @toast.window="addToast($event.detail.message, $event.detail.type || 'success')"
+          @keydown.escape.window="sidebarOpen = false"
     >
+        <a href="#admin-main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:text-[#102b52]">Lewati navigasi</a>
 
         <!-- ═══════ Toast Notifications ═══════ -->
         <div class="fixed top-6 right-6 z-[100] flex flex-col gap-3 pointer-events-none" style="max-width: 380px;">
@@ -510,6 +512,7 @@
 
         <!-- ═══════ Sidebar ═══════ -->
         <aside
+            aria-label="Navigasi admin"
             class="sidebar-bg fixed inset-y-0 left-0 z-50 w-[260px] bg-slate-900 dark:bg-slate-950 text-slate-300 flex flex-col transform transition-transform duration-300 ease-in-out lg:translate-x-0"
             :class="(sidebarOpen ? 'translate-x-0' : '-translate-x-full') + (sidebarCollapsed ? ' is-collapsed' : '')"
         >
@@ -533,7 +536,7 @@
             </div>
 
             <!-- Nav -->
-            <nav class="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
+            <nav aria-label="Menu utama admin" class="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto">
                 <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Menu Utama</p>
 
                 <a href="{{ route('admin.dashboard') }}"
@@ -544,6 +547,23 @@
                 </a>
 
                 {{-- Menu "Pengguna" disembunyikan: sistem hanya punya 1 admin. Edit akun via "Profil Saya" (menu pojok kanan atas). --}}
+
+                <div class="pt-5 pb-1">
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">CRM</p>
+                </div>
+                @foreach (['dashboard' => ['Beranda CRM', 'layout-dashboard'], 'leads.index' => ['Semua Leads', 'users'], 'tasks' => ['Tugas', 'calendar-check'], 'pipeline' => ['Pipeline', 'columns-3'], 'report' => ['Laporan', 'chart-no-axes-combined']] as $crmPage => [$crmLabel, $crmIcon])
+                    <a href="{{ route('admin.crm.'.$crmPage) }}"
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold {{ request()->routeIs('admin.crm.'.$crmPage) || ($crmPage === 'leads.index' && request()->routeIs('admin.crm.leads.*')) ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                        <i data-lucide="{{ $crmIcon }}" class="w-[18px] h-[18px] shrink-0"></i><span class="nav-label">{{ $crmLabel }}</span>
+                    </a>
+                @endforeach
+
+                <a href="{{ route('admin.whatsapp-cs.index') }}"
+                   :title="sidebarCollapsed ? 'Tim & Akun CS' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.whatsapp-cs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="headset" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Tim &amp; Akun CS</span>
+                </a>
 
                 <div class="pt-5 pb-1">
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Konten</p>
@@ -621,53 +641,8 @@
                     <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Faq::count() }}</span>
                 </a>
 
-                <a href="{{ route('admin.settings.index') }}"
-                   :title="sidebarCollapsed ? 'Pengaturan Web' : null"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.settings.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
-                    <i data-lucide="settings" class="w-[18px] h-[18px] shrink-0"></i>
-                    <span class="nav-label">Pengaturan Web</span>
-                </a>
-
-                <a href="{{ route('admin.system.index') }}"
-                   :title="sidebarCollapsed ? 'Pengaturan Sistem' : null"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.system.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
-                    <i data-lucide="server" class="w-[18px] h-[18px] shrink-0"></i>
-                    <span class="nav-label">Pengaturan Sistem</span>
-                    <span class="nav-label nav-badge ml-auto text-[11px] font-bold bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-md">Core</span>
-                </a>
-
                 <div class="pt-5 pb-1">
-                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Meta Ads</p>
-                </div>
-
-                <a href="{{ route('admin.whatsapp-cs.index') }}"
-                   :title="sidebarCollapsed ? 'WhatsApp CS' : null"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.whatsapp-cs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
-                    <i data-lucide="message-circle" class="w-[18px] h-[18px] shrink-0"></i>
-                    <span class="nav-label">WhatsApp CS</span>
-                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\WhatsAppCs::where('is_active', true)->count() }}</span>
-                </a>
-
-                <a href="{{ route('admin.campaigns.index') }}"
-                   :title="sidebarCollapsed ? 'Campaign' : null"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.campaigns.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
-                    <i data-lucide="megaphone" class="w-[18px] h-[18px] shrink-0"></i>
-                    <span class="nav-label">Campaign</span>
-                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Campaign::count() }}</span>
-                </a>
-
-                <a href="{{ route('admin.chat-logs.index') }}"
-                   :title="sidebarCollapsed ? 'Lead Tracking' : null"
-                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.chat-logs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
-                    <i data-lucide="radar" class="w-[18px] h-[18px] shrink-0"></i>
-                    <span class="nav-label">Lead Tracking</span>
-                    @if (\App\Models\ChatLog::whereDate('created_at', now()->today())->count() > 0)
-                        <span class="nav-badge ml-auto text-[11px] font-bold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md">{{ \App\Models\ChatLog::whereDate('created_at', now()->today())->count() }}</span>
-                    @endif
-                </a>
-
-                <div class="pt-5 pb-1">
-                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Logistik</p>
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Operasional</p>
                 </div>
 
                 <a href="{{ route('admin.documents.index') }}"
@@ -692,10 +667,6 @@
                     @endif
                 </a>
 
-                <div class="pt-5 pb-1">
-                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Operasional</p>
-                </div>
-
                 <a href="{{ route('admin.operations.index') }}"
                    :title="sidebarCollapsed ? 'Operasional & Manifest' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.operations.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
@@ -704,10 +675,47 @@
                 </a>
 
                 <div class="pt-5 pb-1">
-                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Lainnya</p>
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Pelacakan &amp; Campaign</p>
                 </div>
 
+                <a href="{{ route('admin.campaigns.index') }}"
+                   :title="sidebarCollapsed ? 'Campaign' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.campaigns.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="megaphone" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Campaign</span>
+                    <span class="nav-badge ml-auto text-[11px] font-bold bg-white/[0.06] px-2 py-0.5 rounded-md">{{ \App\Models\Campaign::count() }}</span>
+                </a>
+
+                <a href="{{ route('admin.chat-logs.index') }}"
+                   :title="sidebarCollapsed ? 'Lead Tracking' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.chat-logs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="radar" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Lead Tracking</span>
+                    @if (\App\Models\ChatLog::whereDate('created_at', now()->today())->count() > 0)
+                        <span class="nav-badge ml-auto text-[11px] font-bold bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded-md">{{ \App\Models\ChatLog::whereDate('created_at', now()->today())->count() }}</span>
+                    @endif
+                </a>
+
+                <div class="pt-5 pb-1">
+                    <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Pengaturan</p>
+                </div>
+
+                <a href="{{ route('admin.settings.index') }}"
+                   :title="sidebarCollapsed ? 'Pengaturan Web' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.settings.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="settings" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Pengaturan Web</span>
+                </a>
+
+                <a href="{{ route('admin.system.index') }}"
+                   :title="sidebarCollapsed ? 'Pengaturan Sistem' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.system.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="server" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Pengaturan Sistem</span>
+                    <span class="nav-label nav-badge ml-auto text-[11px] font-bold bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-md">Core</span>
+                </a>
                 <a href="{{ url('/') }}" target="_blank"
+                   rel="noopener noreferrer"
                    :title="sidebarCollapsed ? 'Lihat Website' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold text-slate-400 hover:text-white hover:bg-white/[0.04] transition-all duration-200">
                     <i data-lucide="external-link" class="w-[18px] h-[18px] shrink-0"></i>
@@ -823,7 +831,7 @@
             </header>
 
             <!-- Page content -->
-            <main class="flex-1 px-4 sm:px-6 lg:px-8 py-6 animate-fade-in">
+            <main id="admin-main" class="min-w-0 flex-1 px-4 sm:px-6 lg:px-8 py-6 animate-fade-in">
                 @if (session('status'))
                     <script>
                         document.addEventListener('DOMContentLoaded', () => {

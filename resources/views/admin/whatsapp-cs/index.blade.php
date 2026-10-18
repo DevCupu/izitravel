@@ -1,125 +1,88 @@
-<x-admin-layout :title="__('WhatsApp CS')">
+<x-admin-layout :title="__('Tim CS WhatsApp')">
     <x-slot name="header">
-        <div class="flex items-center justify-between gap-4 w-full">
-            <div>
-                <h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                    {{ __('Daftar CS WhatsApp') }}
-                </h2>
-                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                    {{ __('Kelola customer service penerima kunjungan dari Meta Ads.') }}
-                </p>
-            </div>
-            <a href="{{ route('admin.whatsapp-cs.create') }}" class="inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 active:scale-[0.97] rounded-xl font-bold text-xs text-white transition-all duration-150 shadow-lg shadow-blue-500/20">
-                <i data-lucide="plus" class="w-4 h-4"></i>
-                {{ __('Tambah CS') }}
-            </a>
+        <div>
+            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Tim CS WhatsApp</h2>
+            <p class="mt-0.5 hidden text-xs text-slate-500 sm:block dark:text-slate-400">Nomor penerima chat dan akun CRM.</p>
         </div>
     </x-slot>
 
-    <div class="space-y-4 animate-fade-in">
-        <div class="flex justify-start sm:justify-end">
+    <div class="space-y-5 animate-fade-in">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <p class="text-sm text-slate-600 dark:text-slate-300">Kelola akses dan pembagian chat untuk setiap CS.</p>
+            <a href="{{ route('admin.whatsapp-cs.create') }}" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-[#3166b1] px-4 py-2 text-sm font-bold text-white hover:bg-[#24548f] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#3166b1]"><i data-lucide="plus" class="h-4 w-4" aria-hidden="true"></i>Tambah CS</a>
+        </div>
+        <div class="rounded-2xl border border-blue-200 bg-blue-50 p-4 sm:p-5 dark:border-blue-900 dark:bg-blue-950/30">
+            <p class="text-sm font-bold text-[#102b52] dark:text-blue-100">Agar CS bisa menggunakan CRM</p>
+            <ol class="mt-3 grid gap-3 text-sm text-slate-700 sm:grid-cols-2 dark:text-slate-200">
+                <li class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#3166b1] text-xs font-bold text-white">1</span><span>Tambahkan nama dan nomor WhatsApp CS untuk pembagian chat.</span></li>
+                <li class="flex gap-3"><span class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#3166b1] text-xs font-bold text-white">2</span><span>Buat akun login CS, lalu berikan email dan kata sandi sementara kepadanya.</span></li>
+            </ol>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <h3 class="text-base font-bold text-slate-900 dark:text-white">Daftar CS</h3>
             @include('admin.partials._search', ['action' => route('admin.whatsapp-cs.index'), 'value' => $search, 'placeholder' => __('Cari nama atau nomor...')])
         </div>
-        <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left">
-                    <thead>
-                        <tr class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 bg-slate-50/80 dark:bg-slate-900/50 table-header-bg border-b border-slate-100 dark:border-slate-700/50">
-                            <th class="px-6 py-4">{{ __('Nama') }}</th>
-                            <th class="px-6 py-4">{{ __('Nomor WhatsApp') }}</th>
-                            <th class="px-6 py-4">{{ __('Bobot') }}</th>
-                            <th class="px-6 py-4">{{ __('Status') }}</th>
-                            <th class="px-6 py-4 text-right">{{ __('Aksi') }}</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700/50">
-                        @forelse ($csList as $cs)
-                            <tr class="hover:bg-slate-50/50 dark:hover:bg-slate-700/20 transition">
-                                <td class="px-6 py-4">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white font-extrabold text-sm border border-slate-100 dark:border-slate-700">
-                                            {{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($cs->name, 0, 1)) }}
-                                        </div>
-                                        <div class="font-bold text-slate-900 dark:text-white">{{ $cs->name }}</div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 font-mono text-xs font-semibold text-slate-600 dark:text-slate-300">
-                                    {{ $cs->phone }}
-                                    @php $waPhone = str_starts_with($cs->phone, '0') ? '62'.substr($cs->phone, 1) : $cs->phone; @endphp
-                                    <a href="{{ 'https://wa.me/' . preg_replace('/[^0-9]/', '', $waPhone) }}" target="_blank" rel="noopener" class="ml-1 text-emerald-500 hover:text-emerald-600" title="Buka WhatsApp">
-                                        <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                                    </a>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <span class="inline-flex items-center gap-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-                                        {{ $cs->weight }}
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4">
-                                    @if ($cs->is_active)
-                                        <span class="inline-flex items-center gap-1 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-                                            <i data-lucide="circle-dot" class="w-3 h-3"></i>
-                                            Aktif
-                                        </span>
-                                    @else
-                                        <span class="inline-flex items-center gap-1 bg-slate-50 dark:bg-slate-700/30 text-slate-400 dark:text-slate-500 text-[10px] font-bold px-2 py-0.5 rounded-md uppercase tracking-wider">
-                                            Nonaktif
-                                        </span>
-                                    @endif
-                                </td>
-                                <td class="px-6 py-4 text-right">
-                                    <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('admin.whatsapp-cs.edit', $cs->id) }}" class="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50/50 dark:hover:bg-blue-900/10 transition" title="Edit">
-                                            <i data-lucide="edit-3" class="w-4 h-4"></i>
-                                        </a>
 
-                                        <form x-data method="POST" action="{{ route('admin.whatsapp-cs.destroy', $cs->id) }}" class="inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Apakah Anda yakin ingin menghapus CS &quot;{{ $cs->name }}&quot;? Data kunjungan lama tetap tersimpan.' })"
-                                                    class="p-2 rounded-lg text-slate-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50/50 dark:hover:bg-red-900/10 transition" title="Hapus">
-                                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="px-6 py-12 text-center">
-                                    <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-900 flex items-center justify-center mx-auto mb-3 text-slate-400">
-                                        <i data-lucide="message-circle" class="w-6 h-6"></i>
-                                    </div>
-                                    <p class="text-sm font-bold text-slate-500 dark:text-slate-400">{{ __('Belum ada CS WhatsApp.') }}</p>
-                                    <a href="{{ route('admin.whatsapp-cs.create') }}" class="inline-flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 font-bold mt-2 hover:underline">
-                                        {{ __('Tambah CS Pertama') }}
-                                        <i data-lucide="arrow-right" class="w-3 h-3"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforelse
+        @if ($csList->count())
+            <div data-record-views data-default-view="card">
+            <div data-record-cards class="grid gap-4 lg:grid-cols-2">
+                @foreach ($csList as $cs)
+                    <article class="content-card rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-800">
+                        <div class="flex flex-wrap items-start justify-between gap-3">
+                            <div class="min-w-0">
+                                <h4 class="text-lg font-bold text-slate-900 dark:text-white">{{ $cs->name }}</h4>
+                                <a href="{{ 'https://wa.me/'.preg_replace('/[^0-9]/', '', $cs->phone) }}" target="_blank" rel="noopener noreferrer" class="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-[#3166b1] hover:underline dark:text-blue-300">
+                                    {{ $cs->phone }}<i data-lucide="external-link" class="h-3.5 w-3.5" aria-hidden="true"></i><span class="sr-only">Buka WhatsApp</span>
+                                </a>
+                            </div>
+                            <span class="rounded-full px-2.5 py-1 text-xs font-bold {{ $cs->is_active ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-300' : 'bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-200' }}">{{ $cs->is_active ? 'Menerima chat' : 'Chat nonaktif' }}</span>
+                        </div>
+
+                        <div class="mt-5 rounded-xl border p-4 {{ $cs->user ? ($cs->user->is_active ? 'border-blue-100 bg-blue-50/60 dark:border-blue-900 dark:bg-blue-950/20' : 'border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-900/30') : 'border-amber-200 bg-amber-50 dark:border-amber-900 dark:bg-amber-950/20' }}">
+                            <p class="text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">Akun login CRM</p>
+                            @if ($cs->user)
+                                <p class="mt-1 text-sm font-bold {{ $cs->user->is_active ? 'text-[#102b52] dark:text-blue-100' : 'text-slate-700 dark:text-slate-200' }}">{{ $cs->user->is_active ? 'Aktif' : 'Nonaktif' }} <span class="font-normal">· {{ $cs->user->email }}</span></p>
+                            @else
+                                <p class="mt-1 text-sm font-bold text-amber-900 dark:text-amber-200">Belum dibuat</p>
+                                <p class="mt-1 text-xs text-amber-800 dark:text-amber-300">CS ini belum bisa masuk ke CRM.</p>
+                            @endif
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Porsi pembagian chat: <strong class="text-slate-700 dark:text-slate-200">{{ $cs->weight }}</strong></p>
+                            <div class="flex items-center gap-2">
+                                @unless ($cs->user_id || $cs->leads_exists)
+                                    <form x-data method="POST" action="{{ route('admin.whatsapp-cs.destroy', $cs) }}">
+                                        @csrf @method('DELETE')
+                                        <button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus data CS ini?' })" class="min-h-11 rounded-xl px-3 text-xs font-bold text-red-700 hover:bg-red-50 dark:text-red-300 dark:hover:bg-red-950/30">Hapus</button>
+                                    </form>
+                                @endunless
+                                <a href="{{ route('admin.whatsapp-cs.edit', $cs) }}" class="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-xl bg-[#3166b1] px-4 text-sm font-bold text-white hover:bg-[#24548f]">{{ $cs->user ? 'Kelola CS' : 'Buat akun login' }}<i data-lucide="arrow-right" class="h-4 w-4" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </article>
+                @endforeach
+            </div>
+            <div data-record-table hidden class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+                <table class="w-full min-w-[730px] text-left text-sm">
+                    <thead class="border-b border-slate-200 bg-slate-50 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"><tr><th scope="col" class="px-4 py-3">CS</th><th scope="col" class="px-4 py-3">WhatsApp</th><th scope="col" class="px-4 py-3">Status chat</th><th scope="col" class="px-4 py-3">Akun CRM</th><th scope="col" class="px-4 py-3">Porsi</th><th scope="col" class="px-4 py-3">Aksi</th></tr></thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        @foreach ($csList as $cs)
+                            <tr class="text-slate-700 dark:text-slate-200"><th scope="row" class="px-4 py-3 font-bold">{{ $cs->name }}</th><td class="px-4 py-3"><a href="{{ 'https://wa.me/'.preg_replace('/[^0-9]/', '', $cs->phone) }}" target="_blank" rel="noopener noreferrer" class="font-bold text-[#3166b1] hover:underline">{{ $cs->phone }}</a></td><td class="px-4 py-3">{{ $cs->is_active ? 'Menerima chat' : 'Chat nonaktif' }}</td><td class="px-4 py-3">{{ $cs->user ? ($cs->user->is_active ? 'Aktif' : 'Nonaktif') : 'Belum dibuat' }}@if ($cs->user)<span class="block text-xs text-slate-500">{{ $cs->user->email }}</span>@endif</td><td class="px-4 py-3">{{ $cs->weight }}</td><td class="whitespace-nowrap px-4 py-3"><a href="{{ route('admin.whatsapp-cs.edit', $cs) }}" class="font-bold text-[#3166b1] hover:underline">{{ $cs->user ? 'Kelola CS' : 'Buat akun login' }}</a>@unless ($cs->user_id || $cs->leads_exists)<form x-data method="POST" action="{{ route('admin.whatsapp-cs.destroy', $cs) }}" class="inline">@csrf @method('DELETE')<button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus data CS ini?' })" class="ml-3 font-bold text-red-700 hover:underline">Hapus</button></form>@endunless</td></tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
-            @if ($csList->hasPages())
-                <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700 bg-slate-50/30 dark:bg-slate-900/10">
-                    {{ $csList->links() }}
-                </div>
-            @endif
-        </div>
-
-        <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-5">
-            <div class="flex items-start gap-3">
-                <div class="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-500 flex items-center justify-center shrink-0">
-                    <i data-lucide="info" class="w-4 h-4"></i>
-                </div>
-                <div>
-                    <p class="text-sm font-bold text-slate-800 dark:text-white">Cara kerja pembagian kunjungan</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
-                        Setiap pengunjung <code class="font-mono bg-slate-100 dark:bg-slate-700 px-1 py-0.5 rounded">izitravel.id/chat</code> dipilihkan satu CS aktif secara <strong>weighted random</strong> berdasarkan bobot. Contoh bobot 50 : 30 : 20 berarti dalam jangka panjang masing-masing menerima ±50%, ±30%, dan ±20% kunjungan. Nonaktifkan CS yang libur agar otomatis tidak dipilih.
-                    </p>
-                </div>
             </div>
-        </div>
+        @else
+            <div class="content-card rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center dark:border-slate-700 dark:bg-slate-800">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">{{ $search ? 'CS tidak ditemukan' : 'Belum ada CS WhatsApp' }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ $search ? 'Coba nama atau nomor lain.' : 'Tambahkan CS pertama untuk menerima chat dan mengelola lead.' }}</p>
+                @unless ($search)<a href="{{ route('admin.whatsapp-cs.create') }}" class="mt-4 inline-flex min-h-11 items-center rounded-xl bg-[#3166b1] px-4 text-sm font-bold text-white">Tambah CS pertama</a>@endunless
+            </div>
+        @endif
+
+        @if ($csList->hasPages()) <div>{{ $csList->links() }}</div> @endif
     </div>
 </x-admin-layout>

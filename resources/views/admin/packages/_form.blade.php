@@ -16,7 +16,7 @@
                 <i data-lucide="info" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Informasi Paket</h3>
+                <h3 id="info-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Informasi Paket</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Detail utama paket umrah</p>
             </div>
         </div>
@@ -207,7 +207,7 @@
                     <i data-lucide="tag" class="w-5 h-5"></i>
                 </div>
                 <div>
-                    <h3 class="text-sm font-bold text-slate-900 dark:text-white">Harga & Badge Paket</h3>
+                    <h3 id="harga-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Harga & Badge Paket</h3>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Atur skema penarifan dan label penanda promo paket</p>
                 </div>
             </div>
@@ -362,7 +362,7 @@
                 <i data-lucide="list-checks" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Fasilitas yang Termasuk</h3>
+                <h3 id="fasilitas-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Fasilitas yang Termasuk</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Klik ikon untuk mengganti, isi label dan deskripsi</p>
             </div>
         </div>
@@ -492,7 +492,7 @@
                 <i data-lucide="x-circle" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Biaya Belum Termasuk</h3>
+                <h3 id="biaya-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Biaya Belum Termasuk</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Klik ikon untuk mengganti, isi label dan deskripsi</p>
             </div>
         </div>
@@ -617,7 +617,7 @@
                 <i data-lucide="sparkles" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Fitur Paket</h3>
+                <h3 id="fitur-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Fitur Paket</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Klik ikon untuk mengganti, isi label dan pilih warna desain</p>
             </div>
         </div>
@@ -721,7 +721,7 @@
                 <i data-lucide="route" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Itinerary Perjalanan</h3>
+                <h3 id="itinerary-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Itinerary Perjalanan</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Rincian kegiatan per hari selama perjalanan</p>
             </div>
         </div>
@@ -784,7 +784,7 @@
                 <i data-lucide="image" class="w-4 h-4"></i>
             </div>
             <div>
-                <h3 class="text-sm font-bold text-slate-900 dark:text-white">Media & Status</h3>
+                <h3 id="media-paket" class="text-sm font-bold text-slate-900 dark:text-white scroll-mt-24">Media & Status</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">Upload gambar dan atur visibilitas</p>
             </div>
         </div>

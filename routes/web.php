@@ -25,6 +25,10 @@ use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialControll
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\WhatsAppCsController as AdminWhatsAppCsController;
 use App\Http\Controllers\ChatRouterController;
+use App\Http\Controllers\CrmController;
+use App\Http\Controllers\CsPasswordController;
+use App\Http\Controllers\Admin\CsAccountController;
+use App\Http\Controllers\Admin\LeadStageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\JemaahTrackingController;
 use App\Http\Controllers\ProfileController;
@@ -140,6 +144,70 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
         ->except(['index', 'show'])
         ->scoped();
     Route::get('chat-logs', [AdminChatLogController::class, 'index'])->name('chat-logs.index');
+
+    Route::post('whatsapp-cs/{cs}/account', [CsAccountController::class, 'store'])->name('whatsapp-cs.account.store');
+    Route::post('whatsapp-cs/{cs}/account/reset-password', [CsAccountController::class, 'resetPassword'])->name('whatsapp-cs.account.reset');
+    Route::patch('whatsapp-cs/{cs}/account/email', [CsAccountController::class, 'updateEmail'])->name('whatsapp-cs.account.email');
+    Route::patch('whatsapp-cs/{cs}/account/status', [CsAccountController::class, 'toggle'])->name('whatsapp-cs.account.status');
+
+    Route::prefix('crm')->name('crm.')->group(function () {
+        Route::get('/', [CrmController::class, 'dashboard'])->name('dashboard');
+        Route::get('leads', [CrmController::class, 'index'])->name('leads.index');
+        Route::get('leads/create', [CrmController::class, 'create'])->name('leads.create');
+        Route::post('leads', [CrmController::class, 'store'])->name('leads.store');
+        Route::get('leads/archived', [CrmController::class, 'archivedLeads'])->name('leads.archived');
+        Route::post('leads/bulk-archive', [CrmController::class, 'bulkArchiveLeads'])->name('leads.bulk-archive');
+        Route::post('leads/bulk-restore', [CrmController::class, 'bulkRestoreLeads'])->name('leads.bulk-restore');
+        Route::patch('leads/{lead}/restore', [CrmController::class, 'restoreLead'])->name('leads.restore');
+        Route::delete('leads/{lead}', [CrmController::class, 'archiveLead'])->name('leads.archive');
+        Route::get('leads/{lead}', [CrmController::class, 'show'])->name('leads.show');
+        Route::patch('leads/{lead}', [CrmController::class, 'update'])->name('leads.update');
+        Route::patch('leads/{lead}/pipeline-details', [CrmController::class, 'pipelineDetails'])->name('leads.pipeline-details');
+        Route::patch('leads/{lead}/stage', [CrmController::class, 'stage'])->name('leads.stage');
+        Route::post('leads/{lead}/notes', [CrmController::class, 'note'])->name('leads.notes');
+        Route::post('leads/{lead}/followups', [CrmController::class, 'followup'])->name('leads.followups');
+        Route::patch('followups/{followup}', [CrmController::class, 'updateFollowup'])->name('followups.update');
+        Route::delete('followups/{followup}', [CrmController::class, 'archiveFollowup'])->name('followups.archive');
+        Route::patch('followups/{followup}/complete', [CrmController::class, 'completeFollowup'])->name('followups.complete');
+        Route::get('tasks', [CrmController::class, 'tasks'])->name('tasks');
+        Route::post('tasks/bulk-complete', [CrmController::class, 'bulkCompleteFollowups'])->name('tasks.bulk-complete');
+        Route::post('tasks/bulk-archive', [CrmController::class, 'bulkArchiveFollowups'])->name('tasks.bulk-archive');
+        Route::get('tasks/archived', [CrmController::class, 'archivedFollowups'])->name('tasks.archived');
+        Route::post('tasks/bulk-restore', [CrmController::class, 'bulkRestoreFollowups'])->name('tasks.bulk-restore');
+        Route::patch('followups/{followup}/restore', [CrmController::class, 'restoreFollowup'])->name('followups.restore');
+        Route::get('pipeline', [CrmController::class, 'pipeline'])->name('pipeline');
+        Route::post('pipeline/bulk', [CrmController::class, 'bulkPipeline'])->name('pipeline.bulk');
+        Route::get('pipeline/stages', [LeadStageController::class, 'index'])->name('stages.index');
+        Route::post('pipeline/stages', [LeadStageController::class, 'store'])->name('stages.store');
+        Route::patch('pipeline/stages/{stage}', [LeadStageController::class, 'update'])->name('stages.update');
+        Route::patch('pipeline/stages/{stage}/move', [LeadStageController::class, 'move'])->name('stages.move');
+        Route::delete('pipeline/stages/{stage}', [LeadStageController::class, 'destroy'])->name('stages.destroy');
+        Route::get('report', [CrmController::class, 'report'])->name('report');
+    });
+});
+
+Route::middleware(['auth', 'cs'])->prefix('cs')->name('cs.')->group(function () {
+    Route::get('change-password', [CsPasswordController::class, 'edit'])->name('password.edit');
+    Route::put('change-password', [CsPasswordController::class, 'update'])->name('password.update');
+    Route::get('/', [CrmController::class, 'dashboard'])->name('dashboard');
+    Route::view('guide', 'cs.guide')->name('guide');
+    Route::get('leads', [CrmController::class, 'index'])->name('leads.index');
+    Route::get('leads/create', [CrmController::class, 'create'])->name('leads.create');
+    Route::post('leads', [CrmController::class, 'store'])->name('leads.store');
+    Route::get('leads/{lead}', [CrmController::class, 'show'])->name('leads.show');
+    Route::patch('leads/{lead}', [CrmController::class, 'update'])->name('leads.update');
+    Route::patch('leads/{lead}/pipeline-details', [CrmController::class, 'pipelineDetails'])->name('leads.pipeline-details');
+    Route::patch('leads/{lead}/stage', [CrmController::class, 'stage'])->name('leads.stage');
+    Route::post('leads/{lead}/notes', [CrmController::class, 'note'])->name('leads.notes');
+    Route::post('leads/{lead}/followups', [CrmController::class, 'followup'])->name('leads.followups');
+    Route::patch('followups/{followup}', [CrmController::class, 'updateFollowup'])->name('followups.update');
+    Route::delete('followups/{followup}', [CrmController::class, 'archiveFollowup'])->name('followups.archive');
+    Route::patch('followups/{followup}/complete', [CrmController::class, 'completeFollowup'])->name('followups.complete');
+    Route::get('tasks', [CrmController::class, 'tasks'])->name('tasks');
+    Route::post('tasks/bulk-complete', [CrmController::class, 'bulkCompleteFollowups'])->name('tasks.bulk-complete');
+    Route::post('tasks/bulk-archive', [CrmController::class, 'bulkArchiveFollowups'])->name('tasks.bulk-archive');
+    Route::get('pipeline', [CrmController::class, 'pipeline'])->name('pipeline');
+    Route::post('pipeline/bulk', [CrmController::class, 'bulkPipeline'])->name('pipeline.bulk');
 });
 
 require __DIR__.'/auth.php';

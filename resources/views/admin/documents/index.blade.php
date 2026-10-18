@@ -45,34 +45,35 @@
             </div>
         @endif
 
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 animate-fade-in-up">
-            @foreach ([
-                'missing' => ['Belum lengkap', 'slate', 'file-question'],
-                'in_progress' => ['Sedang diproses', 'blue', 'loader-circle'],
-                'completed' => ['Selesai', 'emerald', 'file-check-2'],
-            ] as $statusKey => [$label, $color, $icon])
-                <div class="content-card bg-white dark:bg-slate-800 rounded-xl border border-slate-100 dark:border-slate-700 px-4 py-3">
-                    <div class="flex items-center justify-between">
-                        <p class="text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">{{ __($label) }}</p>
-                        <i data-lucide="{{ $icon }}" class="w-4 h-4 text-{{ $color }}-500"></i>
-                    </div>
-                    <p class="text-xl font-extrabold text-slate-800 dark:text-white mt-1">
-                        {{ \App\Models\RegistrationItem::whereIn('type', array_keys(\App\Models\Registration::DOCUMENT_TYPES))->where('status', $statusKey)->count() }}
-                    </p>
-                </div>
-            @endforeach
-        </div>
-
-        <form method="GET" action="{{ route('admin.documents.index') }}" class="flex flex-col lg:flex-row gap-3 animate-fade-in-up">
-            <div class="flex-1">
-                @include('admin.partials._search', ['action' => route('admin.documents.index'), 'value' => $search, 'placeholder' => __('Cari nama atau nomor paspor...')])
+        <section aria-labelledby="visa-summary-heading" class="animate-fade-in-up">
+            <div class="mb-2.5 flex flex-wrap items-end justify-between gap-2">
+                <div><h3 id="visa-summary-heading" class="text-sm font-extrabold text-slate-800 dark:text-white">Ringkasan visa</h3><p class="text-xs text-slate-500 dark:text-slate-400">Jumlah jemaah sesuai pencarian dan keberangkatan yang dipilih.</p></div>
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">{{ $visaCounts->sum() }} jemaah</span>
             </div>
-            <select name="package_id" onchange="this.form.submit()" class="w-full lg:w-64 px-4 py-2.5 text-sm rounded-xl border-slate-200 dark:border-slate-600 dark:bg-slate-800 dark:text-white focus:border-blue-500 focus:ring-blue-500 font-semibold">
-                <option value="">{{ __('Semua Keberangkatan') }}</option>
-                @foreach ($packages as $package)
-                    <option value="{{ $package->id }}" @selected((int) $packageId === $package->id)>{{ $package->name }} · {{ $package->departure_date->format('d/m/Y') }}</option>
+            <div class="grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+                @foreach ([
+                    'not_started' => ['Belum diproses', 'clock-3', 'text-slate-600 dark:text-slate-300', 'bg-slate-100 dark:bg-slate-700'],
+                    'kemenag_process' => ['Proses Kemenag', 'loader-circle', 'text-blue-700 dark:text-blue-300', 'bg-blue-50 dark:bg-blue-900/30'],
+                    'mofa_issued' => ['MOFA terbit', 'file-badge-2', 'text-amber-700 dark:text-amber-300', 'bg-amber-50 dark:bg-amber-900/30'],
+                    'completed' => ['Visa selesai', 'badge-check', 'text-emerald-700 dark:text-emerald-300', 'bg-emerald-50 dark:bg-emerald-900/30'],
+                ] as $statusKey => [$label, $icon, $textClass, $iconClass])
+                    <div class="content-card flex min-w-0 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3.5 py-3 dark:border-slate-700 dark:bg-slate-800 sm:px-4">
+                        <div class="min-w-0"><p class="text-[11px] font-bold leading-tight text-slate-500 dark:text-slate-400">{{ $label }}</p><p class="mt-1 text-2xl font-extrabold tabular-nums {{ $textClass }}">{{ (int) ($visaCounts[$statusKey] ?? 0) }}</p></div>
+                        <span class="flex size-9 shrink-0 items-center justify-center rounded-lg {{ $iconClass }}"><i data-lucide="{{ $icon }}" class="size-4 {{ $textClass }}" aria-hidden="true"></i></span>
+                    </div>
                 @endforeach
+            </div>
+        </section>
+
+        <form method="GET" action="{{ route('admin.documents.index') }}" class="flex flex-col gap-2.5 animate-fade-in-up sm:flex-row sm:flex-wrap sm:items-center">
+            @if ($pic !== '')<input type="hidden" name="pic" value="{{ $pic }}">@endif
+            <div class="relative min-w-0 flex-1"><i data-lucide="search" class="pointer-events-none absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-slate-400" aria-hidden="true"></i><label for="documents-search" class="sr-only">Cari jemaah atau nomor paspor</label><input id="documents-search" type="search" name="search" value="{{ $search }}" placeholder="Cari nama atau nomor paspor..." class="min-h-11 w-full rounded-xl border-slate-200 bg-white pl-10 pr-3 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-white"></div>
+            <label for="documents-package" class="sr-only">Keberangkatan</label>
+            <select id="documents-package" name="package_id" class="min-h-11 w-full rounded-xl border-slate-200 bg-white px-3 text-sm font-semibold dark:border-slate-600 dark:bg-slate-800 dark:text-white sm:w-64">
+                <option value="">{{ __('Semua Keberangkatan') }}</option>
+                @foreach ($packages as $package)<option value="{{ $package->id }}" @selected((int) $packageId === $package->id)>{{ $package->name }} · {{ $package->departure_date->format('d/m/Y') }}</option>@endforeach
             </select>
+            <div class="flex gap-2"><button type="submit" class="min-h-11 flex-1 rounded-xl bg-blue-600 px-4 text-sm font-bold text-white hover:bg-blue-700 sm:flex-none">Terapkan</button>@if ($search !== '' || $packageId)<a href="{{ route('admin.documents.index', array_filter(['pic' => $pic])) }}" class="inline-flex min-h-11 items-center rounded-xl border border-slate-200 px-3 text-sm font-bold text-slate-600 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-300 dark:hover:bg-slate-800">Reset</a>@endif</div>
         </form>
 
         <form method="POST" action="{{ route('admin.documents.checklist.bulk-update') }}" x-show="selectedIds.length > 0" x-cloak class="flex flex-col lg:flex-row lg:items-center gap-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl px-4 py-3 animate-fade-in-up">
@@ -85,6 +86,7 @@
             <select name="type" required class="w-full lg:w-48 !py-2 text-xs font-bold rounded-lg">
                 <option value="">{{ __('Pilih checklist') }}</option>
                 @foreach (\App\Models\Registration::DOCUMENT_TYPES as $type => $label)
+                    @continue($type === 'visa')
                     <option value="{{ $type }}">{{ $label }}</option>
                 @endforeach
             </select>
@@ -103,9 +105,45 @@
             <button type="button" @click="selectedIds = []" class="inline-flex items-center justify-center px-3 py-2 rounded-lg text-xs font-bold text-blue-700 dark:text-blue-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition">{{ __('Batal') }}</button>
         </form>
 
+        <section aria-labelledby="visa-list-heading" class="content-card overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-800">
+            <div class="flex flex-wrap items-end justify-between gap-2 border-b border-slate-100 px-4 py-4 dark:border-slate-700 sm:px-5">
+                <div><h3 id="visa-list-heading" class="text-base font-extrabold text-slate-900 dark:text-white">Data visa per jemaah</h3><p class="mt-0.5 text-xs text-slate-500 dark:text-slate-400">Pilih status untuk menyimpan perubahan. Daftar mengikuti pencarian dan halaman saat ini.</p></div>
+                <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">{{ $registrations->count() }} ditampilkan</span>
+            </div>
+            <div data-record-mobile-table class="overflow-x-auto">
+                <table data-record-view class="w-full min-w-[700px] text-left text-sm">
+                    <thead class="bg-slate-50 text-[11px] font-bold uppercase tracking-wide text-slate-500 dark:bg-slate-900/50 dark:text-slate-400"><tr><th scope="col" class="px-5 py-3">Jemaah</th><th scope="col" class="px-4 py-3">Keberangkatan</th><th scope="col" class="px-4 py-3">No. paspor</th><th scope="col" class="px-5 py-3">Status visa</th></tr></thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        @forelse ($registrations as $registration)
+                            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-700/30">
+                                <td class="px-5 py-3"><a href="{{ route('admin.jemaah.show', $registration->jemaah) }}" class="font-bold text-slate-800 hover:text-blue-600 dark:text-white dark:hover:text-blue-300">{{ $registration->jemaah->name }}</a>@if ($registration->pic_name)<p class="mt-0.5 text-[11px] text-slate-500 dark:text-slate-400">PIC {{ $registration->pic_name }}</p>@endif</td>
+                                <td class="px-4 py-3"><p class="font-semibold text-slate-700 dark:text-slate-200">{{ $registration->package->name }}</p><p class="text-[11px] text-slate-500 dark:text-slate-400">{{ $registration->package->departure_date->format('d/m/Y') }}</p></td>
+                                <td class="px-4 py-3 text-xs font-semibold text-slate-600 dark:text-slate-300">{{ $registration->jemaah->passport_number ?: 'Belum ada' }}</td>
+                                <td class="px-5 py-3">@include('admin.documents._visa-status-form', ['surface' => 'table'])</td>
+                            </tr>
+                        @empty
+                            <tr><td colspan="4" class="px-5 py-10 text-center text-sm text-slate-500 dark:text-slate-400">Belum ada data visa untuk pencarian ini.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+            <div data-record-mobile-cards class="divide-y divide-slate-100 dark:divide-slate-700">
+                @forelse ($registrations as $registration)
+                    <article class="p-4">
+                        <div class="flex items-start justify-between gap-2"><a href="{{ route('admin.jemaah.show', $registration->jemaah) }}" class="font-bold text-slate-800 dark:text-white">{{ $registration->jemaah->name }}</a><span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400">{{ $registration->jemaah->passport_number ?: 'Tanpa paspor' }}</span></div>
+                        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ $registration->package->name }} · {{ $registration->package->departure_date->format('d/m/Y') }}@if ($registration->pic_name) · PIC {{ $registration->pic_name }}@endif</p>
+                        <div class="mt-3">@include('admin.documents._visa-status-form', ['surface' => 'card'])</div>
+                    </article>
+                @empty
+                    <p class="px-4 py-10 text-center text-sm text-slate-500 dark:text-slate-400">Belum ada data visa untuk pencarian ini.</p>
+                @endforelse
+            </div>
+        </section>
+
+        <h3 class="text-sm font-extrabold text-slate-800 dark:text-white">Checklist dokumen &amp; perlengkapan</h3>
         <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-fade-in-up">
             <div class="overflow-x-auto">
-                <table class="w-full text-sm min-w-[920px] table-fixed">
+                <table data-record-view class="w-full min-w-[920px] table-fixed text-sm">
                     <thead>
                         <tr class="text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 bg-slate-50/80 dark:bg-slate-900/50">
                                 <th class="px-2 py-3 w-10"><input type="checkbox" :checked="allSelected" @change="toggleSelectAll($event.target.checked)" class="!w-4 !h-4 rounded"></th>
@@ -145,8 +183,9 @@
                                     </form>
                                 </td>
                                 <td class="px-3 py-3.5">
-                                    <div class="grid grid-cols-2 xl:grid-cols-3 gap-2">
+                                    <div class="grid grid-cols-4 gap-2">
                                             @foreach (\App\Models\Registration::DOCUMENT_TYPES as $type => $label)
+                                            @continue($type === 'visa')
                                             @php $item = $registration->items->firstWhere('type', $type); @endphp
                                                 <form method="POST" action="{{ route('admin.documents.checklist.update', [$registration, $type]) }}" class="min-w-0 rounded-lg border border-slate-100 dark:border-slate-700/80 bg-slate-50/60 dark:bg-slate-900/30 p-1.5">
                                                 @csrf

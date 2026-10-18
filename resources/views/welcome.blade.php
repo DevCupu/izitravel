@@ -21,7 +21,7 @@
         $upcomingPackages = $packages->filter(function($p) {
             return $p->departure_date && \Carbon\Carbon::parse($p->departure_date)->isFuture();
         })->sortBy('departure_date');
-        
+
         $nearestPackage = $upcomingPackages->first();
         $upcomingPackages = $upcomingPackages->take(3);
     }
@@ -36,7 +36,7 @@
     <link rel="icon" type="image/png" href="{{ isset($settings['site_favicon']) ? (str_starts_with($settings['site_favicon'], 'images/') ? asset($settings['site_favicon']) : asset('storage/' . $settings['site_favicon'])) : asset('images/favicon.png') }}">
     <link rel="apple-touch-icon" href="{{ isset($settings['site_favicon']) ? (str_starts_with($settings['site_favicon'], 'images/') ? asset($settings['site_favicon']) : asset('storage/' . $settings['site_favicon'])) : asset('images/favicon.png') }}">
     <meta name="description" content="{{ $settings['site_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.' }}">
-    
+
     @if(!empty($settings['seo_meta_keywords']))
     <meta name="keywords" content="{{ $settings['seo_meta_keywords'] }}" />
     @endif
@@ -51,7 +51,7 @@
         gtag('config', '{{ $settings['seo_google_analytics_id'] }}');
     </script>
     @endif
-    
+
     @if(!empty($settings['seo_google_console_verification']))
     <meta name="google-site-verification" content="{{ $settings['seo_google_console_verification'] }}" />
     @endif
@@ -71,7 +71,7 @@
     @php
         $ogTitle = $settings['seo_og_title'] ?? (($settings['site_name'] ?? 'IZI Travel') . ' - ' . ($settings['site_tagline'] ?? 'Wujudkan Umrah Impian Anda'));
         $ogDesc = $settings['seo_og_description'] ?? ($settings['site_description'] ?? 'Penyelenggara perjalanan ibadah Umrah dan Haji Premium dengan layanan bintang 5 di Ring 1 pelataran Masjidil Haram & Nabawi.');
-        
+
         $ogImage = asset('images/Izi LOGO.webp');
         if (!empty($settings['seo_og_image'])) {
             $ogImage = str_starts_with($settings['seo_og_image'], 'images/') ? asset($settings['seo_og_image']) : asset('storage/' . $settings['seo_og_image']);
@@ -167,6 +167,34 @@
             font-family: 'Inter', sans-serif;
             background-color: #fafaf9; /* Stone 50 - Warm premium alabaster */
         }
+
+        /* Render the hero navbar in its correct state before the deferred app bundle runs. */
+        .public-nav-hero {
+            background-color: transparent;
+            border-color: transparent;
+            box-shadow: none;
+        }
+        .public-nav-hero .public-nav-logo { filter: brightness(0) invert(1); }
+        .public-nav-hero .public-nav-link { color: rgba(255, 255, 255, .82); }
+        .public-nav-hero .public-nav-link:hover { color: #fff; }
+        .public-nav-hero .public-nav-link.is-active,
+        .public-nav-hero .public-nav-link.is-active:hover { color: #fcde05; text-decoration-color: #fcde05; }
+        .public-nav-hero .public-nav-consult { background-color: #fcde05; color: #102b52; }
+        .public-nav-hero .public-nav-consult:hover { background-color: #f2cf00; }
+        .public-nav-hero.is-scrolled {
+            background-color: rgba(255, 255, 255, .96);
+            border-color: rgba(255, 255, 255, .75);
+            box-shadow: 0 12px 32px rgba(16, 43, 82, .14);
+            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(16px);
+        }
+        .public-nav-hero.is-scrolled .public-nav-logo { filter: none; }
+        .public-nav-hero.is-scrolled .public-nav-link { color: #475569; }
+        .public-nav-hero.is-scrolled .public-nav-link:hover,
+        .public-nav-hero.is-scrolled .public-nav-link.is-active { color: #245392; }
+        .public-nav-hero.is-scrolled .public-nav-link.is-active { text-decoration-color: #3166b1; }
+        .public-nav-hero.is-scrolled .public-nav-consult { background-color: #3166b1; color: #fff; }
+        .public-nav-hero.is-scrolled .public-nav-consult:hover { background-color: #245392; }
 
         /* 1. Heading: Outfit Bold (700) */
         h1, h2, h3, h4, h5, h6, .font-heading {
@@ -501,7 +529,7 @@
                directly (see script below) — a competing CSS transition on the same
                property caused the WhatsApp button regression fixed earlier, same risk here. */
         }
-        
+
         header nav a {
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -541,14 +569,14 @@
             position: relative;
             min-height: 100vh;
         }
-        
+
         @media (min-width: 1024px) {
             #beranda {
                 background-position: 60% center;
                 min-height: 100vh;
             }
         }
-        
+
         @media (max-width: 1023px) {
             #beranda {
                 /* #hero-photo-band (below) renders the real photo in its own shorter band —
@@ -1467,6 +1495,30 @@
             box-shadow: 0 0 18px rgba(252, 222, 5, 0.3);
         }
 
+        #beranda .hero-kaaba-foreground {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            bottom: 4rem;
+            width: clamp(1400px, 112vw, 1603px);
+            max-width: none;
+            transform: translateX(-50%);
+            opacity: 0.68;
+            pointer-events: none;
+            -webkit-mask-image: linear-gradient(to bottom, #000 54%, rgba(0, 0, 0, 0.8) 76%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 54%, rgba(0, 0, 0, 0.8) 76%, transparent 100%);
+        }
+
+        #beranda .hero-kaaba-foreground img {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        #beranda .hero-mobile-image {
+            display: none;
+        }
+
         @media (max-width: 1023px) {
             #beranda {
                 min-height: 640px;
@@ -1491,6 +1543,98 @@
                 max-width: 48ch;
                 font-size: clamp(0.75rem, 3.2vw, 0.85rem);
             }
+
+            #beranda .hero-kaaba-foreground {
+                bottom: 0;
+                width: max(950px, 180vw);
+                opacity: 0.32;
+            }
+        }
+
+        @media (max-width: 767px) {
+            #beranda {
+                padding-top: 7rem;
+            }
+
+            #beranda .hero-kaaba-foreground {
+                display: none;
+            }
+
+            #beranda > .max-w-7xl {
+                gap: 1.5rem;
+            }
+
+            #beranda h1 {
+                max-width: 100%;
+                font-size: clamp(2.25rem, 9.7vw, 3.5rem);
+                line-height: 1.02;
+            }
+
+            #beranda .hero-copy-block {
+                gap: 0.85rem;
+                margin-bottom: 1.25rem;
+            }
+
+            #beranda .hero-actions { order: 1; }
+            #beranda .hero-mobile-image { order: 2; }
+            #beranda .hero-features { order: 3; }
+            #beranda .hero-stats { order: 4; }
+
+            #beranda .hero-features {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 0.65rem;
+                overflow: visible;
+                margin-top: 0.75rem;
+                margin-bottom: 1rem;
+            }
+
+            #beranda .hero-features > div {
+                min-width: 0;
+                gap: 0.5rem;
+                padding: 0.65rem;
+            }
+
+            #beranda .hero-features p {
+                white-space: normal;
+            }
+
+            #beranda .hero-mobile-image {
+                display: block;
+                position: relative;
+                width: calc(100% + 2rem);
+                height: clamp(235px, 64vw, 340px);
+                margin: 0 -1rem;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            #beranda .hero-mobile-image img {
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                display: block;
+                width: max(520px, 100vw);
+                max-width: none;
+                height: auto;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 359px) {
+            #beranda .hero-features > div {
+                gap: 0.375rem;
+                padding: 0.5rem;
+            }
+
+            #beranda .hero-features > div > div:first-child {
+                width: 1.75rem;
+                height: 1.75rem;
+            }
+
+            #beranda .hero-features p:first-child {
+                font-size: 0.625rem;
+            }
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1504,49 +1648,16 @@
     </style>
 </head>
 
-<body class="bg-stone-50 text-stone-800 overflow-x-hidden antialiased">
+<body class="bg-stone-50 text-stone-800 overflow-x-hidden antialiased izi-public">
     <!-- Scroll Progress Bar (mengisi saat scroll ke bawah) -->
     <div id="scroll-progress-track" class="fixed top-0 left-0 w-full h-1 z-[60] pointer-events-none bg-transparent">
         <div id="scroll-progress-bar" class="h-full w-full origin-left bg-gradient-to-r from-[var(--primary-blue)] via-[var(--primary-yellow)] to-[var(--primary-blue)] shadow-[0_1px_6px_rgba(49,102,177,0.35)] transition-transform duration-100 ease-out" style="transform: scaleX(0);"></div>
     </div>
 
     <!-- BEGIN: Floating Modern Header (Fully Rounded Capsule) -->
-    <header class="fixed top-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-7xl z-50">
-        <nav class="bg-white/90 backdrop-blur-md border border-white/60 rounded-full shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 flex items-center justify-between transition-all duration-300">
-            <div class="flex items-center gap-3">
-                <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-8 w-auto object-contain" width="480" height="168" fetchpriority="high" decoding="async" />
-            </div>
-            
-            <!-- Desktop Navigation Links -->
-            <div class="hidden md:flex items-center">
-                <a class="relative text-[var(--primary-yellow)] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full" href="#beranda">Beranda</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#tentang-kami">Tentang Kami</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#paket-umrah">Paket Umrah</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#galeri">Galeri</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#testimoni">Testimoni</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#artikel">Artikel</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kemitraan">Kemitraan</a>
-                <a class="relative text-white/80 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300" href="#kontak">Kontak</a>
-            </div>
+    @include('public.partials.navigation')
 
-            <div class="flex items-center gap-2">
-                <a class="inline-flex items-center gap-1.5 bg-[var(--primary-yellow)] text-[var(--primary-blue)] px-3.5 py-2.5 rounded-full font-bold hover:brightness-95 transition-all duration-300 text-xs shadow-md shadow-[rgba(49,102,177,0.18)] active:scale-95" href="{{ route('public.jemaah.tracking') }}">
-                    <i data-lucide="search-check" class="w-4 h-4"></i>
-                    <span class="hidden sm:inline">Cek Keberangkatan</span>
-                </a>
-                <a class="magnetic-button bg-[var(--primary-blue)] text-white px-3.5 py-2.5 sm:px-5 sm:py-2.5 rounded-full font-bold hover:brightness-110 transition-all duration-300 flex items-center gap-2 text-xs shadow-md shadow-[rgba(49,102,177,0.18)] active:scale-95" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
-                    <!-- WhatsApp Icon -->
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
-                    </svg>
-                    <span class="hidden sm:inline">Konsultasi</span>
-                </a>
-            </div>
-        </nav>
-    </header>
-    <!-- END: Floating Header -->
-
-    <main>
+    <main id="main-content">
     <!-- BEGIN: HeroSection (Modern Split Layout) -->
     <section id="beranda" class="relative pt-32 pb-20 overflow-hidden" data-purpose="hero-banner">
         <!-- Mobile-only photo banner: a square/landscape source image can't fill this whole
@@ -1555,6 +1666,10 @@
              that band with a much milder crop, then fades into the plain navy gradient below. -->
         <div id="hero-photo-band" class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none animate-fade-in-up">
             <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(49, 102, 177, 0.90) 0%, rgba(49, 102, 177, 0.96) 68%, #3166b1 100%);"></div>
+        </div>
+
+        <div class="hero-kaaba-foreground" aria-hidden="true">
+            <img src="{{ asset('images/hero-kaaba-foreground.webp') }}" alt="" width="1603" height="981" decoding="async" loading="eager" fetchpriority="low">
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
@@ -1595,7 +1710,7 @@
                         }
                         $line3Gold = true;
                     }
-                    
+
                     $site_desc = $settings['site_description'] ?? 'Perjalanan Umrah yang nyaman, aman, dan terpercaya — dari keberangkatan hingga kembali ke tanah air.';
                 @endphp
 
@@ -1615,8 +1730,8 @@
                 </p>
                 </div>
 
-                <!-- Hero Feature Icons Row: horizontal chip scroller on mobile, plain grid from sm+ -->
-                <div class="w-full flex sm:grid sm:grid-cols-4 gap-3 sm:gap-x-5 sm:gap-y-4 mb-6 lg:mb-8 overflow-x-auto sm:overflow-visible scrollbar-none snap-x snap-mandatory animate-fade-in-up delay-350">
+                <!-- Hero features: all four cards stay visible in a mobile grid -->
+                <div class="hero-features w-full flex sm:grid sm:grid-cols-4 gap-3 sm:gap-x-5 sm:gap-y-4 mb-6 lg:mb-8 overflow-x-auto sm:overflow-visible scrollbar-none snap-x snap-mandatory animate-fade-in-up delay-350">
                     @php
                         $heroFeatures = [
                             ['icon' => 'star', 'title' => $settings['hero_feature_1_title'] ?? 'Pelayanan', 'sub' => $settings['hero_feature_1_sub'] ?? 'Nyaman & Aman'],
@@ -1639,7 +1754,7 @@
                 </div>
 
                 <!-- Actions CTA Buttons -->
-                <div class="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
+                <div class="hero-actions flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
                     <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[var(--primary-yellow)] hover:brightness-95 text-[var(--primary-blue)] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[rgba(252,222,5,0.22)] transform active:scale-95 text-sm text-center justify-center flex items-center gap-2 font-poppins">
                         <i data-lucide="eye" class="w-4 h-4"></i>
                         {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
@@ -1649,17 +1764,21 @@
                         {{ $settings['cta_consultation_label'] ?? 'Konsultasi Gratis' }}
                     </a>
                 </div>
-                
+
+                <div class="hero-mobile-image" aria-hidden="true">
+                    <img src="{{ asset('images/hero-kaaba-foreground.webp') }}" alt="" width="1603" height="981" decoding="async" loading="eager">
+                </div>
+
                 <!-- Bottom Stats Bar -->
                 @php
                     $heroStats = [
-                        ['icon' => 'shield-check', 'value' => $settings['hero_stat_berizin'] ?? 'BERIZIN', 'label' => 'RESMI', 'sub' => $settings['hero_stat_berizin_sub'] ?? 'Kemenag RI'],
+                        ['icon' => 'shield-check', 'value' => $settings['hero_stat_berizin'] ?? 'BERIZIN', 'label' => ' RESMI', 'sub' => $settings['hero_stat_berizin_sub'] ?? 'Kemenag RI'],
                         ['icon' => 'users', 'value' => $settings['about_departed_count'] ?? '500', 'label' => '+ JAMAAH', 'sub' => $settings['hero_stat_jamaah_sub'] ?? 'Telah Berangkat'],
-                        ['icon' => 'star', 'value' => $settings['about_satisfaction_rate'] ?? '4.9', 'label' => '/5 RATING', 'sub' => $settings['hero_stat_rating_sub'] ?? 'Dari Jamaah'],
-                        ['icon' => 'heart', 'value' => '100%', 'label' => 'AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
+                        ['icon' => 'star', 'value' => ($settings['about_satisfaction_rate'] ?? '99') . '%', 'label' => ' KEPUASAN', 'sub' => $settings['hero_stat_rating_sub'] ?? 'Dari Jamaah'],
+                        ['icon' => 'heart', 'value' => '100%', 'label' => ' AMANAH', 'sub' => $settings['hero_stat_amanah_sub'] ?? '& Terpercaya'],
                     ];
                 @endphp
-                <div class="bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
+                <div class="hero-stats bg-white/5 border border-white/10 rounded-2xl px-5 py-4 mt-6 lg:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-4 animate-fade-in-up delay-500">
                     @foreach ($heroStats as $stat)
                         <div class="flex items-center gap-3">
                             <div class="shrink-0 w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center">
@@ -1676,9 +1795,9 @@
                 </div>
             </div>
 
-            <!-- Right Column: Info Widget (Glassmorphism card) -->
-            <div id="hero-right-col" class="w-full lg:w-5/12 flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div id="hero-image-card" class="backdrop-blur-xl border border-[var(--primary-yellow)]/25 rounded-[2rem] p-7 shadow-xl shadow-[rgba(49,102,177,0.25)] relative overflow-hidden text-white w-full" style="background: linear-gradient(135deg, rgba(49, 102, 177, 0.62), rgba(18, 42, 80, 0.76));">
+            <!-- Right Column: Departure schedule card -->
+            <div id="hero-right-col" class="w-full lg:w-5/12 lg:self-start {{ !empty($heroBadgeText) ? 'lg:mt-[3.6rem]' : 'lg:mt-0' }} flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
+                <div id="hero-image-card" class="border border-[var(--primary-yellow)]/35 rounded-[2rem] p-7 shadow-xl shadow-[rgba(10,32,66,0.35)] relative overflow-hidden text-white w-full" style="background: linear-gradient(135deg, #285c9e, #102b52);">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
 
@@ -1770,7 +1889,7 @@
                                                 <span class="text-sm font-black text-[var(--primary-yellow)] leading-none">{{ $dayStr }}</span>
                                                 <span class="text-[8px] font-bold text-white/70 uppercase tracking-widest mt-0.5 leading-none">{{ $monthStr }}</span>
                                             </div>
-                                            
+
                                             <!-- Ticket Content -->
                                             <div class="min-w-0 flex-1 pl-3.5 pr-2 text-left">
                                                 <p class="text-xs font-bold text-white truncate">{{ $p->name }}</p>
@@ -1779,7 +1898,7 @@
                                                     {{ $p->category ?? 'Premium' }} • {{ $yearStr }}
                                                 </p>
                                             </div>
-                                            
+
                                             <!-- Detail Action Button -->
                                             <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[var(--primary-yellow)] text-white hover:text-[var(--primary-blue)] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm active:scale-95 flex items-center gap-1">
                                                 <span>Detail</span>
@@ -1794,7 +1913,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Smooth Wave Transition at Hero Bottom -->
         <div class="absolute bottom-[-1px] left-0 w-full overflow-hidden z-20 leading-[0]">
             <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[50px] md:h-[90px] fill-stone-50">
@@ -2028,7 +2147,7 @@
                             <span class="text-xs font-black text-stone-500 uppercase tracking-widest">{{ $settings['team_other_section_label'] ?? 'Tim Pendukung & Pembimbing' }}</span>
                         </div>
                     </div>
-                    
+
                     <div class="grid grid-cols-2 md:grid-cols-2 gap-3 md:gap-6 reveal-stagger">
                         @foreach ($otherTeams as $t)
                             <div class="relative overflow-hidden bg-white/60 dark:bg-white/10 backdrop-blur-xl p-4 md:p-5 rounded-2xl border border-white/60 dark:border-white/15 hover:border-blue-600/10 ring-1 ring-white/30 shadow-md shadow-stone-900/5 transition-all duration-300 flex flex-col sm:flex-row items-center sm:items-start gap-3 sm:gap-4 text-center sm:text-left group {{ $loop->last && $loop->iteration % 2 !== 0 ? 'col-span-2 sm:col-span-1 md:col-span-1' : '' }} reveal-card">
@@ -2475,7 +2594,7 @@
                     return trim($item->category_label) ?: 'Umum';
                 })->map(function($items, $name) {
                     $coverItem = $items->firstWhere('type', 'photo') ?? $items->first();
-                    
+
                     $mappedItems = $items->map(function($item) {
                         return [
                             'type' => $item->type,
@@ -2495,11 +2614,11 @@
                         'last_updated' => $items->max('updated_at'),
                     ];
                 })->sortByDesc('last_updated');
-                
+
                 $totalAlbumsCount = $albums->count();
                 $displayAlbums = $albums->take(6);
             @endphp
-            
+
             <!-- Gallery Grid (Albums Folder View) -->
             <div class="gallery-grid-modern grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
                 @foreach ($displayAlbums as $album)
@@ -2507,7 +2626,7 @@
                     <div class="gallery-album-card album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer"
                          data-album-name="{{ $album->name }}"
                          data-items="{{ json_encode($album->items) }}">
-                        
+
                         <!-- Folder Tab Shape Design -->
                         <div class="gallery-album-media relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
                             <!-- Cover Image -->
@@ -2518,13 +2637,13 @@
                                     <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
                                 </div>
                             @endif
-                            
+
                             <!-- Folder Tag Badge on Top Left -->
                             <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-stone-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
                                 <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
                                 Album
                             </div>
-                            
+
                             <!-- Media Count Badge on Bottom Right -->
                             <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-blue-600 text-white text-[8px] sm:text-[10px] font-black px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
                                 {{ $album->count }} <span class="hidden sm:inline">Foto &amp; Video</span><span class="inline sm:hidden">Media</span>
@@ -2566,30 +2685,30 @@
             <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
                 <i data-lucide="x" class="w-6 h-6"></i>
             </button>
-            
+
             <!-- Prev Button -->
             <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Sebelumnya">
                 <i data-lucide="chevron-left" class="w-7 h-7"></i>
             </button>
-            
+
             <!-- Next Button -->
             <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Selanjutnya">
                 <i data-lucide="chevron-right" class="w-7 h-7"></i>
             </button>
-            
+
             <!-- Content Container -->
             <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 scale-95" id="lightbox-content-box">
                 <!-- Media Area -->
                 <div class="relative w-full max-h-[70vh] flex items-center justify-center rounded-3xl overflow-hidden bg-black/40 border border-white/5 shadow-2xl">
                     <!-- Image Display -->
                     <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain hidden transition-all duration-300 opacity-0" />
-                    
+
                     <!-- Video Embed Wrapper -->
                     <div id="lightbox-video-container" class="aspect-video w-full hidden">
                         <iframe id="lightbox-iframe" title="Pemutar video galeri" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
-                
+
                 <!-- Caption / Info Area -->
                 <div class="w-full max-w-3xl text-center px-4">
                     <span id="lightbox-tag" class="text-xs text-amber-400 font-extrabold uppercase tracking-widest block mb-1"></span>
@@ -2658,7 +2777,7 @@
                                             $thumbnailUrl = 'vimeo';
                                         }
                                     }
-                                    
+
                                     // Generate initials (skip Indonesian honorifics like H./Hj./Ustadz so
                                     // avatars don't all end up showing the same "H" letter)
                                     $initial = 'U';
@@ -2666,7 +2785,7 @@
                                         $cleanName = preg_replace('/^((h|hj|dr|drs|prof|ustadz|ust)\.?\s+)+/i', '', trim($testimonial->name));
                                         $initial = strtoupper(substr($cleanName ?: trim($testimonial->name), 0, 1));
                                     }
-                                    
+
                                     // Custom gradient colors based on initial character
                                     $gradients = [
                                         'A' => 'from-blue-500 to-blue-700',
@@ -2726,7 +2845,7 @@
                                                         @endfor
                                                     </div>
                                                 </div>
- 
+
                                                 @if(!empty($parsedEmbedUrl))
                                                     <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-stone-100 shadow-inner z-20 group/video cursor-pointer"
                                                          onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
@@ -2946,7 +3065,7 @@
                                 <img src="{{ $article->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
                                 <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-stone-100/50 shadow-sm">{{ $article->category }}</span>
                             </div>
-                            
+
                             <!-- Card Body -->
                             <div class="p-6 md:p-8">
                                 <div class="flex items-center gap-3 text-[10px] text-stone-500 font-bold mb-3.5">
@@ -3016,7 +3135,7 @@
         <!-- Ambient Light Blobs -->
         <div class="absolute -left-[10%] top-[10%] w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
         <div class="absolute -right-[10%] bottom-[10%] w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-        
+
         <!-- Stars/Pattern overlay -->
         <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
 
@@ -3323,7 +3442,7 @@
                 <div class="reveal-card kemitraan-card kemitraan-card-emerald bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white glow-card p-8 rounded-3xl border border-blue-500/20 shadow-xl shadow-blue-900/20 hover:-translate-y-1 transition duration-300 flex flex-col justify-between relative overflow-hidden">
                     <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-amber-500/10 rounded-full blur-3xl"></div>
                     <div class="absolute -left-10 -top-10 w-40 h-40 bg-blue-500/10 rounded-full blur-3xl"></div>
-                    
+
                     <div class="relative z-10 flex flex-col justify-between h-full">
                         <div>
                             <div class="mb-6 bg-amber-500 text-stone-950 p-4 rounded-2xl w-fit font-bold shadow-md shadow-amber-500/20">
@@ -3331,7 +3450,7 @@
                             </div>
                             <h3 class="font-extrabold text-amber-400 text-lg mb-1">{{ $settings['partnership_tier_3_title'] ?? 'Keuntungan &amp; Reward' }}</h3>
                             <p class="text-stone-400 text-[10px] uppercase font-bold tracking-wider mb-6">{{ $settings['partnership_tier_3_subtitle'] ?? 'Potensi Syiar Kemitraan' }}</p>
-                            
+
                             <div class="space-y-4">
                                 <!-- Komisi -->
                                 <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
@@ -3339,7 +3458,7 @@
                                     <p class="text-xl font-black mt-0.5">{{ $settings['partnership_reward_1_value'] ?? 'Hingga Rp 2.000.000' }}</p>
                                     <p class="text-[10px] text-stone-400 mt-1 leading-snug">{{ $settings['partnership_reward_1_desc'] ?? 'Pendapatan langsung per jemaah yang melakukan pelunasan.' }}</p>
                                 </div>
-                                
+
                                 <!-- Reward -->
                                 <div class="bg-white/5 border border-white/10 rounded-2xl p-4">
                                     <p class="text-[9px] text-amber-500 font-bold uppercase tracking-wider">{{ $settings['partnership_reward_2_label'] ?? 'Reward Prestasi' }}</p>
@@ -3441,209 +3560,7 @@
     </main>
 
     <!-- BEGIN: Footer -->
-    <footer class="bg-gradient-to-b from-blue-700 to-blue-800 text-white py-16 md:py-24 relative overflow-hidden animate-fade-in" id="kontak" data-purpose="main-footer">
-        <!-- Thin glowing gradient border at the top -->
-        <div class="absolute top-0 inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-blue-500/30 to-transparent"></div>
-        
-        <!-- Faint blue ambient glow -->
-        <div class="absolute -right-20 -bottom-20 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[120px] pointer-events-none"></div>
-        <div class="absolute -left-20 -top-20 w-[500px] h-[500px] bg-blue-600/3 rounded-full blur-[100px] pointer-events-none"></div>
-        
-        <!-- Giant Centered Branding Watermark -->
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0">
-            <span class="text-[12vw] font-black text-white/[0.06] uppercase tracking-[0.2em] leading-none whitespace-nowrap font-heading">
-                IZI TRAVEL
-            </span>
-        </div>
-        
-        <div class="max-w-[85rem] mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 mb-16">
-                <!-- Col 1: Branding & Socials (4 Span) -->
-                <div class="lg:col-span-4 space-y-6">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO WHITE.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-11 w-auto object-contain" width="480" height="217" loading="lazy" decoding="async" />
-                    <p class="text-stone-400 text-sm leading-relaxed font-light">
-                        {{ $settings['site_description'] ?? 'IZI Travel berkomitmen memberikan pelayanan perjalanan ibadah Umrah dan Haji terbaik secara profesional, amanah, dan terpercaya demi kenyamanan ibadah Anda.' }}
-                    </p>
-                    <div class="space-y-3">
-                        <h3 class="text-[10px] font-extrabold uppercase tracking-widest text-stone-500">Koneksi Media Sosial</h3>
-                        <div class="flex flex-wrap gap-2.5">
-                            @if(isset($settings['social_facebook']) && !empty($settings['social_facebook']))
-                            <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_facebook'] }}" target="_blank" aria-label="Facebook">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path>
-                                </svg>
-                            </a>
-                            @endif
-                            @if(isset($settings['social_instagram']) && !empty($settings['social_instagram']))
-                            <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_instagram'] }}" target="_blank" aria-label="Instagram">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.805.249 2.227.412.56.216.96.474 1.38.894.42.42.678.82.894 1.38.163.422.358 1.057.412 2.227.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.054 1.17-.249 1.805-.412 2.227-.216.56-.474.96-.894 1.38-.42.42-.82.678-1.38.894-.422.163-1.057.358-2.227.412-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.054-1.805-.249-2.227-.412-.56-.216-.96-.474-1.38-.894-.42-.42-.678-.82-.894-1.38-.163-.422-.358-1.057-.412-2.227-.058-1.266-.07-1.646-.07-4.85s.012-3.584.07-4.85c.054-1.17.249-1.805.412-2.227.216-.56.474-.96.894-1.38.42-.42.82-.678 1.38-.894.422-.163 1.057-.358 2.227-.412 1.266-.058 1.646-.07 4.85-.07zM12 0C8.741 0 8.333.014 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126s1.384 1.078 2.126 1.384c.766.296 1.636.499 2.913.558C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384s1.078-1.384 1.384-2.126c.296-.765.499-1.636.558-2.913.058-1.28.072-1.689.072-4.948 0-3.259-.014-3.668-.072-4.948-.06-1.277-.262-2.148-.558-2.913-.306-.788-.718-1.459-1.384-2.126s-1.384-1.078-2.126-1.384c-.765-.296-1.636-.499-2.913-.558C15.668.014 15.259 0 12 0z"></path>
-                                    <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4.162 4.162 0 110-8.324 4.162 4.162 0 010 8.324zM18.406 4.406a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z"></path>
-                                </svg>
-                            </a>
-                            @endif
-                            @if(isset($settings['social_youtube']) && !empty($settings['social_youtube']))
-                            <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_youtube'] }}" target="_blank" aria-label="YouTube">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                    <path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.872.505 9.377.505 9.377.505s7.505 0 9.377-.505a3.017 3.017 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path>
-                                </svg>
-                            </a>
-                            @endif
-                            @if(isset($settings['social_tiktok']) && !empty($settings['social_tiktok']))
-                            <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_tiktok'] }}" target="_blank" aria-label="TikTok">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"></path>
-                                </svg>
-                            </a>
-                            @endif
-                            @if(isset($settings['social_twitter']) && !empty($settings['social_twitter']))
-                            <a class="w-9 h-9 bg-white/5 hover:bg-amber-500/10 hover:border-amber-500/50 text-white hover:text-amber-400 border border-white/10 rounded-xl flex items-center justify-center transition-all duration-300 active:scale-95 shadow-sm" href="{{ $settings['social_twitter'] }}" target="_blank" aria-label="Twitter">
-                                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                                </svg>
-                            </a>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Col 2: Quick Links (2 Span) -->
-                <div class="lg:col-span-2 space-y-6">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Menu Utama</h3>
-                    <ul class="space-y-3.5 text-xs text-stone-400">
-                        <li>
-                            <a href="{{ url('/#beranda') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Beranda
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#tentang-kami') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Tentang Kami
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#paket-umrah') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Paket Umrah
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('public.jemaah.tracking') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Status Keberangkatan
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#galeri') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Galeri Kegiatan
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#testimoni') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Testimoni Jemaah
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#artikel') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Berita &amp; Artikel
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/#kemitraan') }}" class="hover:text-amber-400 transition duration-200 flex items-center gap-2 group/link">
-                                <i data-lucide="chevron-right" class="w-3.5 h-3.5 text-amber-500/60 group-hover/link:text-amber-500 group-hover/link:translate-x-0.5 transition-all"></i>
-                                Program Kemitraan
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Col 3: Hubungi Kami (3 Span) -->
-                <div class="lg:col-span-3 space-y-6">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">{{ $settings['footer_contact_heading'] ?? 'Hubungi Kami' }}</h3>
-                    <ul class="space-y-4 text-xs text-stone-400">
-                        <li class="flex items-start gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
-                                <i data-lucide="map-pin" class="w-4 h-4"></i>
-                            </span>
-                            <span class="leading-relaxed group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_address'] ?? 'Gedung IZI Travel, Jl. H. R. Rasuna Said Kav. X-7, Kuningan, Jakarta Selatan, DKI Jakarta 12940' }}</span>
-                        </li>
-                        <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
-                                <i data-lucide="phone" class="w-4 h-4"></i>
-                            </span>
-                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_phone'] ?? '+62 21 5200 8888' }}</span>
-                        </li>
-                        <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
-                                <i data-lucide="mail" class="w-4 h-4"></i>
-                            </span>
-                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['contact_email'] ?? 'info@izitravel.co.id' }}</span>
-                        </li>
-                        <li class="flex items-center gap-3.5 group/item">
-                            <span class="w-8 h-8 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center flex-shrink-0 text-amber-500 group-hover/item:bg-amber-500 group-hover/item:text-stone-950 group-hover/item:border-amber-500 transition duration-300">
-                                <i data-lucide="clock" class="w-4 h-4"></i>
-                            </span>
-                            <span class="group-hover/item:text-stone-200 transition duration-200">{{ $settings['office_hours'] ?? 'Senin - Sabtu: 08:00 - 17:00' }}</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Col 4: Maps & Legalitas (3 Span) -->
-                <div class="lg:col-span-3 space-y-6">
-                    <h3 class="text-xs font-black uppercase tracking-widest text-amber-500 border-l-2 border-amber-500 pl-3">Legalitas &amp; Lokasi</h3>
-                    <!-- Google Maps Wrapper -->
-                    <div class="rounded-2xl overflow-hidden border border-white/10 shadow-2xl h-28 relative group transition duration-300 hover:border-blue-500/30">
-                        @if(isset($settings['contact_gmaps']) && !empty($settings['contact_gmaps']))
-                            <iframe src="{{ $settings['contact_gmaps'] }}" title="Lokasi Kantor IZI Travel" class="w-full h-full border-0 grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition duration-500" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                        @else
-                            <img src="{{ asset('images/map_thumbnail.webp') }}" alt="Google Maps Pin" class="w-full h-28 object-cover transition duration-500 group-hover:scale-105" width="600" height="600" loading="lazy" decoding="async" />
-                        @endif
-                        <div class="absolute inset-0 bg-stone-950/40 group-hover:bg-stone-950/10 transition duration-300 pointer-events-none flex items-end p-2.5">
-                            <span class="text-[9px] font-bold text-white/80 bg-stone-900/90 backdrop-blur-sm px-2 py-1 rounded-md border border-white/5 flex items-center gap-1 shadow-sm">
-                                <i data-lucide="map" class="w-2.5 h-2.5 text-amber-500"></i>
-                                Lokasi Kantor Pusat
-                            </span>
-                        </div>
-                    </div>
-                    <!-- Legalitas Badge Box -->
-                    <div class="relative overflow-hidden bg-gradient-to-br from-amber-500/10 via-amber-600/[0.03] to-transparent border border-amber-500/25 rounded-2xl p-5 shadow-[0_8px_32px_0_rgba(217,119,6,0.05)] backdrop-blur-sm group hover:border-amber-500/40 transition duration-300">
-                        <div class="absolute -right-6 -bottom-6 w-20 h-20 bg-amber-500/10 rounded-full blur-xl pointer-events-none group-hover:bg-amber-500/20 transition duration-300"></div>
-                        <div class="flex items-center gap-3.5 mb-3">
-                            <div class="w-10 h-10 rounded-xl bg-amber-500/15 border border-amber-500/35 flex items-center justify-center text-amber-400 group-hover:scale-110 transition duration-300">
-                                <i data-lucide="award" class="w-5.5 h-5.5"></i>
-                            </div>
-                            <div>
-                                <span class="text-[10px] text-amber-400 font-black tracking-widest block uppercase">Izin Resmi PPIU</span>
-                                <span class="text-[11px] text-stone-400 font-bold uppercase tracking-wider block mt-0.5">Kemenag RI</span>
-                            </div>
-                        </div>
-                        <p class="text-base font-black tracking-widest text-stone-100 font-heading">
-                            No: {{ $settings['footer_ppiu_number'] ?? '91202054619660001' }}
-                        </p>
-                        <p class="text-[10px] text-stone-400 mt-2 flex items-center gap-1.5 font-medium">
-                            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-emerald-400"></i>
-                            Terakreditasi A Penyelenggara Umrah
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bottom Copyright bar -->
-            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-stone-500">
-                <p>&copy; {{ date('Y') }} {{ $settings['site_name'] ?? 'IZI Travel' }}. All rights reserved.</p>
-                <div class="flex gap-6 font-light">
-                    <a href="{{ route('public.terms') }}" class="hover:text-amber-500 transition duration-200">Syarat &amp; Ketentuan</a>
-                    <a href="{{ route('public.privacy') }}" class="hover:text-amber-500 transition duration-200">Kebijakan Privasi</a>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- END: Footer -->
+    @include('public.partials.footer')
 
     <!-- Lucide Icons: bundled via resources/js/app.js (window.lucide) -->
     <script>
@@ -3697,7 +3614,7 @@
                 lightboxImg.classList.add('opacity-100');
             } else {
                 let embedUrl = '';
-                
+
                 if (item.video_platform === 'youtube') {
                     embedUrl = `https://www.youtube.com/embed/${item.video_id}?autoplay=1`;
                 } else if (item.video_platform === 'instagram') {
@@ -3705,7 +3622,7 @@
                 } else if (item.video_platform === 'vimeo') {
                     embedUrl = `https://player.vimeo.com/video/${item.video_id}?autoplay=1`;
                 }
-                
+
                 lightboxIframe.setAttribute('src', embedUrl);
                 lightboxVideoContainer.classList.remove('hidden');
             }
@@ -3783,7 +3700,7 @@
         const parseVideoLink = (link) => {
             if (!link) return null;
             link = link.trim();
-            
+
             // 1. YouTube
             const youtubeRegex = /(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i;
             const youtubeMatch = link.match(youtubeRegex);
@@ -3824,7 +3741,7 @@
                 const videoUrl = btn.getAttribute('data-video-url');
                 const name = btn.getAttribute('data-name');
                 const location = btn.getAttribute('data-location');
-                
+
                 const parsed = parseVideoLink(videoUrl);
                 if (parsed) {
                     const item = {
@@ -3940,118 +3857,16 @@
 
 
 
-            // 2. Nav Header Capsule Transformation & Scrollspy Active States
-            const navHeader = document.querySelector('header nav');
-            const sections = document.querySelectorAll('section[id], footer[id]');
-            const desktopNavLinks = document.querySelectorAll('.hidden.md\\:flex a');
-            const mobileNavLinks = document.querySelectorAll('.md\\:hidden a');
-
+            // The shared public navigation manages its own transparent and scrolled states.
             const scrollProgressBar = document.getElementById('scroll-progress-bar');
-
-            // Cache section offsets to prevent forced reflows during scrollspy calculations
-            let cachedSections = [];
-            const recacheSections = () => {
-                cachedSections = [];
-                sections.forEach(section => {
-                    cachedSections.push({
-                        id: section.getAttribute('id'),
-                        top: section.offsetTop,
-                        height: section.offsetHeight
-                    });
-                });
-            };
-
-            // Initial cache and cache updates on resize / load
-            recacheSections();
-            window.addEventListener('resize', recacheSections);
-            window.addEventListener('load', recacheSections);
-
             const onScrollHandler = () => {
-                // Scroll progress bar (mengisi saat scroll ke bawah)
                 if (scrollProgressBar) {
                     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
                     const ratio = docHeight > 0 ? Math.min(window.scrollY / docHeight, 1) : 0;
                     scrollProgressBar.style.transform = `scaleX(${ratio})`;
                 }
-
-                const siteLogo = navHeader.querySelector('img');
-                const navCta = navHeader.querySelector('a.magnetic-button');
-
-                // Header shrink & glassmorphism
-                if (window.scrollY > 30) {
-                    navHeader.classList.add('bg-white/90', 'backdrop-blur-md', 'border-white/60', 'shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)]', '!py-2');
-                    navHeader.classList.remove('bg-transparent', 'border-transparent', 'shadow-none', 'py-3');
-                    if (siteLogo) {
-                        siteLogo.classList.remove('brightness-0', 'invert');
-                    }
-                    if (navCta) {
-                        navCta.classList.add('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'shadow-blue-500/10');
-                        navCta.classList.remove('bg-[var(--primary-yellow)]', 'text-[var(--primary-blue)]', 'hover:brightness-95', 'shadow-[rgba(49,102,177,0.18)]');
-                    }
-                } else {
-                    navHeader.classList.remove('bg-white/90', 'backdrop-blur-md', 'border-white/60', 'shadow-[0_10px_35px_-10px_rgba(0,0,0,0.05)]', '!py-2');
-                    navHeader.classList.add('bg-transparent', 'border-transparent', 'shadow-none', 'py-3');
-                    if (siteLogo) {
-                        siteLogo.classList.add('brightness-0', 'invert');
-                    }
-                    if (navCta) {
-                        navCta.classList.remove('bg-blue-600', 'text-white', 'hover:bg-blue-700', 'shadow-blue-500/10');
-                        navCta.classList.add('bg-[var(--primary-yellow)]', 'text-[var(--primary-blue)]', 'hover:brightness-95', 'shadow-[rgba(49,102,177,0.18)]');
-                    }
-                }
-
-                // Scrollspy active section identifier using cached heights
-                let currentId = 'beranda';
-                const scrollPosition = window.scrollY + 160;
-
-                cachedSections.forEach(sec => {
-                    if (scrollPosition >= sec.top && scrollPosition < sec.top + sec.height) {
-                        currentId = sec.id;
-                    }
-                });
-
-                const isTop = window.scrollY <= 30;
-
-                const setActiveNav = (links, activeClasses, inactiveClasses, useTopStyles) => {
-                    links.forEach(link => {
-                        const href = link.getAttribute('href');
-                        if (href === `#${currentId}`) {
-                            link.className = useTopStyles
-                                ? "relative text-[var(--primary-yellow)] text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full"
-                                : activeClasses;
-                        } else {
-                            link.className = useTopStyles
-                                ? "relative text-white/70 hover:text-white text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-[var(--primary-yellow)] after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300"
-                                : inactiveClasses;
-                        }
-                    });
-                };
-
-                setActiveNav(
-                    desktopNavLinks,
-                    "relative text-blue-600 text-[14px] font-extrabold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-blue-600 after:rounded-full",
-                    "relative text-stone-600 hover:text-blue-600 text-[14px] font-bold tracking-tight px-2.5 py-2 transition duration-200 after:absolute after:bottom-0.5 after:left-2.5 after:right-2.5 after:h-[2px] after:bg-blue-600 after:rounded-full after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300",
-                    isTop
-                );
-                setActiveNav(
-                    mobileNavLinks, 
-                    "flex flex-col items-center gap-1 text-blue-600 transition active:scale-95", 
-                    "flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-stone-500",
-                    false
-                );
             };
-
-            // Throttle scroll event to prevent layout thrashing and main thread blocking
-            let isScrolling = false;
-            window.addEventListener('scroll', () => {
-                if (!isScrolling) {
-                    window.requestAnimationFrame(() => {
-                        onScrollHandler();
-                        isScrolling = false;
-                    });
-                    isScrolling = true;
-                }
-            });
+            window.addEventListener("scroll", onScrollHandler, { passive: true });
             onScrollHandler();
 
             // 2b. Typewriter effect for Hero Tagline
@@ -4086,7 +3901,7 @@
 
                     setTimeout(type, typeSpeed);
                 };
-                
+
                 // Start after initial delay
                 setTimeout(type, 1800);
             }
@@ -4125,7 +3940,7 @@
             const togglePlayBtn = document.getElementById('toggle-play-testimonial');
             const playPauseIcon = document.getElementById('play-pause-icon');
             const sliderContainer = document.getElementById('testimonial-slider-container');
-            
+
             if (track && slides.length > 0) {
                 let currentIndex = 0;
                 let itemsPerSlide = 1;
@@ -4164,7 +3979,7 @@
                     if (!dotsContainer) return;
                     dotsContainer.innerHTML = '';
                     const totalDots = Math.max(1, slides.length - itemsPerSlide + 1);
-                    
+
                     for (let i = 0; i < totalDots; i++) {
                         const dot = document.createElement('span');
                         dot.className = `w-2.5 h-2.5 rounded-full cursor-pointer transition-all duration-300 ${i === currentIndex ? 'bg-blue-600 w-6' : 'bg-stone-200 hover:bg-stone-400'}`;
@@ -4242,7 +4057,7 @@
                 const startProgressTimer = () => {
                     lastTime = performance.now();
                     cancelAnimationFrame(progressAnimID);
-                    
+
                     const animateProgress = () => {
                         const now = performance.now();
                         const delta = now - lastTime;
@@ -4340,11 +4155,11 @@
                     isDragging = false;
                     cancelAnimationFrame(animationID);
                     track.classList.remove('grabbing');
-                    
+
                     const movedBy = currentTranslate - prevTranslate;
                     const slideWidth = slides[0].getBoundingClientRect().width;
                     const maxIndex = Math.max(0, slides.length - itemsPerSlide);
-                    
+
                     if (movedBy < -slideWidth * 0.2) {
                         if (currentIndex < maxIndex) {
                             currentIndex += 1;
@@ -4358,7 +4173,7 @@
                             currentIndex = maxIndex;
                         }
                     }
-                    
+
                     setPositionByIndex();
                     resetAutoplayTimer();
                 };
@@ -4404,10 +4219,10 @@
             document.querySelectorAll('.faq-details').forEach(el => {
                 const summary = el.querySelector('summary');
                 const wrapper = el.querySelector('.faq-content-wrapper');
-                
+
                 summary.addEventListener('click', (e) => {
                     e.preventDefault();
-                    
+
                     if (el.hasAttribute('open')) {
                         wrapper.style.gridTemplateRows = '0fr';
                         const onTransitionEnd = (evt) => {
@@ -4644,7 +4459,7 @@
                     }
 
                     const filter = btn.getAttribute('data-filter');
-                    
+
                     articleCards.forEach(card => {
                         const category = card.getAttribute('data-category');
                         if (filter === 'all' || category === filter) {
@@ -4682,11 +4497,11 @@
                 const targetDateStr = countdownEl.getAttribute('data-date');
                 if (targetDateStr) {
                     const targetDate = new Date(targetDateStr + 'T00:00:00');
-                    
+
                     const updateCountdown = () => {
                         const now = new Date();
                         const diff = targetDate - now;
-                        
+
                         if (diff <= 0) {
                             document.getElementById('countdown-days').textContent = '00';
                             document.getElementById('countdown-hours').textContent = '00';
@@ -4694,18 +4509,18 @@
                             document.getElementById('countdown-secs').textContent = '00';
                             return;
                         }
-                        
+
                         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
                         const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                         const secs = Math.floor((diff % (1000 * 60)) / 1000);
-                        
+
                         document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
                         document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
                         document.getElementById('countdown-mins').textContent = String(mins).padStart(2, '0');
                         document.getElementById('countdown-secs').textContent = String(secs).padStart(2, '0');
                     };
-                    
+
                     updateCountdown();
                     setInterval(updateCountdown, 1000);
                 }
@@ -4773,7 +4588,7 @@
             // Expose setHaramainTab to global window scope
             window.setHaramainTab = (tab) => {
                 currentTab = tab;
-                
+
                 // Toggle tab buttons visual classes
                 const tabs = ['makkah', 'madinah', 'wib', 'wita'];
                 tabs.forEach(t => {
@@ -4793,7 +4608,7 @@
 
                 // Render current timings
                 renderPrayerTimings();
-                
+
                 // Force clock update immediately
                 updateClock();
             };
@@ -4824,7 +4639,7 @@
                             Isya: timings.Isha
                         };
                     }
-                    
+
                     // Fetch Madinah (coordinates: Lat 24.4672, Lon 39.6111)
                     const madinahRes = await fetch('https://api.aladhan.com/v1/timings?latitude=24.4672&longitude=39.6111&method=4');
                     if (madinahRes.ok) {
@@ -4866,7 +4681,7 @@
                             Isya: timings.Isha
                         };
                     }
-                    
+
                     // Re-render after successful fetches
                     renderPrayerTimings();
                 } catch (e) {
@@ -4885,7 +4700,7 @@
 
             const updateNextPrayerCountdown = (localTime) => {
                 const timings = prayerTimings[currentTab];
-                
+
                 // Parse prayer times into minutes since midnight
                 const parseToMinutes = (timeStr) => {
                     const parts = timeStr.split(':');
@@ -4933,7 +4748,7 @@
 
                 const nextPrayerNameEl = document.getElementById('next-prayer-name');
                 const nextPrayerCountdownEl = document.getElementById('next-prayer-countdown');
-                
+
                 if (nextPrayerNameEl) nextPrayerNameEl.textContent = nextPrayer.name;
                 if (nextPrayerCountdownEl) nextPrayerCountdownEl.textContent = formattedCountdown;
             };
@@ -4993,10 +4808,10 @@
                     const autoplayEmbed = streamData.embed.includes('?') 
                         ? streamData.embed + '&autoplay=1&mute=1' 
                         : streamData.embed + '?autoplay=1&mute=1';
-                    
+
                     haramainIframe.setAttribute('src', autoplayEmbed);
                     haramainIframe.classList.remove('hidden');
-                    
+
                     if (haramainFacade) {
                         haramainFacade.classList.add('opacity-0', 'pointer-events-none');
                         setTimeout(() => haramainFacade.classList.add('hidden'), 500);
@@ -5016,7 +4831,7 @@
                         const autoplayEmbed = streamData.embed.includes('?') 
                             ? streamData.embed + '&autoplay=1&mute=1' 
                             : streamData.embed + '?autoplay=1&mute=1';
-                        
+
                         haramainIframe.setAttribute('src', 'about:blank');
                         setTimeout(() => {
                             haramainIframe.setAttribute('src', autoplayEmbed);
@@ -5035,7 +4850,7 @@
                         const data = await res.json();
                         const temp = Math.round(data.current_weather.temperature);
                         const code = data.current_weather.weathercode;
-                        
+
                         // Map code to Indonesian description and Lucide icon name
                         let desc = 'Cerah';
                         let iconName = 'sun';
@@ -5081,7 +4896,7 @@
                     // Fluctuates slightly up and down to feel live
                     const fluctuation = Math.floor(Math.random() * 50) - 25; // +/- 25
                     baseDensity += fluctuation;
-                    
+
                     // Format with comma
                     densityCounterEl.textContent = baseDensity.toLocaleString('id-ID');
                 }
@@ -5091,10 +4906,10 @@
             renderPrayerTimings();
             updateClock();
             setInterval(updateClock, 1000);
-            
+
             fetchPrayerTimes();
             fetchMakkahWeather();
-            
+
             setInterval(updateDensityCounter, 3000);
 
             // Re-fetch weather and times every 30 minutes
@@ -5105,103 +4920,9 @@
         });
     </script>
 
-    <!-- BEGIN: Mobile Bottom Navigation Bar (App-Like) -->
-    <div class="md:hidden fixed bottom-4 left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] max-w-md bg-white/95 backdrop-blur-md border border-stone-100 rounded-full shadow-[0_-10px_35px_-10px_rgba(0,0,0,0.1),_0_10px_35px_-10px_rgba(0,0,0,0.05)] px-6 py-3 z-50">
-        <div class="flex items-center justify-between text-stone-500 font-medium">
-            <a href="#beranda" class="flex flex-col items-center gap-1 text-blue-600 transition active:scale-95">
-                <i data-lucide="home" class="w-5 h-5"></i>
-                <span class="text-[9px] font-extrabold uppercase tracking-wider">Beranda</span>
-            </a>
-            <a href="#paket-umrah" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95">
-                <i data-lucide="compass" class="w-5 h-5"></i>
-                <span class="text-[9px] font-extrabold uppercase tracking-wider">Paket</span>
-            </a>
-            <a href="#galeri" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95">
-                <i data-lucide="image" class="w-5 h-5"></i>
-                <span class="text-[9px] font-extrabold uppercase tracking-wider">Galeri</span>
-            </a>
-            <a href="#artikel" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95">
-                <i data-lucide="book-open" class="w-5 h-5"></i>
-                <span class="text-[9px] font-extrabold uppercase tracking-wider">Artikel</span>
-            </a>
-            <button id="mobile-bottom-menu-trigger" class="flex flex-col items-center gap-1 hover:text-blue-600 transition active:scale-95 text-stone-500">
-                <i data-lucide="menu" class="w-5 h-5"></i>
-                <span class="text-[9px] font-extrabold uppercase tracking-wider">Menu</span>
-            </button>
-        </div>
-    </div>
-    <!-- END: Mobile Bottom Navigation Bar -->
 
-    <!-- BEGIN: Mobile Navigation Drawer (Modern Soft UI Overlay) -->
-    <div id="mobile-drawer" class="fixed inset-0 z-[100] invisible">
-        <!-- Backdrop with soft blur -->
-        <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-stone-900/40 backdrop-blur-md opacity-0"></div>
 
-        <!-- Drawer Content -->
-        <div id="mobile-drawer-content" class="absolute top-0 right-0 h-full w-[290px] sm:w-[340px] bg-white/95 backdrop-blur-xl border-l border-stone-100 shadow-2xl p-6 flex flex-col justify-between translate-x-full rounded-l-[2rem]">
-            <!-- Scrollable content area -->
-            <div class="flex-1 overflow-y-auto scrollbar-none space-y-6 pr-1">
-                <!-- Header inside drawer -->
-                <div class="flex items-center justify-between pb-4 border-b border-stone-100">
-                    <img src="{{ isset($settings['site_logo']) ? (str_starts_with($settings['site_logo'], 'images/') ? asset($settings['site_logo']) : asset('storage/' . $settings['site_logo'])) : asset('images/Izi LOGO.webp') }}" alt="{{ $settings['site_name'] ?? 'IZI Travel' }}" class="h-7 w-auto object-contain" width="180" height="28" decoding="async" />
-                    <button id="mobile-drawer-close" aria-label="Tutup menu" class="w-8 h-8 rounded-full bg-stone-50 border border-stone-100 flex items-center justify-center text-stone-500 hover:text-stone-800 transition active:scale-95 shadow-sm">
-                        <i data-lucide="x" class="w-4 h-4"></i>
-                    </button>
-                </div>
-                
-                <!-- Navigation Links (Exact 9 items order) -->
-                <div class="flex flex-col space-y-1">
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#beranda">
-                        <span class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100/50"><i data-lucide="home" class="w-4 h-4"></i></span>
-                        Beranda
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#tentang-kami">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="users" class="w-4 h-4"></i></span>
-                        Tentang Kami
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#paket-umrah">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="compass" class="w-4 h-4"></i></span>
-                        Paket Umrah
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="{{ route('public.jemaah.tracking') }}">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="search-check" class="w-4 h-4"></i></span>
-                        Status Keberangkatan
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#galeri">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="image" class="w-4 h-4"></i></span>
-                        Galeri
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#testimoni">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="message-square" class="w-4 h-4"></i></span>
-                        Testimoni
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#artikel">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="book-open" class="w-4 h-4"></i></span>
-                        Artikel
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="#kemitraan">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="award" class="w-4 h-4"></i></span>
-                        Kemitraan
-                    </a>
-                    <a class="mobile-nav-link flex items-center gap-3.5 px-4 py-2.5 rounded-2xl text-stone-700 hover:text-blue-600 hover:bg-blue-50/50 transition duration-200 font-semibold text-xs" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
-                        <span class="w-8 h-8 rounded-xl bg-stone-50 text-stone-500 flex items-center justify-center border border-stone-200/50"><i data-lucide="phone-call" class="w-4 h-4"></i></span>
-                        Kontak
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Fixed Bottom Section -->
-            <div class="pt-4 border-t border-stone-100 flex flex-col gap-3 mt-4 shrink-0">
-                <a class="w-full bg-blue-600 text-white py-2.5 rounded-xl font-bold hover:bg-blue-700 transition duration-200 flex items-center justify-center gap-2 text-xs shadow-lg shadow-blue-500/10 active:scale-95" href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path>
-                    </svg>
-                    <span>Konsultasi Syiar</span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- END: Mobile Navigation Drawer -->
+
 
     <!-- BEGIN: Floating WhatsApp Button -->
     <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel" target="_blank" class="fixed bottom-20 md:bottom-6 right-6 z-50 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white p-4 rounded-full shadow-2xl shadow-emerald-500/30 flex items-center justify-center animate-pulse-glow hover:scale-110 active:scale-95 transition-all duration-300 group" aria-label="Hubungi WhatsApp">
@@ -5247,42 +4968,8 @@
         </div>
     </div>
 
-    <!-- Drawer Script -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const mobileBottomMenuTrigger = document.getElementById('mobile-bottom-menu-trigger');
-            const mobileDrawer = document.getElementById('mobile-drawer');
-            const mobileDrawerBackdrop = document.getElementById('mobile-drawer-backdrop');
-            const mobileDrawerContent = document.getElementById('mobile-drawer-content');
-            const mobileDrawerClose = document.getElementById('mobile-drawer-close');
-            const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
 
-            const openDrawer = () => {
-                mobileDrawer.classList.remove('invisible');
-                mobileDrawer.classList.add('flex');
-
-                panelIn(mobileDrawerBackdrop, { opacity: [0, 1] });
-                panelIn(mobileDrawerContent, { x: ['100%', '0%'] });
-            };
-
-            const closeDrawer = async () => {
-                await Promise.all([
-                    panelOut(mobileDrawerBackdrop, { opacity: [1, 0] }),
-                    panelOut(mobileDrawerContent, { x: ['0%', '100%'] }),
-                ]);
-
-                mobileDrawer.classList.add('invisible');
-                mobileDrawer.classList.remove('flex');
-            };
-
-            if (mobileBottomMenuTrigger) mobileBottomMenuTrigger.addEventListener('click', openDrawer);
-            if (mobileDrawerClose) mobileDrawerClose.addEventListener('click', closeDrawer);
-            if (mobileDrawerBackdrop) mobileDrawerBackdrop.addEventListener('click', closeDrawer);
-            
-            mobileNavLinks.forEach(link => {
-                link.addEventListener('click', closeDrawer);
-            });
-        });
 
         // Global Modal Logic for Video Testimonials
         window.closeVideoTestimonialModal = async () => {

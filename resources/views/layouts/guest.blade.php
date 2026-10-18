@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>Masuk | {{ config('app.name', 'IZI Travel') }}</title>
 
         <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
         <link rel="apple-touch-icon" href="{{ asset('images/favicon.png') }}">
@@ -19,9 +19,8 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <style>
-            body {
-                font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
-            }
+            body { font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
+            :focus-visible { outline: 3px solid #3166b1; outline-offset: 3px; }
 
             h1, h2, .font-islamic {
                 font-family: 'El Messiri', 'Plus Jakarta Sans', sans-serif;
@@ -34,18 +33,18 @@
         </style>
     </head>
     <body class="text-slate-800 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-10 sm:pt-0 bg-stone-50 auth-pattern px-4">
-            <a href="/" class="mb-2">
+        <main class="min-h-screen flex flex-col sm:justify-center items-center pt-8 sm:pt-0 bg-[#f5f7fb] auth-pattern px-4">
+            <a href="/" class="mb-2 rounded-xl" aria-label="IZI Travel, kembali ke beranda">
                 <img src="{{ asset('images/Izi LOGO.webp') }}" alt="IZI Travel" class="h-12 w-auto" width="480" height="168">
             </a>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-8 sm:px-10 sm:py-10 bg-white border border-slate-100 shadow-xl shadow-slate-900/5 overflow-hidden sm:rounded-3xl">
+            <div class="w-full sm:max-w-md mt-6 px-6 py-8 sm:px-10 sm:py-10 bg-white border border-slate-200 shadow-xl shadow-slate-900/5 overflow-hidden rounded-3xl">
                 {{ $slot }}
             </div>
 
-            <a href="/" class="mt-6 mb-10 text-xs font-bold text-slate-400 hover:text-blue-600 transition uppercase tracking-wider">
+            <a href="/" class="mt-6 mb-10 min-h-11 inline-flex items-center text-xs font-bold text-[#3166b1] hover:text-[#102b52] transition uppercase tracking-wider">
                 &larr; Kembali ke Beranda
             </a>
-        </div>
+        </main>
     </body>
 </html>

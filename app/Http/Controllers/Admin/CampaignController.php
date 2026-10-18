@@ -88,6 +88,9 @@ class CampaignController extends Controller
 
     public function destroy(string $id)
     {
+        if (\App\Models\Lead::where('campaign_id', $id)->exists()) {
+            return redirect()->route('admin.campaigns.index')->with('status', 'Campaign yang dipakai lead tidak dapat dihapus. Nonaktifkan saja.');
+        }
         Campaign::findOrFail($id)->delete();
 
         return redirect()->route('admin.campaigns.index')->with('status', 'Campaign berhasil dihapus.');

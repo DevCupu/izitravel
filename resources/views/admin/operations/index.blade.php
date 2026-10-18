@@ -89,7 +89,7 @@
                     <button type="button" @click="selectedIds = []" class="text-xs font-bold text-blue-700 dark:text-blue-300 hover:underline">{{ __('Batal') }}</button>
                 </div>
                 <div class="overflow-x-auto">
-                    <table class="w-full text-sm min-w-[700px]">
+                    <table data-record-view class="w-full text-sm min-w-[700px]">
                         <thead><tr class="bg-slate-50/80 dark:bg-slate-900/50 text-[11px] uppercase tracking-wider text-slate-400"><th class="px-2 py-3 text-left"><input type="checkbox" :checked="allSelected" @change="toggleSelectAll($event.target.checked)" class="!w-4 !h-4 rounded"></th><th class="px-3 py-3 text-left">No</th><th class="px-3 py-3 text-left">{{ __('Jemaah') }}</th><th class="px-3 py-3 text-left">{{ __('No. Paspor') }}</th><th class="px-3 py-3 text-left">{{ __('Grup') }}</th><th class="px-5 py-3 text-right">{{ __('Kamar') }}</th></tr></thead>
                         <tbody class="divide-y divide-slate-100 dark:divide-slate-700/60">
                             @forelse ($registrations as $index => $registration)

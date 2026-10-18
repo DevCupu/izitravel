@@ -47,7 +47,8 @@
                 </a>
             </div>
 
-            <div class="divide-y divide-slate-100 dark:divide-slate-700">
+            <div data-record-views data-default-view="card" class="p-4">
+            <div data-record-cards class="divide-y divide-slate-100 dark:divide-slate-700">
                 @forelse ($campaign->ads as $ad)
                     @php
                         $trackingUrl = url('/chat?' . http_build_query([
@@ -99,6 +100,20 @@
                         <p class="text-sm font-bold text-slate-500 dark:text-slate-400">Belum ada ads dalam campaign ini.</p>
                     </div>
                 @endforelse
+            </div>
+            <div data-record-table hidden class="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-700">
+                <table class="w-full min-w-[740px] text-left text-sm">
+                    <thead class="bg-slate-50 text-xs text-slate-600 dark:bg-slate-900 dark:text-slate-300"><tr><th scope="col" class="px-4 py-3">Ads</th><th scope="col" class="px-4 py-3">Status</th><th scope="col" class="px-4 py-3">Tracking</th><th scope="col" class="px-4 py-3">Kunjungan</th><th scope="col" class="px-4 py-3">Aksi</th></tr></thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        @forelse ($campaign->ads as $ad)
+                            @php($trackingUrl = url('/chat?' . http_build_query(['utm_source' => 'meta', 'utm_medium' => 'paid_social', 'utm_campaign' => $campaign->utm_campaign, 'utm_content' => $ad->utm_content])))
+                            <tr class="align-top text-slate-700 dark:text-slate-200"><th scope="row" class="px-4 py-3 font-bold">{{ $ad->name }}</th><td class="px-4 py-3">{{ $ad->is_active ? 'Aktif' : 'Nonaktif' }}</td><td class="px-4 py-3"><code class="block max-w-64 truncate text-xs" title="{{ $trackingUrl }}">utm_content={{ $ad->utm_content }}</code><button type="button" x-data data-url="{{ $trackingUrl }}" @click="copyTrackingUrl($el.dataset.url)" class="mt-1 font-bold text-indigo-600">Salin link</button><a href="{{ $trackingUrl }}" target="_blank" rel="noopener" class="ml-2 font-bold text-indigo-600">Buka link</a></td><td class="px-4 py-3"><a href="{{ route('admin.chat-logs.index', ['campaign_id' => $campaign->id, 'campaign_ad_id' => $ad->id]) }}" class="font-bold text-blue-600 hover:underline">{{ $ad->visits_count }} kunjungan · {{ $ad->redirects_count }} arah WA</a></td><td class="whitespace-nowrap px-4 py-3"><a href="{{ route('admin.campaigns.ads.edit', [$campaign, $ad]) }}" class="font-bold text-blue-600 hover:underline">Edit</a><form method="POST" action="{{ route('admin.campaigns.ads.destroy', [$campaign, $ad]) }}" class="inline">@csrf @method('DELETE')<button type="button" x-data @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus ads &quot;{{ $ad->name }}&quot;? Data kunjungan lama tetap tersimpan.' })" class="ml-3 font-bold text-red-600 hover:underline">Hapus</button></form></td></tr>
+                        @empty
+                            <tr><td colspan="5" class="px-4 py-8 text-center text-slate-500">Belum ada ads dalam campaign ini.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             </div>
         </section>
     </div>

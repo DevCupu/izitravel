@@ -6,16 +6,20 @@
             </a>
             <div>
                 <h2 class="text-lg font-bold text-slate-900 dark:text-white leading-tight">
-                    {{ __('Tambah CS WhatsApp') }}
+                    {{ __('Tambah CS baru') }}
                 </h2>
                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 hidden sm:block">
-                    {{ __('Tambahkan customer service baru penerima kunjungan WhatsApp.') }}
+                    {{ __('Langkah 1 dari 2: atur nomor penerima chat.') }}
                 </p>
             </div>
         </div>
     </x-slot>
 
     <div class="max-w-4xl animate-fade-in-up">
+        <div class="mb-5 rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-[#102b52] dark:border-blue-900 dark:bg-blue-950/30 dark:text-blue-100">
+            <p class="font-bold">Setelah disimpan, buat akun login CS</p>
+            <p class="mt-1">Kami akan membuka halaman CS ini agar Anda dapat menambahkan email login. Kata sandi sementara muncul setelah akun dibuat.</p>
+        </div>
         <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 p-6 sm:p-8">
             <form method="POST" action="{{ route('admin.whatsapp-cs.store') }}" class="space-y-6">
                 @csrf
@@ -25,7 +29,7 @@
                 <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-700">
                     <button type="submit" class="inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.97] rounded-xl font-bold text-sm text-white transition-all duration-150 shadow-lg shadow-blue-500/20">
                         <i data-lucide="save" class="w-4 h-4"></i>
-                        {{ __('Simpan CS') }}
+                        {{ __('Simpan dan lanjut buat akun') }}
                     </button>
                     <a href="{{ route('admin.whatsapp-cs.index') }}" class="inline-flex items-center justify-center px-6 py-2.5 rounded-xl font-bold text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition">
                         {{ __('Batal') }}

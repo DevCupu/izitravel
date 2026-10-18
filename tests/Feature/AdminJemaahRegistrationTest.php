@@ -166,6 +166,30 @@ class AdminJemaahRegistrationTest extends TestCase
         $this->assertSame('missing', $regB->refresh()->items->firstWhere('type', 'visa')->status);
     }
 
+    public function test_documents_page_shows_visa_counts_and_editable_status_for_each_jemaah(): void
+    {
+        $rini = Jemaah::create(['name' => 'Rini Ladulu', 'passport_number' => 'VISA001']);
+        $budi = Jemaah::create(['name' => 'Budi Santoso', 'passport_number' => 'VISA002']);
+        $riniRegistration = Registration::create(['jemaah_id' => $rini->id, 'package_id' => $this->package->id, 'visa_status' => 'mofa_issued']);
+        Registration::create(['jemaah_id' => $budi->id, 'package_id' => $this->package->id, 'visa_status' => 'not_started']);
+
+        $this->actingAs($this->admin)->get(route('admin.documents.index'))
+            ->assertOk()
+            ->assertSee('Ringkasan visa')
+            ->assertSee('Data visa per jemaah')
+            ->assertSee('visa-status-'.$riniRegistration->id)
+            ->assertViewHas('visaCounts', fn ($counts) => (int) $counts['mofa_issued'] === 1 && (int) $counts['not_started'] === 1);
+
+        $this->actingAs($this->admin)->get(route('admin.documents.index', ['search' => 'Rini']))
+            ->assertOk()
+            ->assertViewHas('visaCounts', fn ($counts) => (int) $counts['mofa_issued'] === 1 && ! isset($counts['not_started']));
+
+        $this->actingAs($this->admin)->patch(route('admin.documents.visa-status.update', $riniRegistration), ['visa_status' => 'completed'])
+            ->assertRedirect();
+        $this->assertSame('completed', $riniRegistration->fresh()->visa_status);
+        $this->assertSame('completed', $riniRegistration->fresh()->items->firstWhere('type', 'visa')->status);
+    }
+
     public function test_jemaah_show_page_lists_gender_and_all_registrations(): void
     {
         $jemaah = Jemaah::create(['name' => 'Rini Ladulu Samauna', 'passport_number' => 'A1234567', 'gender' => 'female']);

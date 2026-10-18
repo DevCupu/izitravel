@@ -1,6 +1,8 @@
 
 
 import Alpine from 'alpinejs';
+import crmPipeline from './crm-pipeline';
+import initRecordViews from './record-views';
 import { createIcons, icons } from 'lucide';
 import { animate, inView, stagger, spring, scroll } from 'motion';
 
@@ -16,4 +18,13 @@ const reducedAnimate = (target, keyframes, options = {}) =>
     animate(target, keyframes, reducedMotionQuery.matches ? { duration: 0.01 } : options);
 window.Motion = { animate: reducedAnimate, inView, stagger, spring, scroll };
 
+Alpine.data('crmPipeline', crmPipeline);
 Alpine.start();
+
+// Shared Blade navigation and page content use the same icon renderer.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { initRecordViews(); window.lucide.createIcons(); }, { once: true });
+} else {
+    initRecordViews();
+    window.lucide.createIcons();
+}

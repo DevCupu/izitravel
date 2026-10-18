@@ -160,7 +160,7 @@
             <!-- Inside Album / All Media: Table Layout -->
             <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm animate-fade-in-up">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table data-record-view class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-50 dark:bg-slate-700/30 border-b border-slate-100 dark:border-slate-700 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                                 <th class="px-5 py-4 w-20 text-center">Urutan</th>
@@ -280,7 +280,8 @@
             @endif
         @else
             <!-- Album List View (Folder Mode) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in-up stagger-2">
+            <div data-record-views data-default-view="card">
+            <div data-record-cards class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in-up stagger-2">
                 @forelse ($albums as $album)
                     <div class="group bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 p-4 shadow-sm hover:shadow-lg transition-all duration-300 flex flex-col gap-4 relative overflow-hidden">
                         <!-- Clickable link wrapper for the folder area -->
@@ -352,6 +353,19 @@
                         </div>
                     </div>
                 @endforelse
+            </div>
+            <div data-record-table hidden class="overflow-x-auto rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-800">
+                <table class="w-full min-w-[660px] text-left text-sm">
+                    <thead class="border-b border-slate-200 bg-slate-50 text-xs text-slate-600 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300"><tr><th scope="col" class="px-4 py-3">Album</th><th scope="col" class="px-4 py-3">Media</th><th scope="col" class="px-4 py-3">Terakhir diperbarui</th><th scope="col" class="px-4 py-3">Aksi</th></tr></thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                        @forelse ($albums as $album)
+                            <tr class="text-slate-700 dark:text-slate-200"><th scope="row" class="px-4 py-3"><a href="{{ route('admin.galleries.index', ['album' => $album->name]) }}" class="flex items-center gap-3 font-bold text-[#102b52] hover:underline dark:text-white">@if ($album->cover_url)<img src="{{ $album->cover_url }}" alt="" class="size-12 rounded-lg object-cover">@endif <span>{{ $album->name }}</span></a></th><td class="px-4 py-3">{{ $album->items_count }}</td><td class="px-4 py-3">{{ \Carbon\Carbon::parse($album->last_updated)->diffForHumans() }}</td><td class="whitespace-nowrap px-4 py-3"><button type="button" @click="$dispatch('open-rename-album', { name: @js($album->name) })" class="font-bold text-blue-600 hover:underline">Ubah nama</button><form method="POST" action="{{ route('admin.galleries.delete-album') }}" class="inline">@csrf<input type="hidden" name="album_name" value="{{ $album->name }}"><button type="button" @click="$dispatch('confirm-delete', { form: $el.closest('form'), message: 'Hapus album &quot;{{ $album->name }}&quot; beserta seluruh foto dan video di dalamnya?' })" class="ml-3 font-bold text-red-600 hover:underline">Hapus</button></form></td></tr>
+                        @empty
+                            <tr><td colspan="4" class="px-4 py-8 text-center text-slate-500">Belum ada album atau galeri kegiatan.</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             </div>
 
             @if (isset($albumsData) && $albumsData->hasPages())

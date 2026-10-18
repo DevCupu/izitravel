@@ -855,8 +855,8 @@
 
                         <!-- Database Tables Table -->
                         <div class="border border-slate-100 dark:border-slate-700/80 rounded-2xl overflow-hidden shadow-sm">
-                            <div class="max-h-[420px] overflow-y-auto">
-                                <table class="w-full text-xs text-left">
+                            <div class="max-h-[420px] overflow-auto" tabindex="0" role="region" aria-label="Tabel database, gulir untuk melihat kolom lainnya">
+                                <table data-record-view class="w-full text-xs text-left">
                                     <thead class="bg-slate-50 dark:bg-slate-900/80 text-slate-500 font-bold uppercase tracking-wider sticky top-0 text-[10px]">
                                         <tr>
                                             <th class="py-3 px-4">Nama Tabel</th>

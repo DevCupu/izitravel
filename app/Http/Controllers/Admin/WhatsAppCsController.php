@@ -13,6 +13,8 @@ class WhatsAppCsController extends Controller
         $search = $request->string('search')->toString();
 
         $csList = WhatsAppCs::query()
+            ->with('user')
+            ->withExists('leads')
             ->when($search, function ($query, $search) {
                 $query->where(function ($query) use ($search) {
                     $query->where('name', 'like', "%{$search}%")
@@ -42,14 +44,15 @@ class WhatsAppCsController extends Controller
             return redirect()->route('admin.whatsapp-cs.index')->with('status', 'Minimal satu CS harus aktif.');
         }
 
-        WhatsAppCs::create($data);
+        $cs = WhatsAppCs::create($data);
 
-        return redirect()->route('admin.whatsapp-cs.index')->with('status', 'CS WhatsApp berhasil ditambahkan.');
+        return redirect()->route('admin.whatsapp-cs.edit', $cs)
+            ->with('status', 'CS WhatsApp berhasil ditambahkan. Buat akun login di bawah agar CS dapat mengelola lead.');
     }
 
     public function edit(string $id)
     {
-        $cs = WhatsAppCs::findOrFail($id);
+        $cs = WhatsAppCs::with('user')->findOrFail($id);
 
         return view('admin.whatsapp-cs.edit', compact('cs'));
     }
@@ -69,6 +72,9 @@ class WhatsAppCsController extends Controller
         }
 
         $cs->update($data);
+        if ($cs->user && $cs->user->name !== $cs->name) {
+            $cs->user->update(['name' => $cs->name]);
+        }
 
         return redirect()->route('admin.whatsapp-cs.index')->with('status', 'CS WhatsApp berhasil diperbarui.');
     }
@@ -76,6 +82,10 @@ class WhatsAppCsController extends Controller
     public function destroy(string $id)
     {
         $cs = WhatsAppCs::findOrFail($id);
+
+        if ($cs->user_id || $cs->leads()->exists()) {
+            return redirect()->route('admin.whatsapp-cs.index')->with('status', 'CS yang memiliki akun atau lead tidak dapat dihapus. Nonaktifkan saja.');
+        }
 
         if ($cs->is_active && WhatsAppCs::where('is_active', true)->count() === 1) {
             return redirect()->route('admin.whatsapp-cs.index')->with('status', 'Tidak bisa menghapus CS terakhir yang aktif.');

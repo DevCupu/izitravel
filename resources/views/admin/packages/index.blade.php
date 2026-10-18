@@ -29,7 +29,7 @@
         <!-- Table -->
         <div class="content-card bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 overflow-hidden animate-fade-in-up stagger-2">
             <div class="overflow-x-auto">
-                <table class="w-full text-sm">
+                <table data-record-view class="w-full text-sm">
                     <thead>
                         <tr class="text-left text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500 bg-slate-50/80 dark:bg-slate-900/50">
                             <th class="px-5 py-3">{{ __('Paket') }}</th>

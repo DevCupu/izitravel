@@ -17,7 +17,7 @@ class AuthenticatedSessionController extends Controller
     public function create(): View|RedirectResponse
     {
         if (Auth::check()) {
-            return redirect()->route('admin.dashboard');
+            return redirect()->route(Auth::user()->isCs() ? 'cs.dashboard' : 'admin.dashboard');
         }
 
         return view('auth.login');
@@ -32,7 +32,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('admin.dashboard', absolute: false));
+        $destination = $request->user()->isCs() ? 'cs.dashboard' : 'admin.dashboard';
+        return $request->user()->isCs()
+            ? redirect()->route($destination)
+            : redirect()->intended(route($destination, absolute: false));
     }
 
     /**

@@ -35,18 +35,19 @@ class AdminChatRouterTest extends TestCase
         $this->actingAs($this->admin)->get(route('admin.whatsapp-cs.index'))->assertStatus(200);
 
         // Store (phone normalized to country code)
-        $this->actingAs($this->admin)->post(route('admin.whatsapp-cs.store'), [
+        $response = $this->actingAs($this->admin)->post(route('admin.whatsapp-cs.store'), [
             'name' => 'Andi',
             'phone' => '0813 1234 5678',
             'weight' => 50,
             'is_active' => 1,
-        ])->assertRedirect(route('admin.whatsapp-cs.index'));
+        ]);
         $this->assertDatabaseHas('whatsapp_cs', [
             'name' => 'Andi',
             'phone' => '6281312345678',
             'weight' => 50,
             'is_active' => 1,
         ]);
+        $response->assertRedirect(route('admin.whatsapp-cs.edit', WhatsAppCs::where('name', 'Andi')->firstOrFail()));
 
         // Update bobot + status
         $cs = WhatsAppCs::where('name', 'Andi')->first();
