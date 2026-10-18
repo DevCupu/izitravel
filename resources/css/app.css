@@ -262,3 +262,11 @@ table.record-view-as-cards tbody tr > [colspan]::before { display: none; }
     }
 }
 
+/* Bundle the hero artwork with Vite so it is deployed with public/build. */
+.hero-kaaba-art {
+    background-image: url('../images/hero-kaaba-foreground.webp');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+

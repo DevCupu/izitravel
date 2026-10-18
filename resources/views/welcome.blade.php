@@ -1502,17 +1502,12 @@
             bottom: 4rem;
             width: clamp(1400px, 112vw, 1603px);
             max-width: none;
+            aspect-ratio: 1603 / 981;
             transform: translateX(-50%);
             opacity: 0.68;
             pointer-events: none;
             -webkit-mask-image: linear-gradient(to bottom, #000 54%, rgba(0, 0, 0, 0.8) 76%, transparent 100%);
             mask-image: linear-gradient(to bottom, #000 54%, rgba(0, 0, 0, 0.8) 76%, transparent 100%);
-        }
-
-        #beranda .hero-kaaba-foreground img {
-            display: block;
-            width: 100%;
-            height: auto;
         }
 
         #beranda .hero-mobile-image {
@@ -1607,17 +1602,7 @@
                 margin: 0 -1rem;
                 overflow: hidden;
                 pointer-events: none;
-            }
-
-            #beranda .hero-mobile-image img {
-                position: absolute;
-                left: 50%;
-                bottom: 0;
-                display: block;
-                width: max(520px, 100vw);
-                max-width: none;
-                height: auto;
-                transform: translateX(-50%);
+                background-size: max(520px, 100vw) auto;
             }
         }
 
@@ -1668,9 +1653,7 @@
             <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(49, 102, 177, 0.90) 0%, rgba(49, 102, 177, 0.96) 68%, #3166b1 100%);"></div>
         </div>
 
-        <div class="hero-kaaba-foreground" aria-hidden="true">
-            <img src="{{ asset('images/hero-kaaba-foreground.webp') }}" alt="" width="1603" height="981" decoding="async" loading="eager" fetchpriority="low">
-        </div>
+        <div class="hero-kaaba-foreground hero-kaaba-art" aria-hidden="true"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
@@ -1765,9 +1748,7 @@
                     </a>
                 </div>
 
-                <div class="hero-mobile-image" aria-hidden="true">
-                    <img src="{{ asset('images/hero-kaaba-foreground.webp') }}" alt="" width="1603" height="981" decoding="async" loading="eager">
-                </div>
+                <div class="hero-mobile-image hero-kaaba-art" aria-hidden="true"></div>
 
                 <!-- Bottom Stats Bar -->
                 @php

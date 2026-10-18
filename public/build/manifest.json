@@ -1,12 +1,19 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-D7-BSJmo.css",
+    "file": "assets/app-CphGVceY.css",
     "name": "app",
     "names": [
       "app.css"
     ],
     "src": "resources/css/app.css",
-    "isEntry": true
+    "isEntry": true,
+    "assets": [
+      "assets/hero-kaaba-foreground-CIN54Ix9.webp"
+    ]
+  },
+  "resources/images/hero-kaaba-foreground.webp": {
+    "file": "assets/hero-kaaba-foreground-CIN54Ix9.webp",
+    "src": "resources/images/hero-kaaba-foreground.webp"
   },
   "resources/js/app.js": {
     "file": "assets/app-BiM5Q8cW.js",
