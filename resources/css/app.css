@@ -453,51 +453,6 @@ table.record-view-as-cards tbody tr > [colspan]::before { display: none; }
     --deferred-bg: url('../images/section-soft.webp');
 }
 
-/* Service advantages: clear proof cards on a restrained Haramain canvas. */
-.why-izi { position: relative; overflow: hidden; padding: 104px 20px 112px; background: #102e53; color: #fff; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; scroll-margin-top: 80px; }
-.why-izi__backdrop { position: absolute; inset: 0; background-position: center right; background-size: cover; opacity: .72; pointer-events: none; }
-.why-izi__shell { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 330px) minmax(0, 1fr); align-items: start; gap: clamp(40px, 6vw, 84px); width: min(100%, 1200px); margin: 0 auto; }
-.why-izi__intro { padding-top: 11px; }
-.why-izi__eyebrow { display: inline-flex; align-items: center; gap: 11px; color: #efd073; font-size: 11px; font-weight: 800; letter-spacing: .15em; text-transform: uppercase; }
-.why-izi__eyebrow::before { content: ''; width: 30px; height: 2px; border-radius: 2px; background: currentColor; }
-.why-izi__intro h2 { max-width: 10ch; margin: 22px 0 23px; color: #fff; font-size: clamp(42px, 4.5vw, 62px); font-weight: 800; letter-spacing: -.055em; line-height: 1.08; }
-.why-izi__intro p { max-width: 36ch; margin: 0; color: #ccdbeb; font-size: 14px; line-height: 1.8; }
-.why-izi__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 33px; padding-bottom: 8px; border-bottom: 1px solid #e4bb56; color: #f2d47d; font-size: 12px; font-weight: 800; text-decoration: none; transition: color .2s, gap .2s; }
-.why-izi__link:hover { gap: 13px; color: #fff; }
-.why-izi__link svg { width: 16px; height: 16px; }
-.why-izi__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-.why-izi__card { display: grid; grid-template-columns: 48px minmax(0, 1fr); align-content: start; gap: 16px; min-height: 184px; padding: 24px 22px; border: 1px solid #bdd1e5; border-radius: 17px; background: #e7f0fa; color: #12345a; box-shadow: 0 15px 34px rgba(5, 19, 42, .15); transition: transform .25s ease, box-shadow .25s ease; }
-.why-izi__card:hover { transform: translateY(-4px); box-shadow: 0 22px 42px rgba(5, 19, 42, .2); }
-.why-izi__card--legal { padding-left: 19px; border-left: 4px solid #d2a746; }
-.why-izi__icon { display: grid; width: 48px; height: 48px; place-items: center; border: 1px solid #c5d8eb; border-radius: 12px; background: #d9e8f7; color: #285e9c; }
-.why-izi__card--legal .why-izi__icon { border-color: #e8ce8c; background: #f5e4b6; color: #8a650e; }
-.why-izi__icon svg, .why-izi__icon img { width: 25px; height: 25px; object-fit: contain; }
-.why-izi__card-copy h3 { margin: 2px 0 10px; color: #11345c; font-size: 17px; font-weight: 800; letter-spacing: -.025em; line-height: 1.35; }
-.why-izi__card-copy p { margin: 0; color: #4c6680; font-size: 13px; line-height: 1.7; }
-.why-izi__link:focus-visible { outline: 3px solid #f2d47d; outline-offset: 5px; }
-@media (max-width: 1050px) {
-    .why-izi { padding: 84px 20px 92px; }
-    .why-izi__shell { display: block; }
-    .why-izi__intro { max-width: 700px; margin-bottom: 36px; padding: 0; }
-    .why-izi__intro h2 { max-width: none; margin: 17px 0; font-size: clamp(40px, 6vw, 56px); }
-    .why-izi__intro p { max-width: 60ch; }
-    .why-izi__link { margin-top: 21px; }
-    .why-izi__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .why-izi__card { grid-template-columns: minmax(0, 1fr); min-height: 244px; gap: 13px; }
-}
-@media (max-width: 760px) { .why-izi__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .why-izi__card { min-height: 222px; } }
-@media (max-width: 580px) {
-    .why-izi { padding: 72px 16px 78px; }
-    .why-izi__intro { margin-bottom: 29px; }
-    .why-izi__intro h2 { max-width: 12ch; font-size: clamp(38px, 10vw, 48px); }
-    .why-izi__intro p { font-size: 13px; }
-    .why-izi__grid { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-    .why-izi__card { grid-template-columns: 46px minmax(0, 1fr); min-height: 0; gap: 14px; padding: 22px 19px; }
-    .why-izi__icon { width: 46px; height: 46px; }
-    .why-izi__card-copy h3 { font-size: 16px; }
-}
-@media (prefers-reduced-motion: reduce) { .why-izi__card, .why-izi__link { transition: none; } }
-
 /* Umrah packages: readable trip facts and a Makkah-Madinah stay route. */
 .umrah-packages { padding: 96px 20px 104px; background: #f4f7fb; color: #142e51; font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif; }
 .umrah-packages__shell { width: min(100%, 1200px); margin: 0 auto; }

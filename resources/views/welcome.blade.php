@@ -1009,6 +1009,154 @@
             line-height: 1.75;
         }
 
+        /* Why us: a calmer bento grid with a deeper branded canvas. */
+        [data-purpose="features-grid"].features-modern-section {
+            background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 52%, #1a477d 100%);
+        }
+
+        [data-purpose="features-grid"] .features-global-bg {
+            opacity: 1;
+        }
+
+        [data-purpose="features-grid"] .features-photo-bg {
+            opacity: 0.22;
+            filter: saturate(0.75) contrast(0.95);
+        }
+
+        [data-purpose="features-grid"] .features-fade-bg {
+            background: linear-gradient(180deg, rgba(14, 49, 95, 0.72) 0%, rgba(14, 49, 95, 0.9) 65%, rgba(14, 49, 95, 0.98) 100%);
+        }
+
+        [data-purpose="features-grid"] .features-pattern {
+            opacity: 0.025;
+        }
+
+        [data-purpose="features-grid"] .features-header {
+            margin-bottom: clamp(2.75rem, 6vw, 4.5rem);
+        }
+
+        [data-purpose="features-grid"] .features-eyebrow {
+            gap: 0.65rem;
+            padding: 0;
+            border: 0;
+            background: transparent;
+            color: var(--primary-yellow);
+            letter-spacing: 0.18em;
+        }
+
+        [data-purpose="features-grid"] .features-eyebrow::before {
+            content: '';
+            width: 2.25rem;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--primary-yellow);
+        }
+
+        [data-purpose="features-grid"] .features-title {
+            max-width: 12ch;
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            letter-spacing: -0.065em;
+            line-height: 0.96;
+        }
+
+        [data-purpose="features-grid"] .features-subtitle {
+            max-width: 38ch;
+            color: rgba(255, 255, 255, 0.72);
+            font-size: clamp(0.85rem, 1.25vw, 1rem);
+            line-height: 1.7;
+        }
+
+        [data-purpose="features-grid"] .features-grid-modern {
+            gap: 1rem;
+            grid-auto-rows: 1fr;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card {
+            min-height: 15rem;
+            padding: clamp(1.35rem, 2.4vw, 2rem);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem;
+            background: rgba(19, 68, 128, 0.86) !important;
+            background-image: none !important;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 18px 42px rgba(3, 18, 43, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transition: transform 300ms ease, border-color 300ms ease, background 300ms ease;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card::before {
+            content: '';
+            position: absolute;
+            inset: 0.75rem 1rem auto;
+            height: 1px;
+            background: linear-gradient(90deg, var(--primary-yellow), transparent 72%);
+            opacity: 0.65;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(252, 222, 5, 0.42);
+            background: rgba(24, 78, 143, 0.92) !important;
+            background-image: none !important;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-icon,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child {
+            width: 3rem;
+            height: 3rem;
+            margin-bottom: 2rem;
+            margin-left: 0;
+            margin-right: auto;
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 3rem;
+            border: 1px solid rgba(252, 222, 5, 0.28);
+            border-radius: 1rem;
+            background: rgba(252, 222, 5, 0.12);
+            color: var(--primary-yellow);
+            transform: none;
+        }
+
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child svg,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card > div:nth-child(2) > div:first-child img {
+            display: block;
+            flex: 0 0 auto;
+            transform: none;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-title,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card h3 {
+            margin-bottom: 0.65rem;
+            color: #fff;
+            font-size: clamp(1.05rem, 1.6vw, 1.25rem);
+            letter-spacing: -0.025em;
+        }
+
+        [data-purpose="features-grid"] .feature-modern-copy,
+        [data-purpose="features-grid"] .features-grid-modern > .feature-modern-card p {
+            max-width: 34ch;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.78rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 640px) {
+            [data-purpose="features-grid"] .features-title {
+                max-width: 13ch;
+                font-size: clamp(2.35rem, 11vw, 3.25rem);
+            }
+
+            [data-purpose="features-grid"] .feature-modern-card {
+                min-height: 13.5rem;
+            }
+
+            [data-purpose="features-grid"] .feature-modern-icon {
+                margin-bottom: 1.5rem;
+            }
+        }
+
         /* Packages, partners, and gallery share one polished travel-catalog system. */
         #paket-umrah.packages-modern-section {
             background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 54%, #1a477d 100%);
@@ -2265,7 +2413,139 @@
     </section>
     <!-- END: Tentang Kami -->
 
-    @include('public.partials.home-features')
+    <!-- BEGIN: Why Choose Us -->
+    <section class="features-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid" data-lazy-bg="{{ asset('images/section_kaaba_detail.webp') }}">
+        <!-- Blurred Kaaba Background Image (Split Right with Blue Gradient Fade) -->
+        <div class="features-global-bg absolute inset-0 z-0 pointer-events-none overflow-hidden">
+            <div class="features-photo-bg absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), var(--deferred-bg, none);"></div>
+            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
+            <div class="features-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
+            <!-- Stars/Pattern overlay -->
+            <div class="features-pattern absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
+            <!-- Color orbs that give the frosted glass panels depth -->
+            <div class="absolute -right-24 top-32 w-96 h-96 rounded-full bg-amber-400/20 blur-3xl"></div>
+            <div class="absolute -left-20 bottom-24 w-80 h-80 rounded-full bg-emerald-400/15 blur-3xl"></div>
+        </div>
+
+        <!-- Section Header (Premium Split Layout) -->
+        <div class="features-header max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 reveal text-center lg:text-left relative z-10">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 items-center lg:items-start">
+                <div class="space-y-3 flex flex-col items-center lg:items-start">
+                    <span class="features-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
+                        {{ $settings['features_badge'] ?? 'Kenapa Kami' }}
+                    </span>
+                    <h2 class="features-title text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight text-center lg:text-left">
+                        {{ $settings['features_section_title'] ?? 'Keunggulan Layanan Kami' }}
+                    </h2>
+                </div>
+                <p class="features-subtitle text-white/80 text-sm md:text-base max-w-xl font-light leading-relaxed lg:pb-1 text-center lg:text-left">
+                    {{ $settings['features_section_subtitle'] ?? 'Mitra tepercaya perjalanan ibadah Anda dengan standar pelayanan tinggi dan kekeluargaan.' }}
+                </p>
+            </div>
+        </div>
+
+        <!-- Bento Grid Layout -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="features-grid-modern grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" data-stagger="true">
+                <!-- Feature 1 -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_1_image']))
+                                <img src="{{ str_starts_with($settings['feature_1_image'], 'images/') ? asset($settings['feature_1_image']) : asset('storage/' . $settings['feature_1_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_1_icon'] ?? 'award' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_1_title'] ?? 'Legalitas Resmi Kemenag' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_1_desc'] ?? 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2: Standard Card -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_2_image']))
+                                <img src="{{ str_starts_with($settings['feature_2_image'], 'images/') ? asset($settings['feature_2_image']) : asset('storage/' . $settings['feature_2_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_2_icon'] ?? 'file-check' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_2_title'] ?? 'Jaminan Visa Umrah' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_2_desc'] ?? 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3: Standard Card -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_3_image']))
+                                <img src="{{ str_starts_with($settings['feature_3_image'], 'images/') ? asset($settings['feature_3_image']) : asset('storage/' . $settings['feature_3_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_3_icon'] ?? 'building-2' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_3_title'] ?? 'Hotel Dekat Pelataran' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_3_desc'] ?? 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram &amp; Nabawi.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4: Standard Card -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-2xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_4_image']))
+                                <img src="{{ str_starts_with($settings['feature_4_image'], 'images/') ? asset($settings['feature_4_image']) : asset('storage/' . $settings['feature_4_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_4_icon'] ?? 'compass' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_4_title'] ?? 'Muthawwif Khas Nusantara' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_4_desc'] ?? 'Muthawwif &amp; pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 5: Standard Card -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_5_image']))
+                                <img src="{{ str_starts_with($settings['feature_5_image'], 'images/') ? asset($settings['feature_5_image']) : asset('storage/' . $settings['feature_5_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_5_icon'] ?? 'phone-call' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_5_title'] ?? 'Layanan Siaga &amp; Peduli' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_5_desc'] ?? 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.' }}</p>
+                    </div>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-modern-card reveal-card lg:col-span-1 relative overflow-hidden bg-white/10 backdrop-blur-xl hover:border-blue-600/15 border border-white/15 ring-1 ring-white/20 p-8 rounded-[1.75rem] shadow-xl shadow-blue-950/20 flex flex-col justify-between">
+                    <div class="pointer-events-none absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent"></div>
+                    <div>
+                        <div class="mb-6 bg-white/15 backdrop-blur-md text-amber-400 p-4 rounded-xl w-fit border border-white/20">
+                            @if (!empty($settings['feature_6_image']))
+                                <img src="{{ str_starts_with($settings['feature_6_image'], 'images/') ? asset($settings['feature_6_image']) : asset('storage/' . $settings['feature_6_image']) }}" alt="" class="w-8 h-8 object-contain" width="32" height="32" loading="lazy" decoding="async">
+                            @else
+                                <i data-lucide="{{ $settings['feature_6_icon'] ?? 'plane-takeoff' }}" class="w-8 h-8"></i>
+                            @endif
+                        </div>
+                        <h3 class="font-extrabold text-white text-lg mb-3">{{ $settings['feature_6_title'] ?? 'Kepastian Tiket Terbang' }}</h3>
+                        <p class="text-white/85 text-xs leading-relaxed font-light">{{ $settings['feature_6_desc'] ?? 'Kepastian tanggal keberangkatan dengan tiket pesawat premium (PP) yang telah issued sejak pendaftaran.' }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- END: Why Choose Us -->
 
     <!-- BEGIN: RegistrationFlow -->
     <section class="section-soft-bg py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow" data-lazy-bg="">
