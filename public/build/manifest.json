@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-Cm-qcC56.css",
+    "file": "assets/app--XTOFK_3.css",
     "name": "app",
     "names": [
       "app.css"
@@ -8,12 +8,27 @@
     "src": "resources/css/app.css",
     "isEntry": true,
     "assets": [
-      "assets/hero-kaaba-foreground-CIN54Ix9.webp"
+      "assets/hero-kaaba-foreground-CIN54Ix9.webp",
+      "assets/hero-kaaba-foreground-mobile-BEiN195g.webp",
+      "assets/hero_kaaba_mobile-DjwPkTbn.webp",
+      "assets/section-soft-cxstdAQo.webp"
     ]
+  },
+  "resources/images/hero-kaaba-foreground-mobile.webp": {
+    "file": "assets/hero-kaaba-foreground-mobile-BEiN195g.webp",
+    "src": "resources/images/hero-kaaba-foreground-mobile.webp"
   },
   "resources/images/hero-kaaba-foreground.webp": {
     "file": "assets/hero-kaaba-foreground-CIN54Ix9.webp",
     "src": "resources/images/hero-kaaba-foreground.webp"
+  },
+  "resources/images/hero_kaaba_mobile.webp": {
+    "file": "assets/hero_kaaba_mobile-DjwPkTbn.webp",
+    "src": "resources/images/hero_kaaba_mobile.webp"
+  },
+  "resources/images/section-soft.webp": {
+    "file": "assets/section-soft-cxstdAQo.webp",
+    "src": "resources/images/section-soft.webp"
   },
   "resources/js/app.js": {
     "file": "assets/app-BiM5Q8cW.js",

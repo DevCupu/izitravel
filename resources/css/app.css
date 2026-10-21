@@ -270,3 +270,17 @@ table.record-view-as-cards tbody tr > [colspan]::before { display: none; }
     background-size: 100% auto;
 }
 
+@media (max-width: 767px) {
+    .hero-mobile-image.hero-kaaba-art {
+        background-image: url('../images/hero-kaaba-foreground-mobile.webp');
+    }
+
+    #beranda .hero-mobile-cover.hero-mobile-default-bg {
+        background-image: linear-gradient(105deg, rgba(38, 83, 155, 0.94) 0%, rgba(49, 102, 177, 0.88) 48%, rgba(49, 102, 177, 0.76) 100%), url('../images/hero_kaaba_mobile.webp');
+    }
+}
+
+.section-soft-bg.is-background-visible {
+    --deferred-bg: url('../images/section-soft.webp');
+}
+

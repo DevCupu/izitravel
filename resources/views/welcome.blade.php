@@ -17,7 +17,7 @@
         ? (!empty($settings['hero_image_mobile']) && ($settings['hero_image_mobile_source'] ?? '') === $settings['hero_image']
             ? asset('storage/' . $settings['hero_image_mobile'])
             : $heroImageUrl)
-        : asset('images/hero_kaaba_mobile.webp');
+        : Vite::asset('resources/images/hero_kaaba_mobile.webp');
 
     // Find nearest package and upcoming packages for countdown and schedule card
     $nearestPackage = null;
@@ -153,13 +153,16 @@
 
     <!-- Each viewport only preloads the artwork it actually displays. -->
     <link rel="preload" as="image" href="{{ $heroImageUrl }}" media="(min-width: 768px)" fetchpriority="high" />
-    <link rel="preload" as="image" href="{{ asset('images/hero-kaaba-foreground-mobile.webp') }}" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="{{ Vite::asset('resources/images/hero-kaaba-foreground-mobile.webp') }}" media="(max-width: 767px)" fetchpriority="high" />
     <link rel="preload" as="image" href="{{ $heroMobileImageUrl }}" media="(max-width: 767px)" />
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('[data-lazy-bg]');
             const showBackground = section => {
-                section.style.setProperty('--deferred-bg', `url(${JSON.stringify(section.dataset.lazyBg)})`);
+                section.classList.add('is-background-visible');
+                if (section.dataset.lazyBg) {
+                    section.style.setProperty('--deferred-bg', `url(${JSON.stringify(section.dataset.lazyBg)})`);
+                }
             };
 
             if (!('IntersectionObserver' in window)) {
@@ -1914,7 +1917,6 @@
                 overflow: hidden;
                 pointer-events: none;
                 background-size: max(500px, 100vw) auto;
-                background-image: url('{{ asset('images/hero-kaaba-foreground-mobile.webp') }}');
             }
         }
 
@@ -1974,7 +1976,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
             <div id="hero-left-col" class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
-                <div class="hero-mobile-cover">
+                <div class="hero-mobile-cover {{ empty($settings['hero_image']) ? 'hero-mobile-default-bg' : '' }}">
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
@@ -2623,7 +2625,7 @@
     <!-- END: Why Choose Us -->
 
     <!-- BEGIN: RegistrationFlow -->
-    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
+    <section class="section-soft-bg py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow" data-lazy-bg="">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), var(--deferred-bg, none);"></div>
@@ -3661,7 +3663,7 @@
     <!-- END: Kabar Haramain & Waktu Tanah Suci -->
 
     <!-- BEGIN: Kemitraan -->
-    <section class="py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
+    <section class="section-soft-bg py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section" data-lazy-bg="">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), var(--deferred-bg, none);"></div>
@@ -3848,7 +3850,7 @@
     <!-- END: FAQ -->
 
     <!-- BEGIN: CTASection -->
-    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="cta-section" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
+    <section class="section-soft-bg py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="cta-section" data-lazy-bg="">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
             <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.75) 0%, rgba(250, 250, 249, 0.9) 100%), var(--deferred-bg, none);"></div>
