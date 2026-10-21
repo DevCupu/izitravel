@@ -107,7 +107,7 @@ class LandingPageSeeder extends Seeder
             'feature_1_title' => 'Legalitas Resmi Kemenag',
             'feature_1_desc' => 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.',
             'feature_2_title' => 'Jaminan Visa Umrah',
-            'feature_2_desc' => 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.',
+            'feature_2_desc' => 'Proses penerbitan visa yang aman, transparan, dan terkonfirmasi langsung ke sistem kedutaan.',
             'feature_3_title' => 'Hotel Dekat Pelataran',
             'feature_3_desc' => 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram & Nabawi.',
             'feature_4_title' => 'Muthawwif Khas Nusantara',

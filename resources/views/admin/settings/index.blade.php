@@ -1032,7 +1032,7 @@
                     @php
                         $featuresPlaceholder = [
                             1 => ['Legalitas Resmi Kemenag', 'Memiliki izin PPIU resmi dari Kementerian Agama RI untuk kepastian keamanan hukum perjalanan Anda.', 'award'],
-                            2 => ['Jaminan Visa Umrah', 'Proses penerbitan visa yang aman, transparan, and terkonfirmasi langsung ke sistem kedutaan.', 'file-check'],
+                            2 => ['Jaminan Visa Umrah', 'Proses penerbitan visa yang aman, transparan, dan terkonfirmasi langsung ke sistem kedutaan.', 'file-check'],
                             3 => ['Hotel Dekat Pelataran', 'Akomodasi hotel bintang pilihan dengan jarak yang dekat memudahkan Anda beribadah di Masjidil Haram & Nabawi.', 'building-2'],
                             4 => ['Muthawwif Khas Nusantara', 'Muthawwif & pembimbing ibadah bersertifikasi, membimbing sesuai sunnah dengan keramahan khas Indonesia.', 'compass'],
                             5 => ['Layanan Siaga & Peduli', 'Customer support dan tim handling operasional siaga melayani Anda 24 jam dengan asas kekeluargaan.', 'phone-call'],
