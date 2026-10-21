@@ -1,9 +1,11 @@
 @php
     $departure = $package->departure_date->copy()->locale('id');
     $bookingUrl = "https://wa.me/{$wa_phone}?text=" . rawurlencode("Assalamu'alaikum IZI Travel, saya ingin bertanya tentang paket {$package->name}.");
-    $prices = [['name' => 'Quad', 'occupancy' => '4 orang sekamar', 'price' => $package->price]];
-    if ($package->price_triple) $prices[] = ['name' => 'Triple', 'occupancy' => '3 orang sekamar', 'price' => $package->price_triple];
-    if ($package->price_double) $prices[] = ['name' => 'Double', 'occupancy' => '2 orang sekamar', 'price' => $package->price_double];
+    $prices = [
+        ['name' => 'Quad', 'occupancy' => '4 orang sekamar', 'price' => $package->price],
+        ['name' => 'Triple', 'occupancy' => '3 orang sekamar', 'price' => $package->price_triple ?: $package->price + 1500000],
+        ['name' => 'Double', 'occupancy' => '2 orang sekamar', 'price' => $package->price_double ?: $package->price + 3000000],
+    ];
     $inclusions = $package->inclusions ?? [];
     $exclusions = $package->exclusions ?? [];
     $features = $package->features ?? [];
