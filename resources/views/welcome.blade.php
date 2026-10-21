@@ -1189,7 +1189,6 @@
         }
 
         #paket-umrah .packages-eyebrow,
-        #galeri .gallery-eyebrow,
         #testimoni .testimonials-eyebrow,
         #artikel .articles-eyebrow,
         #kemitraan .partnership-eyebrow {
@@ -1200,8 +1199,7 @@
             letter-spacing: 0.18em;
         }
 
-        #paket-umrah .packages-eyebrow,
-        #galeri .gallery-eyebrow {
+        #paket-umrah .packages-eyebrow {
             color: var(--primary-yellow);
         }
 
@@ -1212,7 +1210,6 @@
         }
 
         #paket-umrah .packages-eyebrow::before,
-        #galeri .gallery-eyebrow::before,
         #testimoni .testimonials-eyebrow::before,
         #artikel .articles-eyebrow::before,
         #kemitraan .partnership-eyebrow::before {
@@ -1224,7 +1221,6 @@
         }
 
         #paket-umrah .packages-title,
-        #galeri .gallery-title,
         #testimoni .testimonials-title,
         #artikel .articles-title,
         #kemitraan .partnership-title,
@@ -1235,7 +1231,6 @@
         }
 
         #paket-umrah .packages-subtitle,
-        #galeri .gallery-subtitle,
         #testimoni .testimonials-subtitle,
         #artikel .articles-subtitle,
         #kemitraan .partnership-subtitle {
@@ -1244,8 +1239,7 @@
             line-height: 1.7;
         }
 
-        #paket-umrah .packages-subtitle,
-        #galeri .gallery-subtitle {
+        #paket-umrah .packages-subtitle {
             color: rgba(255, 255, 255, 0.7);
         }
 
@@ -1400,76 +1394,8 @@
             letter-spacing: -0.02em;
         }
 
-        #galeri.gallery-modern-section {
-            background: linear-gradient(135deg, #0e315f 0%, var(--primary-blue) 54%, #1a477d 100%);
-        }
-
-        #galeri .gallery-pattern {
-            opacity: 0.025;
-        }
-
-        #galeri .gallery-grid-modern {
-            gap: 1rem;
-        }
-
-        #galeri .gallery-album-card {
-            padding: 0.6rem;
-            border-color: rgba(255, 255, 255, 0.18) !important;
-            border-radius: 1.5rem;
-            background: rgba(7, 34, 69, 0.74) !important;
-            box-shadow: 0 20px 50px rgba(3, 18, 43, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            transition: transform 300ms ease, box-shadow 300ms ease, border-color 300ms ease;
-        }
-
-        #galeri .gallery-album-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(252, 222, 5, 0.62) !important;
-            background: rgba(12, 55, 105, 0.86) !important;
-            box-shadow: 0 28px 60px rgba(3, 18, 43, 0.2);
-        }
-
-        #galeri .gallery-album-media {
-            aspect-ratio: 16 / 10 !important;
-            border-radius: 1.1rem;
-            border-color: rgba(255, 255, 255, 0.14) !important;
-            background: rgba(255, 255, 255, 0.06) !important;
-        }
-
-        #galeri .gallery-album-info {
-            padding: 0.4rem 0.45rem 0.55rem;
-        }
-
-        #galeri .gallery-album-title {
-            color: #ffffff !important;
-            letter-spacing: -0.025em;
-        }
-
-        #galeri .gallery-album-info p {
-            color: rgba(255, 255, 255, 0.68) !important;
-        }
-
-        #galeri .gallery-album-info p svg {
-            color: var(--primary-yellow);
-        }
-
-        #galeri .text-center > a {
-            border-color: rgba(255, 255, 255, 0.2) !important;
-            background: rgba(7, 34, 69, 0.72) !important;
-            color: #ffffff !important;
-            box-shadow: 0 14px 30px rgba(3, 18, 43, 0.16);
-        }
-
-        #galeri .text-center > a:hover {
-            border-color: rgba(252, 222, 5, 0.55) !important;
-            background: var(--primary-yellow) !important;
-            color: #183a67 !important;
-        }
-
         @media (max-width: 640px) {
             #paket-umrah .packages-title,
-            #galeri .gallery-title,
             #testimoni .testimonials-title,
             #artikel .articles-title,
             #kemitraan .partnership-title,
@@ -1483,9 +1409,6 @@
                 border-radius: 1.25rem;
             }
 
-            #galeri .gallery-album-card {
-                padding: 0.45rem;
-            }
         }
 
         @media (min-width: 641px) and (max-width: 1023px) {
@@ -2722,142 +2645,7 @@
     </section>
     <!-- END: RegistrationFlow -->
 
-    <!-- BEGIN: FeaturedPackages -->
-    <section class="packages-modern-section relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid" data-lazy-bg="{{ asset('images/section_makkah_wide.webp') }}">
-        <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Blue Gradient Fade) -->
-        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="packages-photo-bg absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), var(--deferred-bg, none);"></div>
-            <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
-            <div class="packages-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
-            <!-- Stars/Pattern overlay -->
-            <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="mb-12 text-center reveal">
-                <div class="space-y-3 flex flex-col items-center">
-                    <span class="packages-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
-                        {{ $settings['packages_label'] ?? 'Paket Pilihan' }}
-                    </span>
-                    <h2 class="packages-title text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
-                        {{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}
-                    </h2>
-                    @include('partials.ornament')
-                    <p class="packages-subtitle text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
-                        {{ $settings['packages_section_subtitle'] ?? 'Pilihan paket perjalanan terbaik dengan fasilitas hotel premium Ring 1 demi kenyamanan ibadah Anda.' }}
-                    </p>
-                </div>
-            </div>
-            @php
-                $groupedPackages = $packages->groupBy(function ($p) {
-                    return $p->category ?: 'Lainnya';
-                });
-
-                $dbCategories = \App\Models\Category::where('is_active', true)->orderBy('order')->pluck('name')->toArray();
-
-                // Append any category names from grouped packages that aren't in $dbCategories
-                foreach ($groupedPackages as $catName => $pkgs) {
-                    $nameToUse = $catName ?: 'Lainnya';
-                    if (!in_array($nameToUse, $dbCategories)) {
-                        $dbCategories[] = $nameToUse;
-                    }
-                }
-
-                $categoryOrder = array_unique($dbCategories);
-
-                $sortedGroups = collect($categoryOrder)
-                    ->mapWithKeys(function($c) use ($groupedPackages) {
-                        $packagesOfCat = $groupedPackages->get($c);
-                        if ($c === 'Lainnya' && !$packagesOfCat) {
-                            $packagesOfCat = $groupedPackages->get('');
-                        }
-                        return $packagesOfCat ? [$c => $packagesOfCat] : [];
-                    });
-            @endphp
-
-            <!-- Category Filter Tabs -->
-            <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mb-10">
-                <div class="package-filter-shell relative flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 z-10 whitespace-nowrap flex-nowrap mx-auto">
-                    <div id="package-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 100px;"></div>
-                    <button class="package-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['packages_filter_all'] ?? 'Semua Paket' }}</button>
-                    @foreach ($sortedGroups as $categoryName => $categoryPackages)
-                        <button class="package-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-white/60 hover:text-white relative z-10 shrink-0" data-filter="{{ Str::slug($categoryName) }}">{{ $categoryName }}</button>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="packages-grid-modern grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal-stagger" id="packages-grid" data-stagger="true">
-                @foreach ($packages as $package)
-                    @php
-                        $badgeClasses = match ($package->badge_color) {
-                            'amber' => 'bg-amber-500 text-stone-950',
-                            'emerald' => 'bg-emerald-600 text-white',
-                            'indigo' => 'bg-blue-600 text-white',
-                            'rose' => 'bg-rose-600 text-white',
-                            default => 'bg-stone-900 text-white',
-                        };
-                        $isFeatured = !empty($package->badge_label);
-                        $cardBorderClass = $isFeatured && $package->badge_color === 'amber'
-                            ? 'border-amber-500/25 hover:border-amber-500/50'
-                            : 'border-stone-200/70 hover:border-blue-600/20 shadow-sm shadow-stone-900/[0.03]';
-                        $packageCategorySlug = Str::slug($package->category ?: 'Lainnya');
-                    @endphp
-                    <div class="package-modern-card package-item reveal-card bg-white rounded-2xl transition-colors duration-300 flex flex-col justify-between border {{ $cardBorderClass }} group relative overflow-visible" data-category="{{ $packageCategorySlug }}" data-purpose="package-item">
-                        <div class="w-full">
-                            <div class="package-modern-image relative aspect-[4/3] overflow-hidden select-none rounded-t-2xl">
-                                <img src="{{ $package->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $package->name }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" width="640" height="480" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
-                                @if ($package->badge_label)
-                                    <span class="absolute top-3 left-3 {{ $badgeClasses }} text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">{{ $package->badge_label }}</span>
-                                @endif
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-extrabold text-sm md:text-base text-stone-900 mb-3 group-hover:text-blue-600 transition leading-snug line-clamp-2 min-h-[2.25rem]">{{ $package->name }}</h3>
-
-                                <div class="grid grid-cols-2 gap-2 mb-2">
-                                    <div class="col-span-2 flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="calendar" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Keberangkatan</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->departure_date->locale('id')->translatedFormat('d F Y') }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="plane" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Maskapai</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->airline }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center gap-2 bg-stone-50/50 p-2 rounded-lg border border-stone-100/50 min-w-0">
-                                        <span class="bg-blue-600/10 text-blue-600 p-1.5 rounded-lg border border-blue-600/10 flex items-center justify-center flex-shrink-0"><i data-lucide="hotel" class="w-4 h-4"></i></span>
-                                        <div class="min-w-0">
-                                            <p class="text-[9px] text-stone-500 font-extrabold uppercase tracking-wider leading-none mb-1">Hotel</p>
-                                            <p class="text-xs font-bold text-stone-700 leading-none truncate">{{ $package->hotel }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="package-modern-footer px-4 pb-4 pt-4 border-t-2 border-dashed border-stone-200/85 bg-blue-600/[0.01] rounded-b-3xl flex items-center justify-between relative">
-                            <!-- Ticket notches overlaying the dashed line -->
-                            <div class="absolute left-0 top-0 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_-2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
-                            <div class="absolute right-0 top-0 translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-[#fafaf9] border border-stone-200/60 shadow-[inset_2px_0_3px_rgba(0,0,0,0.02)] z-10"></div>
-
-                            <div>
-                                <p class="text-[9px] text-stone-500 font-bold uppercase tracking-wider mb-0.5">{{ $settings['packages_price_label'] ?? 'Mulai dari' }}</p>
-                                <p class="font-extrabold text-base text-blue-600">Rp {{ number_format($package->price, 0, ',', '.') }}</p>
-                            </div>
-                            <a href="{{ route('packages.show', $package->slug) }}" aria-label="Detail paket {{ $package->name }}" class="magnetic-button inline-flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold transition shadow-sm shadow-blue-500/10 active:scale-95 group/btn">
-                                <span>{{ $settings['packages_detail_btn'] ?? 'Detail' }}</span>
-                                <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform duration-200 group-hover/btn:translate-x-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-    </section>
-    <!-- END: FeaturedPackages -->
+    @include('public.partials.home-packages')
 
     <!-- BEGIN: Partners -->
     <section class="partners-modern-section py-8 md:py-10 bg-stone-50/20" id="partners-logo-cloud" data-purpose="partners-logo-cloud">
@@ -2884,455 +2672,9 @@
     </section>
     <!-- END: Partners -->
 
-    <!-- BEGIN: Gallery -->
-    <section class="gallery-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" id="galeri" data-purpose="gallery-section">
-        <!-- Stars/Pattern overlay -->
-        <div class="gallery-pattern absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="gallery-header mb-12 text-center reveal">
-                <div class="space-y-3 flex flex-col items-center">
-                    <span class="gallery-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-bold tracking-[0.14em] uppercase">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="images" class="w-3.5 h-3.5"></i>
-                        {{ $settings['gallery_label'] ?? 'Galeri & Dokumentasi' }}
-                    </span>
-                    <h2 class="gallery-title text-3xl sm:text-4xl font-black text-white tracking-tight reveal-words">
-                        {{ $settings['gallery_section_title'] ?? 'Galeri Kegiatan & Testimoni' }}
-                    </h2>
-                    @include('partials.ornament')
-                    <p class="gallery-subtitle text-white/60 text-xs sm:text-sm md:text-base max-w-2xl font-light leading-relaxed pt-2 mx-auto">
-                        {{ $settings['gallery_section_subtitle'] ?? 'Dokumentasi perjalanan jamaah IZI Travel dan testimoni langsung dari Baitullah.' }}
-                    </p>
-                </div>
-            </div>
+    @include('public.partials.home-gallery')
 
-            @php
-                $albums = $galleries->groupBy(function($item) {
-                    return trim($item->category_label) ?: 'Umum';
-                })->map(function($items, $name) {
-                    $coverItem = $items->firstWhere('type', 'photo') ?? $items->first();
-
-                    $mappedItems = $items->map(function($item) {
-                        return [
-                            'type' => $item->type,
-                            'src' => $item->image_url,
-                            'title' => $item->title,
-                            'category' => $item->type === 'video' ? ($item->video_platform === 'youtube' ? 'YouTube' : 'Instagram Reel') : ($item->category_label ?? 'Foto'),
-                            'video_id' => $item->video_id,
-                            'video_platform' => $item->video_platform,
-                        ];
-                    })->values();
-
-                    return (object) [
-                        'name' => $name,
-                        'cover_url' => $coverItem ? $coverItem->image_url : null,
-                        'items' => $mappedItems,
-                        'count' => $items->count(),
-                        'last_updated' => $items->max('updated_at'),
-                    ];
-                })->sortByDesc('last_updated');
-
-                $totalAlbumsCount = $albums->count();
-                $displayAlbums = $albums->take(6);
-            @endphp
-
-            <!-- Gallery Grid (Albums Folder View) -->
-            <div class="gallery-grid-modern grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8" id="gallery-grid">
-                @foreach ($displayAlbums as $album)
-                    <!-- Album Folder Card -->
-                    <div class="gallery-album-card album-folder-card reveal-scale group bg-white hover:bg-gradient-to-b hover:from-white hover:to-blue-600/[0.02] rounded-2xl sm:rounded-[2rem] border border-stone-100/80 hover:border-blue-600/15 p-3 sm:p-5 soft-shadow hover:shadow-xl transition-all duration-300 flex flex-col gap-3 sm:gap-5 relative overflow-hidden cursor-pointer"
-                         data-album-name="{{ $album->name }}"
-                         data-items="{{ json_encode($album->items) }}">
-
-                        <!-- Folder Tab Shape Design -->
-                        <div class="gallery-album-media relative aspect-[4/3] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-50 border border-stone-100/80 group-hover:border-blue-600/15 flex items-center justify-center shadow-inner">
-                            <!-- Cover Image -->
-                            @if ($album->cover_url)
-                                <img src="{{ $album->cover_url }}" alt="{{ $album->name }}" class="w-full h-full object-cover transition-transform duration-750 group-hover:scale-[1.03]" width="400" height="300" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
-                            @else
-                                <div class="flex flex-col items-center gap-2 text-stone-300">
-                                    <i data-lucide="folder" class="w-8 h-8 sm:w-12 sm:h-12 stroke-[1.5]"></i>
-                                </div>
-                            @endif
-
-                            <!-- Folder Tag Badge on Top Left -->
-                            <div class="absolute top-2 left-2 sm:top-4 sm:left-4 bg-stone-950/80 backdrop-blur-md text-white text-[8px] sm:text-[9px] font-extrabold px-2 py-1 sm:px-3 sm:py-1.5 rounded-full uppercase tracking-wider flex items-center gap-1 sm:gap-1.5 shadow-sm">
-                                <i data-lucide="folder" class="w-3 sm:w-3.5 h-3 sm:h-3.5"></i>
-                                Album
-                            </div>
-
-                            <!-- Media Count Badge on Bottom Right -->
-                            <div class="absolute bottom-2 right-2 sm:bottom-4 sm:right-4 bg-blue-600 text-white text-[8px] sm:text-[10px] font-black px-2 py-1 sm:px-3.5 sm:py-2 rounded-lg sm:rounded-xl shadow-md transition group-hover:bg-blue-700 tracking-wider">
-                                {{ $album->count }} <span class="hidden sm:inline">Foto &amp; Video</span><span class="inline sm:hidden">Media</span>
-                            </div>
-
-                            <!-- Play Overlay if it contains videos -->
-                            <div class="absolute inset-0 bg-stone-950/20 group-hover:bg-stone-950/30 transition duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                                <div class="w-10 h-10 sm:w-14 sm:h-14 bg-white/90 backdrop-blur-md rounded-full flex items-center justify-center text-blue-600 shadow-lg scale-90 group-hover:scale-100 transition-all duration-300">
-                                    <i data-lucide="eye" class="w-5 h-5 sm:w-6 sm:h-6"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Album Description Info -->
-                        <div class="gallery-album-info flex flex-col">
-                            <h3 class="gallery-album-title font-extrabold text-stone-900 text-sm sm:text-lg group-hover:text-blue-600 transition truncate">{{ $album->name }}</h3>
-                            <p class="text-[10px] sm:text-xs text-stone-500 mt-0.5 sm:mt-1 flex items-center gap-1 sm:gap-1.5 font-medium">
-                                <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600"></i>
-                                <span>Lihat dokumentasi<span class="hidden sm:inline"> perjalanan</span></span>
-                            </p>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            @if ($totalAlbumsCount > 6)
-                <div class="text-center mt-12">
-                    <a href="{{ route('public.gallery') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-white hover:bg-stone-50 border border-stone-200 text-stone-700 hover:text-blue-600 font-extrabold text-sm rounded-2xl shadow-sm hover:shadow transition-all duration-200 active:scale-95">
-                        <i data-lucide="folder-open" class="w-4 h-4 text-blue-500"></i>
-                        <span>Lihat Semua Album</span>
-                    </a>
-                </div>
-            @endif
-        </div>
-
-        <!-- Unified Gallery Lightbox Modal -->
-        <div id="gallery-lightbox" class="fixed inset-0 z-[100] bg-stone-950/90 backdrop-blur-md hidden opacity-0 items-center justify-center p-4" role="dialog" aria-modal="true">
-            <!-- Close Button -->
-            <button id="lightbox-close" class="absolute top-6 right-6 z-[110] bg-white/10 hover:bg-white/20 text-white p-3 rounded-full transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Tutup Galeri">
-                <i data-lucide="x" class="w-6 h-6"></i>
-            </button>
-
-            <!-- Prev Button -->
-            <button id="lightbox-prev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Sebelumnya">
-                <i data-lucide="chevron-left" class="w-7 h-7"></i>
-            </button>
-
-            <!-- Next Button -->
-            <button id="lightbox-next" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-[110] bg-white/10 hover:bg-white/20 text-white w-12 h-12 rounded-full flex items-center justify-center transition duration-200 active:scale-95 backdrop-blur-md border border-white/10" aria-label="Selanjutnya">
-                <i data-lucide="chevron-right" class="w-7 h-7"></i>
-            </button>
-
-            <!-- Content Container -->
-            <div class="max-w-5xl w-full flex flex-col items-center justify-center gap-4 scale-95" id="lightbox-content-box">
-                <!-- Media Area -->
-                <div class="relative w-full max-h-[70vh] flex items-center justify-center rounded-3xl overflow-hidden bg-black/40 border border-white/5 shadow-2xl">
-                    <!-- Image Display -->
-                    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[70vh] object-contain hidden transition-all duration-300 opacity-0" />
-
-                    <!-- Video Embed Wrapper -->
-                    <div id="lightbox-video-container" class="aspect-video w-full hidden">
-                        <iframe id="lightbox-iframe" title="Pemutar video galeri" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Caption / Info Area -->
-                <div class="w-full max-w-3xl text-center px-4">
-                    <span id="lightbox-tag" class="text-xs text-amber-400 font-extrabold uppercase tracking-widest block mb-1"></span>
-                    <h3 id="lightbox-title" class="text-white font-black text-lg md:text-xl tracking-wide"></h3>
-                    <p id="lightbox-counter" class="text-white/40 text-xs mt-2 font-bold tracking-widest"></p>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END: Gallery -->
-
-    <!-- BEGIN: Testimonials -->
-    <section class="py-16 md:py-24 bg-gradient-to-tr from-blue-600/12 via-blue-600/3 to-stone-50 overflow-hidden relative" id="testimoni" data-purpose="testimonials">
-        <!-- Ambient Glowing Orbs -->
-        <div class="absolute left-1/4 top-1/4 w-[450px] h-[220px] bg-blue-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
-        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="testimonials-header mb-12 text-center reveal">
-                <div class="space-y-3 flex flex-col items-center">
-                    <span class="testimonials-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-bold tracking-[0.14em] uppercase">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
-                        {{ $settings['testimonials_label'] ?? 'Testimoni' }}
-                    </span>
-                    <h2 class="testimonials-title text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
-                        {{ $settings['testimonials_section_title'] ?? 'Testimonials' }}
-                    </h2>
-                    @include('partials.ornament')
-                    <p class="testimonials-subtitle text-stone-500 font-light text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed pt-2 mx-auto">
-                        {{ $settings['testimonials_section_subtitle'] ?? 'Apa kata jamaah yang telah mempercayakan perjalanan ibadah mereka kepada kami.' }}
-                    </p>
-                </div>
-            </div>
-            <!-- Testimonial Slider Viewport with Left/Right Arrows -->
-            <div class="relative px-0 md:px-8" id="testimonial-slider-container">
-                <!-- Left & Right Arrow Buttons (Visible on MD and larger screens) -->
-                <button id="prev-testimonial" class="hidden md:flex absolute -left-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-stone-50 text-stone-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-stone-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Previous Testimonial">
-                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
-                </button>
-                <button id="next-testimonial" class="hidden md:flex absolute -right-4 top-1/2 -translate-y-1/2 z-20 bg-white hover:bg-stone-50 text-stone-700 hover:text-blue-600 w-11 h-11 rounded-full shadow-lg border border-stone-100/80 items-center justify-center transition active:scale-95 duration-200" aria-label="Next Testimonial">
-                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
-                </button>
-
-                <!-- Slider Viewport -->
-                <div id="testimonial-viewport" class="reveal">
-                    <!-- Flex Track -->
-                    <div id="testimonial-track" class="cursor-grab active:cursor-grabbing">
-                        @if($testimonials->count() > 0)
-                            @foreach ($testimonials as $testimonial)
-                                @php
-                                    $videoUrl = $testimonial->video_url ?? '';
-                                    $parsedEmbedUrl = null;
-                                    $thumbnailUrl = null;
-                                    if (!empty($videoUrl)) {
-                                        if (preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|live|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $videoUrl, $matches)) {
-                                            $videoId = $matches[1];
-                                            $parsedEmbedUrl = "https://www.youtube.com/embed/" . $videoId . "?autoplay=1";
-                                            $thumbnailUrl = "https://img.youtube.com/vi/" . $videoId . "/hqdefault.jpg";
-                                        } elseif (preg_match('/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/i', $videoUrl, $matches)) {
-                                            $parsedEmbedUrl = "https://www.instagram.com/reel/" . $matches[1] . "/embed";
-                                        } elseif (preg_match('/(?:vimeo\.com\/(?:channels\/[^\/]+\/|groups\/[^\/]+\/video\/|album\/[^\/]+\/video\/|video\/|)|player\.vimeo\.com\/video\/)([0-9]+)/i', $videoUrl, $matches)) {
-                                            $videoId = $matches[1];
-                                            $parsedEmbedUrl = "https://player.vimeo.com/video/" . $videoId . "?autoplay=1";
-                                            $thumbnailUrl = 'vimeo';
-                                        }
-                                    }
-
-                                    // Generate initials (skip Indonesian honorifics like H./Hj./Ustadz so
-                                    // avatars don't all end up showing the same "H" letter)
-                                    $initial = 'U';
-                                    if (!empty($testimonial->name)) {
-                                        $cleanName = preg_replace('/^((h|hj|dr|drs|prof|ustadz|ust)\.?\s+)+/i', '', trim($testimonial->name));
-                                        $initial = strtoupper(substr($cleanName ?: trim($testimonial->name), 0, 1));
-                                    }
-
-                                    // Custom gradient colors based on initial character
-                                    $gradients = [
-                                        'A' => 'from-blue-500 to-blue-700',
-                                        'B' => 'from-emerald-500 to-emerald-700',
-                                        'C' => 'from-amber-500 to-amber-700',
-                                        'D' => 'from-blue-600 to-emerald-600',
-                                        'E' => 'from-emerald-600 to-blue-600',
-                                        'F' => 'from-amber-600 to-blue-700',
-                                        'G' => 'from-blue-400 to-blue-600',
-                                        'H' => 'from-emerald-400 to-emerald-600',
-                                        'I' => 'from-amber-400 to-amber-600',
-                                        'J' => 'from-blue-700 to-amber-600',
-                                        'K' => 'from-amber-500 to-emerald-600',
-                                        'L' => 'from-emerald-500 to-amber-600',
-                                        'M' => 'from-blue-600 to-blue-900',
-                                        'N' => 'from-emerald-600 to-blue-700',
-                                        'O' => 'from-amber-600 to-emerald-700',
-                                        'P' => 'from-blue-500 to-amber-600',
-                                        'Q' => 'from-emerald-700 to-blue-800',
-                                        'R' => 'from-blue-500 to-emerald-600',
-                                        'S' => 'from-amber-500 to-blue-600',
-                                        'T' => 'from-blue-600 to-amber-700',
-                                        'U' => 'from-emerald-500 to-blue-700',
-                                        'V' => 'from-amber-600 to-blue-800',
-                                        'W' => 'from-blue-400 to-emerald-600',
-                                        'X' => 'from-emerald-600 to-amber-700',
-                                        'Y' => 'from-blue-500 to-blue-800',
-                                        'Z' => 'from-amber-700 to-blue-900'
-                                    ];
-                                    $gradient = $gradients[$initial] ?? 'from-blue-500 to-blue-700';
-                                @endphp
-                                <div class="testimonial-slide select-none group">
-                                    <!-- Outer Shell (Double-Bezel) -->
-                                    <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                        <!-- Inner Core -->
-                                        <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
-                                            <div>
-                                                <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                    <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                        @if(!empty($testimonial->photo))
-                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
-                                                                 <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="{{ $testimonial->name }}" class="w-full h-full object-cover" width="48" height="48" loading="lazy" decoding="async">
-                                                            </div>
-                                                        @else
-                                                            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br {{ $gradient }} flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
-                                                                {{ $initial }}
-                                                            </div>
-                                                        @endif
-                                                        <div class="min-w-0">
-                                                            <h3 class="font-extrabold text-stone-900 text-sm md:text-base line-clamp-2 group-hover:text-blue-600 transition duration-300">{{ $testimonial->name }}</h3>
-                                                            <p class="text-xs text-stone-500 truncate">{{ $testimonial->location }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="flex text-amber-500 gap-0.5">
-                                                        @for ($i = 0; $i < $testimonial->rating; $i++)
-                                                            <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
-                                                        @endfor
-                                                    </div>
-                                                </div>
-
-                                                @if(!empty($parsedEmbedUrl))
-                                                    <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-stone-100 shadow-inner z-20 group/video cursor-pointer"
-                                                         onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
-                                                        <div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-800 flex flex-col items-center justify-center p-4 text-center">
-                                                            <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="" loading="lazy" decoding="async">
-                                                            <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
-                                                                <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
-                                                                <span class="text-white font-extrabold text-sm truncate max-w-full">{{ $testimonial->name }}</span>
-                                                                @if(str_contains($parsedEmbedUrl, 'instagram.com'))
-                                                                    <span class="text-white/60 text-[9px] font-bold mt-1 flex items-center gap-1.5">
-                                                                        <i data-lucide="instagram" class="w-3 h-3 text-pink-500"></i> Instagram Reel
-                                                                    </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        @if(!empty($thumbnailUrl))
-                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105" loading="lazy" decoding="async" onerror="this.style.display='none'">
-                                                        @endif
-                                                        <div class="absolute inset-0 bg-stone-950/20 group-hover/video:bg-stone-950/30 transition-all duration-300 flex items-center justify-center z-30">
-                                                            <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
-                                                                <i data-lucide="play" class="w-5 h-5 fill-current ml-0.5"></i>
-                        </div>
-                            </div>
-                        </div>
-                                                @endif
-
-                                                <div class="relative mt-2">
-                                                    <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                    <p class="text-stone-600 dark:text-stone-300 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3 line-clamp-3 sm:line-clamp-4">
-                                                        {{ $testimonial->message }}
-                                                    </p>
-                                                    @if(mb_strlen($testimonial->message) > 150)
-                                                        <button type="button"
-                                                                onclick="window.openTestimonialTextModal(@js($testimonial->name), @js($testimonial->location), @js($testimonial->message), {{ (int) $testimonial->rating }}, @js($parsedEmbedUrl))"
-                                                                class="relative z-10 pl-3 -mt-3 mb-4 sm:mb-6 text-xs font-bold text-blue-600 hover:text-blue-700 hover:underline">
-                                                            Baca selengkapnya
-                                                        </button>
-                                                    @endif
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @else
-                            <!-- Fallback static items -->
-                            <!-- Testimonial 1 -->
-                            <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
-                                        <div>
-                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-900 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
-                                                        M
-                                                    </div>
-                                                    <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Muhammad Ridwan</h3>
-                                                        <p class="text-xs text-stone-500 truncate">Jakarta</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex text-amber-500 gap-0.5">
-                                                    @for ($i = 0; $i < 5; $i++)
-                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
-                                                    @endfor
-                                                </div>
-                                            </div>
-                                            <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
-                                                    Sangat puas dengan pelayanan IZI Travel. Hotel di Makkah dan Madinah sangat dekat dengan Masjidil Haram dan Nabawi. Pembimbing umrah sangat sabar dan menguasai manasik dengan baik.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Testimonial 2 -->
-                            <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
-                                        <div>
-                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-amber-500 to-blue-600 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
-                                                        S
-                                                    </div>
-                                                    <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">Hj. Siti Aminah</h3>
-                                                        <p class="text-xs text-stone-500 truncate">Bandung</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex text-amber-500 gap-0.5">
-                                                    @for ($i = 0; $i < 5; $i++)
-                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
-                                                    @endfor
-                                                </div>
-                                            </div>
-                                            <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
-                                                    Proses pendaftaran, pembuatan paspor dan visa semuanya dibantu sampai selesai. Jadwal keberangkatan tepat waktu dan fasilitas bus AC selama di Arab Saudi sangat nyaman. Terima kasih!
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Testimonial 3 -->
-                            <div class="testimonial-slide select-none group">
-                                <div class="w-full h-full p-2 bg-stone-100/40 dark:bg-stone-900/10 border border-stone-200/40 dark:border-stone-800/10 rounded-[2.2rem] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-2 group-hover:shadow-xl group-hover:shadow-blue-500/5 group-hover:border-blue-600/15 flex flex-col">
-                                    <div class="bg-white rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between h-full border border-stone-100/80 shadow-sm relative overflow-hidden flex-1">
-                                        <div>
-                                            <div class="flex items-center justify-between gap-3 sm:gap-4 mb-4 sm:mb-6">
-                                                <div class="flex items-center gap-3 sm:gap-4 min-w-0">
-                                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-emerald-500 to-blue-700 flex items-center justify-center text-white font-black text-sm sm:text-base border-2 border-white dark:border-stone-900 shadow-md flex-shrink-0 relative">
-                                                        A
-                                                    </div>
-                                                    <div class="min-w-0">
-                                                        <h3 class="font-extrabold text-stone-900 text-sm md:text-base truncate sm:whitespace-normal group-hover:text-blue-600 transition duration-300">H. Achmad Fauzi</h3>
-                                                        <p class="text-xs text-stone-500 truncate">Surabaya</p>
-                                                    </div>
-                                                </div>
-                                                <div class="flex text-amber-500 gap-0.5">
-                                                    @for ($i = 0; $i < 5; $i++)
-                                                        <i data-lucide="star" class="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-current"></i>
-                                                    @endfor
-                                                </div>
-                                            </div>
-                                            <div class="relative mt-2">
-                                                <span class="absolute -top-4 -left-2 text-stone-100/80 dark:text-stone-800/80 text-6xl font-serif pointer-events-none select-none">“</span>
-                                                <p class="text-stone-600 dark:text-stone-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-6 font-medium italic relative z-10 pl-3">
-                                                    Pelayanan prima sejak di tanah air hingga kembali ke Indonesia. Fasilitas hotel bintang 5 sesuai dengan yang dijanjikan, makanan prasmanan selalu cocok dengan lidah Indonesia.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-            </div>
-            <!-- Testimonial Controls & Dots Navigation (Sleek Floating Pill) -->
-            <div class="flex flex-col items-center gap-4 mt-8 sm:mt-12">
-                <div class="inline-flex items-center gap-3 bg-stone-100/80 dark:bg-stone-900/60 backdrop-blur-md px-4 py-2 rounded-full border border-stone-200/50 dark:border-stone-800/50 shadow-sm" id="testimonial-controls-wrapper">
-                    <button id="toggle-play-testimonial" class="flex items-center justify-center bg-white dark:bg-stone-800 hover:bg-stone-50 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-200 hover:text-blue-600 w-7 h-7 rounded-full shadow-sm border border-stone-100 dark:border-stone-700 transition active:scale-95 duration-200" aria-label="Pause Autoplay">
-                        <i data-lucide="pause" class="w-3.5 h-3.5" id="play-pause-icon"></i>
-                    </button>
-                    <div class="h-4 w-[1px] bg-stone-200 dark:bg-stone-700"></div>
-                    <div class="flex justify-center items-center gap-2" id="testimonial-dots">
-                    </div>
-                </div>
-                <!-- Premium Progress Bar -->
-                <div class="w-24 h-[3px] bg-stone-200/60 dark:bg-stone-800/60 rounded-full overflow-hidden relative">
-                    <div id="testimonial-progress" class="absolute top-0 left-0 h-full bg-blue-600 w-0 rounded-full"></div>
-                </div>
-
-                @if(isset($allTestimonialsCount) && $allTestimonialsCount > 7)
-                    <div class="mt-4 flex justify-center">
-                        <a href="{{ route('public.testimonials') }}" 
-                           class="inline-flex items-center gap-2 px-6 py-2.5 bg-white hover:bg-stone-50 text-blue-600 hover:text-blue-750 font-bold rounded-full border border-stone-200/80 shadow-sm hover:shadow transition-all duration-200 active:scale-95 text-xs sm:text-sm">
-                            <i data-lucide="message-square" class="w-4 h-4"></i>
-                            <span>Lihat Semua Testimoni ({{ $allTestimonialsCount }})</span>
-                        </a>
-                    </div>
-                @endif
-            </div>
-        </div>
-    </section>
-    <!-- END: Testimonials -->
+    @include('public.partials.home-testimonials')
 
     <!-- BEGIN: Articles -->
     <section class="py-16 md:py-24 bg-stone-50 overflow-hidden relative" id="artikel" data-purpose="articles-section">
@@ -3446,221 +2788,7 @@
     </section>
     <!-- END: Articles -->
 
-    <!-- BEGIN: Kabar Haramain & Waktu Tanah Suci -->
-    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white relative overflow-hidden" id="haramain-info">
-        <!-- Ambient Light Blobs -->
-        <div class="absolute -left-[10%] top-[10%] w-[600px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="absolute -right-[10%] bottom-[10%] w-[500px] h-[300px] bg-amber-500/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-        <!-- Stars/Pattern overlay -->
-        <div class="absolute inset-0 bg-cover opacity-[0.03] pointer-events-none" style="background-image: url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22%3E%3Cpath d=%22M30 0 l10 20 l20 10 l-20 10 l-10 20 l-10 -20 l-20 -10 l20 -10 z%22 fill=%22%23ffffff%22/%3E%3C/svg%3E'); background-size: 60px 60px;"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Section Header -->
-            <div class="text-center space-y-4 mb-10 reveal">
-                <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-amber-400 text-xs font-black tracking-widest uppercase shadow-sm">
-                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <i data-lucide="clock" class="w-3.5 h-3.5"></i>
-                    {{ $settings['haramain_badge'] ?? 'Info Haramain Live & Waktu Shalat' }}
-                </span>
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                    {{ $settings['haramain_title'] ?? 'Kabar Tanah Suci & Jadwal Shalat' }}
-                </h2>
-                <p class="text-white/60 max-w-xl mx-auto text-xs md:text-sm leading-relaxed font-light">
-                    {{ $settings['haramain_subtitle'] ?? 'Pantau kondisi langsung Masjidil Haram & Masjidil Nabawi, waktu shalat aktual, serta informasi cuaca Makkah secara real-time.' }}
-                </p>
-            </div>
-
-            <!-- Main Layout Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-
-                <!-- Left Column: Clock & Prayer Times Card (5-Span) -->
-                <div class="lg:col-span-5 bg-white/5 border border-white/10 backdrop-blur-md rounded-[2rem] p-5 sm:p-6 shadow-2xl relative overflow-hidden reveal-left">
-                    <!-- Glow decoration -->
-                    <div class="absolute -right-12 -top-12 w-32 h-32 bg-[#c89e2b]/10 rounded-full blur-2xl pointer-events-none"></div>
-
-                    <!-- City Toggle Tabs -->
-                    <div class="flex bg-white/5 border border-white/10 rounded-full p-1 mb-5 gap-1 overflow-x-auto scrollbar-none">
-                        <button onclick="setHaramainTab('makkah')" id="tab-btn-makkah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-blue-900 shadow-md shadow-[#c89e2b]/10">
-                            Makkah
-                        </button>
-                        <button onclick="setHaramainTab('madinah')" id="tab-btn-madinah" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5">
-                            Madinah
-                        </button>
-                        <button onclick="setHaramainTab('wib')" id="tab-btn-wib" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5">
-                            WIB
-                        </button>
-                        <button onclick="setHaramainTab('wita')" id="tab-btn-wita" class="flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5 font-medium">
-                            WITA
-                        </button>
-                    </div>
-
-                    <!-- Location Title & Realtime Clock -->
-                    <div class="text-center mb-5">
-                        <h3 id="clock-location-title" class="text-lg font-bold text-[#c89e2b] tracking-wide">Makkah Al-Mukarramah</h3>
-                        <div id="clock-time" class="text-3xl md:text-4xl font-black text-white my-3 tracking-wider font-mono">15:35:00 PM</div>
-                        <p id="clock-date" class="text-xs text-white/60 font-semibold">Jum'at, 17 Juli 2026</p>
-                    </div>
-
-                    <!-- Next Prayer Live Countdown -->
-                    <div class="bg-gradient-to-r from-[#c89e2b]/10 to-[#c89e2b]/20 border border-[#c89e2b]/30 rounded-2xl p-4 text-center mb-5">
-                        <p class="text-xs text-[#c89e2b] font-bold uppercase tracking-wider">Shalat Berikutnya</p>
-                        <h4 id="next-prayer-name" class="text-lg font-extrabold text-white mt-1">Maghrib</h4>
-                        <div id="next-prayer-countdown" class="text-xl font-mono font-black text-white tracking-widest mt-1.5">(01:25:16)</div>
-                    </div>
-
-                    <!-- Prayer Timings Grid -->
-                    <div class="space-y-2 text-left">
-                        <!-- Subuh -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
-                            <span class="text-sm font-semibold text-white/80">Subuh</span>
-                            <span id="prayer-time-subuh" class="text-sm font-bold font-mono text-white">04:21</span>
-                        </div>
-                        <!-- Dzuhur -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
-                            <span class="text-sm font-semibold text-white/80">Dzuhur</span>
-                            <span id="prayer-time-dzuhur" class="text-sm font-bold font-mono text-white">12:27</span>
-                        </div>
-                        <!-- Ashar -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
-                            <span class="text-sm font-semibold text-white/80">Ashar</span>
-                            <span id="prayer-time-ashar" class="text-sm font-bold font-mono text-white">15:41</span>
-                        </div>
-                        <!-- Maghrib -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
-                            <span class="text-sm font-semibold text-white/80">Maghrib</span>
-                            <span id="prayer-time-maghrib" class="text-sm font-bold font-mono text-white">19:06</span>
-                        </div>
-                        <!-- Isya -->
-                        <div class="flex items-center justify-between bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 hover:bg-white/10 transition">
-                            <span class="text-sm font-semibold text-white/80">Isya</span>
-                            <span id="prayer-time-isya" class="text-sm font-bold font-mono text-white">20:36</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column: Live Stream & Weather / Info (7-Span) -->
-                <div class="lg:col-span-7 space-y-4 reveal-right">
-                    <!-- Live Haramain Player Card -->
-                    <div class="bg-gradient-to-b from-stone-900/90 via-stone-900/80 to-stone-950/90 border border-amber-500/20 backdrop-blur-2xl rounded-[2.5rem] p-4 sm:p-5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.7)] relative overflow-hidden group">
-                        <!-- Ambient Background Glows -->
-                        <div class="absolute -top-24 -right-24 w-56 h-56 bg-amber-500/10 rounded-full blur-3xl pointer-events-none group-hover:bg-amber-500/15 transition-all duration-700"></div>
-                        <div class="absolute -bottom-24 -left-24 w-56 h-56 bg-red-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
-                        <div class="relative z-10 space-y-4">
-                            <!-- Top Header Bar -->
-                            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-3 border-b border-white/10">
-                                <div class="text-left space-y-1">
-                                    <div class="flex items-center gap-2">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/20 border border-red-500/40 text-red-400 text-[11px] font-black uppercase tracking-wider">
-                                            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
-                                            LIVE
-                                        </span>
-                                        <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-bold">
-                                            <i data-lucide="sparkles" class="w-3 h-3 text-amber-400"></i> HD 1080p
-                                        </span>
-                                    </div>
-                                    <h3 class="text-lg font-black text-white tracking-wide flex items-center gap-2 pt-1">
-                                        Siaran Langsung Masjidil Haram
-                                    </h3>
-                                    <p class="text-xs text-white/60 font-medium">Tayangan langsung 24/7 dari Baitullah Makkah Al-Mukarramah</p>
-                                </div>
-
-                                <!-- Action Buttons -->
-                                <div class="flex items-center gap-2">
-                                    <button onclick="refreshHaramainStream()" title="Muat Ulang Siaran" 
-                                            class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-white/70 hover:text-white border border-white/10 text-xs font-semibold transition duration-200 active:scale-95 flex items-center gap-1.5">
-                                        <i data-lucide="rotate-cw" class="w-4 h-4"></i>
-                                        <span class="hidden sm:inline">Refresh</span>
-                                    </button>
-                                    <a id="youtube-direct-link" href="https://www.youtube.com/channel/UCos52azQNBgW63_9uDJoPDA" target="_blank" rel="noopener noreferrer" 
-                                       class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-red-600 to-rose-700 hover:from-red-500 hover:to-rose-600 text-white shadow-lg shadow-red-950/30 border border-red-400/30 text-xs font-extrabold transition-all duration-300 hover:scale-105 active:scale-95">
-                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-                                        <span>Buka di YouTube</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            <!-- Video Player Frame (16:9 Aspect Ratio) -->
-                            <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-amber-500/30 shadow-[0_10px_30px_rgba(0,0,0,0.8)] bg-stone-950 group/player">
-                                <!-- Overlay Badges on Top of Video -->
-                                <div class="absolute top-3 left-3 z-20 pointer-events-none flex items-center gap-2">
-                                    <span class="px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-amber-500/30 text-amber-300 text-[10px] font-extrabold uppercase tracking-wider flex items-center gap-1.5 shadow-lg">
-                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                                        Makkah Live Stream
-                                    </span>
-                                </div>
-
-                                <!-- YouTube Iframe -->
-                                <iframe id="haramain-iframe" class="absolute inset-0 w-full h-full hidden" 
-                                        src="about:blank" 
-                                        title="Siaran Langsung Masjidil Haram Makkah" 
-                                        frameborder="0" 
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                                        allowfullscreen>
-                                </iframe>
-
-                                <!-- Facade / Placeholder Overlay -->
-                                <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group"
-                                     data-lazy-bg="{{ asset('images/package_kaaba.webp') }}"
-                                     style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), var(--deferred-bg, none);">
-                                     <!-- Play Button -->
-                                     <button id="haramain-play-btn" aria-label="Putar siaran langsung" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
-                                         <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
-                                     </button>
-                                     <span class="mt-4 text-xs font-bold text-white tracking-widest uppercase bg-black/40 px-4.5 py-2 rounded-full border border-white/10 z-20 select-none">Klik untuk Memutar Live Stream</span>
-                                </div>
-                            </div>
-
-                            <!-- Footer Stats / Info Bar -->
-                            <div class="flex flex-wrap items-center justify-between gap-3 text-xs text-white/50 pt-1 font-medium">
-                                <div class="flex items-center gap-2">
-                                    <i data-lucide="radio" class="w-3.5 h-3.5 text-amber-400 animate-pulse"></i>
-                                    <span>Saluran Resmi KSA Qur'an TV</span>
-                                </div>
-                                <div class="flex items-center gap-4 text-[11px]">
-                                    <span class="flex items-center gap-1 text-emerald-400">
-                                        <i data-lucide="check-circle2" class="w-3.5 h-3.5"></i> Live Broadcast Ready
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Weather and Density Stat Row -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left">
-                        <!-- Makkah Weather Widget -->
-                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-xl flex items-center justify-between">
-                            <div class="space-y-1">
-                                <p class="text-xs text-white/50 font-bold uppercase tracking-wider">Cuaca Makkah</p>
-                                <h4 id="weather-temp" class="text-3xl font-black text-white">41°C</h4>
-                                <p id="weather-desc" class="text-xs text-[#c89e2b] font-semibold">Cerah Berawan</p>
-                            </div>
-                            <div class="p-3 bg-amber-500/10 text-amber-400 border border-amber-500/20 rounded-2xl flex items-center justify-center">
-                                <i id="weather-icon" data-lucide="sun" class="w-8 h-8"></i>
-                            </div>
-                        </div>
-
-                        <!-- Live Density Widget (Pilgrims Today) -->
-                        <div class="bg-white/5 border border-white/10 backdrop-blur-md rounded-2xl p-4 shadow-xl flex items-center justify-between">
-                            <div class="space-y-1">
-                                <p class="text-xs text-white/50 font-bold uppercase tracking-wider">Estimasi Jamaah Hari Ini</p>
-                                <h4 id="density-counter" class="text-3xl font-black text-emerald-400 font-mono">{{ number_format((int)($settings['haramain_density_base'] ?? 254025), 0, ',', '.') }}</h4>
-                                <p class="text-xs text-white/40 flex items-center gap-1 font-medium">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                                    Kepadatan Masjidil Haram
-                                </p>
-                            </div>
-                            <div class="p-3 bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-2xl flex items-center justify-center">
-                                <i data-lucide="users" class="w-8 h-8 animate-pulse"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- END: Kabar Haramain & Waktu Tanah Suci -->
+    @include('public.partials.home-haramain')
 
     <!-- BEGIN: Kemitraan -->
     <section class="section-soft-bg py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section" data-lazy-bg="">
@@ -3904,6 +3032,7 @@
 
         let currentLightboxIndex = 0;
         let activeGalleryItems = [];
+        let lightboxTrigger = null;
 
         const showLightboxItem = (index) => {
             if (index < 0 || index >= activeGalleryItems.length) return;
@@ -3924,6 +3053,7 @@
 
             if (item.type === 'photo') {
                 lightboxImg.setAttribute('src', item.src);
+                lightboxImg.setAttribute('alt', item.title || 'Foto perjalanan jemaah');
                 lightboxImg.classList.remove('hidden');
                 // Micro-trigger reflow
                 void lightboxImg.offsetWidth;
@@ -3957,6 +3087,7 @@
         const openLightbox = (items, startIndex = 0) => {
             activeGalleryItems = items;
             if (activeGalleryItems.length === 0) return;
+            lightboxTrigger = document.activeElement;
 
             lightbox.classList.remove('hidden');
             lightbox.classList.add('flex');
@@ -3968,6 +3099,7 @@
             panelIn(lightboxContentBox, { scale: [0.95, 1] });
 
             showLightboxItem(startIndex);
+            lightboxClose.focus();
 
             // Pause testimonial autoplay when lightbox is opened
             if (typeof window.pauseTestimonialAutoplay === 'function') {
@@ -3976,6 +3108,7 @@
         };
 
         const closeLightbox = async () => {
+            if (lightbox.classList.contains('hidden')) return;
             // Unlock scroll
             document.body.style.overflow = '';
 
@@ -3988,6 +3121,7 @@
             lightbox.classList.add('hidden');
             lightboxIframe.setAttribute('src', '');
             lightboxImg.setAttribute('src', '');
+            lightboxTrigger?.focus();
 
             // Resume testimonial autoplay when lightbox is closed
             if (typeof window.resumeTestimonialAutoplay === 'function') {
@@ -4009,7 +3143,7 @@
         albumCards.forEach(card => {
             card.addEventListener('click', () => {
                 const items = JSON.parse(card.getAttribute('data-items') || '[]');
-                openLightbox(items, 0);
+                openLightbox(items, Number(card.dataset.startIndex) || 0);
             });
         });
 
@@ -4103,6 +3237,16 @@
                 navigateLightbox(-1);
             } else if (e.key === 'ArrowRight') {
                 navigateLightbox(1);
+            } else if (e.key === 'Tab') {
+                const controls = [lightboxClose, lightboxPrev, lightboxNext].filter(button => !button.classList.contains('hidden'));
+                const current = controls.indexOf(document.activeElement);
+                if (e.shiftKey && current <= 0) {
+                    e.preventDefault();
+                    controls.at(-1).focus();
+                } else if (!e.shiftKey && (current === controls.length - 1 || current < 0)) {
+                    e.preventDefault();
+                    controls[0].focus();
+                }
             }
         });
 
@@ -4624,66 +3768,31 @@
                 });
             });
 
-            // 12. Packages Category Tab Filter & Sliding Pill Logic
-            const packageTabBtns = document.querySelectorAll('.package-tab-btn');
-            const packageTabPill = document.getElementById('package-tab-pill');
-            const packageItems = document.querySelectorAll('.package-item');
-
-            const updatePackageTabPill = (btn) => {
-                if (!packageTabPill || !btn) return;
-                packageTabPill.style.width = `${btn.offsetWidth}px`;
-                packageTabPill.style.left = `${btn.offsetLeft}px`;
-                packageTabPill.style.height = `${btn.offsetHeight}px`;
-                packageTabPill.style.top = `${btn.offsetTop}px`;
-            };
-
-            const activePackageBtn = document.querySelector('.package-tab-btn.active');
-            if (activePackageBtn) {
-                setTimeout(() => updatePackageTabPill(activePackageBtn), 150);
-            }
+            // 12. Filter packages while keeping the visible count in sync.
+            const packageTabBtns = document.querySelectorAll('.umrah-package-filter');
+            const packageItems = document.querySelectorAll('.umrah-package-card');
+            const packageCount = document.getElementById('umrah-package-count');
+            const packageFilterEmpty = document.getElementById('umrah-package-filter-empty');
 
             packageTabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    packageTabBtns.forEach(b => {
-                        b.classList.remove('active', 'text-blue-600');
-                        b.classList.add('text-white/60');
+                    const filter = btn.dataset.packageFilter;
+                    packageTabBtns.forEach(tab => {
+                        const active = tab === btn;
+                        tab.classList.toggle('is-active', active);
+                        tab.setAttribute('aria-pressed', String(active));
                     });
-                    btn.classList.add('active', 'text-blue-600');
-                    btn.classList.remove('text-white/60');
-                    updatePackageTabPill(btn);
 
-                    const wrapper = btn.closest('.overflow-x-auto');
-                    if (wrapper) {
-                        const containerHalfWidth = wrapper.clientWidth / 2;
-                        const btnHalfWidth = btn.offsetWidth / 2;
-                        const scrollLeft = btn.offsetLeft - containerHalfWidth + btnHalfWidth;
-                        wrapper.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-                    }
-
-                    const filter = btn.getAttribute('data-filter');
-
+                    let visible = 0;
                     packageItems.forEach(card => {
-                        const category = card.getAttribute('data-category');
-                        if (filter === 'all' || category === filter) {
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1)';
-                            }, 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.95)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 250);
-                        }
+                        const show = filter === 'all' || card.dataset.category === filter;
+                        card.hidden = !show;
+                        if (show) visible++;
                     });
+                    if (packageCount) packageCount.textContent = `Menampilkan ${visible} paket`;
+                    if (packageFilterEmpty) packageFilterEmpty.hidden = visible !== 0;
+                    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
                 });
-            });
-
-            window.addEventListener('resize', () => {
-                const activeBtn = document.querySelector('.package-tab-btn.active');
-                if (activeBtn) updatePackageTabPill(activeBtn);
             });
 
             // 14. Articles Category Tab Filter & Sliding Pill Logic
@@ -4805,399 +3914,10 @@
                 }
             }
 
-            // ==========================================
-            // 2. REAL-TIME MULTI-ZONE CLOCK
-            // ==========================================
-            let currentTab = 'makkah'; // makkah | madinah | wib | wita
-
-            const timezoneOffsets = {
-                makkah: 3,     // UTC+3
-                madinah: 3,    // UTC+3
-                wib: 7,        // UTC+7 (WIB)
-                wita: 8        // UTC+8 (WITA)
-            };
-
-            const locationNames = {
-                makkah: 'Makkah Al-Mukarramah',
-                madinah: 'Madinah Al-Munawwarah',
-                wib: 'Jakarta, Indonesia (WIB)',
-                wita: 'Makassar, Indonesia (WITA)'
-            };
-
-            const dayNames = ['Ahad', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jum\'at', 'Sabtu'];
-            const monthNames = [
-                'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 
-                'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-            ];
-
-            const updateClock = () => {
-                const now = new Date();
-                // Get UTC time
-                const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-                // Adjust to timezone offset
-                const offset = timezoneOffsets[currentTab];
-                const localTime = new Date(utc + (3600000 * offset));
-
-                // Format Time
-                let hours = localTime.getHours();
-                const minutes = String(localTime.getMinutes()).padStart(2, '0');
-                const seconds = String(localTime.getSeconds()).padStart(2, '0');
-                const ampm = hours >= 12 ? 'PM' : 'AM';
-                hours = hours % 12;
-                hours = hours ? hours : 12; // the hour '0' should be '12'
-                const formattedTime = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
-
-                // Format Date
-                const dayName = dayNames[localTime.getDay()];
-                const date = localTime.getDate();
-                const monthName = monthNames[localTime.getMonth()];
-                const year = localTime.getFullYear();
-                const formattedDate = `${dayName}, ${date} ${monthName} ${year}`;
-
-                // Update DOM
-                const clockTimeEl = document.getElementById('clock-time');
-                const clockDateEl = document.getElementById('clock-date');
-                if (clockTimeEl) clockTimeEl.textContent = formattedTime;
-                if (clockDateEl) clockDateEl.textContent = formattedDate;
-
-                // Update next prayer countdown
-                updateNextPrayerCountdown(localTime);
-            };
-
-            // Expose setHaramainTab to global window scope
-            window.setHaramainTab = (tab) => {
-                currentTab = tab;
-
-                // Toggle tab buttons visual classes
-                const tabs = ['makkah', 'madinah', 'wib', 'wita'];
-                tabs.forEach(t => {
-                    const btn = document.getElementById(`tab-btn-${t}`);
-                    if (btn) {
-                        if (t === tab) {
-                            btn.className = "flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 bg-[#c89e2b] text-blue-900 shadow-md shadow-[#c89e2b]/10";
-                        } else {
-                            btn.className = "flex-1 whitespace-nowrap text-center py-2 px-3 rounded-full text-xs font-bold transition duration-300 text-white hover:bg-white/5";
-                        }
-                    }
-                });
-
-                // Update location title
-                const titleEl = document.getElementById('clock-location-title');
-                if (titleEl) titleEl.textContent = locationNames[tab];
-
-                // Render current timings
-                renderPrayerTimings();
-
-                // Force clock update immediately
-                updateClock();
-            };
-
-            // ==========================================
-            // 3. PRAYER TIMINGS & COUNTDOWN LOGIC
-            // ==========================================
-            const prayerTimings = {
-                makkah: { Subuh: '04:21', Dzuhur: '12:27', Ashar: '15:41', Maghrib: '19:06', Isya: '20:36' },
-                madinah: { Subuh: '04:18', Dzuhur: '12:28', Ashar: '15:49', Maghrib: '19:11', Isya: '20:41' },
-                wib: { Subuh: '04:42', Dzuhur: '12:00', Ashar: '15:22', Maghrib: '17:54', Isya: '19:08' },
-                wita: { Subuh: '04:54', Dzuhur: '12:12', Ashar: '15:35', Maghrib: '18:09', Isya: '19:22' }
-            };
-
-            // Fetch live prayer times from API
-            const fetchPrayerTimes = async () => {
-                try {
-                    // Fetch Makkah (coordinates: Lat 21.3891, Lon 39.8579)
-                    const makkahRes = await fetch('https://api.aladhan.com/v1/timings?latitude=21.3891&longitude=39.8579&method=4');
-                    if (makkahRes.ok) {
-                        const data = await makkahRes.json();
-                        const timings = data.data.timings;
-                        prayerTimings.makkah = {
-                            Subuh: timings.Fajr,
-                            Dzuhur: timings.Dhuhr,
-                            Ashar: timings.Asr,
-                            Maghrib: timings.Maghrib,
-                            Isya: timings.Isha
-                        };
-                    }
-
-                    // Fetch Madinah (coordinates: Lat 24.4672, Lon 39.6111)
-                    const madinahRes = await fetch('https://api.aladhan.com/v1/timings?latitude=24.4672&longitude=39.6111&method=4');
-                    if (madinahRes.ok) {
-                        const data = await madinahRes.json();
-                        const timings = data.data.timings;
-                        prayerTimings.madinah = {
-                            Subuh: timings.Fajr,
-                            Dzuhur: timings.Dhuhr,
-                            Ashar: timings.Asr,
-                            Maghrib: timings.Maghrib,
-                            Isya: timings.Isha
-                        };
-                    }
-
-                    // Fetch WIB (Jakarta, coordinates: Lat -6.2088, Lon 106.8456)
-                    const wibRes = await fetch('https://api.aladhan.com/v1/timings?latitude=-6.2088&longitude=106.8456&method=15'); // Kemenag RI method 15
-                    if (wibRes.ok) {
-                        const data = await wibRes.json();
-                        const timings = data.data.timings;
-                        prayerTimings.wib = {
-                            Subuh: timings.Fajr,
-                            Dzuhur: timings.Dhuhr,
-                            Ashar: timings.Asr,
-                            Maghrib: timings.Maghrib,
-                            Isya: timings.Isha
-                        };
-                    }
-
-                    // Fetch WITA (Makassar, coordinates: Lat -5.1476, Lon 119.4327)
-                    const witaRes = await fetch('https://api.aladhan.com/v1/timings?latitude=-5.1476&longitude=119.4327&method=15'); // Kemenag RI method 15
-                    if (witaRes.ok) {
-                        const data = await witaRes.json();
-                        const timings = data.data.timings;
-                        prayerTimings.wita = {
-                            Subuh: timings.Fajr,
-                            Dzuhur: timings.Dhuhr,
-                            Ashar: timings.Asr,
-                            Maghrib: timings.Maghrib,
-                            Isya: timings.Isha
-                        };
-                    }
-
-                    // Re-render after successful fetches
-                    renderPrayerTimings();
-                } catch (e) {
-                    console.log('Error fetching prayer times, using high-precision fallback.', e);
-                }
-            };
-
-            const renderPrayerTimings = () => {
-                const timings = prayerTimings[currentTab];
-                document.getElementById('prayer-time-subuh').textContent = timings.Subuh;
-                document.getElementById('prayer-time-dzuhur').textContent = timings.Dzuhur;
-                document.getElementById('prayer-time-ashar').textContent = timings.Ashar;
-                document.getElementById('prayer-time-maghrib').textContent = timings.Maghrib;
-                document.getElementById('prayer-time-isya').textContent = timings.Isya;
-            };
-
-            const updateNextPrayerCountdown = (localTime) => {
-                const timings = prayerTimings[currentTab];
-
-                // Parse prayer times into minutes since midnight
-                const parseToMinutes = (timeStr) => {
-                    const parts = timeStr.split(':');
-                    return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10);
-                };
-
-                const nowMinutes = localTime.getHours() * 60 + localTime.getMinutes();
-                const nowSecondsInMinute = localTime.getSeconds();
-
-                const prayers = [
-                    { name: 'Subuh', minutes: parseToMinutes(timings.Subuh) },
-                    { name: 'Dzuhur', minutes: parseToMinutes(timings.Dzuhur) },
-                    { name: 'Ashar', minutes: parseToMinutes(timings.Ashar) },
-                    { name: 'Maghrib', minutes: parseToMinutes(timings.Maghrib) },
-                    { name: 'Isya', minutes: parseToMinutes(timings.Isya) }
-                ];
-
-                // Find next prayer
-                let nextPrayer = null;
-                let minutesDiff = 0;
-
-                for (let i = 0; i < prayers.length; i++) {
-                    if (prayers[i].minutes > nowMinutes) {
-                        nextPrayer = prayers[i];
-                        minutesDiff = prayers[i].minutes - nowMinutes;
-                        break;
-                    }
-                }
-
-                // If all prayers today have passed, the next prayer is Subuh tomorrow
-                if (!nextPrayer) {
-                    nextPrayer = prayers[0]; // Subuh
-                    minutesDiff = (24 * 60 - nowMinutes) + prayers[0].minutes;
-                }
-
-                // Convert differences to hours, minutes, seconds countdown
-                let totalSeconds = minutesDiff * 60 - nowSecondsInMinute;
-                if (totalSeconds < 0) totalSeconds = 0;
-
-                const countdownHours = Math.floor(totalSeconds / 3600);
-                const countdownMins = Math.floor((totalSeconds % 3600) / 60);
-                const countdownSecs = totalSeconds % 60;
-
-                const formattedCountdown = `${String(countdownHours).padStart(2, '0')}:${String(countdownMins).padStart(2, '0')}:${String(countdownSecs).padStart(2, '0')}`;
-
-                const nextPrayerNameEl = document.getElementById('next-prayer-name');
-                const nextPrayerCountdownEl = document.getElementById('next-prayer-countdown');
-
-                if (nextPrayerNameEl) nextPrayerNameEl.textContent = nextPrayer.name;
-                if (nextPrayerCountdownEl) nextPrayerCountdownEl.textContent = formattedCountdown;
-            };
-
-            // ==========================================
-            // 4. LIVE STREAM MASJIDIL HARAM
-            // ==========================================
-            const makkahSetting = @json($settings['haramain_youtube_makkah'] ?? 'UCos52azQNBgW63_9uDJoPDA');
-
-            function getYoutubeStreamData(input) {
-                if (!input) {
-                    return {
-                        embed: 'https://www.youtube.com/embed/live_stream?channel=UCos52azQNBgW63_9uDJoPDA',
-                        direct: 'https://www.youtube.com/channel/UCos52azQNBgW63_9uDJoPDA'
-                    };
-                }
-                input = String(input).trim();
-
-                let embed = input;
-                let direct = input;
-
-                // Match standard video link: watch?v=..., live/..., youtu.be/..., shorts/..., embed/..., or v/...
-                const videoMatch = input.match(/(?:youtube\.com\/(?:watch\?.*v=|v\/|live\/|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/i);
-                if (videoMatch && videoMatch[1]) {
-                    embed = `https://www.youtube.com/embed/${videoMatch[1]}?autoplay=1&mute=1`;
-                    direct = `https://www.youtube.com/watch?v=${videoMatch[1]}`;
-                } else if (/^[a-zA-Z0-9_-]{11}$/.test(input)) {
-                    embed = `https://www.youtube.com/embed/${input}?autoplay=1&mute=1`;
-                    direct = `https://www.youtube.com/watch?v=${input}`;
-                } else if (input.startsWith('UC') || input.includes('channel/UC')) {
-                    const channelId = input.replace(/.*channel\//, '').split('/')[0].split('?')[0];
-                    embed = `https://www.youtube.com/embed/live_stream?channel=${channelId}&autoplay=1&mute=1`;
-                    direct = `https://www.youtube.com/channel/${channelId}`;
-                } else if (!input.startsWith('http://') && !input.startsWith('https://')) {
-                    embed = `https://www.youtube.com/embed/live_stream?channel=${input}&autoplay=1&mute=1`;
-                    direct = `https://www.youtube.com/channel/${input}`;
-                }
-
-                return { embed, direct };
-            }
-
-            const streamData = getYoutubeStreamData(makkahSetting);
-
-            // Set initial direct link
-            const youtubeDirectLink = document.getElementById('youtube-direct-link');
-            if (youtubeDirectLink && streamData.direct) {
-                youtubeDirectLink.setAttribute('href', streamData.direct);
-            }
-
-            // Facade click-to-load logic
-            const haramainFacade = document.getElementById('haramain-facade');
-            const haramainIframe = document.getElementById('haramain-iframe');
-
-            const loadHaramainStream = () => {
-                if (haramainIframe && haramainIframe.getAttribute('src') === 'about:blank' && streamData.embed) {
-                    // Set stream src and add autoplay
-                    const autoplayEmbed = streamData.embed.includes('?') 
-                        ? streamData.embed + '&autoplay=1&mute=1' 
-                        : streamData.embed + '?autoplay=1&mute=1';
-
-                    haramainIframe.setAttribute('src', autoplayEmbed);
-                    haramainIframe.classList.remove('hidden');
-
-                    if (haramainFacade) {
-                        haramainFacade.classList.add('opacity-0', 'pointer-events-none');
-                        setTimeout(() => haramainFacade.classList.add('hidden'), 500);
-                    }
-                }
-            };
-
-            if (haramainFacade) {
-                haramainFacade.addEventListener('click', loadHaramainStream);
-            }
-
-            window.refreshHaramainStream = () => {
-                if (haramainIframe) {
-                    if (haramainIframe.getAttribute('src') === 'about:blank') {
-                        loadHaramainStream();
-                    } else if (streamData.embed) {
-                        const autoplayEmbed = streamData.embed.includes('?') 
-                            ? streamData.embed + '&autoplay=1&mute=1' 
-                            : streamData.embed + '?autoplay=1&mute=1';
-
-                        haramainIframe.setAttribute('src', 'about:blank');
-                        setTimeout(() => {
-                            haramainIframe.setAttribute('src', autoplayEmbed);
-                        }, 100);
-                    }
-                }
-            };
-
-            // ==========================================
-            // 5. WEATHER IN MAKKAH (API CALL)
-            // ==========================================
-            const fetchMakkahWeather = async () => {
-                try {
-                    const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=21.3891&longitude=39.8579&current_weather=true');
-                    if (res.ok) {
-                        const data = await res.json();
-                        const temp = Math.round(data.current_weather.temperature);
-                        const code = data.current_weather.weathercode;
-
-                        // Map code to Indonesian description and Lucide icon name
-                        let desc = 'Cerah';
-                        let iconName = 'sun';
-
-                        if (code === 0) { desc = 'Cerah, Hangat'; iconName = 'sun'; }
-                        else if (code >= 1 && code <= 3) { desc = 'Cerah Berawan'; iconName = 'cloud-sun'; }
-                        else if (code >= 45 && code <= 48) { desc = 'Berkabut'; iconName = 'cloud'; }
-                        else if (code >= 51 && code <= 67) { desc = 'Gerimis Ringan'; iconName = 'cloud-drizzle'; }
-                        else if (code >= 71 && code <= 77) { desc = 'Hujan Abu'; iconName = 'cloud-snow'; }
-                        else if (code >= 80 && code <= 82) { desc = 'Hujan'; iconName = 'cloud-rain'; }
-                        else if (code >= 95 && code <= 99) { desc = 'Badai Petir'; iconName = 'cloud-lightning'; }
-
-                        const tempEl = document.getElementById('weather-temp');
-                        const descEl = document.getElementById('weather-desc');
-                        const iconEl = document.getElementById('weather-icon');
-
-                        if (tempEl) tempEl.textContent = `${temp}°C`;
-                        if (descEl) descEl.textContent = desc;
-
-                        if (iconEl && window.lucide) {
-                            iconEl.setAttribute('data-lucide', iconName);
-                            window.lucide.createIcons();
-                        }
-                    }
-                } catch (e) {
-                    console.log('Error fetching Makkah weather, using default fallback.', e);
-                    // Default fallback
-                    const tempEl = document.getElementById('weather-temp');
-                    const descEl = document.getElementById('weather-desc');
-                    if (tempEl) tempEl.textContent = '41°C';
-                    if (descEl) descEl.textContent = 'Cerah Berawan';
-                }
-            };
-
-            // ==========================================
-            // 6. LIVE PILGRIMS ESTIMATE COUNTER
-            // ==========================================
-            let baseDensity = {{ (int)($settings['haramain_density_base'] ?? 254025) }};
-            const densityCounterEl = document.getElementById('density-counter');
-
-            const updateDensityCounter = () => {
-                if (densityCounterEl) {
-                    // Fluctuates slightly up and down to feel live
-                    const fluctuation = Math.floor(Math.random() * 50) - 25; // +/- 25
-                    baseDensity += fluctuation;
-
-                    // Format with comma
-                    densityCounterEl.textContent = baseDensity.toLocaleString('id-ID');
-                }
-            };
-
-            // Initialize Page Actions
-            renderPrayerTimings();
-            updateClock();
-            setInterval(updateClock, 1000);
-
-            fetchPrayerTimes();
-            fetchMakkahWeather();
-
-            setInterval(updateDensityCounter, 3000);
-
-            // Re-fetch weather and times every 30 minutes
-            setInterval(() => {
-                fetchPrayerTimes();
-                fetchMakkahWeather();
-            }, 1800000);
         });
     </script>
+
+    @include('public.partials.home-haramain-script')
 
 
 

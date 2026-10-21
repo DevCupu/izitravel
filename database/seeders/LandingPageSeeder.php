@@ -24,7 +24,6 @@ class LandingPageSeeder extends Seeder
             'about_vision' => 'Menjadi penyelenggara perjalanan ibadah Umrah dan Haji premium terbaik di Indonesia yang terpercaya, modern, dan profesional tanpa mengurangi nilai kemurnian ibadah.',
             'about_mission' => "Menyediakan pelayanan prima melalui kepastian program, bimbingan syar'i terarah, fasilitas hotel dekat Haramain, serta pendampingan maksimal dari sebelum keberangkatan hingga kembali ke tanah air.",
             // Haramain Live & Info Center settings
-            'haramain_density_base' => '254025',
             'haramain_youtube_makkah' => 'UCos52azQNBgW63_9uDJoPDA',
             'haramain_youtube_madinah' => 'UCROKYPep-UuODNwyipe6JMw',
             'contact_whatsapp' => '62818324244',

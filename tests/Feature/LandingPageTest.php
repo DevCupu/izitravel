@@ -14,7 +14,7 @@ class LandingPageTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertSee('IZI Travel');
-        $response->assertSee('Siaran Langsung Masjidil Haram');
+        $response->assertSee('Siaran Tanah Suci');
     }
 
     public function test_landing_page_displays_active_packages(): void
@@ -24,7 +24,7 @@ class LandingPageTest extends TestCase
             'slug' => 'paket-umrah-plus-turki-platinum',
             'price' => 35000000,
             'duration_days' => 12,
-            'departure_date' => '2026-10-15',
+            'departure_date' => today()->addMonths(2)->toDateString(),
             'airline' => 'Saudia Airlines',
             'hotel_makkah' => 'Pullman Zamzam',
             'hotel_madinah' => 'Frontel Al Harithia',

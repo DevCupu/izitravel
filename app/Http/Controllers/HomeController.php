@@ -19,6 +19,7 @@ class HomeController extends Controller
     {
         $packages = Package::query()
             ->where('is_active', true)
+            ->whereDate('departure_date', '>=', today())
             ->orderBy('order')
             ->orderBy('id')
             ->get();
@@ -135,14 +136,28 @@ class HomeController extends Controller
     public function testimonials(Request $request)
     {
         $settings = Setting::allValues();
+        $filter = in_array($request->query('filter'), ['video', 'photo', 'star5'], true)
+            ? $request->query('filter')
+            : 'all';
 
-        $testimonials = Testimonial::query()
-            ->where('is_active', true)
+        $activeTestimonials = Testimonial::query()->where('is_active', true);
+        $filterCounts = [
+            'all' => (clone $activeTestimonials)->count(),
+            'video' => (clone $activeTestimonials)->whereNotNull('video_url')->where('video_url', '!=', '')->count(),
+            'photo' => (clone $activeTestimonials)->whereNotNull('photo')->where('photo', '!=', '')->count(),
+            'star5' => (clone $activeTestimonials)->where('rating', 5)->count(),
+        ];
+
+        $testimonials = $activeTestimonials
+            ->when($filter === 'video', fn ($query) => $query->whereNotNull('video_url')->where('video_url', '!=', ''))
+            ->when($filter === 'photo', fn ($query) => $query->whereNotNull('photo')->where('photo', '!=', ''))
+            ->when($filter === 'star5', fn ($query) => $query->where('rating', 5))
             ->orderBy('order')
             ->orderBy('id')
-            ->paginate(12);
+            ->paginate(12)
+            ->withQueryString();
 
-        return view('testimonials', compact('testimonials', 'settings'));
+        return view('testimonials', compact('testimonials', 'settings', 'filter', 'filterCounts'));
     }
 
     public function articles(Request $request)

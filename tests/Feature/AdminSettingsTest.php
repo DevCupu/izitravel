@@ -27,6 +27,7 @@ class AdminSettingsTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Pengaturan', false);
         $response->assertSee('haramain_youtube_makkah');
+        $response->assertSee('haramain_youtube_madinah');
     }
 
     public function test_admin_can_update_live_stream_youtube_settings(): void
@@ -40,14 +41,12 @@ class AdminSettingsTest extends TestCase
             'site_name' => 'IZI Travel Premium',
             'haramain_youtube_makkah' => 'https://www.youtube.com/watch?v=Y4Zo-j4-IjA',
             'haramain_youtube_madinah' => 'UCROKYPep-UuODNwyipe6JMw',
-            'haramain_density_base' => 300000,
         ]);
 
         $response->assertRedirect();
 
         $this->assertEquals('https://www.youtube.com/watch?v=Y4Zo-j4-IjA', Setting::getValue('haramain_youtube_makkah'));
         $this->assertEquals('UCROKYPep-UuODNwyipe6JMw', Setting::getValue('haramain_youtube_madinah'));
-        $this->assertEquals('300000', Setting::getValue('haramain_density_base'));
     }
 
     public function test_admin_can_access_and_update_profile(): void

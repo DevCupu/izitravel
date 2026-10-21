@@ -196,7 +196,7 @@
                     ['packages', '5. Section Paket Umrah', 'compass', 'Badge, judul, subjudul, label harga, teks tombol detail, dan 3 catatan penting paket.'],
                     ['gallery_testimonials', '6. Section Galeri & Testimoni', 'image', 'Badge, judul, subjudul untuk galeri kegiatan dan testimoni jamaah.'],
                     ['articles', '7. Section Artikel & Inspirasi', 'newspaper', 'Badge, judul, subjudul, tombol baca, dan filter kategori artikel.'],
-                    ['haramain', '8. Section Kabar Haramain', 'video', 'Badge, judul, subjudul, link live stream YouTube (Makkah/Madinah), dan estimasi kepadatan.'],
+                    ['haramain', '8. Section Kabar Haramain', 'video', 'Badge, judul, subjudul, siaran YouTube Makkah/Madinah, jadwal shalat, dan cuaca Makkah.'],
                     ['partnership', '9. Section Kemitraan (Mitra Syiar)', 'handshake', 'Badge, judul, subjudul, 2 tier kemitraan, reward prestasi, dan CTA WhatsApp.'],
                 ],
                 'Kontak & Informasi Penutup' => [
@@ -1526,18 +1526,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="haramain_density_base">Estimasi Awal Kepadatan Jamaah Hari Ini</label>
-                        <input type="number" id="haramain_density_base" name="haramain_density_base" value="{{ old('haramain_density_base', $settings['haramain_density_base'] ?? '254025') }}" placeholder="Contoh: 254025" min="0">
-                        <p class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>📍 Tampil di: Widget estimasi jumlah jamaah di Masjidil Haram pada halaman depan (di samping widget jadwal shalat).</p>
-                        @error('haramain_density_base') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
-                    </div>
-
-                    <div class="form-group">
                         <label for="haramain_youtube_makkah">YouTube Live Stream Masjidil Haram Makkah (Link / ID / Channel)</label>
                         <input type="text" id="haramain_youtube_makkah" name="haramain_youtube_makkah" value="{{ old('haramain_youtube_makkah', $settings['haramain_youtube_makkah'] ?? 'UCos52azQNBgW63_9uDJoPDA') }}" placeholder="Contoh: https://www.youtube.com/live/... atau https://www.youtube.com/watch?v=..." maxlength="255">
                         <p class="text-[10px] text-slate-400 mt-1">Bisa diisi URL YouTube Live (<code>/live/...</code>), Link Video (<code>/watch?v=...</code>), Video ID, atau Channel ID (KSA Qur'an TV).</p>
-                        <p class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>📍 Tampil di: Pemutar Video Siaran Langsung 24/7 Masjidil Haram di halaman depan.</p>
+                        <p class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>Tampil pada pilihan Masjidil Haram di section Haramain.</p>
                         @error('haramain_youtube_makkah') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="haramain_youtube_madinah">YouTube Live Stream Masjid Nabawi Madinah (Link / ID / Channel)</label>
+                        <input type="text" id="haramain_youtube_madinah" name="haramain_youtube_madinah" value="{{ old('haramain_youtube_madinah', $settings['haramain_youtube_madinah'] ?? 'UCROKYPep-UuODNwyipe6JMw') }}" placeholder="Contoh: https://www.youtube.com/live/... atau Channel ID" maxlength="255">
+                        <p class="text-[10px] text-slate-400 mt-1">Bisa diisi URL video, Video ID, atau Channel ID YouTube.</p>
+                        <p class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold mt-1 flex items-center gap-1"><i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>Tampil pada pilihan Masjid Nabawi di section Haramain.</p>
+                        @error('haramain_youtube_madinah') <p class="mt-1.5 text-xs text-red-500 font-semibold">{{ $message }}</p> @enderror
                     </div>
                 </div>
             </div>

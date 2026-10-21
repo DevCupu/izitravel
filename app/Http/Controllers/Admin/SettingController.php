@@ -109,7 +109,6 @@ class SettingController extends Controller
             // Footer
             'footer_contact_heading', 'footer_ppiu_number',
             // Haramain Live & Info Center settings
-            'haramain_density_base',
             'haramain_youtube_makkah',
             'haramain_youtube_madinah',
             'haramain_badge',
@@ -302,7 +301,6 @@ class SettingController extends Controller
             'about_ppiu_badges_list' => ['nullable', 'string', 'max:255'],
             'about_ppiu_desc'        => ['nullable', 'string', 'max:500'],
             'registration_steps'     => ['nullable', 'string'],
-            'haramain_density_base'  => ['nullable', 'integer', 'min:0'],
             'haramain_youtube_makkah' => ['nullable', 'string', 'max:255'],
             'haramain_youtube_madinah' => ['nullable', 'string', 'max:255'],
             'haramain_badge'         => ['nullable', 'string', 'max:150'],
