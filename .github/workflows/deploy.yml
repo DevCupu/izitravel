@@ -82,4 +82,5 @@ jobs:
             cd /home/izim8295/izitravel
 
             php artisan migrate --force
+            php artisan images:generate-hero-mobile
             php artisan optimize

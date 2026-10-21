@@ -22,12 +22,14 @@
 <section x-data="{
     active: 0,
     count: {{ count($promoSlides) }},
+    visible: false,
+    loaded: [0],
     timer: null,
     touchStartX: 0,
     start() {
         this.stop();
         this.timer = setInterval(() => {
-            this.active = (this.active + 1) % this.count;
+            this.go(this.active + 1);
         }, {{ $promoInterval }});
     },
     stop() {
@@ -38,6 +40,7 @@
     },
     go(index) {
         this.active = (index + this.count) % this.count;
+        if (!this.loaded.includes(this.active)) this.loaded.push(this.active);
     },
     touchStart(e) {
         this.touchStartX = e.changedTouches[0].clientX;
@@ -48,7 +51,7 @@
             this.go(this.active + (dx < 0 ? 1 : -1));
         }
     }
-}" x-init="start()" @mouseenter="stop()" @mouseleave="start()"
+}" x-init="const observer = new IntersectionObserver(entries => { if (entries[0].isIntersecting) { visible = true; start(); observer.disconnect(); } }, { rootMargin: '600px 0px' }); observer.observe($el)" @mouseenter="stop()" @mouseleave="start()"
     class="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 mt-8 sm:mt-10 lg:mt-12 mb-10 sm:mb-12 lg:mb-16"
     aria-label="Promosi" data-purpose="promo-carousel">
     <div
@@ -60,7 +63,7 @@
             @foreach ($promoSlides as $slide)
                 <div class="relative h-full w-full shrink-0">
                     {{-- Background image --}}
-                    <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}"
+                    <img data-src="{{ $slide['image'] }}" :src="visible && loaded.includes({{ $loop->index }}) ? $el.dataset.src : null" alt="{{ $slide['title'] }}"
                         class="absolute inset-0 h-full w-full object-cover" loading="lazy" decoding="async"
                         draggable="false" />
                     {{-- Scrims: bottom-up for text, soft left fade for composition --}}

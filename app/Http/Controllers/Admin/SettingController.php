@@ -359,11 +359,24 @@ class SettingController extends Controller
 
         if ($request->hasFile('hero_image')) {
             $oldHeroImage = Setting::getValue('hero_image');
+            $oldMobileImage = Setting::getValue('hero_image_mobile');
             if ($oldHeroImage && ! str_starts_with($oldHeroImage, 'images/')) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($oldHeroImage);
             }
+            if ($oldMobileImage && ! str_starts_with($oldMobileImage, 'images/')) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($oldMobileImage);
+            }
             $heroImagePath = ImageOptimizer::optimize($request->file('hero_image'), 'settings', 1920);
+            $heroMobilePath = ImageOptimizer::optimizePath(
+                \Illuminate\Support\Facades\Storage::disk('public')->path($heroImagePath),
+                'settings',
+                800,
+                'public',
+                70
+            );
             Setting::setValue('hero_image', $heroImagePath);
+            Setting::setValue('hero_image_mobile', $heroMobilePath);
+            Setting::setValue('hero_image_mobile_source', $heroImagePath);
         }
 
         // About collage images + hero floating badge images + Open Graph image + PPIU license logo

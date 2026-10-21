@@ -13,6 +13,11 @@
     $heroImageUrl = !empty($settings['hero_image'])
         ? (str_starts_with($settings['hero_image'], 'images/') ? asset($settings['hero_image']) : asset('storage/' . $settings['hero_image']))
         : asset('images/hero_kaaba_4k.webp');
+    $heroMobileImageUrl = !empty($settings['hero_image'])
+        ? (!empty($settings['hero_image_mobile']) && ($settings['hero_image_mobile_source'] ?? '') === $settings['hero_image']
+            ? asset('storage/' . $settings['hero_image_mobile'])
+            : $heroImageUrl)
+        : asset('images/hero_kaaba_mobile.webp');
 
     // Find nearest package and upcoming packages for countdown and schedule card
     $nearestPackage = null;
@@ -146,8 +151,32 @@
     </script>
     @endif
 
-    <!-- Preload Hero Image for LCP Optimization -->
-    <link rel="preload" as="image" href="{{ $heroImageUrl }}" fetchpriority="high" />
+    <!-- Each viewport only preloads the artwork it actually displays. -->
+    <link rel="preload" as="image" href="{{ $heroImageUrl }}" media="(min-width: 768px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="{{ asset('images/hero-kaaba-foreground-mobile.webp') }}" media="(max-width: 767px)" fetchpriority="high" />
+    <link rel="preload" as="image" href="{{ $heroMobileImageUrl }}" media="(max-width: 767px)" />
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('[data-lazy-bg]');
+            const showBackground = section => {
+                section.style.setProperty('--deferred-bg', `url(${JSON.stringify(section.dataset.lazyBg)})`);
+            };
+
+            if (!('IntersectionObserver' in window)) {
+                sections.forEach(showBackground);
+                return;
+            }
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    showBackground(entry.target);
+                    observer.unobserve(entry.target);
+                });
+            }, { rootMargin: '600px 0px' });
+            sections.forEach(section => observer.observe(section));
+        }, { once: true });
+    </script>
 
     <!-- Google Fonts Preconnect & Optimized Request -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -718,7 +747,7 @@
         #tentang-kami.about-modern-section {
             background:
                 linear-gradient(180deg, rgba(250, 250, 249, 0.96), rgba(245, 247, 250, 0.82)),
-                url('{{ asset('images/section_madinah_nabawi.webp') }}');
+                var(--deferred-bg, none);
             background-size: cover;
             background-position: center;
         }
@@ -1777,7 +1806,7 @@
                 padding: 9rem 1rem 0;
                 background-image:
                     linear-gradient(105deg, rgba(38, 83, 155, 0.94) 0%, rgba(49, 102, 177, 0.88) 48%, rgba(49, 102, 177, 0.76) 100%),
-                    url('{{ $heroImageUrl }}');
+                    url('{{ $heroMobileImageUrl }}');
                 background-position: center, 42% 30%;
                 background-size: cover;
             }
@@ -1885,6 +1914,7 @@
                 overflow: hidden;
                 pointer-events: none;
                 background-size: max(500px, 100vw) auto;
+                background-image: url('{{ asset('images/hero-kaaba-foreground-mobile.webp') }}');
             }
         }
 
@@ -2212,10 +2242,10 @@
     @include('partials.promo-carousel')
 
     <!-- BEGIN: Tentang Kami -->
-    <section class="about-modern-section py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us">
+    <section class="about-modern-section py-16 md:py-24 bg-gradient-to-b from-stone-50 via-stone-100/30 to-stone-50 relative overflow-hidden islamic-pattern" id="tentang-kami" data-purpose="about-us" data-lazy-bg="{{ asset('images/section_madinah_nabawi.webp') }}">
         <!-- Blurred Nabawi Mosque Background (tinted so frosted glass panels have depth) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.74) 0%, rgba(250, 250, 249, 0.8) 45%, rgba(250, 250, 249, 0.86) 60%), url('{{ asset('images/section_madinah_nabawi.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[25%_center] scale-105" style="background-image: linear-gradient(to right, rgba(250, 250, 249, 0.74) 0%, rgba(250, 250, 249, 0.8) 45%, rgba(250, 250, 249, 0.86) 60%), var(--deferred-bg, none);"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="absolute inset-0 bg-gradient-to-b from-stone-50 via-transparent to-stone-50"></div>
             <!-- Color orbs that give the frosted glass something to gleam -->
@@ -2459,10 +2489,10 @@
     <!-- END: Tentang Kami -->
 
     <!-- BEGIN: Why Choose Us -->
-    <section class="features-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid">
+    <section class="features-modern-section py-16 md:py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 relative overflow-hidden" data-purpose="features-grid" data-lazy-bg="{{ asset('images/section_kaaba_detail.webp') }}">
         <!-- Blurred Kaaba Background Image (Split Right with Blue Gradient Fade) -->
         <div class="features-global-bg absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="features-photo-bg absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), url('{{ asset('images/section_kaaba_detail.webp') }}');"></div>
+            <div class="features-photo-bg absolute inset-0 bg-cover bg-[75%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 1) 40%, rgba(2, 110, 169, 0.9) 55%, rgba(2, 110, 169, 0.6) 100%), var(--deferred-bg, none);"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="features-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
             <!-- Stars/Pattern overlay -->
@@ -2593,10 +2623,10 @@
     <!-- END: Why Choose Us -->
 
     <!-- BEGIN: RegistrationFlow -->
-    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow">
+    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="registration-flow" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), var(--deferred-bg, none);"></div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
             <div class="space-y-3 flex flex-col items-center mb-12">
@@ -2691,10 +2721,10 @@
     <!-- END: RegistrationFlow -->
 
     <!-- BEGIN: FeaturedPackages -->
-    <section class="packages-modern-section relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid">
+    <section class="packages-modern-section relative py-16 md:py-24 mt-8 overflow-hidden bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800" id="paket-umrah" data-purpose="packages-grid" data-lazy-bg="{{ asset('images/section_makkah_wide.webp') }}">
         <!-- Blurred Makkah Grand Mosque Sunset Background Image (Split Left with Blue Gradient Fade) -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="packages-photo-bg absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), url('{{ asset('images/section_makkah_wide.webp') }}');"></div>
+            <div class="packages-photo-bg absolute inset-0 bg-cover bg-[15%_center] scale-105 opacity-30" style="background-image: linear-gradient(to right, rgba(2, 110, 169, 0.65) 0%, rgba(2, 110, 169, 0.95) 45%, rgba(2, 110, 169, 1) 60%), var(--deferred-bg, none);"></div>
             <!-- Soft vertical gradient overlay to fade the top and bottom edges seamlessly -->
             <div class="packages-fade-bg absolute inset-0 bg-gradient-to-b from-blue-600 via-transparent to-blue-800"></div>
             <!-- Stars/Pattern overlay -->
@@ -3055,7 +3085,6 @@
                                             $thumbnailUrl = "https://img.youtube.com/vi/" . $videoId . "/hqdefault.jpg";
                                         } elseif (preg_match('/instagram\.com\/(?:reel|p)\/([a-zA-Z0-9_-]+)/i', $videoUrl, $matches)) {
                                             $parsedEmbedUrl = "https://www.instagram.com/reel/" . $matches[1] . "/embed";
-                                            $thumbnailUrl = "https://www.instagram.com/reel/" . $matches[1] . "/media/?size=l";
                                         } elseif (preg_match('/(?:vimeo\.com\/(?:channels\/[^\/]+\/|groups\/[^\/]+\/video\/|album\/[^\/]+\/video\/|video\/|)|player\.vimeo\.com\/video\/)([0-9]+)/i', $videoUrl, $matches)) {
                                             $videoId = $matches[1];
                                             $parsedEmbedUrl = "https://player.vimeo.com/video/" . $videoId . "?autoplay=1";
@@ -3135,7 +3164,7 @@
                                                     <div class="relative w-full aspect-video rounded-2xl overflow-hidden mb-4 border border-stone-100 shadow-inner z-20 group/video cursor-pointer"
                                                          onclick="window.playTestimonialVideo('{{ $parsedEmbedUrl }}')">
                                                         <div class="absolute inset-0 bg-gradient-to-br from-blue-700 to-blue-800 flex flex-col items-center justify-center p-4 text-center">
-                                                            <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="Instagram Reel Fallback">
+                                                            <img src="{{ asset('images/section_makkah_wide.webp') }}" class="absolute inset-0 w-full h-full object-cover opacity-30 blur-[1px]" alt="" loading="lazy" decoding="async">
                                                             <div class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                                                                 <span class="text-amber-400 text-[10px] font-bold uppercase tracking-widest mb-1">{{ $testimonial->location }}</span>
                                                                 <span class="text-white font-extrabold text-sm truncate max-w-full">{{ $testimonial->name }}</span>
@@ -3147,7 +3176,7 @@
                                                             </div>
                                                         </div>
                                                         @if(!empty($thumbnailUrl))
-                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105" onerror="this.style.display='none'">
+                                                            <img src="{{ $thumbnailUrl }}" alt="Video testimonial thumbnail" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover/video:scale-105" loading="lazy" decoding="async" onerror="this.style.display='none'">
                                                         @endif
                                                         <div class="absolute inset-0 bg-stone-950/20 group-hover/video:bg-stone-950/30 transition-all duration-300 flex items-center justify-center z-30">
                                                             <div class="w-12 h-12 rounded-full bg-white/95 text-blue-600 flex items-center justify-center shadow-lg active:scale-95 transition-all duration-300 group-hover/video:scale-110">
@@ -3570,8 +3599,9 @@
                                 </iframe>
 
                                 <!-- Facade / Placeholder Overlay -->
-                                <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group" 
-                                     style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), url('{{ asset('images/package_kaaba.webp') }}');">
+                                <div id="haramain-facade" class="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-cover bg-center transition-all duration-500 cursor-pointer group"
+                                     data-lazy-bg="{{ asset('images/package_kaaba.webp') }}"
+                                     style="background-image: linear-gradient(to bottom, rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.8)), var(--deferred-bg, none);">
                                      <!-- Play Button -->
                                      <button id="haramain-play-btn" aria-label="Putar siaran langsung" class="w-16 h-16 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 flex items-center justify-center shadow-lg shadow-amber-500/30 transition-all duration-300 transform group-hover:scale-110 active:scale-95 z-20">
                                          <i data-lucide="play" class="w-8 h-8 fill-current ml-1"></i>
@@ -3631,10 +3661,10 @@
     <!-- END: Kabar Haramain & Waktu Tanah Suci -->
 
     <!-- BEGIN: Kemitraan -->
-    <section class="py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section">
+    <section class="py-16 md:py-24 relative overflow-hidden" id="kemitraan" data-purpose="partnership-section" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), url('{{ asset('images/section.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.93) 0%, rgba(250, 250, 249, 0.98) 100%), var(--deferred-bg, none);"></div>
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="partnership-header mb-12 text-center reveal">
@@ -3818,10 +3848,10 @@
     <!-- END: FAQ -->
 
     <!-- BEGIN: CTASection -->
-    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="cta-section">
+    <section class="py-16 md:py-24 relative overflow-hidden bg-stone-50" data-purpose="cta-section" data-lazy-bg="{{ asset('images/section-soft.webp') }}">
         <!-- Background Image overlay -->
         <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.75) 0%, rgba(250, 250, 249, 0.9) 100%), url('{{ asset('images/section.webp') }}');"></div>
+            <div class="absolute inset-0 bg-cover bg-[center_center] scale-105" style="background-image: linear-gradient(to bottom, rgba(250, 250, 249, 0.75) 0%, rgba(250, 250, 249, 0.9) 100%), var(--deferred-bg, none);"></div>
         </div>
         <div class="absolute inset-0 bg-stone-100/10 pointer-events-none z-10"></div>
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center">

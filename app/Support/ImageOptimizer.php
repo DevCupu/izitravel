@@ -12,16 +12,16 @@ class ImageOptimizer
      * Resize (downscale-only) and re-encode an uploaded image as WebP, store it, and
      * return its relative path on the given disk.
      */
-    public static function optimize(UploadedFile $file, string $directory, int $maxDimension, string $disk = 'public'): string
+    public static function optimize(UploadedFile $file, string $directory, int $maxDimension, string $disk = 'public', int $quality = 82): string
     {
-        return static::optimizePath($file->getRealPath(), $directory, $maxDimension, $disk);
+        return static::optimizePath($file->getRealPath(), $directory, $maxDimension, $disk, $quality);
     }
 
     /**
      * Same as optimize(), but for a file already sitting on disk (used to reprocess
      * previously-uploaded images that were stored before this optimizer existed).
      */
-    public static function optimizePath(string $absolutePath, string $directory, int $maxDimension, string $disk = 'public'): string
+    public static function optimizePath(string $absolutePath, string $directory, int $maxDimension, string $disk = 'public', int $quality = 82): string
     {
         $image = static::load($absolutePath);
 
@@ -31,7 +31,7 @@ class ImageOptimizer
         $path = trim($directory, '/') . '/' . Str::random(32) . '.webp';
 
         $tmp = tempnam(sys_get_temp_dir(), 'webp');
-        imagewebp($image, $tmp, 82);
+        imagewebp($image, $tmp, $quality);
         imagedestroy($image);
 
         Storage::disk($disk)->put($path, file_get_contents($tmp));
