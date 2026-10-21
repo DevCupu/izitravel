@@ -335,9 +335,117 @@
             }
         }
 
-        /* GPU-accelerate the element driven by the mousemove parallax effect */
+        /* Translucent phone frame for the departure schedule. */
         #hero-image-card {
-            will-change: transform;
+            width: 100%;
+            max-width: 410px;
+            margin-inline: auto;
+            padding: 7px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 3rem;
+            background: linear-gradient(145deg, rgba(220, 235, 255, 0.28), rgba(9, 30, 58, 0.58) 22%, rgba(9, 30, 58, 0.68) 82%, rgba(220, 235, 255, 0.2));
+            box-shadow: 0 30px 70px rgba(10, 32, 66, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+        }
+
+        #hero-image-card .hero-phone-screen {
+            position: relative;
+            overflow: hidden;
+            padding: 1.25rem 1.15rem 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: calc(3rem - 8px);
+            background: linear-gradient(145deg, rgba(40, 92, 158, 0.48), rgba(16, 43, 82, 0.58));
+        }
+
+        #hero-image-card .hero-phone-screen::after {
+            content: '';
+            position: absolute;
+            z-index: 20;
+            top: -20%;
+            bottom: -20%;
+            left: -45%;
+            width: 45%;
+            background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.03) 28%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 242, 190, 0.12) 62%, transparent 100%);
+            pointer-events: none;
+            animation: heroUiShine 3.6s linear infinite;
+            animation-delay: -1.8s;
+        }
+
+        #hero-image-card .hero-phone-camera {
+            position: relative;
+            width: 86px;
+            height: 18px;
+            margin: 0 auto 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            background: rgba(5, 19, 38, 0.85);
+        }
+
+        #hero-image-card .hero-phone-camera::after {
+            content: '';
+            position: absolute;
+            top: 6px;
+            right: 16px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgba(96, 144, 198, 0.7);
+        }
+
+        #hero-image-card .hero-phone-home {
+            width: 88px;
+            height: 4px;
+            margin: 1.1rem auto 0;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        #hero-countdown > div {
+            padding: 0.75rem 0.25rem;
+            border-color: rgba(255, 255, 255, 0.15);
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        @media (max-width: 390px) {
+            #hero-image-card .hero-phone-screen {
+                padding-inline: 0.85rem;
+            }
+
+            #hero-countdown {
+                gap: 0.4rem;
+            }
+
+            #hero-countdown > div > span:first-child {
+                font-size: 1.5rem;
+            }
+
+            #hero-image-card .hero-phone-stat {
+                gap: 0.5rem;
+                padding: 0.75rem;
+            }
+
+            #hero-image-card .hero-phone-stat > div {
+                min-width: 0;
+                gap: 0.5rem;
+            }
+
+            #hero-image-card .hero-phone-stat > div > div {
+                min-width: 0;
+            }
+
+            #hero-image-card .hero-phone-stat-value {
+                flex-shrink: 0;
+                padding: 0.375rem 0.5rem;
+                font-size: 0.875rem;
+            }
+
+            #hero-image-card .hero-phone-ticket-name {
+                display: -webkit-box;
+                overflow: hidden;
+                white-space: normal;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+            }
         }
 
         .islamic-pattern {
@@ -1467,6 +1575,82 @@
             text-wrap: balance;
         }
 
+        #beranda .hero-title-gloss {
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.25), 0 0 18px rgba(255, 255, 255, 0.15);
+        }
+
+        #beranda .hero-title-gloss-gold {
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.38), 0 0 22px rgba(252, 222, 5, 0.28);
+        }
+
+        #beranda .hero-text-shine {
+            position: relative;
+        }
+
+        #beranda .hero-text-shine::after {
+            content: attr(data-text);
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            color: transparent;
+            -webkit-text-fill-color: transparent;
+            text-shadow: none;
+            background: linear-gradient(105deg, transparent 43%, var(--hero-text-shine-color) 50%, transparent 57%);
+            background-size: 250% 100%;
+            background-position: 100% 0;
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: heroTextShine 3.6s linear infinite;
+            animation-delay: -1.7s;
+        }
+
+        #beranda .hero-text-shine-white {
+            --hero-text-shine-color: rgba(255, 236, 151, 0.92);
+        }
+
+        #beranda .hero-text-shine-gold {
+            --hero-text-shine-color: rgba(255, 255, 255, 0.96);
+        }
+
+        @keyframes heroTextShine {
+            0%, 48% { background-position: 100% 0; }
+            72%, 100% { background-position: 0% 0; }
+        }
+
+        @keyframes heroUiShine {
+            0%, 48% { transform: translate3d(-160%, 0, 0) skewX(-14deg); }
+            72%, 100% { transform: translate3d(470%, 0, 0) skewX(-14deg); }
+        }
+
+        #beranda .hero-gloss-button,
+        #beranda .hero-badge-shine {
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
+        }
+
+        #beranda .hero-gloss-button::after,
+        #beranda .hero-badge-shine::after {
+            content: '';
+            position: absolute;
+            top: -30%;
+            bottom: -30%;
+            left: -40%;
+            width: 34%;
+            background: linear-gradient(105deg, transparent 0%, rgba(255, 255, 255, 0.06) 28%, rgba(255, 255, 255, 0.72) 50%, rgba(255, 242, 190, 0.25) 62%, transparent 100%);
+            pointer-events: none;
+            animation: heroUiShine 3.6s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+            animation-delay: -1.7s;
+        }
+
+        #beranda .hero-badge-shine::after {
+            animation-delay: -1.4s;
+        }
+
+        #beranda .hero-gloss-button:nth-child(2)::after {
+            animation-delay: -1.1s;
+        }
+
         #beranda h1 .hero-accent-dot {
             color: var(--hero-accent);
         }
@@ -1514,6 +1698,14 @@
             display: none;
         }
 
+        #beranda .hero-mobile-cover {
+            display: contents;
+        }
+
+        #hero-left-col .hero-features { order: 1; }
+        #hero-left-col .hero-actions { order: 2; }
+        #hero-left-col .hero-stats { order: 3; }
+
         @media (max-width: 1023px) {
             #beranda {
                 min-height: 640px;
@@ -1522,6 +1714,11 @@
                     linear-gradient(180deg, rgba(49, 102, 177, 0.72) 0%, rgba(49, 102, 177, 0.94) 68%, rgba(49, 102, 177, 1) 100%),
                     url('{{ $heroImageUrl }}') !important;
                 background-position: 58% center;
+            }
+
+            #beranda .hero-badge-shine {
+                margin-left: 0;
+                margin-right: 0;
             }
 
             #beranda > .max-w-7xl {
@@ -1548,7 +1745,14 @@
 
         @media (max-width: 767px) {
             #beranda {
-                padding-top: 7rem;
+                padding-top: 0;
+                padding-bottom: 5rem;
+                background-color: #3166b1 !important;
+                background-image: none !important;
+            }
+
+            #hero-photo-band {
+                display: none;
             }
 
             #beranda .hero-kaaba-foreground {
@@ -1556,32 +1760,110 @@
             }
 
             #beranda > .max-w-7xl {
-                gap: 1.5rem;
+                align-items: stretch;
+                gap: 0;
+            }
+
+            #hero-left-col {
+                display: contents;
+            }
+
+            #beranda .hero-mobile-cover {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: calc(100% + 2rem);
+                margin: 0 -1rem;
+                padding: 9rem 1rem 0;
+                background-image:
+                    linear-gradient(105deg, rgba(38, 83, 155, 0.94) 0%, rgba(49, 102, 177, 0.88) 48%, rgba(49, 102, 177, 0.76) 100%),
+                    url('{{ $heroImageUrl }}');
+                background-position: center, 42% 30%;
+                background-size: cover;
+            }
+
+            #beranda .hero-badge-shine {
+                display: none;
             }
 
             #beranda h1 {
                 max-width: 100%;
-                font-size: clamp(2.25rem, 9.7vw, 3.5rem);
-                line-height: 1.02;
+                font-size: clamp(2rem, 8.9vw, 2.5rem);
+                letter-spacing: -0.04em;
+                line-height: 1.12;
+                word-spacing: 0.06em;
+                text-align: left;
+            }
+
+            #beranda h1 .hero-text-shine {
+                display: inline-block;
+                vertical-align: baseline;
             }
 
             #beranda .hero-copy-block {
-                gap: 0.85rem;
-                margin-bottom: 1.25rem;
+                order: 1;
+                align-items: flex-start;
+                text-align: left;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
             }
 
-            #beranda .hero-actions { order: 1; }
-            #beranda .hero-mobile-image { order: 2; }
-            #beranda .hero-features { order: 3; }
-            #beranda .hero-stats { order: 4; }
+            #beranda .hero-supporting-copy {
+                max-width: 54ch;
+                padding-left: 0;
+                font-size: clamp(0.84rem, 3.4vw, 0.96rem);
+                line-height: 1.55;
+                text-align: left;
+            }
+
+            #beranda .hero-supporting-copy::before {
+                display: none;
+            }
+
+            #beranda .hero-actions {
+                order: 2;
+                position: relative;
+                z-index: 2;
+                width: auto;
+                margin: 0;
+            }
+
+            #beranda .hero-actions > a:first-child {
+                display: none;
+            }
+
+            #beranda .hero-actions > a:last-child {
+                width: auto;
+                min-width: 12rem;
+                padding: 0.8rem 1.5rem;
+                border-color: var(--primary-yellow);
+                border-radius: 0.65rem;
+                background: var(--primary-yellow);
+                color: var(--primary-blue);
+                box-shadow: 0 8px 24px rgba(252, 222, 5, 0.18);
+            }
+
+            #beranda .hero-actions > a:last-child:hover {
+                background: #f2d500;
+            }
+
+            #beranda .hero-mobile-image { order: 3; }
+
+            #hero-right-col {
+                order: 6;
+                margin-top: 1.25rem;
+            }
+
+            #beranda .hero-features { order: 4; }
+            #beranda .hero-stats { order: 5; }
 
             #beranda .hero-features {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 0.65rem;
                 overflow: visible;
-                margin-top: 0.75rem;
-                margin-bottom: 1rem;
+                margin-top: 1.25rem;
+                margin-bottom: 0;
             }
 
             #beranda .hero-features > div {
@@ -1598,11 +1880,11 @@
                 display: block;
                 position: relative;
                 width: calc(100% + 2rem);
-                height: clamp(235px, 64vw, 340px);
-                margin: 0 -1rem;
+                height: clamp(235px, 62vw, 350px);
+                margin: -2.5rem -1rem 0;
                 overflow: hidden;
                 pointer-events: none;
-                background-size: max(520px, 100vw) auto;
+                background-size: max(500px, 100vw) auto;
             }
         }
 
@@ -1629,6 +1911,13 @@
                 opacity: 1;
                 transform: none;
             }
+
+            #beranda .hero-gloss-button::after,
+            #beranda .hero-badge-shine::after,
+            #beranda .hero-text-shine::after,
+            #hero-image-card .hero-phone-screen::after {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -1645,10 +1934,7 @@
     <main id="main-content">
     <!-- BEGIN: HeroSection (Modern Split Layout) -->
     <section id="beranda" class="relative pt-32 pb-20 overflow-hidden" data-purpose="hero-banner">
-        <!-- Mobile-only photo banner: a square/landscape source image can't fill this whole
-             (content-tall) section via cover without cropping into a heavy zoom, and "contain"
-             leaves a big empty gap. Bounding the real photo to a shorter top band lets it fill
-             that band with a much milder crop, then fades into the plain navy gradient below. -->
+        <!-- Tablet photo band keeps the background visible above the schedule card. -->
         <div id="hero-photo-band" class="lg:hidden absolute top-0 left-0 w-full h-[46vh] max-h-[420px] overflow-hidden pointer-events-none animate-fade-in-up">
             <div class="absolute inset-0" style="background: linear-gradient(to bottom, rgba(49, 102, 177, 0.90) 0%, rgba(49, 102, 177, 0.96) 68%, #3166b1 100%);"></div>
         </div>
@@ -1657,11 +1943,12 @@
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
-            <div class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
+            <div id="hero-left-col" class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
+                <div class="hero-mobile-cover">
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
-                    <div class="inline-flex items-center gap-2 bg-white/[0.06] border border-[var(--primary-yellow)]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mx-auto lg:mx-0 mb-6 animate-fade-in-up delay-100">
+                    <div class="hero-badge-shine inline-flex items-center gap-2 bg-white/[0.06] border border-[var(--primary-yellow)]/25 text-white/90 text-xs px-4 py-2 rounded-full w-fit mx-auto lg:mx-0 mb-6 animate-fade-in-up delay-100">
                         <i data-lucide="shield-check" class="w-4 h-4 text-[var(--primary-yellow)]"></i>
                         <span class="font-semibold tracking-wide font-poppins">{{ $heroBadgeText }}</span>
                     </div>
@@ -1699,18 +1986,33 @@
 
                 <div class="hero-copy-block">
                 <h1 class="font-poppins text-white reveal-words" aria-label="{{ $hero_tagline }}">
-                    <span class="block text-white">{{ $line1 }}</span>
+                    <span class="block text-white hero-title-gloss hero-text-shine hero-text-shine-white" data-text="{{ $line1 }}">{{ $line1 }}</span>
                     @if(!empty($line2))
-                        <span class="block text-[var(--primary-yellow)]">{{ $line2 }}</span>
+                        <span class="block text-[var(--primary-yellow)] hero-title-gloss-gold hero-text-shine hero-text-shine-gold" data-text="{{ $line2 }}">{{ $line2 }}</span>
                     @endif
                     @if(!empty($line3))
-                        <span class="block {{ ($line3Gold ?? true) ? 'text-[var(--primary-yellow)]' : 'text-white' }}">{{ $line3 }}</span>
+                        <span class="block hero-text-shine {{ ($line3Gold ?? true) ? 'text-[var(--primary-yellow)] hero-title-gloss-gold hero-text-shine-gold' : 'text-white hero-title-gloss hero-text-shine-white' }}" data-text="{{ $line3 }}">{{ $line3 }}</span>
                     @endif
                 </h1>
 
                 <p class="hero-supporting-copy animate-fade-in-up delay-300 font-poppins">
                     {{ $site_desc }}
                 </p>
+                </div>
+
+                <!-- Actions CTA Buttons -->
+                <div class="hero-actions flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
+                    <a href="#paket-umrah" class="hero-gloss-button w-full sm:w-auto bg-[var(--primary-yellow)] hover:brightness-95 text-[var(--primary-blue)] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[rgba(252,222,5,0.22)] text-sm text-center justify-center flex items-center gap-2 font-poppins">
+                        <i data-lucide="eye" class="w-4 h-4"></i>
+                        {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
+                    </a>
+                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="hero-gloss-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2 font-poppins">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
+                        {{ $settings['cta_consultation_label'] ?? 'Konsultasi Gratis' }}
+                    </a>
+                </div>
+
+                <div class="hero-mobile-image hero-kaaba-art" aria-hidden="true"></div>
                 </div>
 
                 <!-- Hero features: all four cards stay visible in a mobile grid -->
@@ -1735,20 +2037,6 @@
                         </div>
                     @endforeach
                 </div>
-
-                <!-- Actions CTA Buttons -->
-                <div class="hero-actions flex flex-col sm:flex-row justify-center lg:justify-start gap-4 animate-fade-in-up delay-400 w-full sm:w-auto">
-                    <a href="#paket-umrah" class="magnetic-button w-full sm:w-auto bg-[var(--primary-yellow)] hover:brightness-95 text-[var(--primary-blue)] px-8 py-3.5 rounded-full font-bold transition shadow-md shadow-[rgba(252,222,5,0.22)] transform active:scale-95 text-sm text-center justify-center flex items-center gap-2 font-poppins">
-                        <i data-lucide="eye" class="w-4 h-4"></i>
-                        {{ $settings['cta_packages_label'] ?? 'Lihat Paket Umrah' }}
-                    </a>
-                    <a href="https://wa.me/{{ $wa_phone }}?text=Assalamu%27alaikum%20IZI%20Travel%2C%20saya%20ingin%20konsultasi%20mengenai%20paket%20umrah" target="_blank" class="magnetic-button w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white border border-white/20 px-8 py-3.5 rounded-full font-bold transition text-sm text-center justify-center flex items-center gap-2 font-poppins">
-                        <i data-lucide="message-square" class="w-4 h-4"></i>
-                        {{ $settings['cta_consultation_label'] ?? 'Konsultasi Gratis' }}
-                    </a>
-                </div>
-
-                <div class="hero-mobile-image hero-kaaba-art" aria-hidden="true"></div>
 
                 <!-- Bottom Stats Bar -->
                 @php
@@ -1778,9 +2066,24 @@
 
             <!-- Right Column: Departure schedule card -->
             <div id="hero-right-col" class="w-full lg:w-5/12 lg:self-start {{ !empty($heroBadgeText) ? 'lg:mt-[3.6rem]' : 'lg:mt-0' }} flex flex-col gap-6 relative z-30 animate-fade-in-up delay-300">
-                <div id="hero-image-card" class="border border-[var(--primary-yellow)]/35 rounded-[2rem] p-7 shadow-xl shadow-[rgba(10,32,66,0.35)] relative overflow-hidden text-white w-full" style="background: linear-gradient(135deg, #285c9e, #102b52);">
+                <div id="hero-image-card" class="relative text-white font-poppins">
+                  <div class="hero-phone-screen">
                     <!-- Localized Islamic pattern overlay -->
                     <div class="absolute inset-0 islamic-pattern opacity-[0.015] pointer-events-none"></div>
+
+                    <div class="hero-phone-camera" aria-hidden="true"></div>
+                    <div class="relative z-10 flex items-center justify-between gap-3 mb-5">
+                        <div class="flex items-center gap-2.5 min-w-0">
+                            <span class="w-9 h-9 rounded-xl bg-[var(--primary-yellow)] text-[var(--primary-blue)] flex items-center justify-center shrink-0">
+                                <i data-lucide="plane" class="w-4 h-4"></i>
+                            </span>
+                            <div class="min-w-0">
+                                <p class="text-[11px] font-bold leading-tight">IZI Travel</p>
+                                <p class="text-[9px] text-white/70 leading-tight">Jadwal Umrah</p>
+                            </div>
+                        </div>
+                        <span class="text-[9px] font-semibold text-white/85 border border-white/20 rounded-full px-2.5 py-1 whitespace-nowrap">PPIU Resmi</span>
+                    </div>
 
                     @if ($nearestPackage)
                         <!-- Title Section -->
@@ -1831,7 +2134,7 @@
                     <!-- Total Departed & Upcoming Schedule -->
                     <div class="space-y-6 relative z-10">
                         <!-- Departed Stat Badge (Trust Seal Banner) -->
-                        <div class="border border-[var(--primary-yellow)]/25 rounded-2xl p-4 flex items-center justify-between relative overflow-hidden" style="background: linear-gradient(90deg, rgba(252, 222, 5, 0.12), rgba(49, 102, 177, 0.26));">
+                        <div class="hero-phone-stat border border-[var(--primary-yellow)]/25 rounded-2xl p-4 flex items-center justify-between gap-3 relative overflow-hidden" style="background: linear-gradient(90deg, rgba(252, 222, 5, 0.12), rgba(49, 102, 177, 0.26));">
                             <div class="flex items-center gap-3">
                                 <span class="p-2.5 rounded-xl bg-[rgba(252,222,5,0.12)] text-[var(--primary-yellow)] border border-[var(--primary-yellow)]/25 flex items-center justify-center">
                                     <i data-lucide="users" class="w-5 h-5"></i>
@@ -1841,7 +2144,7 @@
                                     <p class="text-[10px] text-white/80 mt-1 font-medium">{{ $settings['hero_stat_subtitle'] ?? 'Jamaah terberangkatkan' }}</p>
                                 </div>
                             </div>
-                            <span class="text-lg font-black text-[var(--primary-yellow)] border border-[var(--primary-yellow)]/25 px-3.5 py-1.5 rounded-xl tracking-wider font-mono">
+                            <span class="hero-phone-stat-value text-lg font-black text-[var(--primary-yellow)] border border-[var(--primary-yellow)]/25 px-3.5 py-1.5 rounded-xl tracking-wider font-mono">
                                 {{ $settings['hero_stat_value'] ?? (($settings['about_departed_count'] ?? '10') . 'K+') }}
                             </span>
                         </div>
@@ -1852,9 +2155,8 @@
                                 <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
                                     <h4 class="text-xs font-black uppercase tracking-widest text-[var(--primary-yellow)] flex items-center gap-2">
                                         <i data-lucide="calendar-days" class="w-4 h-4 text-[var(--primary-yellow)]"></i>
-                                        Jadwal Paket Terdekat
+                                        Jadwal Berikutnya
                                     </h4>
-                                    <span class="text-[9px] text-white/70 font-bold uppercase tracking-wider">Tiket Terbatas</span>
                                 </div>
                                 <div class="space-y-3">
                                     @foreach ($upcomingPackages as $p)
@@ -1873,7 +2175,7 @@
 
                                             <!-- Ticket Content -->
                                             <div class="min-w-0 flex-1 pl-3.5 pr-2 text-left">
-                                                <p class="text-xs font-bold text-white truncate">{{ $p->name }}</p>
+                                                <p class="hero-phone-ticket-name text-xs font-bold text-white truncate">{{ $p->name }}</p>
                                                 <p class="text-[10px] text-white/50 flex items-center gap-1 mt-1 font-medium">
                                                     <i data-lucide="tag" class="w-3.5 h-3.5 text-[var(--primary-yellow)]"></i>
                                                     {{ $p->category ?? 'Premium' }} • {{ $yearStr }}
@@ -1881,9 +2183,9 @@
                                             </div>
 
                                             <!-- Detail Action Button -->
-                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[var(--primary-yellow)] text-white hover:text-[var(--primary-blue)] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm active:scale-95 flex items-center gap-1">
+                                            <a href="{{ route('packages.show', $p->slug) }}" class="flex-shrink-0 bg-white/5 hover:bg-[var(--primary-yellow)] text-white hover:text-[var(--primary-blue)] border border-white/10 hover:border-transparent text-[10px] font-extrabold px-3.5 py-2 rounded-xl transition-colors duration-300 shadow-sm flex items-center gap-1">
                                                 <span>Detail</span>
-                                                <i data-lucide="chevron-right" class="w-3 h-3 group-hover/ticket:translate-x-0.5 transition-transform duration-300"></i>
+                                                <i data-lucide="chevron-right" class="w-3 h-3"></i>
                                             </a>
                                         </div>
                                     @endforeach
@@ -1891,6 +2193,8 @@
                             </div>
                         @endif
                     </div>
+                    <div class="hero-phone-home" aria-hidden="true"></div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -3795,44 +4099,6 @@
 
         // Advanced Interactions & Performance-Driven Animations
         document.addEventListener("DOMContentLoaded", () => {
-            // Interactive 3D Mouse Parallax Effect for Hero
-            // (hero-image-card/hero-right-col were referenced by CSS/JS but never actually present
-            // in the markup — a leftover from an older hero layout. Restored the ids on the current
-            // schedule-card widget so this tilt effect actually runs. Also: this whole thing has to
-            // live inside DOMContentLoaded — Motion/lucide are set by the deferred Vite bundle
-            // script, which runs after any top-level classic <script> code like this used to be.)
-            const heroSection = document.querySelector('[data-purpose="hero-banner"]');
-            const heroRightCol = document.getElementById('hero-right-col');
-            const imageCard = document.getElementById('hero-image-card');
-
-            if (heroSection && imageCard) {
-                heroRightCol.style.perspective = '1000px';
-
-                // Motion spring instead of a CSS transition — the tilt now chases the cursor with
-                // real physics (slight overshoot/settle) instead of snapping along a fixed easing curve.
-                const tiltSpring = { type: Motion.spring, stiffness: 150, damping: 20, mass: 0.5 };
-
-                let ticking = false;
-                heroSection.addEventListener('mousemove', (e) => {
-                    if (ticking) return;
-                    ticking = true;
-                    window.requestAnimationFrame(() => {
-                        const rect = heroSection.getBoundingClientRect();
-                        const x = (e.clientX - rect.left) / rect.width - 0.5;
-                        const y = (e.clientY - rect.top) / rect.height - 0.5;
-
-                        // 3D rotation on the schedule card, max 15deg
-                        Motion.animate(imageCard, { rotateX: -y * 15, rotateY: x * 15, z: 10 }, tiltSpring);
-
-                        ticking = false;
-                    });
-                });
-
-                heroSection.addEventListener('mouseleave', () => {
-                    Motion.animate(imageCard, { rotateX: 0, rotateY: 0, z: 0 }, tiltSpring);
-                });
-            }
-
             // Render Lucide Icons
             lucide.createIcons();
 
