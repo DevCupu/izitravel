@@ -189,6 +189,44 @@ class CrmLeadsTest extends TestCase
         $this->assertSame('gagal', $lead->fresh()->stage);
     }
 
+    public function test_admin_can_change_a_lead_stage_from_the_list_and_reopen_validation_errors(): void
+    {
+        $lead = $this->lead($this->andiCs);
+        $listUrl = route('admin.crm.leads.index');
+
+        $this->actingAs($this->admin)->get($listUrl)
+            ->assertOk()
+            ->assertSee('Ubah tahap Siti')
+            ->assertSee('Ubah tahap lead')
+            ->assertSee('Atur tahap')
+            ->assertSee('name="stage_lead_id"', false);
+
+        $this->actingAs($this->admin)->from($listUrl)->patch(route('admin.crm.leads.stage', $lead), [
+            'stage_lead_id' => $lead->id,
+            'stage' => 'gagal',
+        ])->assertRedirect($listUrl)->assertSessionHasErrors('lost_reason');
+
+        $this->actingAs($this->admin)->get($listUrl)
+            ->assertOk()
+            ->assertSee('Alasan gagal')
+            ->assertSee('openStage(', false);
+
+        $this->actingAs($this->admin)->from($listUrl)->patch(route('admin.crm.leads.stage', $lead), [
+            'stage_lead_id' => $lead->id,
+            'stage' => 'gagal',
+            'lost_reason' => 'Jadwal tidak sesuai',
+        ])->assertRedirect($listUrl)->assertSessionHasNoErrors();
+
+        $this->assertSame('gagal', $lead->fresh()->stage);
+        $this->assertDatabaseHas('lead_activities', [
+            'lead_id' => $lead->id,
+            'actor_user_id' => $this->admin->id,
+            'type' => 'stage_changed',
+            'note' => 'Jadwal tidak sesuai',
+        ]);
+        $this->actingAs($this->admin)->get($listUrl)->assertOk()->assertSee('Gagal');
+    }
+
     public function test_followup_is_saved_in_utc_and_transferred_with_pic(): void
     {
         $lead = $this->lead($this->andiCs);
@@ -454,6 +492,8 @@ class CrmLeadsTest extends TestCase
             $next = $lead->followups()->create(['assigned_user_id' => $this->andi->id, 'due_at' => Carbon::parse('2026-10-14 17:00:00', 'UTC'), 'description' => 'Hari ini WITA']);
             $this->actingAs($this->andi)->get(route('cs.dashboard'))->assertOk()
                 ->assertViewHas('overdueCount', 1)
+                ->assertViewHas('dueTodayCount', 1)
+                ->assertSee('Prioritas hari ini')
                 ->assertViewHas('overdue', fn ($items) => $items->pluck('id')->contains($late->id))
                 ->assertViewHas('dueToday', fn ($items) => $items->pluck('id')->contains($next->id));
         } finally {

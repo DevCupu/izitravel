@@ -1,10 +1,46 @@
 <x-dynamic-component :component="$isAdmin ? 'admin-layout' : 'cs-layout'" title="Leads">
     <x-slot name="header"><div><h1 class="text-xl font-bold text-slate-900 dark:text-white">{{ $isAdmin ? 'Semua leads' : 'Leads saya' }}</h1><p class="text-xs text-slate-500 dark:text-slate-400">Calon jemaah yang sudah menghubungi tim</p></div></x-slot>
-    @php($failedFollowupLead = ! $isAdmin && old('followup_lead_id') ? $leads->firstWhere('id', (int) old('followup_lead_id')) : null)
+    @php
+        $failedFollowupLead = ! $isAdmin && old('followup_lead_id') ? $leads->firstWhere('id', (int) old('followup_lead_id')) : null;
+        $failedStageLead = $isAdmin && old('stage_lead_id') ? $leads->firstWhere('id', (int) old('stage_lead_id')) : null;
+        $failedStagePayload = $failedStageLead ? [
+            'id' => $failedStageLead->id,
+            'name' => $failedStageLead->display_name,
+            'url' => route('admin.crm.leads.stage', $failedStageLead),
+            'stage' => old('stage', $failedStageLead->stage),
+            'confirmedOn' => old('confirmed_on', $failedStageLead->won_at?->timezone('Asia/Makassar')->toDateString()),
+            'confirmationNote' => old('confirmation_note', $failedStageLead->confirmation_note),
+            'bookingReference' => old('booking_reference', $failedStageLead->booking_reference),
+            'lostReason' => old('lost_reason', $failedStageLead->lost_reason),
+        ] : null;
+    @endphp
     <div class="space-y-5"
-         x-data="{ selected: [], allIds: {{ \Illuminate\Support\Js::from($leads->pluck('id')->map(fn ($id) => (string) $id)->all()) }}, followupLead: null, openFollowup(id, name, url) { this.followupLead = { id, name, url }; this.$nextTick(() => { this.$refs.followupDialog.showModal(); this.$refs.followupDue.focus(); }); } }"
-         @if ($failedFollowupLead) x-init="openFollowup({{ $failedFollowupLead->id }}, @js($failedFollowupLead->display_name), @js(route('cs.leads.followups', $failedFollowupLead)))" @endif>
-        <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ number_format($leads->total(), 0, ',', '.') }} lead ditemukan</p><p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ $isAdmin ? 'Buka lead untuk melihat percakapan, tahap, dan tindak lanjut.' : 'Hubungi calon jemaah dan jadwalkan langkah berikutnya dari daftar ini.' }}</p></div><div class="flex flex-wrap gap-2">@if ($isAdmin)<a href="{{ route('admin.crm.leads.archived') }}" class="ui-button-secondary">Arsip lead</a>@else<a href="{{ route('cs.tasks') }}" class="ui-button-secondary"><i data-lucide="calendar-check" class="size-4" aria-hidden="true"></i>Tugas saya</a>@endif<a href="{{ route($routePrefix.'leads.create') }}" class="ui-button-primary"><i data-lucide="plus" class="size-4" aria-hidden="true"></i>Tambah lead</a></div></div>
+         x-data="{
+             selected: [],
+             allIds: {{ \Illuminate\Support\Js::from($leads->pluck('id')->map(fn ($id) => (string) $id)->all()) }},
+             followupLead: null,
+             stageLead: null,
+             selectedStage: '',
+             stageForm: { confirmedOn: '', confirmationNote: '', bookingReference: '', lostReason: '' },
+             openFollowup(id, name, url) {
+                 this.followupLead = { id, name, url };
+                 this.$nextTick(() => { this.$refs.followupDialog.showModal(); this.$refs.followupDue.focus(); });
+             },
+             openStage(lead) {
+                 this.stageLead = lead;
+                 this.selectedStage = lead.stage;
+                 this.stageForm = {
+                     confirmedOn: lead.confirmedOn || @js(now('Asia/Makassar')->toDateString()),
+                     confirmationNote: lead.confirmationNote || '',
+                     bookingReference: lead.bookingReference || '',
+                     lostReason: lead.lostReason || ''
+                 };
+                 this.$nextTick(() => { this.$refs.stageDialog.showModal(); this.$refs.stageSelect.focus(); });
+             }
+         }"
+         @if ($failedStagePayload) x-init="openStage(@js($failedStagePayload))"
+         @elseif ($failedFollowupLead) x-init="openFollowup({{ $failedFollowupLead->id }}, @js($failedFollowupLead->display_name), @js(route('cs.leads.followups', $failedFollowupLead)))" @endif>
+        <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ number_format($leads->total(), 0, ',', '.') }} lead ditemukan</p><p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ $isAdmin ? 'Buka lead untuk mengedit data dan tahapan, atau periksa tindak lanjut.' : 'Hubungi calon jemaah dan jadwalkan langkah berikutnya dari daftar ini.' }}</p></div><div class="flex flex-wrap gap-2">@if ($isAdmin)<a href="{{ route('admin.crm.stages.index') }}" class="ui-button-secondary"><i data-lucide="settings-2" class="size-4" aria-hidden="true"></i>Atur tahap</a><a href="{{ route('admin.crm.leads.archived') }}" class="ui-button-secondary">Arsip lead</a>@else<a href="{{ route('cs.tasks') }}" class="ui-button-secondary"><i data-lucide="calendar-check" class="size-4" aria-hidden="true"></i>Tugas saya</a>@endif<a href="{{ route($routePrefix.'leads.create') }}" class="ui-button-primary"><i data-lucide="plus" class="size-4" aria-hidden="true"></i>Tambah lead</a></div></div>
         <form method="GET" action="{{ route($routePrefix.'leads.index') }}" class="ui-card ui-card-pad space-y-4" aria-label="Filter lead">
             <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_180px_auto_auto]">
                 <div><label for="lead-search" class="ui-label">Cari nama atau nomor WhatsApp</label><input id="lead-search" name="search" value="{{ $filters['search'] ?? '' }}" placeholder="Contoh: Ibu Siti atau 0812..." class="ui-input"></div>
@@ -44,7 +80,7 @@
                             <tr class="text-slate-700 hover:bg-blue-50/50 dark:text-slate-200 dark:hover:bg-slate-800/60">
                                 @if ($isAdmin)<td class="px-4 py-3"><input type="checkbox" value="{{ $lead->id }}" x-model="selected" aria-label="Pilih {{ $lead->display_name }}" class="size-5 rounded border-slate-300 text-[#3166b1]"></td>@endif
                                 <th scope="row" class="px-4 py-3 font-bold"><a href="{{ route($routePrefix.'leads.show', $lead) }}" class="text-[#102b52] hover:underline dark:text-white">{{ $lead->display_name }}</a></th>
-                                <td class="px-4 py-3">{{ $lead->package?->name ?? 'Paket belum dipilih' }}</td><td class="px-4 py-3">{{ $stageLabels[$lead->stage] ?? $lead->stage }}</td><td class="px-4 py-3">{{ $lead->city ?: '—' }}</td>
+                                <td class="px-4 py-3">{{ $lead->package?->name ?? 'Paket belum dipilih' }}</td><td class="px-4 py-3">{{ $stageLabels[$lead->stage] ?? $lead->stage }}@if ($isAdmin)<span class="mt-1 block">@include('crm._admin-stage-action')</span>@endif</td><td class="px-4 py-3">{{ $lead->city ?: '—' }}</td>
                                 <td class="whitespace-nowrap px-4 py-3">{{ $lead->planned_departure_month ? \Carbon\Carbon::parse($lead->planned_departure_month.'-01')->locale('id')->translatedFormat('M Y') : '—' }}</td>
                                 @if ($isAdmin)<td class="px-4 py-3">{{ $lead->cs?->name ?? '—' }}</td>@endif
                                 <td class="whitespace-nowrap px-4 py-3">{{ $lead->updated_at->timezone('Asia/Makassar')->locale('id')->translatedFormat('d M Y') }}</td>
@@ -58,6 +94,32 @@
             </div>
         </div>
         {{ $leads->links() }}
+        @if ($isAdmin)
+            <dialog x-ref="stageDialog" @close="stageLead = null" @click="if ($event.target === $el) $el.close()"
+                    aria-labelledby="stage-dialog-title" class="w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-slate-200 bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-slate-900/60 dark:border-slate-700 dark:bg-slate-900 dark:text-white">
+                <form method="POST" :action="stageLead?.url || '#'" class="p-5 sm:p-6">
+                    @csrf @method('PATCH')
+                    <input type="hidden" name="stage_lead_id" :value="stageLead?.id || ''">
+                    <div class="flex items-start justify-between gap-4">
+                        <div><h2 id="stage-dialog-title" class="text-lg font-bold">Ubah tahap lead</h2><p class="mt-1 text-sm text-slate-600 dark:text-slate-300" x-text="stageLead?.name || ''"></p></div>
+                        <button type="button" @click="$refs.stageDialog.close()" class="inline-flex size-9 shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800" aria-label="Tutup"><i data-lucide="x" class="size-5" aria-hidden="true"></i></button>
+                    </div>
+                    <div class="mt-5 space-y-4">
+                        <div><label for="quick-lead-stage" class="ui-label">Pindahkan ke tahap</label><select x-ref="stageSelect" id="quick-lead-stage" name="stage" x-model="selectedStage" required class="ui-input">@foreach ($stageLabels as $key => $label)<option value="{{ $key }}">{{ $label }}</option>@endforeach</select>@error('stage')<p class="mt-1 text-xs font-semibold text-red-700 dark:text-red-300" role="alert">{{ $message }}</p>@enderror</div>
+                        <div x-show="selectedStage === 'berhasil'" x-cloak class="space-y-4 rounded-xl bg-emerald-50 p-4 dark:bg-emerald-950/30">
+                            <p class="text-xs text-emerald-900 dark:text-emerald-200">Isi bukti konfirmasi sebelum menandai lead berhasil.</p>
+                            <div><label for="quick-confirmed-on" class="ui-label">Tanggal konfirmasi *</label><input id="quick-confirmed-on" type="date" name="confirmed_on" x-model="stageForm.confirmedOn" :required="selectedStage === 'berhasil'" :disabled="selectedStage !== 'berhasil'" class="ui-input">@error('confirmed_on')<p class="mt-1 text-xs font-semibold text-red-700 dark:text-red-300" role="alert">{{ $message }}</p>@enderror</div>
+                            <div><label for="quick-confirmation-note" class="ui-label">Catatan konfirmasi *</label><textarea id="quick-confirmation-note" name="confirmation_note" rows="2" maxlength="3000" x-model="stageForm.confirmationNote" :required="selectedStage === 'berhasil'" :disabled="selectedStage !== 'berhasil'" placeholder="Contoh: DP diterima dan jadwal disetujui" class="ui-input"></textarea>@error('confirmation_note')<p class="mt-1 text-xs font-semibold text-red-700 dark:text-red-300" role="alert">{{ $message }}</p>@enderror</div>
+                            <div><label for="quick-booking-reference" class="ui-label">Nomor booking (jika ada)</label><input id="quick-booking-reference" name="booking_reference" maxlength="255" x-model="stageForm.bookingReference" :disabled="selectedStage !== 'berhasil'" class="ui-input">@error('booking_reference')<p class="mt-1 text-xs font-semibold text-red-700 dark:text-red-300" role="alert">{{ $message }}</p>@enderror</div>
+                        </div>
+                        <div x-show="selectedStage === 'gagal'" x-cloak class="rounded-xl bg-slate-50 p-4 dark:bg-slate-800">
+                            <label for="quick-lost-reason" class="ui-label">Alasan gagal *</label><textarea id="quick-lost-reason" name="lost_reason" rows="2" maxlength="3000" x-model="stageForm.lostReason" :required="selectedStage === 'gagal'" :disabled="selectedStage !== 'gagal'" placeholder="Contoh: Jadwal keberangkatan tidak sesuai" class="ui-input"></textarea>@error('lost_reason')<p class="mt-1 text-xs font-semibold text-red-700 dark:text-red-300" role="alert">{{ $message }}</p>@enderror
+                        </div>
+                    </div>
+                    <div class="mt-6 flex justify-end gap-2"><button type="button" @click="$refs.stageDialog.close()" class="ui-button-secondary">Batal</button><button type="submit" class="ui-button-primary">Simpan tahap</button></div>
+                </form>
+            </dialog>
+        @endif
         @unless ($isAdmin)
             <dialog x-ref="followupDialog" @close="followupLead = null" @click="if ($event.target === $el) $el.close()"
                     aria-labelledby="followup-dialog-title" class="w-[calc(100%-2rem)] max-w-lg rounded-2xl border border-slate-200 bg-white p-0 text-slate-900 shadow-2xl backdrop:bg-slate-900/60">

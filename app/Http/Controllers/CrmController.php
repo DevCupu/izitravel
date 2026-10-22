@@ -51,21 +51,24 @@ class CrmController extends Controller
     {
         $today = now(self::TZ)->toDateString();
         $base = Lead::query()->visibleTo($request->user());
-        $tasks = LeadFollowup::query()->with(['lead.contact', 'lead.cs'])
+        $tasks = LeadFollowup::query()->with(['lead.contact', 'lead.cs', 'assignee'])
             ->where('status', 'open')
             ->whereHas('lead', fn ($q) => $q->visibleTo($request->user()))
             ->when(! $this->admin($request), fn ($q) => $q->where('assigned_user_id', $request->user()->id));
         $currentTime = now();
         $overdueCount = (clone $tasks)->where('due_at', '<', $currentTime)->count();
-        $overdue = (clone $tasks)->where('due_at', '<', $currentTime)->orderBy('due_at')->limit(6)->get();
-        $dueToday = (clone $tasks)->whereBetween('due_at', [$currentTime, Carbon::parse($today, self::TZ)->endOfDay()->utc()])->orderBy('due_at')->limit(6)->get();
+        $dueTodayRange = [$currentTime, Carbon::parse($today, self::TZ)->endOfDay()->utc()];
+        $dueTodayCount = (clone $tasks)->whereBetween('due_at', $dueTodayRange)->count();
+        $overdue = (clone $tasks)->where('due_at', '<', $currentTime)->orderBy('due_at')->limit(4)->get();
+        $dueToday = (clone $tasks)->whereBetween('due_at', $dueTodayRange)->orderBy('due_at')->limit(4)->get();
 
         return view('crm.dashboard', array_merge($this->viewData($request), [
-            'overdue' => $overdue, 'overdueCount' => $overdueCount, 'dueToday' => $dueToday,
+            'overdue' => $overdue, 'overdueCount' => $overdueCount,
+            'dueToday' => $dueToday, 'dueTodayCount' => $dueTodayCount,
             'csPhone' => $this->admin($request) ? null : $request->user()->whatsappCs?->phone,
             'newCount' => (clone $base)->where('stage', 'baru')->count(),
             'wonThisMonth' => (clone $base)->where('stage', 'berhasil')->whereBetween('won_at', [now(self::TZ)->startOfMonth()->utc(), now(self::TZ)->endOfMonth()->utc()])->count(),
-            'recentLeads' => (clone $base)->with(['cs'])->latest()->limit(5)->get(),
+            'recentLeads' => (clone $base)->with(['cs', 'package'])->latest()->limit(5)->get(),
         ]));
     }
 
