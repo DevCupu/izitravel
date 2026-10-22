@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\CampaignAdController as AdminCampaignAdController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
@@ -69,8 +70,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'verified', 'admin', 'record.activity'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [AdminDashboardController::class, 'index'])->name('dashboard');
+    Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
     Route::get('/users', [AdminUserController::class, 'index'])->name('users.index');
     Route::get('/global-search', [GlobalSearchController::class, 'search'])->name('global-search');
 
@@ -186,7 +188,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     });
 });
 
-Route::middleware(['auth', 'cs'])->prefix('cs')->name('cs.')->group(function () {
+Route::middleware(['auth', 'cs', 'record.activity'])->prefix('cs')->name('cs.')->group(function () {
     Route::get('change-password', [CsPasswordController::class, 'edit'])->name('password.edit');
     Route::put('change-password', [CsPasswordController::class, 'update'])->name('password.update');
     Route::get('/', [CrmController::class, 'dashboard'])->name('dashboard');

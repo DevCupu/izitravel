@@ -19,6 +19,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\EnsureUserIsAdmin::class,
             'cs' => \App\Http\Middleware\EnsureUserIsCs::class,
+            'record.activity' => \App\Http\Middleware\RecordActivity::class,
         ]);
         $middleware->web(append: [
             \App\Http\Middleware\CheckSystemMaintenance::class,

@@ -700,6 +700,13 @@
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">Pengaturan</p>
                 </div>
 
+                <a href="{{ route('admin.activity-logs.index') }}"
+                   :title="sidebarCollapsed ? 'Log Aktivitas' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.activity-logs.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="history" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Log Aktivitas</span>
+                </a>
+
                 <a href="{{ route('admin.settings.index') }}"
                    :title="sidebarCollapsed ? 'Pengaturan Web' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.settings.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
