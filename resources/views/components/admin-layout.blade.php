@@ -1,7 +1,20 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" :class="{ 'dark': darkMode }">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: document.documentElement.classList.contains('dark') }" :class="{ 'dark': darkMode }">
     <head>
         <meta charset="utf-8">
+        <script>
+            try {
+                if (localStorage.getItem('darkMode') === 'true') {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (error) {
+                // Storage can be unavailable in restricted browser contexts.
+            }
+        </script>
+        <style>
+            html { background-color: #f8fafc; color-scheme: light; }
+            html.dark { background-color: #0f172a; color-scheme: dark; }
+        </style>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -407,7 +420,7 @@
             }
         </style>
     </head>
-    <body class="antialiased admin-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 transition-colors duration-300"
+    <body class="antialiased admin-body bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200"
           x-data="{
               sidebarOpen: false,
               sidebarCollapsed: localStorage.getItem('sidebarCollapsed') === 'true',
