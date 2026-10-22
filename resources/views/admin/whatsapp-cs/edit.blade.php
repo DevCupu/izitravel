@@ -21,9 +21,9 @@
             </div>
 
             @if (session('temporary_password'))
-                <div class="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950" role="status">
+                <div class="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200" role="status">
                     <p class="font-bold">Kata sandi sementara — tampil sekali</p>
-                    <p class="mt-2 break-all rounded-lg bg-white px-3 py-2 font-mono text-base font-bold select-all">{{ session('temporary_password') }}</p>
+                    <p class="mt-2 break-all rounded-lg bg-white px-3 py-2 font-mono text-base font-bold select-all dark:bg-slate-900 dark:text-slate-100">{{ session('temporary_password') }}</p>
                     <p class="mt-2">Salin sekarang dan berikan kepada CS melalui saluran internal. CS wajib menggantinya saat pertama masuk.</p>
                 </div>
             @endif

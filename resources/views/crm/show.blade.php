@@ -3,7 +3,7 @@
     <div class="crm-page crm-detail space-y-5">
     @include('crm._page-intro', ['eyebrow' => 'Detail calon jemaah', 'title' => $lead->display_name, 'description' => 'Tahap '.($stageLabels[$lead->stage] ?? $lead->stage).' · PIC '.($lead->cs?->name ?? '—').' · Semua jadwal dalam WITA.', 'href' => '#tindak-lanjut', 'linkLabel' => 'Lihat tindak lanjut', 'icon' => 'calendar-check'])
     @if ($isAdmin)
-        <div class="mb-5 flex flex-wrap justify-end gap-2"><a href="#tahap-penjualan" class="ui-button-primary"><i data-lucide="workflow" class="size-4" aria-hidden="true"></i>Ubah tahap</a><form method="POST" action="{{ route('admin.crm.leads.archive', $lead) }}" onsubmit="return confirm('Arsipkan lead ini beserta tampilan tugas aktifnya? Riwayat tetap tersimpan.')">@csrf @method('DELETE')<button class="min-h-11 rounded-xl border border-red-200 px-4 text-sm font-bold text-red-700 hover:bg-red-50">Arsipkan lead</button></form></div>
+        <div class="mb-5 flex flex-wrap justify-end gap-2"><a href="#tahap-penjualan" class="ui-button-primary"><i data-lucide="workflow" class="size-4" aria-hidden="true"></i>Ubah tahap</a><form method="POST" action="{{ route('admin.crm.leads.archive', $lead) }}" onsubmit="return confirm('Arsipkan lead ini beserta tampilan tugas aktifnya? Riwayat tetap tersimpan.')">@csrf @method('DELETE')<button class="min-h-11 rounded-xl border border-red-200 px-4 text-sm font-bold text-red-700 hover:bg-red-50 dark:border-red-900/70 dark:text-red-300 dark:hover:bg-red-950/30">Arsipkan lead</button></form></div>
     @endif
     <div class="grid xl:grid-cols-[minmax(0,1fr)_320px] gap-6">
         <div class="contents xl:block xl:min-w-0 xl:space-y-6">
@@ -30,7 +30,7 @@
                     </div>
                     <div><label for="need_type" class="mb-1 block text-sm font-bold">Kebutuhan utama</label><select id="need_type" name="need_type" x-model="needType" class="w-full rounded-xl border-slate-300 dark:border-slate-600"><option value="">Belum diketahui</option>@foreach (\App\Models\Lead::NEED_TYPES as $key => $label)<option value="{{ $key }}" @selected(old('need_type', $lead->need_type ?: ($lead->needs_summary ? 'other' : '')) === $key)>{{ $label }}</option>@endforeach</select>@error('need_type')<p class="mt-1 text-sm text-red-700">{{ $message }}</p>@enderror</div>
                     <div x-show="needType === 'other'" x-cloak><label for="needs_summary" class="mb-1 block text-sm font-bold">Tulis kebutuhan lainnya *</label><textarea id="needs_summary" name="needs_summary" rows="3" maxlength="3000" x-bind:disabled="needType !== 'other'" x-bind:required="needType === 'other'" class="w-full rounded-xl border-slate-300 dark:border-slate-600">{{ old('needs_summary', $lead->needs_summary) }}</textarea>@error('needs_summary')<p class="mt-1 text-sm text-red-700">{{ $message }}</p>@enderror</div>
-                    <button class="rounded-xl border border-[#3166b1] px-5 py-2.5 text-sm font-bold text-[#3166b1] hover:bg-blue-50">Simpan detail</button>
+                    <button class="rounded-xl border border-[#3166b1] px-5 py-2.5 text-sm font-bold text-[#3166b1] hover:bg-blue-50 dark:border-blue-400 dark:text-blue-300 dark:hover:bg-blue-950/30">Simpan detail</button>
                 </form>
             </section>
 

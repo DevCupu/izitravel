@@ -32,7 +32,7 @@
                     <p class="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-sm">Pilih tahap untuk melihat lead dan langkah berikutnya.</p>
                 </div>
                 <div class="flex flex-wrap gap-2 self-start sm:self-auto">
-                @if ($isAdmin)<a href="{{ route('admin.crm.stages.index') }}" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-[#245392] hover:bg-blue-50 dark:border-slate-600 dark:bg-slate-800 dark:text-blue-300"><i data-lucide="settings-2" class="size-4" aria-hidden="true"></i>Atur tahap</a>@endif
+                @if ($isAdmin)<a href="{{ route('admin.crm.stages.index') }}" class="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-4 text-sm font-bold text-[#245392] hover:bg-blue-50 dark:border-slate-600 dark:bg-slate-800 dark:text-blue-300 dark:hover:bg-slate-700"><i data-lucide="settings-2" class="size-4" aria-hidden="true"></i>Atur tahap</a>@endif
                 <a href="{{ route($routePrefix.'leads.create') }}" class="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-xl bg-[#3166b1] px-4 text-sm font-bold text-white transition hover:bg-[#245392] focus-visible:outline-[#3166b1]">
                     <i data-lucide="plus" class="h-4 w-4" aria-hidden="true"></i>Tambah lead
                 </a>
@@ -59,7 +59,7 @@
                 <form method="GET" action="{{ route($routePrefix.'pipeline') }}" class="flex w-full flex-wrap items-end gap-2 rounded-xl border border-slate-200 bg-white p-2.5 dark:border-slate-700 dark:bg-slate-800 sm:w-auto" aria-label="Filter pipeline berdasarkan PIC">
                     <div class="min-w-[180px] flex-1 sm:flex-none">
                         <label for="pipeline-cs-filter" class="mb-1 block text-[11px] font-bold text-slate-600 dark:text-slate-300">Tampilkan PIC</label>
-                        <select id="pipeline-cs-filter" name="cs_id" class="min-h-10 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs text-slate-800 sm:w-[190px]">
+                        <select id="pipeline-cs-filter" name="cs_id" class="min-h-10 w-full rounded-lg border border-slate-300 bg-white px-2.5 text-xs text-slate-800 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-100 sm:w-[190px]">
                             <option value="">Semua PIC</option>
                             @foreach ($csList as $cs)
                                 <option value="{{ $cs->id }}" @selected((string) $selectedCsId === (string) $cs->id)>{{ $cs->name }}</option>
@@ -69,7 +69,7 @@
                     <button type="submit" class="min-h-10 rounded-lg bg-[#3166b1] px-3.5 text-xs font-bold text-white hover:bg-[#245392]">Terapkan</button>
                 </form>
             @else
-                <span class="hidden rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 sm:inline-flex">{{ $counts->sum() }} lead tercatat</span>
+                <span class="hidden rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300 sm:inline-flex">{{ $counts->sum() }} lead tercatat</span>
             @endif
             </div>
         </div>
@@ -87,7 +87,7 @@
         <div aria-label="Pilih tahap pipeline" class="mb-4 hidden gap-2 lg:grid lg:grid-cols-4 xl:grid-cols-7">
             @foreach ($stageLabels as $stage => $label)
                 <button type="button" @click="scrollToStage('{{ $stage }}')" @dragover="allowDrop($event, '{{ $stage }}')" @dragleave="leaveDrop($event)" @drop="drop($event, '{{ $stage }}')" :aria-pressed="activeStage === '{{ $stage }}'"
-                    :class="hoverStage === '{{ $stage }}' ? '!border-[#3166b1] !bg-blue-100 ring-2 ring-[#3166b1]' : (activeStage === '{{ $stage }}' ? '!border-[#3166b1] !bg-blue-50 ring-1 ring-[#3166b1]/40 text-[#245392]' : '')"
+                    :class="hoverStage === '{{ $stage }}' ? 'pipeline-stage-hover' : (activeStage === '{{ $stage }}' ? 'pipeline-stage-active' : '')"
                     class="flex min-h-14 min-w-0 items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 text-left text-xs font-bold text-slate-700 transition hover:border-[#3166b1] hover:text-[#3166b1] dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200">
                     <span class="flex min-w-0 items-center gap-2"><span class="h-2.5 w-2.5 shrink-0 rounded-full" style="background-color: {{ $stageDetails[$stage]['color'] }}" aria-hidden="true"></span><span class="truncate">{{ $label }}</span></span>
                     <span class="shrink-0 text-slate-400">{{ (int) ($counts[$stage] ?? 0) }}</span>
@@ -138,7 +138,7 @@
             <div class="min-w-0">
                 @foreach ($stageLabels as $stage => $label)
                     <section data-column-stage="{{ $stage }}" aria-label="Tahap {{ $label }}" @dragover="allowDrop($event, '{{ $stage }}')" @dragleave="leaveDrop($event)" @drop="drop($event, '{{ $stage }}')"
-                        :class="[activeStage === '{{ $stage }}' ? '!flex' : '', hoverStage === '{{ $stage }}' ? 'ring-2 ring-[#3166b1] bg-blue-50' : '']"
+                        :class="[activeStage === '{{ $stage }}' ? '!flex' : '', hoverStage === '{{ $stage }}' ? 'pipeline-lane-hover' : '']"
                         class="hidden min-w-0 w-full flex-col rounded-2xl border border-slate-200 bg-[#f0f3f8] p-3 transition-colors dark:border-slate-700 dark:bg-slate-800 sm:p-4">
                         <div class="mb-3 rounded-xl border border-slate-200/80 bg-white px-4 py-3.5 shadow-sm dark:border-slate-700 dark:bg-slate-900" style="border-left: 4px solid {{ $stageDetails[$stage]['color'] }}">
                             <div class="flex items-center justify-between gap-2">
@@ -170,7 +170,7 @@
                                         @endif
                                         <a href="{{ route($routePrefix.'leads.show', $lead) }}" draggable="false" class="min-w-0 flex-1 text-sm font-extrabold leading-snug text-[#102b52] underline-offset-2 hover:text-[#3166b1] hover:underline dark:text-white dark:hover:text-blue-300">{{ $lead->display_name }}</a>
                                         @if ($isAdmin || $stage !== 'berhasil')
-                                            <span draggable="true" @dragstart="beginDrag($event)" @dragend="endDrag()" aria-hidden="true" title="Tarik untuk pindah tahap" class="hidden h-8 w-8 shrink-0 cursor-grab items-center justify-center rounded-lg text-slate-400 hover:bg-blue-50 hover:text-[#3166b1] active:cursor-grabbing lg:inline-flex"><i data-lucide="grip-vertical" class="h-4 w-4"></i></span>
+                                            <span draggable="true" @dragstart="beginDrag($event)" @dragend="endDrag()" aria-hidden="true" title="Tarik untuk pindah tahap" class="hidden h-8 w-8 shrink-0 cursor-grab items-center justify-center rounded-lg text-slate-400 hover:bg-blue-50 hover:text-[#3166b1] active:cursor-grabbing dark:hover:bg-slate-800 dark:hover:text-blue-300 lg:inline-flex"><i data-lucide="grip-vertical" class="h-4 w-4"></i></span>
                                         @endif
                                     </div>
                                     <p class="mt-1.5 line-clamp-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">{{ $lead->package?->name ?? 'Paket belum dipilih' }}</p>
@@ -186,7 +186,7 @@
                                         <div class="flex flex-wrap items-center gap-1">
                                             <button type="button" @click="openDetailsFromButton($event)" class="min-h-9 rounded-lg px-2.5 text-xs font-bold text-slate-700 transition hover:bg-slate-100 focus-visible:outline-[#3166b1] dark:text-slate-200 dark:hover:bg-slate-800">Edit data</button>
                                             @if ($isAdmin || $stage !== 'berhasil')
-                                                <button type="button" @click="openMoveFromButton($event)" class="min-h-9 rounded-lg bg-blue-50 px-2.5 text-xs font-bold text-[#245392] transition hover:bg-blue-100 focus-visible:outline-[#3166b1] dark:bg-slate-800 dark:text-blue-300">Ubah tahap</button>
+                                                <button type="button" @click="openMoveFromButton($event)" class="min-h-9 rounded-lg bg-blue-50 px-2.5 text-xs font-bold text-[#245392] transition hover:bg-blue-100 focus-visible:outline-[#3166b1] dark:bg-slate-800 dark:text-blue-300 dark:hover:bg-slate-700">Ubah tahap</button>
                                             @endif
                                         </div>
                                     </div>
@@ -300,11 +300,11 @@
                         <p class="text-[11px] font-extrabold uppercase tracking-[.16em] text-[#3166b1]">Pindah tahap</p>
                         <h2 id="pipeline-dialog-title" class="mt-1 text-xl font-bold text-[#102b52] dark:text-white" x-text="selected?.name || 'Lead'"></h2>
                     </div>
-                    <button type="button" @click="$refs.stageDialog.close()" aria-label="Tutup" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100"><i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i></button>
+                    <button type="button" @click="$refs.stageDialog.close()" aria-label="Tutup" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"><i data-lucide="x" class="h-5 w-5" aria-hidden="true"></i></button>
                 </div>
 
                 <label for="pipeline-stage" class="mt-5 block text-sm font-bold text-slate-800 dark:text-slate-200">Tahap tujuan <span class="text-red-600">*</span></label>
-                <select id="pipeline-stage" name="stage" x-model="targetStage" required autofocus class="mt-1.5 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 focus:border-[#3166b1] focus:ring-[#3166b1]">
+                <select id="pipeline-stage" name="stage" x-model="targetStage" required autofocus class="mt-1.5 min-h-11 w-full rounded-xl border border-slate-300 bg-white px-3 text-sm text-slate-900 focus:border-[#3166b1] focus:ring-[#3166b1] dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100">
                     <option value="">Pilih tahap</option>
                     @foreach ($stageLabels as $stage => $label)
                         <option value="{{ $stage }}">{{ $label }}</option>
@@ -313,13 +313,13 @@
 
                 <div x-show="targetStage === 'berhasil'" class="mt-4 space-y-3 rounded-xl border border-emerald-200 bg-emerald-50/70 p-4 dark:border-emerald-900 dark:bg-emerald-950/30">
                     <p class="text-xs font-semibold text-emerald-800 dark:text-emerald-300">Isi bukti konfirmasi sebelum menyimpan.</p>
-                    <div><label for="pipeline-confirmed-on" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Tanggal konfirmasi <span class="text-red-600">*</span></label><input id="pipeline-confirmed-on" type="date" name="confirmed_on" x-model="confirmedOn" :required="targetStage === 'berhasil'" :disabled="targetStage !== 'berhasil'" class="mt-1 min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 text-sm"></div>
-                    <div><label for="pipeline-confirmation-note" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Catatan konfirmasi <span class="text-red-600">*</span></label><textarea id="pipeline-confirmation-note" name="confirmation_note" x-model="confirmationNote" :required="targetStage === 'berhasil'" :disabled="targetStage !== 'berhasil'" rows="3" maxlength="3000" placeholder="Contoh: DP diterima dan jadwal disepakati" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"></textarea></div>
-                    <div><label for="pipeline-booking-reference" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Nomor booking <span class="font-normal text-slate-500">(opsional)</span></label><input id="pipeline-booking-reference" type="text" name="booking_reference" x-model="bookingReference" :disabled="targetStage !== 'berhasil'" maxlength="255" class="mt-1 min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 text-sm"></div>
+                    <div><label for="pipeline-confirmed-on" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Tanggal konfirmasi <span class="text-red-600">*</span></label><input id="pipeline-confirmed-on" type="date" name="confirmed_on" x-model="confirmedOn" :required="targetStage === 'berhasil'" :disabled="targetStage !== 'berhasil'" class="mt-1 min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"></div>
+                    <div><label for="pipeline-confirmation-note" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Catatan konfirmasi <span class="text-red-600">*</span></label><textarea id="pipeline-confirmation-note" name="confirmation_note" x-model="confirmationNote" :required="targetStage === 'berhasil'" :disabled="targetStage !== 'berhasil'" rows="3" maxlength="3000" placeholder="Contoh: DP diterima dan jadwal disepakati" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"></textarea></div>
+                    <div><label for="pipeline-booking-reference" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Nomor booking <span class="font-normal text-slate-500 dark:text-slate-400">(opsional)</span></label><input id="pipeline-booking-reference" type="text" name="booking_reference" x-model="bookingReference" :disabled="targetStage !== 'berhasil'" maxlength="255" class="mt-1 min-h-11 w-full rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"></div>
                 </div>
                 <div x-show="targetStage === 'gagal'" class="mt-4 rounded-xl border border-slate-200 bg-slate-50 p-4 dark:border-slate-700 dark:bg-slate-800">
                     <label for="pipeline-lost-reason" class="block text-xs font-bold text-slate-700 dark:text-slate-200">Alasan tidak berlanjut <span class="text-red-600">*</span></label>
-                    <textarea id="pipeline-lost-reason" name="lost_reason" x-model="lostReason" :required="targetStage === 'gagal'" :disabled="targetStage !== 'gagal'" rows="3" maxlength="3000" placeholder="Contoh: Rencana perjalanan ditunda" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"></textarea>
+                    <textarea id="pipeline-lost-reason" name="lost_reason" x-model="lostReason" :required="targetStage === 'gagal'" :disabled="targetStage !== 'gagal'" rows="3" maxlength="3000" placeholder="Contoh: Rencana perjalanan ditunda" class="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"></textarea>
                 </div>
 
                 <div class="mt-6 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">

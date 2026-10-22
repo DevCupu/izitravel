@@ -20,7 +20,7 @@
             @csrf
 
             @if (session('duplicate_warning'))
-                <div role="alert" class="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 sm:p-5">
+                <div role="alert" class="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200 sm:p-5">
                     <h2 class="font-bold">Nomor WhatsApp ini sudah pernah dicatat</h2>
                     <p class="mt-1">Periksa lead sebelumnya. Jika ini rencana perjalanan baru, centang konfirmasi di bawah lalu simpan lagi. Jika nomornya salah, perbaiki nomor tanpa mencentang.</p>
                     @if (session('duplicate_leads'))
@@ -150,7 +150,7 @@
             </section>
 
             @if (session('duplicate_warning') || old('confirm_duplicate'))
-                <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">
+                <label class="flex cursor-pointer items-start gap-3 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200">
                     <input type="checkbox" name="confirm_duplicate" value="1" @checked(old('confirm_duplicate')) class="mt-0.5 h-5 w-5 shrink-0 rounded border-amber-500 text-[#3166b1]">
                     <span>Saya sudah memeriksa. Ini rencana perjalanan baru, jadi buat lead baru dengan nomor yang sama.</span>
                 </label>
@@ -158,7 +158,7 @@
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
                 <button type="submit" class="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-[#3166b1] px-6 text-sm font-bold text-white hover:bg-[#24548f]"><i data-lucide="save" class="h-4 w-4" aria-hidden="true"></i>Simpan calon jemaah</button>
-                <a href="{{ route($routePrefix.'leads.index') }}" class="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 text-sm font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:border-slate-600">Kembali ke daftar</a>
+                <a href="{{ route($routePrefix.'leads.index') }}" class="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 px-6 text-sm font-bold text-slate-700 hover:bg-slate-50 dark:border-slate-600 dark:text-slate-200 dark:hover:bg-slate-700">Kembali ke daftar</a>
             </div>
             <p class="text-xs text-slate-600 dark:text-slate-300">Jadwal dapat ditambahkan atau diubah lagi dari detail lead.</p>
         </form>

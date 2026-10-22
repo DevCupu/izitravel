@@ -18,9 +18,9 @@
             </form>
         </div>
         @if ($tasks->count())
-            <div class="flex flex-wrap items-center gap-3 rounded-xl border border-blue-100 bg-blue-50 p-3">
-                <button type="button" @click="selected = selected.length === allIds.length ? [] : [...allIds]" class="text-sm font-bold text-[#245392]" x-text="selected.length === allIds.length ? 'Batalkan pilihan' : 'Pilih semua di halaman ini'"></button>
-                <span class="text-xs text-slate-600" x-text="selected.length + ' dipilih'"></span>
+            <div class="flex flex-wrap items-center gap-3 rounded-xl border border-blue-100 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-950/30">
+                <button type="button" @click="selected = selected.length === allIds.length ? [] : [...allIds]" class="text-sm font-bold text-[#245392] dark:text-blue-200" x-text="selected.length === allIds.length ? 'Batalkan pilihan' : 'Pilih semua di halaman ini'"></button>
+                <span class="text-xs text-slate-600 dark:text-slate-300" x-text="selected.length + ' dipilih'"></span>
                 <form method="POST" action="{{ route($routePrefix.'tasks.bulk-complete') }}" class="ml-auto flex flex-wrap gap-2">@csrf
                     <template x-for="id in selected" :key="id"><input type="hidden" name="ids[]" :value="id"></template>
                     <button type="submit" :disabled="!selected.length" @click="if (!confirm('Selesaikan ' + selected.length + ' tugas terpilih?')) $event.preventDefault()" class="rounded-xl bg-[#3166b1] px-4 py-2.5 text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-50">Selesaikan terpilih</button>

@@ -1100,6 +1100,33 @@ table.record-view-as-cards tbody tr > [colspan]::before { display: none; }
 .dark .crm-page [class~='text-[#3166b1]'],
 .dark .crm-page [class~='text-[#245392]'] { color: #93c5fd; }
 .dark .crm-page [class~='text-red-700'] { color: #fca5a5; }
+
+/* Pipeline focus stays visible without introducing pale panels in admin dark mode. */
+.crm-page .pipeline-stage-active {
+    border-color: #3166b1;
+    background-color: #f0f7fc;
+    color: #245392;
+    box-shadow: 0 0 0 1px rgba(49, 102, 177, .35);
+}
+.crm-page .pipeline-stage-hover,
+.crm-page .pipeline-lane-hover {
+    border-color: #3166b1;
+    background-color: #e1eff8;
+    box-shadow: 0 0 0 2px rgba(49, 102, 177, .7);
+}
+.dark .crm-page .pipeline-stage-active {
+    border-color: #6fa3e8;
+    background-color: #203755;
+    color: #e3efff;
+    box-shadow: 0 0 0 1px rgba(111, 163, 232, .55);
+}
+.dark .crm-page .pipeline-stage-hover,
+.dark .crm-page .pipeline-lane-hover {
+    border-color: #93c5fd;
+    background-color: #294361;
+    color: #f8fafc;
+    box-shadow: 0 0 0 2px rgba(147, 197, 253, .7);
+}
 @media (max-width: 639px) {
     .crm-page .record-view-button[data-mode='table'],
     .crm-page [aria-label='Tampilan pipeline'] button:nth-of-type(2) { display: none; }

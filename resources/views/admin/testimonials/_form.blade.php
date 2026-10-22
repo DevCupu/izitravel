@@ -33,7 +33,7 @@
             <label for="photo" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 uppercase tracking-wider">{{ __('Foto Profil (Avatar)') }}</label>
             <div class="flex items-center gap-4">
                 @if(!empty($testimonial->photo))
-                    <div class="w-14 h-14 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-50 shrink-0 relative group">
+                    <div class="w-14 h-14 rounded-full overflow-hidden border border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-700 shrink-0 relative group">
                         <img src="{{ asset('storage/' . $testimonial->photo) }}" alt="Avatar" class="w-full h-full object-cover">
                     </div>
                 @else
