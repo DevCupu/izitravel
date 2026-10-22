@@ -2676,117 +2676,7 @@
 
     @include('public.partials.home-testimonials')
 
-    <!-- BEGIN: Articles -->
-    <section class="py-16 md:py-24 bg-stone-50 overflow-hidden relative" id="artikel" data-purpose="articles-section">
-        <!-- Glow backdrops -->
-        <div class="absolute left-1/4 top-1/4 w-[450px] h-[220px] bg-blue-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-1"></div>
-        <div class="absolute right-1/4 bottom-1/4 w-[400px] h-[200px] bg-emerald-400/5 rounded-full blur-[100px] pointer-events-none -z-10 animate-aurora-2"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="articles-header mb-12 text-center reveal">
-                <div class="space-y-3 flex flex-col items-center">
-                    <span class="articles-eyebrow inline-flex items-center px-4 py-1.5 rounded-full bg-blue-50/90 border border-blue-200/80 text-blue-600 text-xs font-bold tracking-[0.14em] uppercase">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                        <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
-                        {{ $settings['articles_label'] ?? 'Artikel & Inspirasi' }}
-                    </span>
-                    <h2 class="articles-title text-3xl sm:text-4xl font-black text-stone-900 tracking-tight reveal-words">
-                        {{ $settings['articles_section_title'] ?? 'Kabar & Tips Umrah Terbaru' }}
-                    </h2>
-                    @include('partials.ornament')
-                    <p class="articles-subtitle text-stone-500 font-light text-xs sm:text-sm md:text-base max-w-2xl leading-relaxed pt-2 mx-auto">
-                        {{ $settings['articles_section_subtitle'] ?? 'Dapatkan panduan ibadah terpercaya, informasi destinasi, serta tips kesehatan untuk kelancaran umrah Anda.' }}
-                    </p>
-                </div>
-
-                <!-- Category Filter Tabs -->
-                <div class="w-full overflow-x-auto scrollbar-none py-2 px-4 flex justify-start sm:justify-center mt-6">
-                    <div class="relative flex items-center gap-1 bg-stone-100/80 p-1 rounded-full border border-stone-200/40 z-10 whitespace-nowrap flex-nowrap mx-auto">
-                        <div id="article-tab-pill" class="absolute bg-white rounded-full shadow-sm border border-stone-200/10 transition-all duration-355 ease-out z-0" style="height: 32px; top: 4px; left: 4px; width: 80px;"></div>
-                        <button class="article-tab-btn active px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-blue-600 relative z-10 shrink-0" data-filter="all">{{ $settings['articles_filter_all'] ?? 'Semua' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="panduan-umrah">{{ $settings['articles_filter_panduan'] ?? 'Panduan Umrah' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="tips-doa">{{ $settings['articles_filter_tips'] ?? 'Tips &amp; Doa' }}</button>
-                        <button class="article-tab-btn px-4 sm:px-5 py-2 rounded-full text-xs font-bold transition duration-200 text-stone-500 hover:text-blue-600 relative z-10 shrink-0" data-filter="info-haramain">{{ $settings['articles_filter_haramain'] ?? 'Info Haramain' }}</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Articles Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 reveal-stagger" id="articles-grid" data-stagger="true">
-                @foreach ($articles as $article)
-                              <div class="article-card reveal-card soft-card glow-card rounded-3xl overflow-hidden soft-shadow soft-shadow-hover transition-all duration-300 flex flex-col justify-between" 
-                         data-category="{{ Str::slug($article->category) }}" 
-                         data-purpose="article-item">
-                        <div>
-                            <!-- Cover Image -->
-                            <div class="relative h-52 overflow-hidden bg-stone-100">
-                                <img src="{{ $article->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $article->title }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105" width="370" height="208" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';" />
-                                <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-black px-3 py-1.5 rounded-xl uppercase tracking-wider border border-stone-100/50 shadow-sm">{{ $article->category }}</span>
-                            </div>
-
-                            <!-- Card Body -->
-                            <div class="p-6 md:p-8">
-                                <div class="flex items-center gap-3 text-[10px] text-stone-500 font-bold mb-3.5">
-                                    <span class="flex items-center gap-1.5"><i data-lucide="calendar" class="w-3.5 h-3.5"></i> {{ $article->published_at }}</span>
-                                    <span class="w-1 h-1 rounded-full bg-stone-300"></span>
-                                    <span class="flex items-center gap-1.5"><i data-lucide="clock" class="w-3.5 h-3.5"></i> {{ $article->read_time }} {{ $settings['articles_read_suffix'] ?? 'Baca' }}</span>
-                                </div>
-                                <h3 class="font-extrabold text-base md:text-lg text-stone-900 leading-snug mb-3 hover:text-blue-600 transition duration-200">
-                                    <a href="{{ route('articles.show', $article->slug) }}">{{ $article->title }}</a>
-                                </h3>
-                                <p class="text-stone-500 text-xs md:text-sm leading-relaxed font-light line-clamp-3">
-                                    {{ $article->excerpt }}
-                                </p>
-                                @if(!empty($article->tags))
-                                    @php
-                                        $cardTags = array_filter(array_map('trim', explode(',', $article->tags)));
-                                    @endphp
-                                    @if(!empty($cardTags))
-                                        <div class="flex flex-wrap gap-1.5 mt-3">
-                                            @foreach($cardTags as $tag)
-                                                <a href="{{ route('public.articles.tag', str_replace('#', '', $tag)) }}" class="text-[10px] font-black text-blue-500 hover:text-blue-700 transition tracking-wide">
-                                                    {{ str_starts_with($tag, '#') ? $tag : '#' . $tag }}
-                                                </a>
-                                            @endforeach
-                                        </div>
-                                    @endif
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Card Footer / Author -->
-                        <div class="px-6 pb-6 md:px-8 md:pb-8 pt-4 border-t border-stone-50 bg-stone-50/10 flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-9 h-9 rounded-full bg-blue-50 text-blue-600 font-extrabold text-xs flex items-center justify-center border border-blue-100/40">
-                                    {{ collect(explode(' ', $article->author))->map(fn($w) => substr($w, 0, 1))->take(2)->join('') }}
-                                </div>
-                                <div>
-                                    <p class="text-xs font-extrabold text-stone-800">{{ $article->author }}</p>
-                                    <p class="text-[9px] text-stone-500 font-bold uppercase tracking-wider mt-0.5">{{ $article->author_role }}</p>
-                                </div>
-                            </div>
-                            <a class="group flex items-center gap-1 text-xs font-extrabold text-blue-600 hover:text-blue-700 transition" 
-                                    href="{{ route('articles.show', $article->slug) }}">
-                                <span>{{ $settings['articles_read_more'] ?? 'Baca' }}</span>
-                                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1"></i>
-                            </a>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-
-            @if ($articles->count() >= 6)
-                <div class="flex justify-center mt-12 reveal">
-                    <a href="{{ route('public.articles.index') }}"
-                       class="inline-flex items-center gap-2 px-7 py-3.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.97] rounded-full font-bold text-sm text-white transition-all duration-200 shadow-lg shadow-blue-500/25">
-                        {{ $settings['articles_view_all'] ?? 'Lihat Semua Artikel' }}
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </a>
-                </div>
-            @endif
-        </div>
-    </section>
-    <!-- END: Articles -->
+    @include('public.partials.home-articles')
 
     @include('public.partials.home-haramain')
 
@@ -3795,82 +3685,32 @@
                 });
             });
 
-            // 14. Articles Category Tab Filter & Sliding Pill Logic
-            const articleTabBtns = document.querySelectorAll('.article-tab-btn');
-            const articleTabPill = document.getElementById('article-tab-pill');
-            const articleCards = document.querySelectorAll('.article-card');
+            // Filter the six home articles without changing the article links.
+            const articleSection = document.getElementById('artikel');
+            if (articleSection) {
+                const articleTabs = [...articleSection.querySelectorAll('.article-tab-btn')];
+                const articleCards = [...articleSection.querySelectorAll('.article-card')];
+                const articleCount = document.getElementById('article-filter-count');
+                const articleEmpty = document.getElementById('article-filter-empty');
 
-            const updateArticleTabPill = (btn) => {
-                if (!articleTabPill || !btn) return;
-                articleTabPill.style.width = `${btn.offsetWidth}px`;
-                articleTabPill.style.left = `${btn.offsetLeft}px`;
-                articleTabPill.style.height = `${btn.offsetHeight}px`;
-                articleTabPill.style.top = `${btn.offsetTop}px`;
-            };
-
-            // Set initial position of the pill
-            const activeArticleBtn = document.querySelector('.article-tab-btn.active');
-            if (activeArticleBtn) {
-                setTimeout(() => {
-                    updateArticleTabPill(activeArticleBtn);
-                    // Center the active tab initially on load if overflowed
-                    const wrapper = activeArticleBtn.closest('.overflow-x-auto');
-                    if (wrapper) {
-                        const containerHalfWidth = wrapper.clientWidth / 2;
-                        const btnHalfWidth = activeArticleBtn.offsetWidth / 2;
-                        const scrollLeft = activeArticleBtn.offsetLeft - containerHalfWidth + btnHalfWidth;
-                        wrapper.scrollLeft = scrollLeft;
-                    }
-                }, 150);
-            }
-
-            articleTabBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    articleTabBtns.forEach(b => {
-                        b.classList.remove('active', 'text-blue-600');
-                        b.classList.add('text-stone-500');
+                articleTabs.forEach(tab => tab.addEventListener('click', () => {
+                    const filter = tab.dataset.filter;
+                    articleTabs.forEach(button => {
+                        const active = button === tab;
+                        button.classList.toggle('is-active', active);
+                        button.setAttribute('aria-pressed', String(active));
                     });
-                    btn.classList.add('active', 'text-blue-600');
-                    btn.classList.remove('text-stone-500');
-                    updateArticleTabPill(btn);
 
-                    // Smoothly center the clicked tab in the scrollable wrapper
-                    const wrapper = btn.closest('.overflow-x-auto');
-                    if (wrapper) {
-                        const containerHalfWidth = wrapper.clientWidth / 2;
-                        const btnHalfWidth = btn.offsetWidth / 2;
-                        const scrollLeft = btn.offsetLeft - containerHalfWidth + btnHalfWidth;
-                        wrapper.scrollTo({
-                            left: scrollLeft,
-                            behavior: 'smooth'
-                        });
-                    }
-
-                    const filter = btn.getAttribute('data-filter');
-
+                    let visible = 0;
                     articleCards.forEach(card => {
-                        const category = card.getAttribute('data-category');
-                        if (filter === 'all' || category === filter) {
-                            card.style.display = 'flex';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'scale(1)';
-                            }, 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'scale(0.95)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 250);
-                        }
+                        const show = filter === 'all' || card.dataset.category === filter;
+                        card.hidden = !show;
+                        if (show) visible++;
                     });
-                });
-            });
-
-            window.addEventListener('resize', () => {
-                const activeBtn = document.querySelector('.article-tab-btn.active');
-                if (activeBtn) updateArticleTabPill(activeBtn);
-            });
+                    if (articleCount) articleCount.textContent = `${visible} artikel pilihan`;
+                    if (articleEmpty) articleEmpty.hidden = visible !== 0;
+                }));
+            }
         });
     </script>
 
