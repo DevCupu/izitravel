@@ -24,7 +24,7 @@
 @endphp
 <x-admin-layout title="Laporan CRM">
     <x-slot name="header"><div><h1 class="text-xl font-bold text-slate-900 dark:text-white">Laporan CRM</h1><p class="text-xs text-slate-500 dark:text-slate-400">Aktivitas dan hasil calon jemaah</p></div></x-slot>
-    <div class="mx-auto max-w-[1600px] space-y-6 pb-6">
+    <div class="crm-page mx-auto max-w-[1600px] space-y-6 pb-6">
         <section class="relative overflow-hidden rounded-[1.5rem] bg-[#102b52] p-5 text-white shadow-[0_16px_40px_rgba(16,43,82,.12)] sm:p-7">
             <div class="pointer-events-none absolute -right-12 -top-24 size-72 rounded-full border-[36px] border-white/[.05]" aria-hidden="true"></div>
             <div class="relative flex flex-col gap-5 xl:flex-row xl:items-end xl:justify-between">

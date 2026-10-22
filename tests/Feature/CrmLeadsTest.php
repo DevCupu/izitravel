@@ -147,6 +147,38 @@ class CrmLeadsTest extends TestCase
         $this->assertDatabaseCount('chat_logs', 0);
     }
 
+    public function test_lead_intake_can_schedule_an_optional_followup_in_wita(): void
+    {
+        $this->actingAs($this->andi)->get(route('cs.leads.create'))->assertOk()
+            ->assertSee('name="followup_due_at"', false)
+            ->assertSee('name="followup_description"', false);
+
+        $this->actingAs($this->andi)->post(route('cs.leads.store'), [
+            'name' => 'Ibu Aminah', 'phone' => '081333333333',
+            'followup_due_at' => '2026-10-25T10:30',
+        ])->assertSessionHasErrors('followup_description');
+        $this->assertDatabaseCount('leads', 0);
+        $this->assertDatabaseCount('lead_followups', 0);
+
+        $this->actingAs($this->andi)->post(route('cs.leads.store'), [
+            'name' => 'Ibu Aminah', 'phone' => '081333333333',
+            'followup_due_at' => '2026-10-25T10:30',
+            'followup_description' => 'Kirim rincian paket',
+        ])->assertRedirect();
+        $lead = Lead::firstOrFail();
+        $task = LeadFollowup::firstOrFail();
+        $this->assertSame($lead->id, $task->lead_id);
+        $this->assertSame($this->andi->id, $task->assigned_user_id);
+        $this->assertSame('2026-10-25 02:30:00', $task->due_at->format('Y-m-d H:i:s'));
+        $this->assertDatabaseHas('lead_activities', ['lead_id' => $lead->id, 'type' => 'followup_added', 'actor_user_id' => $this->andi->id]);
+
+        $this->actingAs($this->admin)->post(route('admin.crm.leads.store'), [
+            'name' => 'Pak Yusuf', 'phone' => '081344444444', 'assigned_cs_id' => $this->budiCs->id,
+        ])->assertRedirect();
+        $this->assertDatabaseCount('leads', 2);
+        $this->assertDatabaseCount('lead_followups', 1);
+    }
+
     public function test_intake_fields_and_other_need_are_saved_and_audited(): void
     {
         $payload = [
@@ -241,6 +273,78 @@ class CrmLeadsTest extends TestCase
         $this->actingAs($this->andi)->patch(route('cs.followups.complete', $task))->assertNotFound();
         $this->actingAs($this->budi)->patch(route('cs.followups.complete', $task))->assertRedirect();
         $this->assertSame('completed', $task->fresh()->status);
+    }
+
+    public function test_completing_a_task_can_create_the_next_task_atomically(): void
+    {
+        $lead = $this->lead($this->andiCs);
+        $task = $lead->followups()->create(['assigned_user_id' => $this->andi->id, 'due_at' => now(), 'description' => 'Hubungi']);
+        $other = $this->lead($this->budiCs, '6281399999999')->followups()->create([
+            'assigned_user_id' => $this->budi->id, 'due_at' => now(), 'description' => 'Tugas Budi',
+        ]);
+
+        $this->actingAs($this->andi)->patch(route('cs.followups.complete', $task), [
+            'next_due_at' => '2026-10-25T11:00',
+        ])->assertSessionHasErrors('next_description');
+        $this->actingAs($this->andi)->patch(route('cs.followups.complete', $task), [
+            'next_description' => 'Kirim penawaran',
+        ])->assertSessionHasErrors('next_due_at');
+        $this->assertSame('open', $task->fresh()->status);
+        $this->assertSame(2, LeadFollowup::count());
+        $this->actingAs($this->andi)->get(route('cs.leads.show', $lead))->assertOk()
+            ->assertSee('Selesaikan dan jadwalkan berikutnya');
+        $this->actingAs($this->andi)->get(route('cs.tasks'))->assertOk()
+            ->assertSee('Selesaikan dan jadwalkan berikutnya');
+        $this->actingAs($this->andi)->patch(route('cs.followups.complete', $other), [
+            'next_due_at' => '2026-10-25T11:00', 'next_description' => 'Kirim penawaran',
+        ])->assertNotFound();
+
+        $this->actingAs($this->andi)->patch(route('cs.followups.complete', $task), [
+            'next_due_at' => '2026-10-25T11:00', 'next_description' => 'Kirim penawaran',
+        ])->assertRedirect()->assertSessionHasNoErrors();
+        $next = $lead->followups()->where('status', 'open')->firstOrFail();
+        $this->assertSame('completed', $task->fresh()->status);
+        $this->assertSame($this->andi->id, $next->assigned_user_id);
+        $this->assertSame('2026-10-25 03:00:00', $next->due_at->format('Y-m-d H:i:s'));
+        $this->assertDatabaseHas('lead_activities', ['lead_id' => $lead->id, 'type' => 'followup_completed']);
+        $this->assertDatabaseHas('lead_activities', ['lead_id' => $lead->id, 'type' => 'followup_added', 'note' => 'Kirim penawaran']);
+        $this->actingAs($this->andi)->patch(route('cs.followups.complete', $task), [
+            'next_due_at' => '2026-10-25T11:00', 'next_description' => 'Duplikat',
+        ])->assertStatus(409);
+        $this->assertSame(2, $lead->followups()->count());
+    }
+
+    public function test_leads_without_open_tasks_are_visible_by_role_and_stage(): void
+    {
+        Carbon::setTestNow(Carbon::parse('2026-10-22 03:00:00', 'UTC'));
+        try {
+            $andiNeedsTask = $this->lead($this->andiCs);
+            $andiHasTask = $this->lead($this->andiCs, '6281311111111');
+            $andiHasTask->followups()->create(['assigned_user_id' => $this->andi->id, 'due_at' => now()->subHour(), 'description' => 'Hubungi']);
+            $budiNeedsTask = $this->lead($this->budiCs, '6281322222222');
+            $budiHasTask = $this->lead($this->budiCs, '6281333333333');
+            $budiHasTask->followups()->create(['assigned_user_id' => $this->budi->id, 'due_at' => now()->subHour(), 'description' => 'Kirim harga']);
+            $this->lead($this->andiCs, '6281344444444')->update(['stage' => 'berhasil', 'won_at' => now(), 'confirmation_note' => 'DP diterima']);
+            $this->lead($this->andiCs, '6281355555555')->update(['stage' => 'gagal', 'lost_reason' => 'Ditunda']);
+
+            $this->actingAs($this->andi)->get(route('cs.dashboard'))->assertOk()
+                ->assertViewHas('needsFollowupCount', 1)
+                ->assertViewHas('needsFollowup', fn ($leads) => $leads->pluck('id')->all() === [$andiNeedsTask->id])
+                ->assertSee('Jalur kerja')->assertSee('Selesaikan dan jadwalkan berikutnya');
+            $this->actingAs($this->andi)->get(route('cs.leads.index', ['needs_followup' => 1]))->assertOk()
+                ->assertViewHas('leads', fn ($leads) => $leads->pluck('id')->all() === [$andiNeedsTask->id]);
+            $this->actingAs($this->admin)->get(route('admin.crm.dashboard'))->assertOk()
+                ->assertViewHas('needsFollowupCount', 2)
+                ->assertViewHas('teamWorkload', fn ($rows) => $rows->contains(fn ($row) => $row['cs']->id === $this->andiCs->id && $row['overdue'] === 1 && $row['without_task'] === 1)
+                    && $rows->contains(fn ($row) => $row['cs']->id === $this->budiCs->id && $row['overdue'] === 1 && $row['without_task'] === 1))
+                ->assertSee('Beban CS')->assertSee('Booking bulan ini');
+            $this->actingAs($this->admin)->get(route('admin.crm.leads.index', ['needs_followup' => 1, 'cs_id' => $this->budiCs->id]))->assertOk()
+                ->assertViewHas('leads', fn ($leads) => $leads->pluck('id')->all() === [$budiNeedsTask->id]);
+            $this->actingAs($this->andi)->patch(route('cs.followups.complete', $andiHasTask->followups()->firstOrFail()))->assertRedirect();
+            $this->actingAs($this->andi)->get(route('cs.dashboard'))->assertViewHas('needsFollowupCount', 2);
+        } finally {
+            Carbon::setTestNow();
+        }
     }
 
     public function test_manual_source_is_labeled_and_report_renders(): void

@@ -1,9 +1,5 @@
 @php
     $siteName = $settings['site_name'] ?? 'IZI Travel';
-    $wa_phone = preg_replace('/[^0-9]/', '', $settings['contact_whatsapp'] ?? '6281112345678');
-    if (str_starts_with($wa_phone, '0')) {
-        $wa_phone = '62' . substr($wa_phone, 1);
-    }
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -38,70 +34,44 @@
     </style>
 </head>
 
-<body class="bg-stone-50 text-stone-800 overflow-x-hidden antialiased izi-public">
+<body class="public-interior izi-public overflow-x-hidden antialiased">
 
     <!-- BEGIN: Floating Modern Header -->
     @include('public.partials.navigation')
     <main id="main-content">
 
-    <!-- BEGIN: Banner Header -->
-    <section class="relative pt-32 pb-16 bg-blue-950 overflow-hidden islamic-pattern">
-        <div class="absolute inset-0 bg-stone-900/60 pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full w-fit uppercase tracking-wider border border-amber-500/20 inline-flex items-center gap-1.5">
-                <i data-lucide="search-check" class="w-3.5 h-3.5"></i>
-                Status Keberangkatan
-            </span>
-            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">Pantau Kesiapan Keberangkatan Anda</h1>
-            <p class="text-stone-300 max-w-lg mx-auto text-xs md:text-sm">Cukup masukkan nomor paspor dan tanggal lahir Anda, lalu lihat detail paket, jadwal keberangkatan, hingga sejauh mana persiapan dokumen Anda sudah selesai.</p>
-        </div>
-    </section>
-    <!-- END: Banner Header -->
+    @include('public.partials.interior-hero', [
+        'eyebrow' => 'Cek keberangkatan',
+        'title' => 'Pantau persiapan perjalanan Anda',
+        'description' => 'Lihat status pendaftaran, paket, dan jadwal keberangkatan dengan data yang Anda daftarkan.',
+        'breadcrumb' => 'Cek keberangkatan',
+    ])
 
-    <!-- BEGIN: Content Section -->
-    <section class="py-16 bg-stone-50">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 space-y-6">
-
-            <!-- Search Card -->
-            <div class="bg-white rounded-[2rem] border border-stone-100/80 p-6 sm:p-8 soft-shadow relative overflow-hidden">
-                <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-500/40 via-amber-500 to-amber-500/40"></div>
-                <form method="GET" action="{{ route('public.jemaah.tracking.result') }}" class="space-y-3">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div class="relative">
-                            <i data-lucide="scan-search" class="w-4 h-4 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                            <input
-                                type="text"
-                                name="passport"
-                                placeholder="Nomor Paspor, contoh: A1234567"
-                                class="w-full pl-11 pr-4 py-3.5 text-sm border border-stone-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-2xl"
-                                autofocus
-                                required
-                            >
-                        </div>
-                        <div class="relative">
-                            <i data-lucide="calendar" class="w-4 h-4 text-stone-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none"></i>
-                            <input
-                                type="date"
-                                name="birth_date"
-                                class="w-full pl-11 pr-4 py-3.5 text-sm border border-stone-200 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-2xl"
-                                required
-                            >
-                        </div>
-                    </div>
-                    <button type="submit" class="group w-full inline-flex items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 active:scale-[0.97] rounded-2xl font-bold text-sm text-white transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-xl hover:shadow-blue-500/30">
-                        <i data-lucide="search-check" class="w-4.5 h-4.5 transition-transform group-hover:scale-110"></i>
-                        Cari Status Keberangkatan
-                        <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
-                    </button>
-                </form>
+    <section class="interior-section" aria-label="Pencarian status keberangkatan">
+        <div class="tracking-layout">
+            <div class="tracking-guide">
+                <h2>Siapkan dua data ini</h2>
+                <ol>
+                    <li><span>1</span><div><strong>Nomor paspor</strong>Gunakan nomor yang tercatat saat pendaftaran.</div></li>
+                    <li><span>2</span><div><strong>Tanggal lahir</strong>Pilih tanggal lahir sesuai data pendaftaran Anda.</div></li>
+                </ol>
             </div>
-
-            <!-- Prompt state -->
-            <div class="text-center py-10 space-y-3">
-                <div class="w-16 h-16 rounded-2xl bg-blue-50 flex items-center justify-center mx-auto">
-                    <i data-lucide="shield-check" class="w-8 h-8 text-blue-400"></i>
-                </div>
-                <p class="text-sm text-stone-400 max-w-xs mx-auto">Untuk menjaga privasi Anda, pencarian membutuhkan nomor paspor dan tanggal lahir sekaligus — sesuai data yang terdaftar di sistem kami.</p>
+            <div class="interior-card tracking-form">
+                <h2>Cari status jemaah</h2>
+                <p class="interior-help">Kedua data harus cocok untuk menampilkan hasil.</p>
+                <form method="POST" action="{{ route('public.jemaah.tracking.search') }}">
+                    @csrf
+                    <div>
+                        <label for="tracking-passport" class="interior-label">Nomor paspor</label>
+                        <input id="tracking-passport" type="text" name="passport" class="interior-field" placeholder="Contoh: A1234567" autocomplete="off" autocapitalize="characters" spellcheck="false" maxlength="32" required autofocus>
+                    </div>
+                    <div>
+                        <label for="tracking-birth-date" class="interior-label">Tanggal lahir</label>
+                        <input id="tracking-birth-date" type="date" name="birth_date" class="interior-field" max="{{ now()->toDateString() }}" autocomplete="bday" required>
+                    </div>
+                    <button type="submit" class="interior-button"><i data-lucide="search-check" aria-hidden="true"></i>Cari status keberangkatan</button>
+                </form>
+                <div class="tracking-privacy"><i data-lucide="shield-check" aria-hidden="true"></i><p class="interior-help">Hasil hanya ditampilkan bila nomor paspor dan tanggal lahir sesuai. Jangan bagikan hasil pencarian kepada orang lain.</p></div>
             </div>
         </div>
     </section>

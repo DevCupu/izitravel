@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController;
+use App\Http\Controllers\Admin\AiSettingController;
 use App\Http\Controllers\Admin\ActivityLogController;
 use App\Http\Controllers\Admin\CampaignController as AdminCampaignController;
 use App\Http\Controllers\Admin\CampaignAdController as AdminCampaignAdController;
@@ -31,6 +32,7 @@ use App\Http\Controllers\CsPasswordController;
 use App\Http\Controllers\Admin\CsAccountController;
 use App\Http\Controllers\Admin\LeadStageController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PackageRecommendationController;
 use App\Http\Controllers\JemaahTrackingController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,13 @@ Route::get('/artikel', [HomeController::class, 'articles'])->name('public.articl
 Route::get('/artikel/{slug}', [HomeController::class, 'showArticle'])->name('articles.show');
 Route::get('/artikel/tag/{tag}', [HomeController::class, 'tagArticles'])->name('public.articles.tag');
 Route::get('/paket/{slug}', [HomeController::class, 'showPackage'])->name('packages.show');
+Route::get('/rekomendasi-paket', [PackageRecommendationController::class, 'index'])->name('public.packages.recommend');
+Route::post('/rekomendasi-paket', [PackageRecommendationController::class, 'recommend'])
+    ->middleware('throttle:10,1')
+    ->name('public.packages.recommend.submit');
+Route::post('/rekomendasi-paket/cari', [PackageRecommendationController::class, 'searchPrompt'])
+    ->middleware('throttle:10,1')
+    ->name('public.packages.recommend.prompt');
 Route::get('/galeri', [HomeController::class, 'gallery'])->name('public.gallery');
 Route::get('/testimoni', [HomeController::class, 'testimonials'])->name('public.testimonials');
 Route::get('/lacak-jemaah', [JemaahTrackingController::class, 'index'])
@@ -48,6 +57,9 @@ Route::get('/lacak-jemaah', [JemaahTrackingController::class, 'index'])
 Route::get('/lacak-jemaah/hasil', [JemaahTrackingController::class, 'result'])
     ->middleware('throttle:20,1')
     ->name('public.jemaah.tracking.result');
+Route::post('/lacak-jemaah/hasil', [JemaahTrackingController::class, 'result'])
+    ->middleware('throttle:20,1')
+    ->name('public.jemaah.tracking.search');
 Route::get('/syarat-ketentuan', [HomeController::class, 'terms'])->name('public.terms');
 Route::get('/kebijakan-privasi', [HomeController::class, 'privacy'])->name('public.privacy');
 Route::get('/robots.txt', [HomeController::class, 'robots'])->name('public.robots');
@@ -78,6 +90,9 @@ Route::middleware(['auth', 'verified', 'admin', 'record.activity'])->prefix('adm
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [SettingController::class, 'update'])->name('settings.update');
+    Route::get('/ai-settings', [AiSettingController::class, 'index'])->name('ai-settings.index');
+    Route::post('/ai-settings', [AiSettingController::class, 'update'])->name('ai-settings.update');
+    Route::post('/ai-settings/verify', [AiSettingController::class, 'verify'])->name('ai-settings.verify');
 
     // Pengaturan Sistem (System Layer)
     Route::get('/system', [SystemSettingController::class, 'index'])->name('system.index');

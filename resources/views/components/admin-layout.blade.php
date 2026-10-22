@@ -714,6 +714,13 @@
                     <span class="nav-label">Pengaturan Web</span>
                 </a>
 
+                <a href="{{ route('admin.ai-settings.index') }}"
+                   :title="sidebarCollapsed ? 'Pengaturan AI' : null"
+                   class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.ai-settings.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                    <i data-lucide="sparkles" class="w-[18px] h-[18px] shrink-0"></i>
+                    <span class="nav-label">Pengaturan AI</span>
+                </a>
+
                 <a href="{{ route('admin.system.index') }}"
                    :title="sidebarCollapsed ? 'Pengaturan Sistem' : null"
                    class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all duration-200 {{ request()->routeIs('admin.system.*') ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">

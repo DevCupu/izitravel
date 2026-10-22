@@ -51,6 +51,7 @@ class CrmController extends Controller
     {
         $today = now(self::TZ)->toDateString();
         $base = Lead::query()->visibleTo($request->user());
+        $needsFollowupBase = (clone $base)->needsFollowup();
         $tasks = LeadFollowup::query()->with(['lead.contact', 'lead.cs', 'assignee'])
             ->where('status', 'open')
             ->whereHas('lead', fn ($q) => $q->visibleTo($request->user()))
@@ -62,9 +63,32 @@ class CrmController extends Controller
         $overdue = (clone $tasks)->where('due_at', '<', $currentTime)->orderBy('due_at')->limit(4)->get();
         $dueToday = (clone $tasks)->whereBetween('due_at', $dueTodayRange)->orderBy('due_at')->limit(4)->get();
 
-        return view('crm.dashboard', array_merge($this->viewData($request), [
+        $viewData = $this->viewData($request);
+        $teamWorkload = collect();
+        if ($this->admin($request)) {
+            $overdueByCs = LeadFollowup::query()
+                ->join('leads', 'leads.id', '=', 'lead_followups.lead_id')
+                ->whereNull('leads.deleted_at')->whereNull('lead_followups.deleted_at')
+                ->where('lead_followups.status', 'open')->where('lead_followups.due_at', '<', $currentTime)
+                ->selectRaw('leads.assigned_cs_id, count(*) as total')
+                ->groupBy('leads.assigned_cs_id')->pluck('total', 'assigned_cs_id');
+            $withoutTaskByCs = Lead::query()->needsFollowup()
+                ->selectRaw('assigned_cs_id, count(*) as total')
+                ->groupBy('assigned_cs_id')->pluck('total', 'assigned_cs_id');
+            $teamWorkload = $viewData['csList']->map(fn (WhatsAppCs $cs) => [
+                'cs' => $cs,
+                'overdue' => (int) ($overdueByCs[$cs->id] ?? 0),
+                'without_task' => (int) ($withoutTaskByCs[$cs->id] ?? 0),
+            ])->filter(fn (array $row) => $row['cs']->is_active || $row['overdue'] || $row['without_task'])
+                ->sortByDesc(fn (array $row) => $row['overdue'] * 2 + $row['without_task'])->values();
+        }
+
+        return view('crm.dashboard', array_merge($viewData, [
             'overdue' => $overdue, 'overdueCount' => $overdueCount,
             'dueToday' => $dueToday, 'dueTodayCount' => $dueTodayCount,
+            'needsFollowupCount' => (clone $needsFollowupBase)->count(),
+            'needsFollowup' => (clone $needsFollowupBase)->with(['cs', 'package'])->oldest('created_at')->oldest('id')->limit(4)->get(),
+            'teamWorkload' => $teamWorkload,
             'csPhone' => $this->admin($request) ? null : $request->user()->whatsappCs?->phone,
             'newCount' => (clone $base)->where('stage', 'baru')->count(),
             'wonThisMonth' => (clone $base)->where('stage', 'berhasil')->whereBetween('won_at', [now(self::TZ)->startOfMonth()->utc(), now(self::TZ)->endOfMonth()->utc()])->count(),
@@ -83,6 +107,7 @@ class CrmController extends Controller
             'campaign_ad_id' => ['nullable', 'integer'],
             'from' => ['nullable', 'date_format:Y-m-d'],
             'to' => ['nullable', 'date_format:Y-m-d'],
+            'needs_followup' => ['nullable', Rule::in(['1'])],
         ]);
         $leads = Lead::query()->visibleTo($request->user())->with(['contact', 'cs', 'package'])
             ->when($filters['search'] ?? null, fn ($q, $s) => $q->where(function ($q) use ($s) {
@@ -96,6 +121,7 @@ class CrmController extends Controller
             ->when($filters['campaign_ad_id'] ?? null, fn ($q, $v) => $q->where('campaign_ad_id', $v))
             ->when($filters['from'] ?? null, fn ($q, $v) => $q->where('created_at', '>=', Carbon::parse($v, self::TZ)->startOfDay()->utc()))
             ->when($filters['to'] ?? null, fn ($q, $v) => $q->where('created_at', '<=', Carbon::parse($v, self::TZ)->endOfDay()->utc()))
+            ->when(($filters['needs_followup'] ?? null) === '1', fn ($q) => $q->needsFollowup())
             ->latest()->paginate(15)->withQueryString();
 
         return view('crm.index', array_merge($this->viewData($request), compact('leads', 'filters')));
@@ -181,6 +207,8 @@ class CrmController extends Controller
             'planned_departure_month' => ['nullable', 'date_format:Y-m'],
             'need_type' => ['nullable', Rule::in(array_keys(Lead::NEED_TYPES))],
             'needs_summary' => ['required_if:need_type,other', 'nullable', 'string', 'max:3000'],
+            'followup_due_at' => ['nullable', 'required_with:followup_description', 'date_format:Y-m-d\\TH:i'],
+            'followup_description' => ['nullable', 'required_with:followup_due_at', 'string', 'max:255'],
             'confirm_duplicate' => ['nullable', 'boolean'],
         ]);
         $phone = $this->normalizePhone($data['phone']);
@@ -211,6 +239,14 @@ class CrmController extends Controller
                 'needs_summary' => $data['needs_summary'] ?? null,
             ]);
             $lead->activities()->create(['actor_user_id' => $request->user()->id, 'type' => 'created', 'note' => 'Lead dibuat setelah kontak diterima.']);
+            if (! empty($data['followup_due_at'])) {
+                $due = Carbon::createFromFormat('Y-m-d\\TH:i', $data['followup_due_at'], self::TZ)->utc();
+                $lead->followups()->create(['assigned_user_id' => $cs->user_id, 'due_at' => $due, 'description' => $data['followup_description']]);
+                $lead->activities()->create([
+                    'actor_user_id' => $request->user()->id, 'type' => 'followup_added',
+                    'note' => $data['followup_description'], 'changes' => ['due_at' => $due->toIso8601String()],
+                ]);
+            }
             return $lead;
         });
 
@@ -475,12 +511,37 @@ class CrmController extends Controller
 
     public function completeFollowup(Request $request, int $followup): RedirectResponse
     {
-        DB::transaction(function () use ($request, $followup) {
+        $data = $request->validate([
+            'next_due_at' => ['nullable', 'required_with:next_description', 'date_format:Y-m-d\\TH:i'],
+            'next_description' => ['nullable', 'required_with:next_due_at', 'string', 'max:255'],
+        ]);
+        DB::transaction(function () use ($request, $followup, $data) {
             $task = $this->openFollowup($request, $followup);
+            if (! empty($data['next_due_at'])) {
+                if (! LeadStage::whereKey($task->lead->stage)->where('kind', 'open')->exists()) {
+                    throw ValidationException::withMessages(['next_due_at' => 'Buka kembali lead sebelum menjadwalkan tindak lanjut.']);
+                }
+                $task->lead->load('cs');
+                if (! $task->lead->cs?->user_id) {
+                    throw ValidationException::withMessages(['next_due_at' => 'PIC belum memiliki akun CS.']);
+                }
+            }
             $task->update(['status' => 'completed', 'completed_at' => now()]);
             $task->lead->activities()->create(['actor_user_id' => $request->user()->id, 'type' => 'followup_completed', 'note' => $task->description]);
+            if (! empty($data['next_due_at'])) {
+                $due = Carbon::createFromFormat('Y-m-d\\TH:i', $data['next_due_at'], self::TZ)->utc();
+                $task->lead->followups()->create([
+                    'assigned_user_id' => $task->lead->cs->user_id,
+                    'due_at' => $due,
+                    'description' => $data['next_description'],
+                ]);
+                $task->lead->activities()->create([
+                    'actor_user_id' => $request->user()->id, 'type' => 'followup_added',
+                    'note' => $data['next_description'], 'changes' => ['due_at' => $due->toIso8601String()],
+                ]);
+            }
         });
-        return back()->with('status', 'Tindak lanjut selesai.');
+        return back()->with('status', ! empty($data['next_due_at']) ? 'Tugas selesai dan tindak lanjut berikutnya dijadwalkan.' : 'Tindak lanjut selesai.');
     }
 
     public function tasks(Request $request): View

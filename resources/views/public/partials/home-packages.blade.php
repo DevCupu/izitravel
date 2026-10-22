@@ -3,6 +3,7 @@
     $categoryOrder = \App\Models\Category::query()->where('is_active', true)->orderBy('order')->pluck('name')
         ->filter(fn ($name) => in_array($name, ['Premium', 'Ekonomi', 'VVIP', 'Lainnya'], true) || $groupedPackages->has($name))
         ->merge($groupedPackages->keys())->unique();
+    $packageAi = \App\Support\AiRecommendationSettings::current();
 @endphp
 
 <section class="umrah-packages" id="paket-umrah" data-purpose="packages-grid" aria-labelledby="umrah-packages-heading">
@@ -13,14 +14,38 @@
                 <h2 id="umrah-packages-heading">{{ $settings['packages_section_title'] ?? 'Paket Umrah Kami' }}</h2>
                 <p>{{ $settings['packages_section_subtitle'] ?? 'Pilih tanggal, durasi, dan akomodasi yang sesuai untuk perjalanan ibadah Anda.' }}</p>
             </div>
-            <div class="umrah-packages__guide" aria-label="Panduan memilih paket">
+            <a class="umrah-packages__guide" href="{{ route('public.packages.recommend') }}" aria-label="Cari rekomendasi paket umrah yang cocok">
                 <i data-lucide="compass" aria-hidden="true"></i>
-                <span>Bandingkan jadwal, hotel di Tanah Suci, dan harga sebelum memilih.</span>
-            </div>
+                <span>Belum yakin? Cari paket yang cocok untuk Anda <span aria-hidden="true">→</span></span>
+            </a>
         </header>
 
         @if ($packages->isNotEmpty())
-            <div class="umrah-packages__toolbar">
+            @if ($packageAi['enabled'] && $packageAi['key_verified'])
+            <form id="umrah-ai-search" class="umrah-packages__ai-search" method="POST" action="{{ route('public.packages.recommend.prompt') }}">
+                @csrf
+                <div class="umrah-packages__ai-heading">
+                    <span class="umrah-packages__ai-icon"><i data-lucide="sparkles" aria-hidden="true"></i></span>
+                    <div>
+                        <h3>Ceritakan paket umrah yang Anda cari</h3>
+                        <p>Misalnya: “Saya ingin berangkat dari Makassar, anggaran maksimal 30 juta, hotel dekat Masjidil Haram.”</p>
+                    </div>
+                </div>
+                <label class="umrah-packages__ai-label" for="umrah-ai-prompt">Kebutuhan Anda</label>
+                <div class="umrah-packages__ai-input-row">
+                    <textarea id="umrah-ai-prompt" name="prompt" rows="2" minlength="10" maxlength="300" required placeholder="Tulis kebutuhan umrah Anda dengan bahasa biasa..."></textarea>
+                    <button type="submit"><i data-lucide="search" aria-hidden="true"></i><span>Cari dengan AI</span></button>
+                </div>
+                <label class="umrah-packages__ai-consent"><input type="checkbox" name="ai_consent" value="1" required><span>Saya setuju kebutuhan yang saya tulis dikirim ke OpenAI untuk mencocokkan paket. Jangan masukkan data paspor atau data sensitif.</span></label>
+                <p class="umrah-packages__ai-hint">AI menilai hingga {{ $packageAi['candidate_limit'] }} paket aktif dari daftar ini. Periksa kembali detail paket sebelum memilih.</p>
+                <div class="umrah-packages__ai-feedback" id="umrah-ai-feedback" role="status" aria-live="polite" hidden>
+                    <span id="umrah-ai-message"></span>
+                    <button type="button" id="umrah-ai-reset" hidden>Lihat semua paket</button>
+                </div>
+            </form>
+            @endif
+
+            <div class="umrah-packages__toolbar" id="umrah-package-toolbar">
                 <div class="umrah-packages__filter-scroll" aria-label="Filter kategori paket">
                     <div class="umrah-packages__filters" role="group" aria-label="Kategori paket umrah">
                         <button type="button" class="umrah-package-filter is-active" data-package-filter="all" aria-pressed="true">
@@ -45,7 +70,7 @@
                         $hotelGeneral = trim($package->hotel ?: '');
                         $departure = $package->departure_date?->locale('id')->translatedFormat('d F Y');
                     @endphp
-                    <article class="umrah-package-card" data-category="{{ Str::slug($categoryName) }}" data-purpose="package-item">
+                    <article class="umrah-package-card" data-package-id="{{ $package->id }}" data-category="{{ Str::slug($categoryName) }}" data-purpose="package-item">
                         <div class="umrah-package-card__media">
                             <img src="{{ $package->image_url ?: asset('images/package_kaaba.webp') }}" alt="{{ $package->name }}" width="640" height="400" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='{{ asset('images/package_kaaba.webp') }}';">
                             <div class="umrah-package-card__tags">

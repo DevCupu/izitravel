@@ -1,9 +1,5 @@
 @php
     $siteName = $settings['site_name'] ?? 'IZI Travel';
-    $wa_phone = preg_replace('/[^0-9]/', '', $settings['contact_whatsapp'] ?? '6281112345678');
-    if (str_starts_with($wa_phone, '0')) {
-        $wa_phone = '62' . substr($wa_phone, 1);
-    }
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -71,32 +67,23 @@
     </style>
 </head>
 
-<body class="izi-public bg-stone-50 text-slate-800 overflow-x-hidden antialiased">
+<body class="public-interior izi-public overflow-x-hidden antialiased">
 
     <!-- BEGIN: Floating Modern Header -->
     @include('public.partials.navigation')
 
     <main id="main-content">
-    <!-- BEGIN: Banner Header -->
-    <section class="relative pt-32 pb-16 bg-blue-950 overflow-hidden islamic-pattern">
-        <div class="absolute inset-0 bg-slate-900/60 pointer-events-none"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="bg-amber-500/10 text-amber-400 text-xs font-bold px-4 py-1.5 rounded-full w-fit uppercase tracking-wider border border-amber-500/20">
-                Privasi Pengguna
-            </span>
-            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight">Kebijakan Privasi</h1>
-            <p class="text-slate-300 max-w-md mx-auto text-xs md:text-sm">Kebijakan privasi {{ $siteName }} terkait pengumpulan, penggunaan, dan pelindungan data pribadi pengunjung.</p>
-        </div>
-    </section>
-    <!-- END: Banner Header -->
+    @include('public.partials.interior-hero', [
+        'eyebrow' => 'Perlindungan data',
+        'title' => 'Kebijakan privasi',
+        'description' => 'Pelajari cara IZI Travel mengelola informasi yang Anda berikan melalui layanan kami.',
+        'breadcrumb' => 'Kebijakan privasi',
+    ])
 
     <!-- BEGIN: Content Section -->
-    <section class="py-16 bg-stone-50">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6">
-            <div class="bg-white rounded-[2rem] border border-slate-100/80 p-8 sm:p-12 soft-shadow hover:shadow-lg transition-all duration-300 relative overflow-hidden">
-                <!-- Decorative Top Mihrab Arch Indicator -->
-                <div class="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-amber-500/40 via-amber-500 to-amber-500/40"></div>
-
+    <section class="interior-section">
+        <div class="max-w-4xl mx-auto">
+            <div class="interior-card p-7 sm:p-12">
                 <div class="prose prose-slate prose-sm sm:prose-base max-w-none space-y-8 text-slate-600 leading-relaxed">
                     @if(!empty($settings['privacy_content']))
                         <div class="whitespace-pre-line text-slate-600">

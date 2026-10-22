@@ -17,7 +17,7 @@
         </div>
     @endif
 
-    <div x-data="crmPipeline" data-today="{{ now('Asia/Makassar')->toDateString() }}"
+    <div class="crm-page" x-data="crmPipeline" data-today="{{ now('Asia/Makassar')->toDateString() }}"
         data-old-lead-id="{{ old('lead_id') }}" data-old-stage="{{ old('stage') }}"
         data-old-confirmation-note="{{ old('confirmation_note') }}" data-old-confirmed-on="{{ old('confirmed_on') }}"
         data-old-booking-reference="{{ old('booking_reference') }}" data-old-lost-reason="{{ old('lost_reason') }}"

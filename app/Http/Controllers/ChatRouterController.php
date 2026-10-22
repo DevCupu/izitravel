@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Package;
 use App\Services\ChatRouterService;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,38 @@ class ChatRouterController extends Controller
      */
     public function redirect(Request $request, ChatRouterService $router)
     {
-        $result = $router->route($request);
+        $message = null;
+        $recommendedId = filter_var($request->query('recommended_package_id'), FILTER_VALIDATE_INT);
+        $saved = $request->session()->get('package_recommendations', []);
+
+        if ($recommendedId && in_array($recommendedId, $saved['ids'] ?? [], true)) {
+            $package = Package::query()
+                ->whereKey($recommendedId)
+                ->where('is_active', true)
+                ->whereDate('departure_date', '>=', today())
+                ->first();
+
+            if ($package) {
+                $preferences = $saved['preferences'] ?? [];
+                $details = ["paket {$package->name}"];
+                if (! empty($preferences['budget'])) {
+                    $details[] = 'anggaran maksimal Rp '.number_format((int) $preferences['budget'], 0, ',', '.');
+                }
+                if (! empty($preferences['month'])) {
+                    $details[] = 'target berangkat '.$preferences['month'];
+                }
+                if (! empty($preferences['city'])) {
+                    $details[] = 'kota asal '.$preferences['city'];
+                }
+                if (! empty($preferences['notes'])) {
+                    $details[] = 'catatan: '.preg_replace('/[\r\n\x00-\x1f]+/u', ' ', $preferences['notes']);
+                }
+
+                $message = "Assalamu'alaikum IZI Travel, saya ingin konsultasi tentang ".implode(', ', $details).'.';
+            }
+        }
+
+        $result = $router->route($request, $message);
 
         if ($result['wa_url'] !== null) {
             $router->markRedirected($result['token']);

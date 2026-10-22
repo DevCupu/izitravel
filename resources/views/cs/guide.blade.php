@@ -37,7 +37,7 @@
                         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-sm font-extrabold text-[#3166b1]">2</span>
                         <div>
                             <h3 class="text-lg font-bold text-slate-900">Hubungi dan buat tugas</h3>
-                            <p class="mt-1 text-sm leading-relaxed text-slate-600">Buka detail lead untuk menghubungi calon jemaah lewat WhatsApp. Di bagian <strong>Tindak lanjut</strong>, isi kapan dan apa yang akan dilakukan. Jam yang tampil menggunakan WITA.</p>
+                            <p class="mt-1 text-sm leading-relaxed text-slate-600">Jadwalkan tindak lanjut saat mencatat lead, atau buat dari detail lead setelah menghubungi calon jemaah. Jam yang tampil menggunakan WITA.</p>
                             <a href="{{ route('cs.tasks') }}" class="mt-4 inline-flex min-h-11 items-center gap-1 text-sm font-bold text-[#3166b1] hover:underline">Lihat tugas saya <i data-lucide="arrow-right" class="h-4 w-4" aria-hidden="true"></i></a>
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                         <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-sm font-extrabold text-[#3166b1]">3</span>
                         <div>
                             <h3 class="text-lg font-bold text-slate-900">Perbarui perkembangan</h3>
-                            <p class="mt-1 text-sm leading-relaxed text-slate-600">Setelah berbicara, tambah catatan di detail lead dan pilih tahap yang sesuai: Dihubungi, Konsultasi, Penawaran, atau Booking. Tandai tugas selesai setelah dikerjakan.</p>
+                            <p class="mt-1 text-sm leading-relaxed text-slate-600">Setelah berbicara, tambah catatan dan pilih tahap yang sesuai. Selesaikan tugas sambil menjadwalkan langkah berikutnya agar lead tidak terlewat.</p>
                             <a href="{{ route('cs.pipeline') }}" class="mt-4 inline-flex min-h-11 items-center gap-1 text-sm font-bold text-[#3166b1] hover:underline">Lihat pipeline <i data-lucide="arrow-right" class="h-4 w-4" aria-hidden="true"></i></a>
                         </div>
                     </div>

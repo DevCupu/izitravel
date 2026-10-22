@@ -14,7 +14,7 @@
             'lostReason' => old('lost_reason', $failedStageLead->lost_reason),
         ] : null;
     @endphp
-    <div class="space-y-5"
+    <div class="crm-page space-y-5"
          x-data="{
              selected: [],
              allIds: {{ \Illuminate\Support\Js::from($leads->pluck('id')->map(fn ($id) => (string) $id)->all()) }},
@@ -40,8 +40,13 @@
          }"
          @if ($failedStagePayload) x-init="openStage(@js($failedStagePayload))"
          @elseif ($failedFollowupLead) x-init="openFollowup({{ $failedFollowupLead->id }}, @js($failedFollowupLead->display_name), @js(route('cs.leads.followups', $failedFollowupLead)))" @endif>
+        @include('crm._page-intro', ['eyebrow' => 'Daftar calon jemaah', 'title' => $isAdmin ? 'Semua lead tim, satu tempat' : 'Setiap kontak punya langkah berikutnya', 'description' => $isAdmin ? 'Cari, periksa PIC, dan tangani lead yang belum memiliki tugas terbuka.' : 'Temukan calon jemaah, buka percakapan, dan siapkan tindak lanjutnya.', 'href' => route($routePrefix.'leads.index', ['needs_followup' => 1]), 'linkLabel' => 'Perlu tindak lanjut', 'icon' => 'list-todo'])
         <div class="flex flex-wrap items-end justify-between gap-3"><div><p class="text-sm font-semibold text-slate-700 dark:text-slate-200">{{ number_format($leads->total(), 0, ',', '.') }} lead ditemukan</p><p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ $isAdmin ? 'Buka lead untuk mengedit data dan tahapan, atau periksa tindak lanjut.' : 'Hubungi calon jemaah dan jadwalkan langkah berikutnya dari daftar ini.' }}</p></div><div class="flex flex-wrap gap-2">@if ($isAdmin)<a href="{{ route('admin.crm.stages.index') }}" class="ui-button-secondary"><i data-lucide="settings-2" class="size-4" aria-hidden="true"></i>Atur tahap</a><a href="{{ route('admin.crm.leads.archived') }}" class="ui-button-secondary">Arsip lead</a>@else<a href="{{ route('cs.tasks') }}" class="ui-button-secondary"><i data-lucide="calendar-check" class="size-4" aria-hidden="true"></i>Tugas saya</a>@endif<a href="{{ route($routePrefix.'leads.create') }}" class="ui-button-primary"><i data-lucide="plus" class="size-4" aria-hidden="true"></i>Tambah lead</a></div></div>
         <form method="GET" action="{{ route($routePrefix.'leads.index') }}" class="ui-card ui-card-pad space-y-4" aria-label="Filter lead">
+            <label class="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3 text-sm font-bold text-[#102b52] dark:border-slate-600 dark:bg-slate-900 dark:text-white">
+                <input type="checkbox" name="needs_followup" value="1" @checked(($filters['needs_followup'] ?? null) === '1') class="size-4 rounded border-slate-300 text-[#3166b1] focus:ring-[#3166b1]">
+                Belum ada tugas berikutnya
+            </label>
             <div class="grid gap-3 sm:grid-cols-[minmax(0,1fr)_180px_auto_auto]">
                 <div><label for="lead-search" class="ui-label">Cari nama atau nomor WhatsApp</label><input id="lead-search" name="search" value="{{ $filters['search'] ?? '' }}" placeholder="Contoh: Ibu Siti atau 0812..." class="ui-input"></div>
                 <div><label for="lead-stage" class="ui-label">Tahap</label><select id="lead-stage" name="stage" class="ui-input"><option value="">Semua tahap</option>@foreach ($stageLabels as $key => $label)<option value="{{ $key }}" @selected(($filters['stage'] ?? '') === $key)>{{ $label }}</option>@endforeach</select></div>

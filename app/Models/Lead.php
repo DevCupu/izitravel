@@ -35,6 +35,13 @@ class Lead extends Model
         return $user->isAdmin() ? $query : $query->whereHas('cs', fn (Builder $q) => $q->where('user_id', $user->id));
     }
 
+    public function scopeNeedsFollowup(Builder $query): Builder
+    {
+        return $query
+            ->whereIn('stage', LeadStage::query()->where('kind', 'open')->select('key'))
+            ->whereDoesntHave('followups', fn (Builder $followups) => $followups->where('status', 'open'));
+    }
+
     public function contact(): BelongsTo { return $this->belongsTo(Contact::class); }
     public function cs(): BelongsTo { return $this->belongsTo(WhatsAppCs::class, 'assigned_cs_id'); }
     public function package(): BelongsTo { return $this->belongsTo(Package::class); }

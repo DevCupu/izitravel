@@ -38,7 +38,7 @@ class ChatRouterService
      *
      * @return array{wa_url: ?string, token: ?string, cs: array{id: ?int, name: ?string, phone: ?string, fallback: bool}, campaign: ?Campaign, ad: ?CampaignAd, utm_source: ?string, utm_medium: ?string, utm_campaign: ?string, utm_content: ?string, visitor_uid: string}
      */
-    public function route(Request $request): array
+    public function route(Request $request, ?string $messageOverride = null): array
     {
         $utmSource = $this->clean($request->query('utm_source'));
         $utmMedium = $this->clean($request->query('utm_medium'));
@@ -82,7 +82,7 @@ class ChatRouterService
 
         $messageName = $campaign?->name ?? $utmCampaign;
         $messageTemplate = $ad?->wa_message_template ?? $campaign?->wa_message_template;
-        $message = $this->buildMessage($messageName, $messageTemplate, $ad?->name);
+        $message = $messageOverride ?? $this->buildMessage($messageName, $messageTemplate, $ad?->name);
 
         return [
             'wa_url' => $this->buildWaUrl($cs['phone'], $message),

@@ -14,6 +14,8 @@
         </div>
     @endif
 
+    <div class="crm-page space-y-5">
+    @include('crm._page-intro', ['eyebrow' => 'Pengaturan pipeline', 'title' => 'Tahap yang dipahami seluruh tim', 'description' => 'Susun nama, warna, dan urutan tahap agar pembacaan pipeline tetap konsisten.', 'href' => route('admin.crm.pipeline'), 'linkLabel' => 'Lihat pipeline', 'icon' => 'workflow'])
     <div class="grid items-start gap-6 xl:grid-cols-[minmax(0,1fr)_320px]">
         <section class="min-w-0 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-6" aria-labelledby="stage-list-heading">
             <div class="mb-5 flex flex-wrap items-end justify-between gap-2">
@@ -67,5 +69,6 @@
             </form>
             <p class="mt-5 rounded-xl bg-blue-50 p-3 text-xs leading-relaxed text-[#245392] dark:bg-slate-800 dark:text-blue-300">Berhasil dan Gagal tetap mencatat konfirmasi atau alasan. Tahap baru dipakai untuk proses sebelum keputusan akhir.</p>
         </aside>
+    </div>
     </div>
 </x-admin-layout>

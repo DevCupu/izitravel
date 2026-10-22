@@ -27,8 +27,15 @@ export default () => ({
         this.stages = [...this.$refs.board.querySelectorAll('[data-column-stage]')].map((section) => section.dataset.columnStage);
         this.activeStage = this.stages[0] || '';
         try {
-            if (localStorage.getItem('crm-pipeline-view') === 'table') this.viewMode = 'table';
+            if (localStorage.getItem('crm-pipeline-view') === 'table' && !window.matchMedia('(max-width: 639px)').matches) this.viewMode = 'table';
         } catch (_) { /* Storage may be unavailable in private browsing. */ }
+        window.matchMedia('(max-width: 639px)').addEventListener('change', (event) => {
+            if (event.matches) this.viewMode = 'card';
+            else {
+                try { this.viewMode = localStorage.getItem('crm-pipeline-view') === 'table' ? 'table' : 'card'; }
+                catch (_) { this.viewMode = 'card'; }
+            }
+        });
         this.$nextTick(() => {
             try {
                 const destination = sessionStorage.getItem('crm-pipeline-destination');
@@ -194,6 +201,7 @@ export default () => ({
 
     setViewMode(mode) {
         if (mode !== 'card' && mode !== 'table') return;
+        if (mode === 'table' && window.matchMedia('(max-width: 639px)').matches) return;
         this.viewMode = mode;
         try {
             localStorage.setItem('crm-pipeline-view', mode);

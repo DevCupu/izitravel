@@ -275,6 +275,23 @@ class AdminJemaahRegistrationTest extends TestCase
         $response->assertSee($this->package->name);
     }
 
+    public function test_public_tracking_form_submits_without_passport_in_the_url(): void
+    {
+        $jemaah = Jemaah::create(['name' => 'Rini Ladulu Samauna', 'passport_number' => 'A1234567', 'birth_date' => '1990-05-20']);
+        Registration::create(['jemaah_id' => $jemaah->id, 'package_id' => $this->package->id]);
+
+        $this->get(route('public.jemaah.tracking'))
+            ->assertSee('method="POST"', false)
+            ->assertSee(route('public.jemaah.tracking.search'), false);
+
+        $this->post(route('public.jemaah.tracking.search'), [
+            'passport' => 'A1234567',
+            'birth_date' => '1990-05-20',
+        ])->assertOk()
+            ->assertHeader('Cache-Control', 'no-store, private')
+            ->assertSee('Rini Ladulu Samauna');
+    }
+
     public function test_public_tracking_reports_not_found_when_birth_date_does_not_match(): void
     {
         $jemaah = Jemaah::create(['name' => 'Rini Ladulu Samauna', 'passport_number' => 'A1234567', 'birth_date' => '1990-05-20']);

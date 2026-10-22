@@ -53,6 +53,8 @@ class JemaahTrackingController extends Controller
             }])
             ->first();
 
-        return view('lacak-jemaah-hasil', compact('settings', 'passport', 'jemaah'));
+        return response()->view('lacak-jemaah-hasil', compact('settings', 'passport', 'jemaah'))
+            ->header('Cache-Control', 'private, no-store')
+            ->header('Referrer-Policy', 'no-referrer');
     }
 }

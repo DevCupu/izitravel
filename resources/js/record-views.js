@@ -30,17 +30,22 @@ export default function initRecordViews() {
         if (!cards || !table) return;
 
         const key = `record-view:${location.pathname}:${index}`;
+        const mobileCrm = root.closest('.crm-page') ? window.matchMedia('(max-width: 639px)') : null;
         const toolbar = viewToolbar(setMode);
         root.prepend(toolbar);
+        let preferredMode = savedMode(key, root.dataset.defaultView || 'card');
 
         function setMode(mode) {
-            cards.hidden = mode === 'table';
-            table.hidden = mode === 'card';
-            updateToolbar(toolbar, mode);
-            try { localStorage.setItem(key, mode); } catch (_) { /* The view still changes. */ }
+            preferredMode = mode;
+            const visibleMode = mobileCrm?.matches ? 'card' : mode;
+            cards.hidden = visibleMode === 'table';
+            table.hidden = visibleMode === 'card';
+            updateToolbar(toolbar, visibleMode);
+            try { localStorage.setItem(key, preferredMode); } catch (_) { /* The view still changes. */ }
         }
 
-        setMode(savedMode(key, root.dataset.defaultView || 'card'));
+        mobileCrm?.addEventListener('change', () => setMode(preferredMode));
+        setMode(preferredMode);
     });
 
     const tables = [...document.querySelectorAll('table[data-record-view]')]

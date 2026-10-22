@@ -1639,8 +1639,8 @@
             z-index: 1;
             left: 50%;
             bottom: 4rem;
-            width: clamp(1400px, 112vw, 1603px);
-            max-width: none;
+            width: min(100%, 1603px);
+            max-width: 100%;
             aspect-ratio: 1603 / 981;
             transform: translateX(-50%);
             opacity: 0.68;
@@ -1655,6 +1655,10 @@
 
         #beranda .hero-mobile-cover {
             display: contents;
+        }
+
+        #beranda .hero-mobile-backdrop {
+            display: none;
         }
 
         #hero-left-col .hero-features { order: 1; }
@@ -1693,7 +1697,7 @@
 
             #beranda .hero-kaaba-foreground {
                 bottom: 0;
-                width: max(950px, 180vw);
+                width: 100%;
                 opacity: 0.32;
             }
         }
@@ -1727,14 +1731,31 @@
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
+                position: relative;
+                isolation: isolate;
                 width: calc(100% + 2rem);
                 margin: 0 -1rem;
                 padding: 9rem 1rem 0;
-                background-image:
-                    linear-gradient(105deg, rgba(38, 83, 155, 0.94) 0%, rgba(49, 102, 177, 0.88) 48%, rgba(49, 102, 177, 0.76) 100%),
-                    url('{{ $heroMobileImageUrl }}');
-                background-position: center, 42% 30%;
-                background-size: cover;
+                background: linear-gradient(105deg, #26539b 0%, #3166b1 100%);
+            }
+
+            #beranda .hero-mobile-backdrop {
+                display: block;
+                position: absolute;
+                z-index: 0;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: auto;
+                opacity: 0.5;
+                pointer-events: none;
+                -webkit-mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+                mask-image: linear-gradient(to bottom, transparent, #000 45%, transparent);
+            }
+
+            #beranda .hero-mobile-cover > :not(.hero-mobile-backdrop) {
+                position: relative;
+                z-index: 1;
             }
 
             #beranda .hero-badge-shine {
@@ -1833,13 +1854,13 @@
 
             #beranda .hero-mobile-image {
                 display: block;
-                position: relative;
                 width: calc(100% + 2rem);
-                height: clamp(235px, 62vw, 350px);
+                height: auto;
+                aspect-ratio: 800 / 490;
                 margin: -2.5rem -1rem 0;
                 overflow: hidden;
                 pointer-events: none;
-                background-size: max(500px, 100vw) auto;
+                background-size: 100% auto;
             }
         }
 
@@ -1899,7 +1920,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-10 lg:pb-16 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 relative z-10">
             <!-- Left Column: Content -->
             <div id="hero-left-col" class="w-full lg:w-7/12 flex flex-col justify-center items-start text-left">
-                <div class="hero-mobile-cover {{ empty($settings['hero_image']) ? 'hero-mobile-default-bg' : '' }}">
+                <div class="hero-mobile-cover">
+                    <img class="hero-mobile-backdrop" src="{{ $heroMobileImageUrl }}" alt="" aria-hidden="true" fetchpriority="high" decoding="async">
                 <!-- Badge Kemenag (Navy blue glass) -->
                 @php $heroBadgeText = $settings['hero_badge'] ?? ('Berizin Resmi Kemenag RI • PPIU ' . ($settings['footer_ppiu_number'] ?? '91202054619660001')); @endphp
                 @if (!empty($heroBadgeText))
@@ -3663,6 +3685,64 @@
             const packageItems = document.querySelectorAll('.umrah-package-card');
             const packageCount = document.getElementById('umrah-package-count');
             const packageFilterEmpty = document.getElementById('umrah-package-filter-empty');
+            const packageGrid = document.getElementById('packages-grid');
+            const packageToolbar = document.getElementById('umrah-package-toolbar');
+            const originalPackageItems = [...packageItems];
+            const aiSearchForm = document.getElementById('umrah-ai-search');
+            const aiFeedback = document.getElementById('umrah-ai-feedback');
+            const aiMessage = document.getElementById('umrah-ai-message');
+            const aiReset = document.getElementById('umrah-ai-reset');
+
+            const resetAiSearch = () => {
+                if (packageGrid) packageGrid.append(...originalPackageItems);
+                packageItems.forEach(card => { card.hidden = false; });
+                packageTabBtns.forEach(tab => {
+                    const active = tab.dataset.packageFilter === 'all';
+                    tab.classList.toggle('is-active', active);
+                    tab.setAttribute('aria-pressed', String(active));
+                });
+                if (packageToolbar) packageToolbar.hidden = false;
+                if (packageCount) packageCount.textContent = `Menampilkan ${packageItems.length} paket`;
+                if (packageFilterEmpty) packageFilterEmpty.hidden = true;
+                if (aiFeedback) aiFeedback.hidden = true;
+                if (aiReset) aiReset.hidden = true;
+            };
+
+            if (aiSearchForm && packageGrid) {
+                aiReset?.addEventListener('click', resetAiSearch);
+                aiSearchForm.addEventListener('submit', async event => {
+                    event.preventDefault();
+                    const submitButton = aiSearchForm.querySelector('button[type="submit"]');
+                    const buttonLabel = submitButton?.querySelector('span');
+                    if (submitButton) submitButton.disabled = true;
+                    if (buttonLabel) buttonLabel.textContent = 'Sedang mencari...';
+                    if (aiFeedback) aiFeedback.hidden = false;
+                    if (aiMessage) aiMessage.textContent = 'AI sedang mencocokkan kebutuhan Anda dengan paket yang tersedia...';
+                    try {
+                        const response = await fetch(aiSearchForm.action, {
+                            method: 'POST',
+                            headers: { Accept: 'application/json' },
+                            body: new FormData(aiSearchForm),
+                        });
+                        const result = await response.json();
+                        if (aiMessage) aiMessage.textContent = result.message || 'Pencarian belum berhasil. Silakan coba lagi.';
+                        if (!response.ok || !['ok', 'no_match'].includes(result.status)) return;
+
+                        const cardsById = new Map(originalPackageItems.map(card => [Number(card.dataset.packageId), card]));
+                        const matchedCards = result.package_ids.map(id => cardsById.get(Number(id))).filter(Boolean);
+                        packageGrid.append(...matchedCards);
+                        packageItems.forEach(card => { card.hidden = !matchedCards.includes(card); });
+                        if (packageToolbar) packageToolbar.hidden = true;
+                        if (packageFilterEmpty) packageFilterEmpty.hidden = true;
+                        if (aiReset) aiReset.hidden = false;
+                    } catch (error) {
+                        if (aiMessage) aiMessage.textContent = 'Pencarian AI sedang terganggu. Silakan coba lagi nanti.';
+                    } finally {
+                        if (submitButton) submitButton.disabled = false;
+                        if (buttonLabel) buttonLabel.textContent = 'Cari dengan AI';
+                    }
+                });
+            }
 
             packageTabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
