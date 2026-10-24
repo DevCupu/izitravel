@@ -32,8 +32,9 @@ class MailboxReader
 
     public function messagesAfter(int $lastUid): array
     {
+        // whereUid() quotes ranges, but IMAP UID sequence sets must be unquoted.
         $messages = $this->folder()->query()
-            ->whereUid(($lastUid + 1).':*')
+            ->where('CUSTOM UID '.($lastUid + 1).':*')
             ->leaveUnread()->limit(25)->get();
         $result = [];
 
