@@ -2,14 +2,18 @@
     <x-slot name="header">
         <div>
             <h1 class="text-xl font-bold text-slate-900 dark:text-white">Inbox Email CRM</h1>
-            <p class="text-xs text-slate-500 dark:text-slate-400">Kelola pertanyaan email dan hubungkan dengan lead CRM.</p>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pertanyaan yang masuk ke web@izitravel.id.</p>
         </div>
     </x-slot>
 
     <div class="crm-page space-y-5">
         <section aria-labelledby="inbox-guide-title" class="rounded-2xl border border-blue-200 bg-blue-50 p-5 text-sm dark:border-blue-900 dark:bg-blue-950/30">
-            <h2 id="inbox-guide-title" class="font-bold text-slate-900 dark:text-white">Cara menggunakan Inbox Email</h2>
-            <p class="mt-1 leading-relaxed text-slate-700 dark:text-slate-200">Email baru ke web@izitravel.id muncul di tab Baru. Buka email, lalu tautkan ke lead yang ada, buat lead baru (perlu WhatsApp dan CS), atau abaikan. CS hanya dapat membaca email yang tertaut ke lead miliknya. Balas email dan lihat lampiran di webmail.</p>
+            <h2 id="inbox-guide-title" class="font-bold text-slate-900 dark:text-white">Yang perlu admin lakukan</h2>
+            <ol class="mt-2 list-decimal space-y-1 pl-5 leading-relaxed text-slate-700 dark:text-slate-200">
+                <li>Buka email di tab Baru dan baca pesannya.</li>
+                <li>Hubungkan email ke data calon pelanggan (lead) yang sudah ada. Jika belum ada, buat data baru dengan nomor WhatsApp dan CS. Jika email tidak perlu ditangani, pilih Abaikan.</li>
+            </ol>
+            <p class="mt-2 text-slate-600 dark:text-slate-300">CS dapat membaca email setelah dihubungkan ke calon pelanggan yang ditanganinya. Untuk membalas atau melihat lampiran, buka webmail.</p>
         </section>
 
         <section class="rounded-2xl border border-slate-200 bg-white p-5 text-sm shadow-sm dark:border-slate-700 dark:bg-slate-800">
