@@ -56,6 +56,22 @@
                 <form method="POST" action="{{ route($routePrefix.'leads.notes', $lead) }}" class="mt-4 flex flex-col gap-3">@csrf<label for="note" class="text-sm font-bold">Tambah catatan</label><textarea id="note" name="note" rows="3" required maxlength="3000" class="w-full rounded-xl border-slate-300 dark:border-slate-600" placeholder="Tulis hasil percakapan atau kebutuhan baru"></textarea><button class="self-start rounded-xl border border-[#3166b1] px-5 py-2.5 text-sm font-bold text-[#3166b1]">Simpan catatan</button></form>
                 <ol class="mt-6 space-y-4 border-l-2 border-blue-100 pl-5">@forelse ($lead->activities as $activity)<li class="relative"><span class="absolute -left-[27px] top-1 h-3 w-3 rounded-full bg-[#3166b1]"></span><p class="text-xs text-slate-500 dark:text-slate-400">{{ $activity->created_at->timezone('Asia/Makassar')->translatedFormat('d M Y, H:i') }} WITA · {{ $activity->actor?->name ?? 'Akun lama' }}</p><p class="mt-1 text-sm font-bold text-slate-900 dark:text-white">{{ match($activity->type) { 'created' => 'Lead dibuat', 'stage_changed' => 'Tahap berubah', 'updated' => 'Detail diperbarui', 'followup_added' => 'Follow-up dijadwalkan', 'followup_completed' => 'Follow-up selesai', 'followup_updated' => 'Tugas diperbarui', 'followup_archived' => 'Tugas diarsipkan', 'followup_restored' => 'Tugas dipulihkan', 'lead_archived' => 'Lead diarsipkan', 'lead_restored' => 'Lead dipulihkan', default => 'Catatan' } }}</p>@if ($activity->note)<p class="mt-1 text-sm text-slate-600 whitespace-pre-line dark:text-slate-300">{{ $activity->note }}</p>@endif @if ($activity->type === 'stage_changed')<p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ $activity->changes['stage_labels']['from'] ?? $stageLabels[$activity->changes['stage']['from']] ?? $activity->changes['stage']['from'] ?? '—' }} → {{ $activity->changes['stage_labels']['to'] ?? $stageLabels[$activity->changes['stage']['to']] ?? $activity->changes['stage']['to'] ?? '—' }}</p>@endif</li>@empty<li class="text-sm text-slate-500 dark:text-slate-400">Belum ada aktivitas.</li>@endforelse</ol>
             </section>
+
+            <section id="email-masuk" class="order-5 xl:order-none rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-800 sm:p-6">
+                <h2 class="text-lg font-bold">Email masuk terkait lead</h2>
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Email yang sudah ditautkan admin. Menampilkan 20 pesan terbaru.</p>
+                <div class="mt-4 space-y-4">
+                    @forelse ($inboundEmails as $inboundEmail)
+                        <article class="rounded-xl border border-slate-200 p-4 dark:border-slate-700">
+                            <div class="flex flex-wrap items-start justify-between gap-2"><h3 class="text-sm font-bold text-slate-900 dark:text-white">{{ $inboundEmail->subject ?: '(Tanpa subjek)' }}</h3><time class="text-xs text-slate-500">{{ $inboundEmail->received_at?->copy()->timezone('Asia/Makassar')->format('d M Y H:i') ?? 'Waktu tidak tersedia' }} WITA</time></div>
+                            <p class="mt-1 break-all text-xs text-slate-500 dark:text-slate-400">Dari {{ $inboundEmail->from_email }}</p>
+                            <p class="mt-3 whitespace-pre-wrap break-words text-sm text-slate-700 dark:text-slate-200">{{ $inboundEmail->body_text ?: 'Tidak ada isi teks.' }}</p>
+                        </article>
+                    @empty
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Belum ada email yang ditautkan.</p>
+                    @endforelse
+                </div>
+            </section>
         </div>
         <aside class="order-3 xl:order-none space-y-5">
             <section id="tindak-lanjut" class="scroll-mt-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:bg-slate-800 dark:border-slate-700"><div class="flex flex-wrap items-center justify-between gap-2"><h2 class="text-lg font-bold">Tindak lanjut</h2><a href="{{ route($routePrefix.'tasks') }}" class="text-xs font-bold text-[#3166b1]">Kelola tugas</a></div><p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Waktu ditampilkan dalam WITA.</p>

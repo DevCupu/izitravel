@@ -564,9 +564,9 @@
                 <div class="pt-5 pb-1">
                     <p class="nav-section-label px-3 text-[10px] font-bold uppercase tracking-[0.15em] text-slate-500 mb-2">CRM</p>
                 </div>
-                @foreach (['dashboard' => ['Beranda CRM', 'layout-dashboard'], 'leads.index' => ['Semua Leads', 'users'], 'tasks' => ['Tugas', 'calendar-check'], 'pipeline' => ['Pipeline', 'columns-3'], 'report' => ['Laporan', 'chart-no-axes-combined']] as $crmPage => [$crmLabel, $crmIcon])
+                @foreach (['dashboard' => ['Beranda CRM', 'layout-dashboard'], 'leads.index' => ['Semua Leads', 'users'], 'inbox.index' => ['Inbox Email', 'mail'], 'tasks' => ['Tugas', 'calendar-check'], 'pipeline' => ['Pipeline', 'columns-3'], 'report' => ['Laporan', 'chart-no-axes-combined']] as $crmPage => [$crmLabel, $crmIcon])
                     <a href="{{ route('admin.crm.'.$crmPage) }}"
-                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold {{ request()->routeIs('admin.crm.'.$crmPage) || ($crmPage === 'leads.index' && request()->routeIs('admin.crm.leads.*')) ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
+                       class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-semibold {{ request()->routeIs('admin.crm.'.$crmPage) || ($crmPage === 'leads.index' && request()->routeIs('admin.crm.leads.*')) || ($crmPage === 'inbox.index' && request()->routeIs('admin.crm.inbox.*')) ? 'nav-active' : 'text-slate-400 hover:text-white hover:bg-white/[0.04]' }}">
                         <i data-lucide="{{ $crmIcon }}" class="w-[18px] h-[18px] shrink-0"></i><span class="nav-label">{{ $crmLabel }}</span>
                     </a>
                 @endforeach

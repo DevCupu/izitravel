@@ -30,6 +30,7 @@ use App\Http\Controllers\ChatRouterController;
 use App\Http\Controllers\CrmController;
 use App\Http\Controllers\CsPasswordController;
 use App\Http\Controllers\Admin\CsAccountController;
+use App\Http\Controllers\Admin\CrmInboxController;
 use App\Http\Controllers\Admin\LeadStageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PackageRecommendationController;
@@ -168,6 +169,11 @@ Route::middleware(['auth', 'verified', 'admin', 'record.activity'])->prefix('adm
     Route::patch('whatsapp-cs/{cs}/account/status', [CsAccountController::class, 'toggle'])->name('whatsapp-cs.account.status');
 
     Route::prefix('crm')->name('crm.')->group(function () {
+        Route::get('inbox', [CrmInboxController::class, 'index'])->name('inbox.index');
+        Route::get('inbox/{email}', [CrmInboxController::class, 'show'])->name('inbox.show');
+        Route::post('inbox/{email}/link', [CrmInboxController::class, 'link'])->name('inbox.link');
+        Route::post('inbox/{email}/ignore', [CrmInboxController::class, 'ignore'])->name('inbox.ignore');
+        Route::post('inbox/{email}/reopen', [CrmInboxController::class, 'reopen'])->name('inbox.reopen');
         Route::get('/', [CrmController::class, 'dashboard'])->name('dashboard');
         Route::get('leads', [CrmController::class, 'index'])->name('leads.index');
         Route::get('leads/create', [CrmController::class, 'create'])->name('leads.create');

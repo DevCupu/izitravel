@@ -49,4 +49,5 @@ class Lead extends Model
     public function campaignAd(): BelongsTo { return $this->belongsTo(CampaignAd::class); }
     public function activities(): HasMany { return $this->hasMany(LeadActivity::class)->latest('id'); }
     public function followups(): HasMany { return $this->hasMany(LeadFollowup::class); }
+    public function inboundEmails(): HasMany { return $this->hasMany(InboundEmail::class); }
 }

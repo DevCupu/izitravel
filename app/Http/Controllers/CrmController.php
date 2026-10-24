@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Campaign;
 use App\Models\CampaignAd;
 use App\Models\ChatLog;
+use App\Models\InboundEmail;
 use App\Models\Contact;
 use App\Models\Lead;
 use App\Models\LeadStage;
@@ -191,7 +192,13 @@ class CrmController extends Controller
 
     public function create(Request $request): View
     {
-        return view('crm.create', $this->viewData($request));
+        $sourceEmail = null;
+        if ($this->admin($request) && $request->filled('inbound_email')) {
+            $sourceEmail = InboundEmail::query()->where('status', 'new')->whereNull('lead_id')
+                ->findOrFail($request->integer('inbound_email'));
+        }
+
+        return view('crm.create', array_merge($this->viewData($request), compact('sourceEmail')));
     }
 
     public function store(Request $request): RedirectResponse
@@ -210,6 +217,7 @@ class CrmController extends Controller
             'followup_due_at' => ['nullable', 'required_with:followup_description', 'date_format:Y-m-d\\TH:i'],
             'followup_description' => ['nullable', 'required_with:followup_due_at', 'string', 'max:255'],
             'confirm_duplicate' => ['nullable', 'boolean'],
+            'inbound_email_id' => [$this->admin($request) ? 'nullable' : 'prohibited', 'integer', 'exists:inbound_emails,id'],
         ]);
         $phone = $this->normalizePhone($data['phone']);
         $cs = $this->resolveCs($request, $data['assigned_cs_id'] ?? null);
@@ -224,6 +232,11 @@ class CrmController extends Controller
         }
 
         $lead = DB::transaction(function () use ($request, $data, $phone, $cs) {
+            $sourceEmail = null;
+            if (! empty($data['inbound_email_id'])) {
+                $sourceEmail = InboundEmail::query()->where('status', 'new')->whereNull('lead_id')
+                    ->lockForUpdate()->findOrFail($data['inbound_email_id']);
+            }
             $contact = Contact::firstOrCreate(['phone_normalized' => $phone], ['name' => trim($data['name'])]);
             $lead = Lead::create([
                 'contact_id' => $contact->id,
@@ -239,6 +252,10 @@ class CrmController extends Controller
                 'needs_summary' => $data['needs_summary'] ?? null,
             ]);
             $lead->activities()->create(['actor_user_id' => $request->user()->id, 'type' => 'created', 'note' => 'Lead dibuat setelah kontak diterima.']);
+            if ($sourceEmail) {
+                $sourceEmail->update(['lead_id' => $lead->id, 'status' => 'linked', 'linked_by_user_id' => $request->user()->id, 'linked_at' => now()]);
+                $lead->activities()->create(['actor_user_id' => $request->user()->id, 'type' => 'email_linked', 'note' => 'Email dari '.$sourceEmail->from_email.' ditautkan ke lead.']);
+            }
             if (! empty($data['followup_due_at'])) {
                 $due = Carbon::createFromFormat('Y-m-d\\TH:i', $data['followup_due_at'], self::TZ)->utc();
                 $lead->followups()->create(['assigned_user_id' => $cs->user_id, 'due_at' => $due, 'description' => $data['followup_description']]);
@@ -256,7 +273,8 @@ class CrmController extends Controller
     public function show(Request $request, int $lead): View
     {
         $lead = $this->visibleLead($request, $lead)->load(['contact', 'cs.user', 'package', 'campaign', 'campaignAd', 'activities.actor', 'followups.assignee']);
-        return view('crm.show', array_merge($this->viewData($request), compact('lead')));
+        $inboundEmails = $lead->inboundEmails()->where('status', 'linked')->orderByDesc('received_at')->limit(20)->get();
+        return view('crm.show', array_merge($this->viewData($request), compact('lead', 'inboundEmails')));
     }
 
     public function update(Request $request, int $lead): RedirectResponse
@@ -301,7 +319,7 @@ class CrmController extends Controller
             if ($changes) {
                 if (isset($changes['assigned_cs_id'])) {
                     $assignee = $lead->cs->user_id;
-                    if ($assignee) $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $assignee]);
+                    if ($assignee) $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $assignee, 'reminder_sent_at' => null, 'reminder_claimed_at' => null]);
                 }
                 $lead->activities()->create([
                     'actor_user_id' => $request->user()->id,
@@ -346,7 +364,7 @@ class CrmController extends Controller
             DB::transaction(function () use ($lead, $request, $updates, $changes) {
                 $lead->update($updates);
                 if (isset($changes['assigned_cs_id']) && $lead->cs?->user_id) {
-                    $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $lead->cs->user_id]);
+                    $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $lead->cs->user_id, 'reminder_sent_at' => null, 'reminder_claimed_at' => null]);
                 }
                 $lead->activities()->create([
                     'actor_user_id' => $request->user()->id,
@@ -661,7 +679,7 @@ class CrmController extends Controller
                     if ($lead->assigned_cs_id === $cs->id) continue;
                     $previousCsId = $lead->assigned_cs_id;
                     $lead->update(['assigned_cs_id' => $cs->id]);
-                    $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $cs->user_id]);
+                    $lead->followups()->where('status', 'open')->update(['assigned_user_id' => $cs->user_id, 'reminder_sent_at' => null, 'reminder_claimed_at' => null]);
                     $lead->activities()->create([
                         'actor_user_id' => $request->user()->id,
                         'type' => 'updated',

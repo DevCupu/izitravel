@@ -84,3 +84,17 @@ jobs:
             php artisan migrate --force
             php artisan images:generate-hero-mobile
             php artisan optimize
+            # Kegagalan IMAP tercatat di CRM dan akan dicoba lagi oleh scheduler.
+            php artisan crm:sync-inbox || true
+
+            # Satu cron Laravel untuk pengingat CRM dan sinkronisasi inbox.
+            PHP_BIN="$(command -v php)"
+            "$PHP_BIN" -r 'exit(PHP_VERSION_ID >= 80300 ? 0 : 1);'
+            command -v crontab >/dev/null
+            CRON_MARKER='IZITRAVEL_CRM_SCHEDULER'
+            CRON_LINE="* * * * * cd /home/izim8295/izitravel && $PHP_BIN artisan schedule:run >> /dev/null 2>&1 # $CRON_MARKER"
+            {
+              crontab -l 2>/dev/null | awk -v marker="$CRON_MARKER" 'index($0, marker) == 0 && NF' || true
+              printf '%s\n' "$CRON_LINE"
+            } | crontab -
+            crontab -l | grep -F "$CRON_MARKER"

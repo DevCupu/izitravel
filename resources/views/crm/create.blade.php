@@ -18,6 +18,14 @@
 
         <form method="POST" action="{{ route($routePrefix.'leads.store') }}" x-data="{ needType: @js(old('need_type', old('needs_summary') ? 'other' : '')) }" class="space-y-5">
             @csrf
+            @if ($sourceEmail)
+                <input type="hidden" name="inbound_email_id" value="{{ old('inbound_email_id', $sourceEmail->id) }}">
+                <div class="rounded-2xl border border-blue-200 bg-blue-50 p-4 text-sm text-blue-950 dark:border-blue-800 dark:bg-blue-950/30 dark:text-blue-100">
+                    Lead ini akan ditautkan ke email dari <strong>{{ $sourceEmail->from_email }}</strong>. Isi nomor WhatsApp dan pilih CS sebelum menyimpan.
+                </div>
+            @elseif (old('inbound_email_id'))
+                <input type="hidden" name="inbound_email_id" value="{{ old('inbound_email_id') }}">
+            @endif
 
             @if (session('duplicate_warning'))
                 <div role="alert" class="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-950 dark:border-amber-800 dark:bg-amber-950/30 dark:text-amber-200 sm:p-5">
@@ -41,7 +49,7 @@
                 <div class="space-y-5">
                     <div>
                         <label for="name" class="block text-sm font-bold text-slate-800 dark:text-slate-100">Nama calon jemaah <span class="text-red-700">*</span></label>
-                        <input id="name" name="name" type="text" autocomplete="name" value="{{ old('name') }}" required maxlength="255" placeholder="Contoh: Ibu Siti" @error('name') aria-invalid="true" aria-describedby="name-error" @enderror class="mt-2 w-full min-h-11 rounded-xl border-slate-300 text-base dark:border-slate-600">
+                        <input id="name" name="name" type="text" autocomplete="name" value="{{ old('name', $sourceEmail?->from_name ?: $sourceEmail?->from_email) }}" required maxlength="255" placeholder="Contoh: Ibu Siti" @error('name') aria-invalid="true" aria-describedby="name-error" @enderror class="mt-2 w-full min-h-11 rounded-xl border-slate-300 text-base dark:border-slate-600">
                         @error('name')<p id="name-error" class="mt-1.5 text-sm font-semibold text-red-700">{{ $message }}</p>@enderror
                     </div>
                     <div>
